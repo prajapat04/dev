@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Challan Detail – ItzeEazy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+  <!-- NAVBAR -->
+   <nav>
+  <a href="#" class="logo">
+    <img src="/assets/logo.png" alt="ItzeEazy">
+  </a>
+
+  <div class="links" id="navLinks">
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#">About us</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Pricing</a></li>
+      <li class="has-dropdown">
+        <a href="#">How to <i class="fa-solid fa-chevron-down"></i></a>
+        <ul class="dropdown">
+          <li><a href="#">How to check challan</a></li>
+          <li><a href="#">How to pay challan</a></li>
+          <li><a href="#">How to apply DL</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Tools <i class="fa-solid fa-chevron-down"></i></a>
+        <ul class="dropdown">
+          <li><a href="#">EMI Calculator</a></li>
+          <li><a href="#">RTO Finder</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <button class="btn-pay btn-pay-mobile">Sign Up</button>
+  </div>
+
+  <div class="nav-right">
+    <a href="#" class="btn-login">Login</a>
+    <button class="btn-pay btn-pay-desktop">Sign Up</button>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+  <!-- SEARCH BAR -->
+  <div class="search-bar">
+    <div class="search-bar-inner">
+      <div class="search-field">
+        <label>Challan Number</label>
+        <input type="text" value="2620120142433" id="challanInput"/>
+      </div>
+    </div>
+    <button class="btn-reset" onclick="resetSearch()">Reset</button>
+    <button class="btn-check" onclick="checkStatus()">Check Status</button>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="left-col">
+
+      <!-- Vehicle Info -->
+      <div class="vehicle-card">
+        <div class="vehicle-field">
+          <span class="vehicle-field-label">Vehicle Number</span>
+          <span class="vehicle-field-value">MH01AB1234</span>
+        </div>
+        <div class="vehicle-field">
+          <span class="vehicle-field-label">Owner Name</span>
+          <span class="vehicle-field-value">Ramesh Kumar</span>
+        </div>
+        <div class="vehicle-field">
+          <span class="vehicle-field-label">Model</span>
+          <span class="vehicle-field-value">Honda City</span>
+        </div>
+        <div class="vehicle-field">
+          <span class="vehicle-field-label">RTO</span>
+          <span class="vehicle-field-value">Mumbai West</span>
+        </div>
+      </div>
+
+      <!-- Challan Header -->
+      <div class="challan-header">
+        <h2 class="challan-count">3 Pending Challans Found</h2>
+        <div class="total-due">
+          <i data-lucide="triangle-alert" style="width:14px;height:14px;"></i>
+          Total Due: ₹2,500
+        </div>
+      </div>
+
+      <!-- Challan 1 -->
+      <div class="challan-card selected" id="card1">
+        <div class="challan-card-main">
+          <div class="challan-icon">
+            <i data-lucide="gauge"></i>
+          </div>
+          <div class="challan-info">
+            <div class="challan-name-row">
+              <span class="challan-name">Over Speeding</span>
+              <span class="badge-pending">PENDING</span>
+            </div>
+            <div class="challan-meta">#TRF-102938475 • Oct 12, 2023, 11:45 AM</div>
+            <div class="challan-location">
+              <i data-lucide="map-pin"></i>
+              Western Express Highway, Near Borivali, Mumbai
+            </div>
+          </div>
+          <div class="challan-right">
+            <span class="challan-amount">₹1,000</span>
+            <div class="challan-actions">
+              <button class="btn-add added" onclick="toggleAdd(this, 'card1')">Added</button>
+              <button class="btn-expand" onclick="toggleExpand('card1')">
+                <i data-lucide="chevron-down"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="challan-detail">
+          <div class="detail-grid">
+            <div class="detail-item">
+              <span class="detail-label">Challan No.</span>
+              <span class="detail-value">#TRF-102938475</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Section</span>
+              <span class="detail-value">MV Act 112</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Fine Amount</span>
+              <span class="detail-value">₹1,000</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Issued By</span>
+              <span class="detail-value">Mumbai Traffic Police</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Date & Time</span>
+              <span class="detail-value">Oct 12, 2023, 11:45 AM</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Status</span>
+              <span class="detail-value" style="color:var(--red);">Pending</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Challan 2 -->
+      <div class="challan-card selected" id="card2">
+        <div class="challan-card-main">
+          <div class="challan-icon">
+            <i data-lucide="traffic-cone"></i>
+          </div>
+          <div class="challan-info">
+            <div class="challan-name-row">
+              <span class="challan-name">Red Light Jump</span>
+              <span class="badge-pending">PENDING</span>
+            </div>
+            <div class="challan-meta">#TRF-102938475 • Sep 28, 2023, 08:20 PM</div>
+            <div class="challan-location">
+              <i data-lucide="map-pin"></i>
+              Worli Seaface Intersection, Mumbai
+            </div>
+          </div>
+          <div class="challan-right">
+            <span class="challan-amount">₹1,000</span>
+            <div class="challan-actions">
+              <button class="btn-add added" onclick="toggleAdd(this, 'card2')">Added</button>
+              <button class="btn-expand" onclick="toggleExpand('card2')">
+                <i data-lucide="chevron-down"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="challan-detail">
+          <div class="detail-grid">
+            <div class="detail-item">
+              <span class="detail-label">Challan No.</span>
+              <span class="detail-value">#TRF-102938476</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Section</span>
+              <span class="detail-value">MV Act 119</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Fine Amount</span>
+              <span class="detail-value">₹1,000</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Issued By</span>
+              <span class="detail-value">Mumbai Traffic Police</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Date & Time</span>
+              <span class="detail-value">Sep 28, 2023, 08:20 PM</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Status</span>
+              <span class="detail-value" style="color:var(--red);">Pending</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Challan 3 -->
+      <div class="challan-card selected" id="card3">
+        <div class="challan-card-main">
+          <div class="challan-icon">
+            <i data-lucide="bike"></i>
+          </div>
+          <div class="challan-info">
+            <div class="challan-name-row">
+              <span class="challan-name">No Helmet</span>
+              <span class="badge-pending">PENDING</span>
+            </div>
+            <div class="challan-meta">#TRF-102938475 • Sep 15, 2023, 09:10 AM</div>
+            <div class="challan-location">
+              <i data-lucide="map-pin"></i>
+              Link Road, Malad West, Mumbai
+            </div>
+          </div>
+          <div class="challan-right">
+            <span class="challan-amount">₹500</span>
+            <div class="challan-actions">
+              <button class="btn-add added" onclick="toggleAdd(this, 'card3')">Added</button>
+              <button class="btn-expand" onclick="toggleExpand('card3')">
+                <i data-lucide="chevron-down"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="challan-detail">
+          <div class="detail-grid">
+            <div class="detail-item">
+              <span class="detail-label">Challan No.</span>
+              <span class="detail-value">#TRF-102938477</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Section</span>
+              <span class="detail-value">MV Act 129</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Fine Amount</span>
+              <span class="detail-value">₹500</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Issued By</span>
+              <span class="detail-value">Mumbai Traffic Police</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Date & Time</span>
+              <span class="detail-value">Sep 15, 2023, 09:10 AM</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Status</span>
+              <span class="detail-value" style="color:var(--red);">Pending</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Govt Card -->
+      <div class="govt-card">
+        <div class="govt-left">
+          <i data-lucide="shield-check"></i>
+          <div>
+            <div class="govt-title">Official Government Data</div>
+            <div class="govt-desc">Payments are processed through secure encrypted gateways. We never store your card or net banking credentials.</div>
+          </div>
+        </div>
+        <div class="govt-right">
+          <div class="payment-logo"><img src="/assets/pci.jpg" alt="" srcset=""></div>
+          <div class="payment-logo"><img src="/assets/vsa.jpg" alt="" srcset=""></div>
+          
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: Payment Summary -->
+    <div class="right-col">
+      <div class="payment-card">
+        <div class="payment-title">Payment Summary</div>
+
+        <div class="payment-row">
+          <span class="payment-row-label">Challans Selected (3)</span>
+          <span class="payment-row-value" id="totalAmount">₹2,500</span>
+        </div>
+
+        <div class="payment-row bg-light">
+          <span class="payment-row-label" style="font-size:10px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;">ITZEAZY SERVICE FEE</span>
+          <span class="service-fee-badge">FREE</span>
+        </div>
+
+        <div class="payment-divider"></div>
+        <div class="payment-box">
+        <div class="payment-total-label">Amount to Pay</div>
+        <div class="payment-total-amount" id="payAmount">₹2,500</div>
+        </div>
+
+        <button class="btn-pay-all">Pay All Selected</button>
+
+        <div class="payment-methods-label">Accepted Payment Methods</div>
+        <div class="payment-methods">
+          <i class="pm-icon" data-lucide="banknote"></i>
+          <i class="pm-icon" data-lucide="Landmark"></i>
+          <i class="pm-icon" data-lucide="CreditCard"></i>
+          <i class="pm-icon" data-lucide="QrCode"></i>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-main">
+
+      <!-- Col 1: Logo -->
+      <div class="footer-brand">
+        <a href="#" class="footer-logo">
+          <img src="/assets/footer-logo.png" alt="">
+        </a>
+      </div>
+
+      <div class="footer-cols">
+        <!-- Col 2: Services -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Services provided</h4>
+          <ul class="footer-links">
+            <li><a href="#">Citizen services <span class="arrow">›</span></a></li>
+            <li><a href="#">Driving Liecens <span class="arrow">›</span></a></li>
+            <li><a href="#">Campus (coming soon)</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Contact -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Contact us</h4>
+          <ul class="footer-contact">
+            <li>
+              <span class="contact-icon"><i data-lucide="map-pin"></i></span>
+              <span>Headquarters<br>22-A Lajpat Nagar -IV,<br>Ring Road, New Delhi- 110024</span>
+            </li>
+            <li>
+              <span class="contact-icon"><i data-lucide="phone"></i></span>
+              <span>9020978686</span>
+            </li>
+            <li>
+              <span class="contact-icon"><i data-lucide="mail"></i></span>
+              <span>drive@itzeazy.com</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Links -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Links</h4>
+          <ul class="footer-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Question Banks</a></li>
+            <li><a href="#">mock Test</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">List Your Buisness</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 5: App + Social -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Download our App<br>Banzo – "An ItzEazy App"</h4>
+          <a href="#" class="google-play">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+              alt="Get it on Google Play" />
+          </a>
+
+          <h4 class="footer-heading" style="margin-top: 28px;">Follow us</h4>
+          <div class="social-icons">
+            <a href="https://www.facebook.com/Itzeazycom/" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/itzeazyindia" class="social-btn"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/company/itzeazy-com/" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://x.com/Itzeazyindia" class="social-btn"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://www.youtube.com/@itzeazyindia/shorts" class="social-btn"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+      <p>© 2024 Itzeazy GovTech Services. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Terms of use</a>
+        <a href="#">Privacy</a>
+        <a href="#">Security</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+<script> lucide.createIcons();</script>
+</body>
+</html>

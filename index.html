@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ItzeEazy – Check & Pay Your Traffic Challans Online</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+
+<body>
+
+  <nav>
+  <a href="#" class="logo">
+    <img src="/assets/logo.png" alt="ItzeEazy">
+  </a>
+
+  <div class="links" id="navLinks">
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About us</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Pricing</a></li>
+      <li class="has-dropdown">
+        <a href="#">How to <i class="fa-solid fa-chevron-down"></i></a>
+        <ul class="dropdown">
+          <li><a href="#">How to check challan</a></li>
+          <li><a href="#">How to pay challan</a></li>
+          <li><a href="#">How to apply DL</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Tools <i class="fa-solid fa-chevron-down"></i></a>
+        <ul class="dropdown">
+          <li><a href="#">EMI Calculator</a></li>
+          <li><a href="#">RTO Finder</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <button class="btn-pay btn-pay-mobile">Sign Up</button>
+  </div>
+
+  <div class="nav-right">
+    <a href="#" class="btn-login">Login</a>
+    <button class="btn-pay btn-pay-desktop">Sign Up</button>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+   
+
+
+
+    <!-- SECONDARY NAV -->
+    <div class="sub-nav">
+      <a href="#" class="sub-nav-link active">Citizen Services</a>
+      <a href="#" class="sub-nav-link">Driving School</a>
+      <a href="#" class="sub-nav-link">Student Campus (Coming Soon)</a>
+    </div>
+
+    <div class="hero-bg"></div>
+
+    <div class="hero-content">
+      <div class="hero-left">
+        <span class="official-tag">Official Partner</span>
+        <h1 class="hero-title">Check &amp; Pay<br>Your Traffic<br>Challans Online</h1>
+        <p class="hero-desc">Simple, transparent, and authoritative. Clear your pending challans in minutes with our
+          digital concierge.</p>
+        <div class="social-proof">
+          <div class="avatars">
+            <div class="avatar"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt="user" /></div>
+            <div class="avatar"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="user" /></div>
+            <div class="avatar"><img src="https://randomuser.me/api/portraits/women/65.jpg" alt="user" /></div>
+          </div>
+          <p class="social-proof-text"><strong style="font-weight:600;">12k+</strong> people paid today</p>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="search-card">
+          <div class="tabs" role="tablist">
+            <button class="tab active" role="tab" aria-selected="true" data-tab="vehicle">Vehicle Number</button>
+            <button class="tab" role="tab" aria-selected="false" data-tab="challan">Challan Number</button>
+            <button class="tab" role="tab" aria-selected="false" data-tab="dl">DL Number</button>
+          </div>
+
+          <div class="tab-panel" id="panel-vehicle">
+            <div class="form-group">
+              <label class="form-label" for="vehicleInput">Vehicle Number</label>
+              <input class="form-input" id="vehicleInput" type="text" placeholder="e.g. MH01AB1234" maxlength="20"
+                autocomplete="off" />
+            </div>
+          </div>
+          <div class="tab-panel" id="panel-challan" style="display:none;">
+            <div class="form-group">
+              <label class="form-label" for="challanInput">Challan Number</label>
+              <input class="form-input" id="challanInput" type="text" placeholder="e.g. 1234567890" maxlength="20"
+                autocomplete="off" />
+            </div>
+          </div>
+          <div class="tab-panel" id="panel-dl" style="display:none;">
+            <div class="form-group">
+              <label class="form-label" for="dlInput">Driving Licence Number</label>
+              <input class="form-input" id="dlInput" type="text" placeholder="e.g. MH0120210001234" maxlength="20"
+                autocomplete="off" />
+            </div>
+          </div>
+
+          <button class="btn-search" id="searchBtn" type="button">
+            <span class="btn-text">Search</span>
+            <span class="spinner"></span>
+          </button>
+
+          <div class="result-section" id="resultSection">
+            <p class="result-title">Pending Challans</p>
+            <div class="challan-item">
+              <div class="challan-info">Over Speeding<span>14 Apr 2026 · NH 48, Mumbai</span></div>
+              <div class="challan-amount">&#8377;1,000</div>
+            </div>
+            <div class="challan-item">
+              <div class="challan-info">Red Light Jump<span>02 Mar 2026 · Andheri West</span></div>
+              <div class="challan-amount">&#8377;500</div>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="9" stroke="#aaa" stroke-width="1.5" />
+              <path d="M10 9v5" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" />
+              <circle cx="10" cy="6.5" r="0.75" fill="#aaa" />
+            </svg>
+            <span class="card-footer-text">Your data is protected by government-grade encryption.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── INFO SECTION ── -->
+  <section class="info-section">
+    <div class="info-container">
+
+      <div class="info-block">
+        <h2 class="info-heading">Traffic Challan in India</h2>
+        <p class="info-para">Vehicle drivers and owners have to follow the traffic rules set by the transport department
+          of India under Motor vehicle act. The rules are for the safety of the people and maintaining organised road
+          transportation. Violation of traffic rules may lead to penalty and severe punishment in India.</p>
+      </div>
+
+      <div class="info-block">
+        <h2 class="info-heading">What is traffic E Challan</h2>
+        <p class="info-para">E challan is the modern CCTV enabled auto generated challan system to reduce the number of
+          road accidents in India. The CCTV camera records braking of traffic rules on road and generate e challan for
+          the offence. Traffic challan system is linked to the vehicle registration number or driving licence number.
+          Thus, you will get notified through SMS. You can pay the fine online using UPI, debit card, credit card, or
+          net banking.</p>
+      </div>
+
+      <div class="info-block">
+        <h2 class="info-heading">Types of Traffic Challan in India</h2>
+        <p class="info-para">Traffic challans are issued for different types of violations. Following are the traffic
+          violations and respective fine amount:</p>
+      </div>
+
+    </div>
+
+    <!-- CHALLAN TABLE ACCORDION -->
+    <div class="accordion-wrapper">
+
+      <!-- ITEM 1 — expanded by default -->
+      <div class="acc-item open">
+        <button class="acc-header" onclick="toggleAcc(this)">
+          <span>Due to Violation of Road Marking</span>
+          <svg class="acc-icon" viewBox="0 0 24 24" fill="none">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+        <div class="acc-body">
+          <table class="challan-table">
+            <thead>
+              <tr>
+                <th>Offence</th>
+                <th>Penalty Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <span class="icon icon-minus"><i data-lucide="minus-circle"></i></span>
+                  If the yellow line violated
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-stop"><i data-lucide="ban"></i></span>
+                  If the stop line violated
+                </td>
+                <td class="amount">INR 2000</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-warn"><i data-lucide="triangle-alert"></i></span>
+                  If someone does not obey the mandatory signs.
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ITEM 2 -->
+      <div class="acc-item">
+        <button class="acc-header" onclick="toggleAcc(this)">
+          <span>Due to absence of document</span>
+          <svg class="acc-icon" viewBox="0 0 24 24" fill="none">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+        <div class="acc-body">
+          <table class="challan-table">
+            <thead>
+              <tr>
+                <th>Offence</th>
+                <th>Penalty Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <span class="icon icon-stop"><i data-lucide="Contact"></i></span>
+                  <div class="offence-text">
+                    <strong>Driving a vehicle without valid driving license</strong>
+                    <small>Section 181 of the Motor Vehicles Act</small>
+                  </div>
+                </td>
+                <td class="amount">INR 5000</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-stop"><i data-lucide="shield-off"></i></span>
+                  <div class="offence-text">
+                    <strong>Absence of a valid auto insurance while driving</strong>
+                    <small>Section 196 of the Motor Vehicles Act</small>
+                  </div>
+                </td>
+                <td class="amount">INR 2000</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-warn"><i data-lucide="id-card"></i></span>
+                  <div class="offence-text">
+                    <strong>Driving without a valid permit</strong>
+                    <small>Operating a commercial or specialized vehicle without the required government-issued
+                      permit.</small>
+                  </div>
+                </td>
+                <td class="amount">Fined up to INR 10,000</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-stop"><i data-lucide="ban"></i></span>
+                  <div class="offence-text">
+                    <strong>Driving after being disqualified</strong>
+                    <small>Commanding a vehicle while your license is suspended or revoked by the authorities.</small>
+                  </div>
+                </td>
+                <td class="amount">INR 10,000</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-blue"><i data-lucide="clipboard-check"></i></span>
+                  <div class="offence-text">
+                    <strong>Absence of a Valid Vehicle Fitness Certificate</strong>
+                    <small>Failure to produce a certificate proving the vehicle meets safety and environmental
+                      standards.</small>
+                  </div>
+                </td>
+                <td class="amount">INR 2000 to INR 5000</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-grey"><i data-lucide="book-open"></i></span>
+                  <div class="offence-text">
+                    <strong>Vehicle without RC Book (Registration Certificate)</strong>
+                    <small>Operating a vehicle on public roads without its primary registration documentation.</small>
+                  </div>
+                </td>
+                <td class="amount">INR 2000</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-grey"><i data-lucide="square-parking"></i></span>
+                  <div class="offence-text">
+                    <strong>Use of Offensive Number Plate in vehicle</strong>
+                    <small>Displaying unauthorized, non-standard, or offensive text/graphics on license plates.</small>
+                  </div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-stop"><i data-lucide="hash"></i></span>
+                  <div class="offence-text">
+                    <strong>Displaying 'Applied For' in place of number plate</strong>
+                    <small>Using temporary markings beyond the allowed duration instead of a permanent registration
+                      number.</small>
+                  </div>
+                </td>
+                <td class="amount">INR 4500</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ITEM 3 -->
+      <div class="acc-item">
+        <button class="acc-header" onclick="toggleAcc(this)">
+          <span>Due violation of driving rules</span>
+          <svg class="acc-icon" viewBox="0 0 24 24" fill="none">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+        <div class="acc-body">
+          <table class="challan-table">
+            <thead>
+              <tr>
+                <th>Offence</th>
+                <th>Penalty Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <span class="icon icon-stop"><i data-lucide="gauge"></i></span>
+                  <div class="offence-text">
+                    <strong>Driving vehicle over the speed limit</strong>
+                    <small>APPLICABLE TO ALL LIGHT & PASSENGER VEHICLES</small>
+                  </div>
+                </td>
+                <td class="amount">
+                  <div class="offence-text" style="text-align:right;">
+                    <strong>For Light Vehicles: ₹1000 / INR 1,000</strong>
+                    <small>For Passenger Vehicles: ₹2000 / INR 2,000</small>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-stop"><i data-lucide="triangle-alert"></i></span>
+                  <div class="offence-text">
+                    <strong>Violation of rules of road regulation</strong>
+                  </div>
+                </td>
+                <td class="amount">INR 500</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-stop"><i data-lucide="user-x"></i></span>
+                  <div class="offence-text">
+                    <strong>Driving by a minor (aged below 18)</strong>
+                  </div>
+                </td>
+                <td class="amount">INR 500</td>
+              </tr>
+              <tr class="highlight-row">
+                <td>
+                  <span class="icon icon-stop"><i data-lucide="alert-octagon"></i></span>
+                  <div class="offence-text">
+                    <strong>If a minor (aged below 18 years) breaks a rule</strong>
+                    <small>3 years of imprisonment of the guardian of the individual or owner of the vehicle. Also, the
+                      registration of the vehicle will be cancelled.</small>
+                  </div>
+                </td>
+                <td class="amount red-amount">
+                  <div class="offence-text" style="text-align:right;">
+                    <strong>Rs. 25,000 Fine</strong>
+                    <small>and 3 years of imprisonment of the guardian of the individual or the vehicle, also the
+                      registrations of the vehicle will be cancelled.</small>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-stop"><i data-lucide="shield-alert"></i></span>
+                  <div class="offence-text">
+                    <strong>Disregarding the orders of the authorities</strong>
+                  </div>
+                </td>
+                <td class="amount">INR 2,000</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-stop"><i data-lucide="car"></i></span>
+                  <div class="offence-text">
+                    <strong>Oversize vehicles</strong>
+                  </div>
+                </td>
+                <td class="amount">INR 5,000</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-warn"><i data-lucide="bike"></i></span>
+                  <div class="offence-text">
+                    <strong>Driving without wearing a helmet</strong>
+                  </div>
+                </td>
+                <td class="amount">
+                  <div class="offence-text" style="text-align:right;">
+                    <strong>INR 1,000 fine</strong>
+                    <small>along with disqualification of driving license: 3 months</small>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-warn"><i data-lucide="armchair"></i></span>
+                  <div class="offence-text">
+                    <strong>Driving without wearing the seat belts</strong>
+                  </div>
+                </td>
+                <td class="amount">INR 1,000</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-warn"><i data-lucide="zap"></i></span>
+                  <div class="offence-text">
+                    <strong>Rough/Reckless Driving</strong>
+                  </div>
+                </td>
+                <td class="amount">INR 1,000</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-warn"><i data-lucide="flame"></i></span>
+                  <div class="offence-text">
+                    <strong>Dangerous driving</strong>
+                  </div>
+                </td>
+                <td class="amount">INR 5,000</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-stop"><i data-lucide="flag"></i></span>
+                  <div class="offence-text">
+                    <strong>Racing on public roads</strong>
+                  </div>
+                </td>
+                <td class="amount">INR 5,000</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-stop"><i data-lucide="ambulance"></i></span>
+                  <div class="offence-text">
+                    <strong>Not making way to emergency vehicle like ambulance, Fire-brigade etc.</strong>
+                  </div>
+                </td>
+                <td class="amount">INR 10,000</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-warn"><i data-lucide="Car"></i></span>
+                  <div class="offence-text">
+                    <strong>Not driving in the proper lane</strong>
+                  </div>
+                </td>
+                <td class="amount">Court Challan</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-warn"><i data-lucide="arrow-left-right"></i></span>
+                  <div class="offence-text">
+                    <strong>Driving in the centre instead of left</strong>
+                  </div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-warn"><i data-lucide="arrow-left"></i></span>
+                  <div class="offence-text">
+                    <strong>Driving against one way</strong>
+                  </div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-warn"><i data-lucide="undo-2"></i></span>
+                  <div class="offence-text">
+                    <strong>Reversing without due caution and care</strong>
+                  </div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-warn"><i data-lucide="corner-up-right"></i></span>
+                  <div class="offence-text">
+                    <strong>Reckless driving while taking a "Turn"</strong>
+                  </div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-warn"><i data-lucide="users"></i></span>
+                  <div class="offence-text">
+                    <strong>If people are carried on Footboard</strong>
+                  </div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-warn"><i data-lucide="bike"></i></span>
+                  <div class="offence-text">
+                    <strong>Tripling on two-wheelers</strong>
+                  </div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-warn"><i data-lucide="footprints"></i></span>
+                  <div class="offence-text">
+                    <strong>Driving vehicle a Footpath</strong>
+                  </div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-stop"><i data-lucide="circle-parking"></i></span>
+                  <div class="offence-text">
+                    <strong>Stopping on parking a vehicle at crossing line and causing inconvenience to
+                      pedestrians</strong>
+                  </div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ITEM 4 -->
+      <div class="acc-item">
+        <button class="acc-header" onclick="toggleAcc(this)">
+          <span>Due to misconduct</span>
+          <svg class="acc-icon" viewBox="0 0 24 24" fill="none">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+        <div class="acc-body">
+          <table class="challan-table">
+            <thead>
+              <tr>
+                <th>Offence</th>
+                <th>Penalty Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <span class="icon icon-stop"><i data-lucide="user-round-x"></i></span>
+                  <div class="offence-text">
+                    <strong>Disobeying traffic police officer in uniform</strong>
+                  </div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-stop"><i data-lucide="shield-x"></i></span>
+                  <div class="offence-text">
+                    <strong>Driving against Police Signal</strong>
+                  </div>
+                </td>
+                <td class="amount">INR 2000</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-warn"><i data-lucide="traffic-cone"></i></span>
+                  <div class="offence-text">
+                    <strong>Not obeying Traffic Signal</strong>
+                  </div>
+                </td>
+                <td class="amount">INR 2000</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="icon icon-stop"><i data-lucide="scale"></i></span>
+                  <div class="offence-text">
+                    <strong>If someone Purposely disobeys Lawful Directions</strong>
+                  </div>
+                </td>
+                <td class="amount">INR 500</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ITEM 5 -->
+      <div class="acc-item">
+        <button class="acc-header" onclick="toggleAcc(this)">
+          <span>Due to not obeying Traffic Signal</span>
+          <svg class="acc-icon" viewBox="0 0 24 24" fill="none">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+        <div class="acc-body">
+          <table class="challan-table">
+            <thead>
+              <tr>
+                <th>Offence</th>
+                <th>Penalty Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="icon icon-stop"><i data-lucide="traffic-cone"></i></span>
+                  <div class="offence-text"><strong>Not Obeying Traffic signal / Sign Board</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-warn"><i data-lucide="hand"></i></span>
+                  <div class="offence-text"><strong>Not giving appropriate Signal while driving</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-stop"><i data-lucide="circle-slash"></i></span>
+                  <div class="offence-text"><strong>Signal Jumping</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ITEM 6 -->
+      <div class="acc-item">
+        <button class="acc-header" onclick="toggleAcc(this)">
+          <span>Due to Over Speed &amp; Overtaking</span>
+          <svg class="acc-icon" viewBox="0 0 24 24" fill="none">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+        <div class="acc-body">
+          <table class="challan-table">
+            <thead>
+              <tr>
+                <th>Offence</th>
+                <th>Penalty Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="icon icon-stop"><i data-lucide="gauge"></i></span>
+                  <div class="offence-text"><strong>Driving above the Permitted Speed Limits</strong></div>
+                </td>
+                <td class="amount">Up to INR 1000</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-warn"><i data-lucide="chevrons-right"></i></span>
+                  <div class="offence-text"><strong>Reckless Overtaking</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-warn"><i data-lucide="arrow-right-left"></i></span>
+                  <div class="offence-text"><strong>Overtaking from the Wrong Side</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ITEM 7 -->
+      <div class="acc-item">
+        <button class="acc-header" onclick="toggleAcc(this)">
+          <span>Due to offences related to driving</span>
+          <svg class="acc-icon" viewBox="0 0 24 24" fill="none">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+        <div class="acc-body">
+          <table class="challan-table">
+            <thead>
+              <tr>
+                <th>Offence</th>
+                <th>Penalty Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="icon icon-stop"><i data-lucide="wine"></i></span>
+                  <div class="offence-text"><strong>Driving after consumption of Alcohol and/or Drugs</strong></div>
+                </td>
+                <td class="amount">INR 10,000</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-stop"><i data-lucide="smartphone"></i></span>
+                  <div class="offence-text"><strong>Using Mobile Phone while Driving</strong></div>
+                </td>
+                <td class="amount">Up to INR 1000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ITEM 8 -->
+      <div class="acc-item">
+        <button class="acc-header" onclick="toggleAcc(this)">
+          <span>Due to Pollution by Vehicle</span>
+          <svg class="acc-icon" viewBox="0 0 24 24" fill="none">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+        <div class="acc-body">
+          <table class="challan-table">
+            <thead>
+              <tr>
+                <th>Offences</th>
+                <th>Penalty Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="icon icon-stop"><i data-lucide="cigarette"></i></span>
+                  <div class="offence-text"><strong>Smoking in Public Transport</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-stop"><i data-lucide="wind"></i></span>
+                  <div class="offence-text"><strong>Pollution Not Under Control</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-stop"><i data-lucide="volume-x"></i></span>
+                  <div class="offence-text"><strong>Using a Noisy Silencer and/or muffler</strong></div>
+                </td>
+                <td class="amount">INR 500</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-stop"><i data-lucide="cloud-fog"></i></span>
+                  <div class="offence-text"><strong>Smoky Exhaust (against specifications)</strong></div>
+                </td>
+                <td class="amount">INR 500</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-stop"><i data-lucide="bell-ring"></i></span>
+                  <div class="offence-text"><strong>Using multi-toned horn or using excessively loud Horn</strong></div>
+                </td>
+                <td class="amount">INR 500</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-stop"><i data-lucide="megaphone"></i></span>
+                  <div class="offence-text"><strong>Blowing Pressure Horn</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-stop"><i data-lucide="volume-off"></i></span>
+                  <div class="offence-text"><strong>Use of horn in Silence Zone</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ITEM 9 -->
+      <div class="acc-item">
+        <button class="acc-header" onclick="toggleAcc(this)">
+          <span>Traffic Challan Related to Motor Vehicles</span>
+          <svg class="acc-icon" viewBox="0 0 24 24" fill="none">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+        <div class="acc-body">
+          <table class="challan-table">
+            <thead>
+              <tr>
+                <th>Offence</th>
+                <th>Penalty/Sentence</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="icon icon-warn"><i data-lucide="wind"></i></span>
+                  <div class="offence-text"><strong>Driving Vehicle Without Wiper</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-warn"><i data-lucide="mirror"></i></span>
+                  <div class="mirror-round"><strong>Driving Vehicle Without Side Mirror</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-warn"><i data-lucide="wrench"></i></span>
+                  <div class="offence-text"><strong>Driving vehicle with defective parts</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-stop"><i data-lucide="package"></i></span>
+                  <div class="offence-text"><strong>Vehicle overloading with goods</strong></div>
+                </td>
+                <td class="amount">INR 2000 primary penalty with INR 1000 for every other ton</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-stop"><i data-lucide="file-warning"></i></span>
+                  <div class="offence-text"><strong>Breach of permit terms and conditions</strong></div>
+                </td>
+                <td class="amount">Imprisonment and penalty of INR 2000 up to INR 5000</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-warn"><i data-lucide="lightbulb"></i></span>
+                  <div class="offence-text"><strong>If coloured/Tinted lights are used on the vehicle</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ITEM 10 -->
+      <div class="acc-item">
+        <button class="acc-header" onclick="toggleAcc(this)">
+          <span>Traffic Challan Related to Commercial Vehicles</span>
+          <svg class="acc-icon" viewBox="0 0 24 24" fill="none">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+        <div class="acc-body">
+          <table class="challan-table">
+            <thead>
+              <tr>
+                <th>Offence</th>
+                <th>Penalty/Sentence</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="icon icon-stop"><i data-lucide="clock-x"></i></span>
+                  <div class="offence-text"><strong>Working in 'NO ENTRY' Time</strong></div>
+                </td>
+                <td class="amount">Up to INR 2000</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-warn"><i data-lucide="truck"></i></span>
+                  <div class="offence-text"><strong>High and Long/Load of Commercial Vehicles</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-warn"><i data-lucide="paw-print"></i></span>
+                  <div class="offence-text"><strong>Carrying animals in goods vehicles</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-stop"><i data-lucide="scale"></i></span>
+                  <div class="offence-text"><strong>If driver refuses to weigh his vehicle</strong></div>
+                </td>
+                <td class="amount">Court Challan</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-warn"><i data-lucide="package-open"></i></span>
+                  <div class="offence-text"><strong>If goods are loaded using Tail Board</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-warn"><i data-lucide="user-round-x"></i></span>
+                  <div class="offence-text"><strong>If Taxi or TSR Driver does not behave properly or
+                      misconducts</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ITEM 11 -->
+      <div class="acc-item">
+        <button class="acc-header" onclick="toggleAcc(this)">
+          <span>Due to Wrong Parking or Parking Challan</span>
+          <svg class="acc-icon" viewBox="0 0 24 24" fill="none">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+        <div class="acc-body">
+          <table class="challan-table">
+            <thead>
+              <tr>
+                <th>Offence</th>
+                <th>Penalty/Sentence</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="icon icon-warn"><i data-lucide="circle-parking"></i></span>
+                  <div class="offence-text"><strong>Parking in the same direction as the flow of traffic</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-warn"><i data-lucide="circle-parking"></i></span>
+                  <div class="offence-text"><strong>Parking away from the walkway towards the road</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-warn"><i data-lucide="circle-parking"></i></span>
+                  <div class="offence-text"><strong>Parking against the flow of traffic</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-warn"><i data-lucide="circle-parking"></i></span>
+                  <div class="offence-text"><strong>Parking Vehicle caused Obstruction to other vehicles and
+                      people</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-warn"><i data-lucide="circle-parking"></i></span>
+                  <div class="offence-text"><strong>Parking on any Taxi Stand</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-warn"><i data-lucide="circle-parking"></i></span>
+                  <div class="offence-text"><strong>Parking at any Corner/Edge</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-warn"><i data-lucide="circle-parking"></i></span>
+                  <div class="offence-text"><strong>Parking on any side of the Bus Stop in 15-meter radius</strong>
+                  </div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-warn"><i data-lucide="circle-parking"></i></span>
+                  <div class="offence-text"><strong>Parking on a bridge</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-warn"><i data-lucide="circle-parking"></i></span>
+                  <div class="offence-text"><strong>If the vehicle is Parked at any Traffic Island</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-stop"><i data-lucide="parking-meter"></i></span>
+                  <div class="offence-text"><strong>If the vehicle is Parked in 'No Parking Zone'</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-stop"><i data-lucide="footprints"></i></span>
+                  <div class="offence-text"><strong>If vehicle is Parked on any Pedestrian Crossing</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-warn"><i data-lucide="circle-parking"></i></span>
+                  <div class="offence-text"><strong>If vehicle is Parked on Walkways</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+              <tr>
+                <td><span class="icon icon-warn"><i data-lucide="door-open"></i></span>
+                  <div class="offence-text"><strong>If vehicle is parked in front of any gate</strong></div>
+                </td>
+                <td class="amount">INR 100</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- QUICK LINKS LIST -->
+    <ul class="quick-links">
+      <li>What happens if you don't pay eChallan</li>
+      <li>How to check traffic challan status</li>
+      <li>Traffic Challan in India</li>
+    </ul>
+
+    <!-- HOW TO PAY SECTION -->
+    <div class="how-to-pay">
+
+      <!-- Section Header -->
+      <div class="section-header">
+        <div class="header-icon">
+          <i data-lucide="credit-card"></i>
+        </div>
+        <h2>How to pay challan</h2>
+      </div>
+
+      <p class="section-desc">Here is how to pay challan online via official website of state transport:</p>
+
+      <!-- Steps -->
+      <ol class="steps-list">
+        <li>
+          <span class="step-num">1</span>
+          <p>Visit your state's official transport website.</p>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <p>You will find a section dedicated to pay violation fines.</p>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <p>You can choose to pay for traffic violations, parking charges, spot fines, or other charges.</p>
+        </li>
+        <li>
+          <span class="step-num">4</span>
+          <p>Click the appropriate link and enter the required details, which will vary depending on the type of
+            violation.</p>
+        </li>
+        <li>
+          <span class="step-num">5</span>
+          <p>Enter your new vehicle registration number, old registration number, or parking violation tag number.</p>
+        </li>
+        <li>
+          <span class="step-num">6</span>
+          <p>Enter the details and the current outstanding amount.</p>
+        </li>
+        <li>
+          <span class="step-num">7</span>
+          <div>
+            <p>You can pay with your Mastercard or Visa card.</p>
+            <div class="payment-badges">
+              <div class="badge-card">
+                <i data-lucide="credit-card"></i>
+                <span>MASTERCARD</span>
+              </div>
+              <div class="badge-card">
+                <i data-lucide="credit-card"></i>
+                <span>VISA</span>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <span class="step-num">8</span>
+          <p>Do not forget to enter the captcha in the space provided and before clicking on 'submit'</p>
+        </li>
+        <li>
+          <span class="step-num">9</span>
+          <p>You will be redirected to a safe page to make your payment</p>
+        </li>
+      </ol>
+
+    </div>
+  </section>
+
+  <!-- STATE-WISE PAYMENT GUIDE -->
+  <div class="state-guide">
+    <h2 class="state-guide-title">State-Wise e-Challan Payment Guide</h2>
+    <p class="state-guide-desc">while the Parivahan and eChallan portal is widely used, many states also offer their own
+      dedicated portals for traffic challan payments.</p>
+
+    <div class="state-table-wrapper">
+      <table class="state-table">
+        <thead>
+          <tr>
+            <th>STATE/UT</th>
+            <th>OFFICIAL PORTAL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <span class="state-icon blue"><i data-lucide="landmark"></i></span>
+              Delhi
+            </td>
+            <td><a href="https://delhitrafficpolice.nic.in" target="_blank">delhitrafficpolice.nic.in</a></td>
+          </tr>
+          <tr>
+            <td>
+              <span class="state-icon teal"><i data-lucide="building-2"></i></span>
+              Maharashtra
+            </td>
+            <td><a href="#" target="_blank">Mahachallan</a></td>
+          </tr>
+          <tr>
+            <td>
+              <span class="state-icon indigo"><i data-lucide="building"></i></span>
+              Karnataka
+            </td>
+            <td><a href="#" target="_blank">Bangalore One</a></td>
+          </tr>
+          <tr>
+            <td>
+              <span class="state-icon green"><i data-lucide="arrow-up-right"></i></span>
+              Tamil Nadu
+            </td>
+            <td><a href="https://tnpolice.gov.in" target="_blank">tnpolice.gov.in</a></td>
+          </tr>
+          <tr>
+            <td>
+              <span class="state-icon cyan"><i data-lucide="globe"></i></span>
+              Uttar Pradesh
+            </td>
+            <td><a href="#" target="_blank">UP Traffic Police</a></td>
+          </tr>
+          <tr>
+            <td>
+              <span class="state-icon emerald"><i data-lucide="file-text"></i></span>
+              Telangana
+            </td>
+            <td><a href="#" target="_blank">TSChallan</a></td>
+          </tr>
+          <tr>
+            <td>
+              <span class="state-icon violet"><i data-lucide="shield"></i></span>
+              West Bengal
+            </td>
+            <td><a href="#" target="_blank">Kolkata Traffic Police</a></td>
+          </tr>
+          <tr>
+            <td>
+              <span class="state-icon orange"><i data-lucide="users"></i></span>
+              Rajasthan
+            </td>
+            <td><a href="#" target="_blank">Traffic Police</a></td>
+          </tr>
+          <tr>
+            <td>
+              <span class="state-icon blue2"><i data-lucide="layout-grid"></i></span>
+              Gujarat
+            </td>
+            <td><a href="https://gujarat.gov.in" target="_blank">gujarat.gov.in</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-main">
+
+      <!-- Col 1: Logo -->
+      <div class="footer-brand">
+        <a href="#" class="footer-logo">
+          <img src="/assets/footer-logo.png" alt="">
+        </a>
+      </div>
+
+      <div class="footer-cols">
+        <!-- Col 2: Services -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Services provided</h4>
+          <ul class="footer-links">
+            <li><a href="#">Citizen services <span class="arrow">›</span></a></li>
+            <li><a href="#">Driving Liecens <span class="arrow">›</span></a></li>
+            <li><a href="#">Campus (coming soon)</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Contact -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Contact us</h4>
+          <ul class="footer-contact">
+            <li>
+              <span class="contact-icon"><i data-lucide="map-pin"></i></span>
+              <span>Headquarters<br>22-A Lajpat Nagar -IV,<br>Ring Road, New Delhi- 110024</span>
+            </li>
+            <li>
+              <span class="contact-icon"><i data-lucide="phone"></i></span>
+              <span>9020978686</span>
+            </li>
+            <li>
+              <span class="contact-icon"><i data-lucide="mail"></i></span>
+              <span>drive@itzeazy.com</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Links -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Links</h4>
+          <ul class="footer-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Question Banks</a></li>
+            <li><a href="#">mock Test</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">List Your Buisness</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 5: App + Social -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Download our App<br>Banzo – "An ItzEazy App"</h4>
+          <a href="#" class="google-play">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+              alt="Get it on Google Play" />
+          </a>
+
+          <h4 class="footer-heading" style="margin-top: 28px;">Follow us</h4>
+          <div class="social-icons">
+            <a href="https://www.facebook.com/Itzeazycom/" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/itzeazyindia" class="social-btn"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/company/itzeazy-com/" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://x.com/Itzeazyindia" class="social-btn"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://www.youtube.com/@itzeazyindia/shorts" class="social-btn"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+      <p>© 2024 Itzeazy GovTech Services. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Terms of use</a>
+        <a href="#">Privacy</a>
+        <a href="#">Security</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
