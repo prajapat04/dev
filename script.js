@@ -165,5 +165,41 @@ document.querySelectorAll('.nav-links a').forEach(link => {
       }
     }
 
+
+    function resetSearch() {
+  document.getElementById('vehicleInput').value = '';
+  document.getElementById('chassisInput').value = '';
+}
+
+function checkStatus() {
+  const isVehicle = document.getElementById('field-vehicle').style.display !== 'none';
+
+  if (isVehicle) {
+    const vInput = document.getElementById('vehicleInput');
+    if (vInput.value.trim() === '') {
+      vInput.style.borderColor = 'var(--red)';
+      vInput.focus();
+      setTimeout(() => { vInput.style.borderColor = ''; }, 2000);
+      return;
+    }
+  } else {
+    const cInput = document.getElementById('challanInput');
+    if (cInput.value.trim() === '') {
+      cInput.style.borderColor = 'var(--red)';
+      cInput.focus();
+      setTimeout(() => { cInput.style.borderColor = ''; }, 2000);
+      return;
+    }
+  }
+  // API call yahan
+}
+
+// Auto uppercase
+document.getElementById('vehicleInput').addEventListener('input', function() {
+  const s = this.selectionStart, e = this.selectionEnd;
+  this.value = this.value.toUpperCase();
+  this.setSelectionRange(s, e);
+});
+
     
     lucide.createIcons();

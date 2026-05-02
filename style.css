@@ -451,13 +451,14 @@
       flex: 1;
       display: flex;
       align-items: center;
+      justify-content: space-around;
       padding: 60px 60px 80px;
       gap: 150px;
     }
 
     .hero-left {
-      flex: 1;
-      max-width: 440px;
+    
+      max-width: 640px;
     }
 
     .official-tag {
@@ -478,7 +479,7 @@
 
     .hero-title {
       font-size: 54px;
-      font-weight: 800;
+      font-weight: 600;
       color: #fff;
       line-height: 1.06;
       letter-spacing: -1px;
@@ -634,15 +635,15 @@
       font-family: 'Poppins', sans-serif;
       cursor: pointer;
       letter-spacing: 0.3px;
-      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      transition: all 0.2s;
       margin-top: 8px;
-      box-shadow: 0 8px 26px rgba(232, 25, 44, 0.38);
+      
     }
 
     .btn-search:hover {
       background: var(--red-dark);
       transform: translateY(-1px);
-      box-shadow: 0 12px 32px rgba(232, 25, 44, 0.44);
+     
     }
 
     .btn-search:active {
@@ -2044,6 +2045,53 @@
         font-size: 17px;
       }
 
+       .vehicle-card {
+        gap: 20px;
+      }
+
+      .challan-card-main {
+        flex-wrap: wrap;
+      }
+
+      .challan-right-col {
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+      }
+       .main {
+    padding: 12px 10px 28px;
+  }
+
+  .vehicle-field {
+    min-width: 100%;
+  }
+
+  .challan-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .challan-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+
+
+  .challan-name {
+    font-size: 13px;
+  }
+
+  .badge-pending {
+    font-size: 9px;
+  }
+
+  .btn-add {
+    padding: 7px 12px;
+    font-size: 11px;
+  }
+
 
     }
 
@@ -2078,6 +2126,14 @@
       .info-section {
         padding: 40px 24px;
       }
+        .main {
+    gap: 24px;
+    padding: 24px 24px 40px;
+  }
+
+  .search-field {
+    min-width: 400px;
+  }
     }
 
 
@@ -2085,7 +2141,7 @@
 
     /* ── CHALLAN DETAIL PAGE ── */
     .search-bar {
-      background: #1a1a2e;
+      background: #191C1D;
       padding: 20px 60px;
       display: flex;
       align-items: flex-end;
@@ -2165,21 +2221,6 @@
       background: var(--red-dark);
     }
 
-
-
-    /* Responsive */
-    @media (max-width: 900px) {
-      .main {
-        flex-direction: column;
-        padding: 20px;
-      }
-
-      .right-col {
-        width: 100%;
-        position: static;
-        flex: unset;
-      }
-    }
 
     /* ── MAIN LAYOUT FIX ── */
     .main {
@@ -2574,7 +2615,7 @@
 
     .payment-row-value {
       font-weight: 600;
-    }
+    } 
 
     .service-fee-badge {
       border-radius: 4px;
@@ -2659,10 +2700,6 @@
 
     /* Responsive */
     @media (max-width: 900px) {
-      .search-bar {
-        padding: 16px 20px;
-      }
-
       .challan-main {
         flex-direction: column;
         padding: 20px;
@@ -2676,40 +2713,6 @@
       .detail-grid {
         grid-template-columns: repeat(2, 1fr);
       }
-    }
-
-    @media (max-width: 480px) {
-      .vehicle-card {
-        gap: 20px;
-      }
-
-      .challan-card-main {
-        flex-wrap: wrap;
-      }
-
-      .challan-right-col {
-        flex-direction: row;
-        align-items: center;
-        width: 100%;
-        justify-content: space-between;
-      }
-    }
-
-
-    /* ── RESPONSIVE ── */
-@media (max-width: 1050px) {
-  .main {
-    gap: 24px;
-    padding: 24px 24px 40px;
-  }
-
-  .search-field {
-    min-width: 400px;
-  }
-}
-
-@media (max-width: 900px) {
-  /* Search Bar */
   .search-bar {
     padding: 16px 20px;
     flex-wrap: wrap;
@@ -2748,7 +2751,11 @@
   .govt-card {
     flex-wrap: wrap;
   }
-}
+    }
+
+
+
+
 
 @media (max-width: 600px) {
   /* Search Bar */
@@ -2853,39 +2860,53 @@
   }
 }
 
-@media (max-width: 380px) {
-  .main {
-    padding: 12px 10px 28px;
-  }
+/* Search info page*/
 
-  .vehicle-field {
-    min-width: 100%;
-  }
-
-  .challan-icon {
-    width: 36px;
-    height: 36px;
-  }
-
-  .challan-icon svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  .detail-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .challan-name {
-    font-size: 13px;
-  }
-
-  .badge-pending {
-    font-size: 9px;
-  }
-
-  .btn-add {
-    padding: 7px 12px;
-    font-size: 11px;
-  }
+.search-bar-inner {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  flex: 1;
+  flex-wrap: wrap;
 }
+
+.vehicle-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+  min-width: 180px;
+}
+
+.vehicle-input-group label {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.8px;
+}
+
+.vehicle-input-group input {
+  background: rgba(255,255,255,0.95);
+  border: 1.5px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #111;
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+.vehicle-input-group input::placeholder { color: #aaa; }
+.vehicle-input-group input:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(232,25,44,0.10); }
+
+.required { color: var(--red); }
+
+@media (max-width: 600px) {
+  .search-bar-inner { flex-direction: column; }
+  .vehicle-input-group { min-width: 100%; }
+}
+
+
+

@@ -1,26 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Challan Detail – ItzeEazy</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehical Search Information</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="vehical-info.css">
   <link rel="stylesheet" href="style.css">
-
 </head>
 <body>
-
-  <!-- NAVBAR -->
-   <nav>
+    <nav>
   <a href="#" class="logo">
     <img src="/assets/logo.png" alt="ItzeEazy">
   </a>
 
   <div class="links" id="navLinks">
     <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
+      <li><a href="#">Home</a></li>
       <li><a href="#">About us</a></li>
       <li><a href="#">Blog</a></li>
       <li><a href="#">Pricing</a></li>
@@ -55,44 +53,211 @@
   </div>
 </nav>
 
-  <!-- SEARCH BAR -->
+<!-- SEARCH BAR -->
   <div class="search-bar">
     <div class="search-bar-inner">
       <div class="search-field">
-        <label>Challan Number</label>
-        <input type="text" value="2620120142433" id="challanInput"/>
+        <label>Vehicle No. *</label>
+        <input type="text" value="HR-2620120142433" id="challanInput"/>
       </div>
     </div>
-    <button class="btn-reset" onclick="resetSearch()">Reset</button>
+    <button class="btn-reset" style="background-color: #b7b7b7;" onclick="resetSearch()">Reset</button>
     <button class="btn-check" onclick="checkStatus()">Check Status</button>
   </div>
 
-  <!-- MAIN -->
-  <div class="main">
-    <div class="left-col">
 
-      <!-- Vehicle Info -->
-      <div class="vehicle-card">
-        <div class="vehicle-field">
-          <span class="vehicle-field-label">Vehicle Number</span>
-          <span class="vehicle-field-value">MH01AB1234</span>
+<div class="vehicle-wrapper">
+
+  <!-- ── VEHICLE HEADER ── -->
+  <div class="vehicle-header">
+    <div class="carInfo">
+    <div class="vh-plate">UP14CQ4004</div>
+    <div class="vh-info">
+      <div class="names">
+      <div class="vh-name">Mahindra XUV 500</div>
+      <div class="vh-sub">W8 Model • AWD</div>
+      </div>
+      <div class="vh-owner">
+      <span class="vh-owner-label">Owner Initial</span>
+      <span class="vh-owner-value">AH GA</span>
+    </div>
+    </div>
+    </div>
+    
+    <!-- Car SVG icon -->
+    <img src="/assets/car.jpg" style="width: 60px; margin-right: 20px;" alt="">
+  </div>
+
+  <!-- ── MAIN GRID ── -->
+  <div class="vd-grid">
+
+    <!-- LEFT: RC Details -->
+    <div class="vd-card">
+      <div class="vd-card-header">
+        <div class="vd-card-title">
+          <i data-lucide="file-text"></i>
+          RC Details
         </div>
-        <div class="vehicle-field">
-          <span class="vehicle-field-label">Owner Name</span>
-          <span class="vehicle-field-value">Ramesh Kumar</span>
+        <span class="badge-active">ACTIVE</span>
+      </div>
+      <div class="vd-card-body">
+        <div class="rc-grid">
+          <div class="rc-field">
+            <span class="rc-label">Vehicle No</span>
+            <span class="rc-value">UP14CQ4004</span>
+          </div>
+          <div class="rc-field">
+            <span class="rc-label">Registration Date</span>
+            <span class="rc-value">24-Aug-2015</span>
+          </div>
+          <div class="rc-field">
+            <span class="rc-label">Vehicle Class</span>
+            <span class="rc-value">Motor Car (LMV)</span>
+          </div>
+          <div class="rc-field">
+            <span class="rc-label">Fitness Upto</span>
+            <span class="rc-value red">08-Sep-2030</span>
+          </div>
+          <div class="rc-field">
+            <span class="rc-label">Maker</span>
+            <span class="rc-value">Mahindra & Mahindra Ltd</span>
+          </div>
+          <div class="rc-field">
+            <span class="rc-label">Fuel Type</span>
+            <span class="rc-value">Diesel</span>
+          </div>
+          <div class="rc-field">
+            <span class="rc-label">Model</span>
+            <span class="rc-value">XUV 500 W8</span>
+          </div>
+          <div class="rc-field">
+            <span class="rc-label">Cubic Capacity</span>
+            <span class="rc-value">2179 CC</span>
+          </div>
+          <div class="rc-field">
+            <span class="rc-label">Colour</span>
+            <span class="rc-value">M BLK (Midnight Black)</span>
+          </div>
+          <div class="rc-field">
+            <span class="rc-label">Chassis No</span>
+            <span class="rc-value">MA1T**********34</span>
+          </div>
+          <div class="rc-field">
+            <span class="rc-label">Registered At</span>
+            <span class="rc-value">Deoria RTO, Uttar Pradesh</span>
+          </div>
+          <div class="rc-field">
+            <span class="rc-label">Engine No</span>
+            <span class="rc-value">D4D**********B9</span>
+          </div>
         </div>
-        <div class="vehicle-field">
-          <span class="vehicle-field-label">Model</span>
-          <span class="vehicle-field-value">Honda City</span>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="vd-grid-right">
+
+      <!-- Owner Details -->
+      <div class="vd-card">
+        <div class="vd-card-header">
+          <div class="vd-card-title">
+            <i data-lucide="user"></i>
+            Owner Details
+          </div>
         </div>
-        <div class="vehicle-field">
-          <span class="vehicle-field-label">RTO</span>
-          <span class="vehicle-field-value">Mumbai West</span>
+        <div class="vd-card-body">
+          <div class="owner-grid">
+            <div class="owner-row">
+              <span class="owner-key">Owner Name</span>
+              <span class="owner-val">AH GA</span>
+            </div>
+            <div class="owner-row">
+              <span class="owner-key">SL No</span>
+              <span class="owner-val">3 (Third Owner)</span>
+            </div>
+            <div class="owner-row">
+              <span class="owner-key">Ownership Type</span>
+              <span class="owner-val">Individual</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Challan Header -->
-      <div class="challan-header">
+      <!-- Insurance -->
+      <div class="vd-card" style="border-left: 4px solid #2563EB">
+        <div class="vd-card-header">
+          <div class="vd-card-title">
+            <i data-lucide="shield-check" style="color: #2563EB;"></i>
+            Insurance
+          </div>
+        </div>
+        <div class="vd-card-body">
+          <div class="ins-header-row">
+            <span class="ins-col-label">Provider</span>
+            <span class="ins-col-label">Expiry</span>
+          </div>
+          <div class="insurance-row">
+            <span class="ins-val">Bajaj General</span>
+            <span class="ins-val red">28-Jun-2026</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PUC Details -->
+      <div class="vd-card" style="border-left: 4px solid #16a34a">
+        <div class="vd-card-header">
+          <div class="vd-card-title">
+            <i data-lucide="leaf" style="color: #16a34a;"></i>
+            PUC Details
+          </div>
+        </div>
+        <div class="vd-card-body">
+          <div class="puc-row">
+            <div class="puc-no">
+              No
+              <span>UP05200120015453</span>
+            </div>
+            <div class="puc-validity">
+              <div class="puc-validity-label">Validity</div>
+              <div class="puc-validity-date">09-Jan-2026</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── OTHER DETAILS ── -->
+  <div class="vd-card">
+    <div class="vd-card-header">
+      <div class="vd-card-title">
+        <i data-lucide="info"></i>
+        Other Details
+      </div>
+    </div>
+    <div class="vd-card-body">
+      <div class="other-grid">
+        <div class="other-field">
+          <span class="other-label">Finance</span>
+          <span class="other-value">N/A</span>
+        </div>
+        <div class="other-field">
+          <span class="other-label">Blacklist</span>
+          <span class="other-value">N/A</span>
+        </div>
+        <div class="other-field">
+          <span class="other-label">NOC</span>
+          <span class="other-value">None</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+ <!-- Challan Header -->
+      <div class="challan-header" style="max-width: 1200px; margin: 0 auto;">
         <h2 class="challan-count">3 Pending Challans Found</h2>
         <div class="total-due">
           <i data-lucide="triangle-alert" style="width:14px;height:14px;"></i>
@@ -101,7 +266,7 @@
       </div>
 
       <!-- Challan 1 -->
-      <div class="challan-card selected" id="card1">
+      <div class="challan-card selected" id="card1" style="max-width: 1200px; margin: 10px auto;">
         <div class="challan-card-main">
           <div class="challan-icon">
             <i data-lucide="gauge"></i>
@@ -243,7 +408,7 @@
       </div>
 
       <!-- Challan 2 -->
-      <div class="challan-card selected" id="card2">
+      <div class="challan-card selected" id="card2" style="max-width: 1200px; margin: 10px auto;">
         <div class="challan-card-main">
           <div class="challan-icon">
             <i data-lucide="traffic-cone"></i>
@@ -385,7 +550,7 @@
       </div>
 
       <!-- Challan 3 -->
-      <div class="challan-card selected" id="card3">
+      <div class="challan-card selected" id="card3" style="max-width: 1200px; margin: 10px auto;">
         <div class="challan-card-main">
           <div class="challan-icon">
             <i data-lucide="bike"></i>
@@ -526,26 +691,9 @@
         </div>
       </div>
 
-      <!-- Govt Card -->
-      <div class="govt-card">
-        <div class="govt-left">
-          <i data-lucide="shield-check"></i>
-          <div>
-            <div class="govt-title">Official Government Data</div>
-            <div class="govt-desc">Payments are processed through secure encrypted gateways. We never store your card or net banking credentials.</div>
-          </div>
-        </div>
-        <div class="govt-right">
-          <div class="payment-logo"><img src="/assets/pci.jpg" alt="" srcset=""></div>
-          <div class="payment-logo"><img src="/assets/vsa.jpg" alt="" srcset=""></div>
-          
-        </div>
-      </div>
-
-    </div>
-
-    <!-- RIGHT: Payment Summary -->
-    <div class="right-col">
+       <!-- RIGHT: Payment Summary -->
+  
+         <div class="vahical-search-payment">
       <div class="payment-card">
         <div class="payment-title">Payment Summary</div>
 
@@ -577,11 +725,7 @@
         </div>
       </div>
     </div>
-  </div>
-
-
-    <!-- ── FOOTER ── -->
-  <footer class="footer">
+   <footer class="footer">
     <div class="footer-main">
 
       <!-- Col 1: Logo -->
