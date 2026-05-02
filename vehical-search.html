@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehical Search</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="vehical-info.css">
+</head>
+<body>
+   <!-- NAVBAR -->
+   <nav>
+  <a href="#" class="logo">
+    <img src="/assets/logo.png" alt="ItzeEazy">
+  </a>
+
+  <div class="links" id="navLinks">
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#">About us</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Pricing</a></li>
+      <li class="has-dropdown">
+        <a href="#">How to <i class="fa-solid fa-chevron-down"></i></a>
+        <ul class="dropdown">
+          <li><a href="#">How to check challan</a></li>
+          <li><a href="#">How to pay challan</a></li>
+          <li><a href="#">How to apply DL</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Tools <i class="fa-solid fa-chevron-down"></i></a>
+        <ul class="dropdown">
+          <li><a href="#">EMI Calculator</a></li>
+          <li><a href="#">RTO Finder</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <button class="btn-pay btn-pay-mobile">Sign Up</button>
+  </div>
+
+  <div class="nav-right">
+    <a href="#" class="btn-login">Login</a>
+    <button class="btn-pay btn-pay-desktop">Sign Up</button>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+<!--main-->
+<!-- ── HERO ── -->
+  <section class="hero">
+   
+
+
+
+    <!-- SECONDARY NAV -->
+    <div class="sub-nav">
+      <a href="#" class="sub-nav-link active">Citizen Services</a>
+      <a href="#" class="sub-nav-link">Driving School</a>
+      <a href="#" class="sub-nav-link">Student Campus (Coming Soon)</a>
+    </div>
+
+    <div class="hero-bg"></div>
+
+    <div class="hero-content">
+      <div style="max-width: 506px;">
+        <span class="official-tag">Official Partner</span>
+        <h1 class="hero-title">Check RTO Vehicle<br>Information Detail</h1>
+<p class="hero-desc">Vehicle registration and owner details</p>
+        <div class="social-proof">
+          <div class="avatars">
+            <div class="avatar"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt="user" /></div>
+            <div class="avatar"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="user" /></div>
+            <div class="avatar"><img src="https://randomuser.me/api/portraits/women/65.jpg" alt="user" /></div>
+          </div>
+          <p class="social-proof-text"><strong style="font-weight:600;">12k+</strong> people paid today</p>
+        </div>
+      </div>
+
+      <div class="hero-right">
+  <div class="search-card">
+
+    <h3 style="font-size:18px; font-weight:700; color:#1a1a1a; margin-bottom:22px;">
+      Search by Vehicle Number
+    </h3>
+
+    <div class="tab-panel" id="panel-vehicle">
+      <div class="form-group">
+        <label class="form-label" for="vehicleInput">Vehicle Number</label>
+        <input class="form-input" id="vehicleInput" type="text"
+          placeholder="e.g. MH01AB1234" maxlength="20" autocomplete="off"/>
+      </div>
+    </div>
+
+    <button class="btn-search" id="searchBtn" type="button">
+      <span class="btn-text">SEARCH</span>
+      <span class="spinner"></span>
+    </button>
+
+    <div class="card-footer" style="margin-top:14px;">
+      <span class="card-footer-text">
+        By searching, you agree to our
+        <a href="#" style="color:#e8192c; font-weight:600; text-decoration:none;">Terms of Service</a>
+      </span>
+    </div>
+
+  </div>
+</div>
+    </div>
+  </section>
+
+  <div class="article-wrapper">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">Registration Of Vehicle / RTO</div>
+
+  <!-- Page Title -->
+  <h1 class="page-title">Check Details Of A Vehicle</h1>
+
+  <!-- Plate + Intro -->
+  <div class="plate-row">
+    <div class="plate-img">
+      <div class="plate-dot"></div>
+      DL 3C AA 0000
+    </div>
+    <p class="plate-desc">
+      Do you want to know vehicle owner details by number plate? If yes, you can check vehicle owner details online using the vehicle number on vehicle number plate. It is helpful for finding the vehicle details and owner name. You do not need to visit the RTO to get the vehicle owner details. This blog covers steps to check vehicle owner details by number plate in detail.
+    </p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Section 1 -->
+  <h2 class="section-heading">Vehicle owner details by number plate</h2>
+
+  <p class="body-text">
+    The national vehicle registry contains information of any related or vehicle registrations of motor vehicles, bikes, and cars in India. It compiles all the information on driving licenses and vehicle registration details. RTO offices in India possess the date of RC and vehicle related information.
+  </p>
+
+  <ul class="red-list">
+    <li>
+      <span class="red-bullet"><i data-lucide="check"></i></span>
+      Buying a second-hand vehicle to verify legal ownership history.
+    </li>
+    <li>
+      <span class="red-bullet"><i data-lucide="check"></i></span>
+      Hit and run / investigation to track down the responsible parties.
+    </li>
+    <li>
+      <span class="red-bullet"><i data-lucide="check"></i></span>
+      Verifying insurance like PUC (Pollution Under Control) validity.
+    </li>
+    <li>
+      <span class="red-bullet"><i data-lucide="check"></i></span>
+      Legal proceedings where someone's documentation is required by law.
+    </li>
+    <li>
+      <span class="red-bullet"><i data-lucide="check"></i></span>
+      Prevention of fraud and unauthorised vehicle transfers.
+    </li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <!-- Section 2 -->
+  <h2 class="section-heading">How to check vehicle owner name by vehicle number</h2>
+
+  <p class="body-text">
+    You can find the vehicle owner name by vehicle number online using two methods.
+  </p>
+
+  <!-- VAHAN Card -->
+  <div class="vahan-card">
+    <div class="vahan-card-title">
+      <i data-lucide="car"></i>
+      Vehicle details using VAHAN website
+    </div>
+    <ol class="vahan-steps">
+      <li>
+        <span class="step-num">1</span>
+        Visit the official Vahan MII portal at <a href="https://vahan.nic.in" class="vahan-link">vahan.nic.in</a>
+      </li>
+      <li>
+        <span class="step-num">2</span>
+        Navigate to the 'Know Your Vehicle Details' tab on the homepage.
+      </li>
+      <li>
+        <span class="step-num">3</span>
+        Create an account or login using your registered mobile number.
+      </li>
+      <li>
+        <span class="step-num">4</span>
+        Enter the complete vehicle number without spaces or dashes.
+      </li>
+      <li>
+        <span class="step-num">5</span>
+        Complete the verification captcha for security.
+      </li>
+      <li>
+        <span class="step-num">6</span>
+        Click on 'Search Vehicle' to fetch real-time data.
+      </li>
+      <li>
+        <span class="step-num">7</span>
+        Review the owner name, RC status, model, and fuel type displayed.
+      </li>
+    </ol>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Section 3 -->
+  <h2 class="section-heading">Need to trace vehicle details by number plate</h2>
+
+  <p class="body-text">
+    The following are the most common use cases where tracing a vehicle owner by number plate is necessary.
+  </p>
+
+  <!-- Use Cases Grid -->
+  <div class="use-cases-grid">
+
+    <div class="use-case-card">
+      <div class="use-case-title">
+        <div class="use-case-icon icon-red">
+          <i data-lucide="alert-triangle"></i>
+        </div>
+        Hit and Run Case
+      </div>
+      <p class="use-case-desc">
+        Finding the owner of a vehicle involved in a road accident where the driver fled the scene.
+      </p>
+    </div>
+
+    <div class="use-case-card">
+      <div class="use-case-title">
+        <div class="use-case-icon icon-blue">
+          <i data-lucide="file-search"></i>
+        </div>
+        Accident Scenarios
+      </div>
+      <p class="use-case-desc">
+        Need to contact the owner of a vehicle involved in accidents for insurance claims or legal procedures.
+      </p>
+    </div>
+
+    <div class="use-case-card">
+      <div class="use-case-title">
+        <div class="use-case-icon icon-green">
+          <i data-lucide="handshake"></i>
+        </div>
+        Second-hand vehicle purchase
+      </div>
+      <p class="use-case-desc">
+        Verifying vehicle registration details before purchasing a used vehicle to ensure legal ownership.
+      </p>
+    </div>
+
+    <div class="use-case-card">
+      <div class="use-case-title">
+        <div class="use-case-icon icon-orange">
+          <i data-lucide="building-2"></i>
+        </div>
+        Vehicle inspection in RTO
+      </div>
+      <p class="use-case-desc">
+        Identifying vehicle details during RTO inspections, permits, and fitness certificate renewals.
+      </p>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ── NUMBER PLATE FORMAT ── -->
+ <div class="plate-faq">
+<div class="divider"></div>
+
+<h2 class="section-heading">Vehicle number plate format</h2>
+
+<div class="plate-format-list">
+
+  <div class="plate-format-item">
+    <div class="plate-format-left">
+      <div class="plate-code red">AB</div>
+      <div class="plate-format-name">State Code (AB)</div>
+    </div>
+    <p class="plate-format-desc">
+      The first two alphabets indicate the state or Union territory of India. For example, vehicle registered in Maharashtra starts with the code 'MH' whereas in Delhi it is 'DL'. The two most significant alphabets of the state's name is used.
+    </p>
+  </div>
+
+  <div class="plate-format-item">
+    <div class="plate-format-left">
+      <div class="plate-code red">07</div>
+      <div class="plate-format-name">District Code (07)</div>
+    </div>
+    <p class="plate-format-desc">
+      The next two digits refer to district's sequential number. Every state in India has at least 1 district in it, the district RTO itself manages the registration of new vehicles. Each district in India has its own RTO, which is in charge of the drivers and vehicle registrations.
+    </p>
+  </div>
+
+  <div class="plate-format-item">
+    <div class="plate-format-left">
+      <div class="plate-code red">CD3456</div>
+      <div class="plate-format-name">Unique Identity<br>(CD3456)</div>
+    </div>
+    <p class="plate-format-desc">
+      The last two alphabets and digits of the vehicle's license plate is unique number which helps to identify the vehicle. If number is unavailable, then alphabets are used to replace the last digit. This guarantees an excess number of codes for all vehicles.
+    </p>
+  </div>
+
+</div>
+
+<!-- Quick Links -->
+<div class="quick-nav-links">
+  <a href="#">Red Number plate</a>
+  <a href="#">Check RC Status</a>
+  <a href="#">HSRP Guide</a>
+</div>
+
+<div class="divider"></div>
+
+<!-- ── FAQ ── -->
+<h2 class="section-heading">Frequently Asked Questions</h2>
+
+<div class="faq-list">
+
+  <div class="faq-item" onclick="toggleFaq(this)">
+    <div class="faq-question">
+      <span>Can I check two wheeler owner details online?</span>
+      <i data-lucide="chevron-down" class="faq-icon"></i>
+    </div>
+    <div class="faq-answer">
+      Yes, you can check two wheeler owner details online using the VAHAN portal or ItzeEazy. Simply enter the vehicle registration number to get the owner name, RC status, and other details.
+    </div>
+  </div>
+
+  <div class="faq-item" onclick="toggleFaq(this)">
+    <div class="faq-question">
+      <span>Are there any limits on registration lookups?</span>
+      <i data-lucide="chevron-down" class="faq-icon"></i>
+    </div>
+    <div class="faq-answer">
+      The VAHAN portal may have daily limits on the number of lookups per user. However, using ItzeEazy you can perform multiple lookups without restrictions.
+    </div>
+  </div>
+
+  <div class="faq-item" onclick="toggleFaq(this)">
+    <div class="faq-question">
+      <span>Can I check chassis number via number plate?</span>
+      <i data-lucide="chevron-down" class="faq-icon"></i>
+    </div>
+    <div class="faq-answer">
+      Yes, by entering the vehicle number plate you can retrieve the chassis number from the RC details. The last 5 digits of the chassis number are usually visible in the search results.
+    </div>
+  </div>
+
+  <div class="faq-item" onclick="toggleFaq(this)">
+    <div class="faq-question">
+      <span>Will I get the full name of the owner?</span>
+      <i data-lucide="chevron-down" class="faq-icon"></i>
+    </div>
+    <div class="faq-answer">
+      Due to privacy regulations, only the initials of the owner's name are displayed publicly. Full name disclosure requires proper legal authorization.
+    </div>
+  </div>
+
+  <div class="faq-item" onclick="toggleFaq(this)">
+    <div class="faq-question">
+      <span>Can I find details for very old vehicles?</span>
+      <i data-lucide="chevron-down" class="faq-icon"></i>
+    </div>
+    <div class="faq-answer">
+      Details for vehicles registered before 2000 may not be available digitally as older records were maintained manually. Vehicles registered after 2000 are generally available in the VAHAN database.
+    </div>
+  </div>
+
+</div>
+
+<!-- ── TAG CHIPS ── -->
+<div class="tag-chips">
+  <span class="tag-chip">Bike Owner Details</span>
+  <span class="tag-chip">Car Owner Details</span>
+  <span class="tag-chip">Vehicle Lookup</span>
+  <span class="tag-chip">RTO Services</span>
+  <span class="tag-chip">Number Plate Search</span>
+</div>
+
+</div>
+<!--Footer-->
+   <footer class="footer">
+    <div class="footer-main">
+
+      <!-- Col 1: Logo -->
+      <div class="footer-brand">
+        <a href="#" class="footer-logo">
+          <img src="/assets/footer-logo.png" alt="">
+        </a>
+      </div>
+
+      <div class="footer-cols">
+        <!-- Col 2: Services -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Services provided</h4>
+          <ul class="footer-links">
+            <li><a href="#">Citizen services <span class="arrow">›</span></a></li>
+            <li><a href="#">Driving Liecens <span class="arrow">›</span></a></li>
+            <li><a href="#">Campus (coming soon)</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Contact -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Contact us</h4>
+          <ul class="footer-contact">
+            <li>
+              <span class="contact-icon"><i data-lucide="map-pin"></i></span>
+              <span>Headquarters<br>22-A Lajpat Nagar -IV,<br>Ring Road, New Delhi- 110024</span>
+            </li>
+            <li>
+              <span class="contact-icon"><i data-lucide="phone"></i></span>
+              <span>9020978686</span>
+            </li>
+            <li>
+              <span class="contact-icon"><i data-lucide="mail"></i></span>
+              <span>drive@itzeazy.com</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Links -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Links</h4>
+          <ul class="footer-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Question Banks</a></li>
+            <li><a href="#">mock Test</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">List Your Buisness</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 5: App + Social -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Download our App<br>Banzo – "An ItzEazy App"</h4>
+          <a href="#" class="google-play">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+              alt="Get it on Google Play" />
+          </a>
+
+          <h4 class="footer-heading" style="margin-top: 28px;">Follow us</h4>
+          <div class="social-icons">
+            <a href="https://www.facebook.com/Itzeazycom/" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/itzeazyindia" class="social-btn"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/company/itzeazy-com/" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://x.com/Itzeazyindia" class="social-btn"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://www.youtube.com/@itzeazyindia/shorts" class="social-btn"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+      <p>© 2024 Itzeazy GovTech Services. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Terms of use</a>
+        <a href="#">Privacy</a>
+        <a href="#">Security</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleFaq(item) {
+  const isOpen = item.classList.contains('open');
+  // Saare band karo
+  document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('open'));
+  // Agar pehle band tha toh open karo
+  if (!isOpen) {
+    item.classList.add('open');
+  }
+}
+lucide.createIcons();
+  </script>
+</body>
+</html>
