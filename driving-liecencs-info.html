@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DL Info – ItzeEazy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="dl-info.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+      <!-- NAVBAR -->
+   <nav>
+  <a href="#" class="logo">
+    <img src="/assets/logo.png" alt="ItzeEazy">
+  </a>
+
+  <div class="links" id="navLinks">
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#">About us</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Pricing</a></li>
+      <li class="has-dropdown">
+        <a href="#">How to <i class="fa-solid fa-chevron-down"></i></a>
+        <ul class="dropdown">
+          <li><a href="#">How to check challan</a></li>
+          <li><a href="#">How to pay challan</a></li>
+          <li><a href="#">How to apply DL</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Tools <i class="fa-solid fa-chevron-down"></i></a>
+        <ul class="dropdown">
+          <li><a href="#">EMI Calculator</a></li>
+          <li><a href="#">RTO Finder</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <button class="btn-pay btn-pay-mobile">Sign Up</button>
+  </div>
+
+  <div class="nav-right">
+    <a href="#" class="btn-login">Login</a>
+    <button class="btn-pay btn-pay-desktop">Sign Up</button>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+    <!-- ── SEARCH BAR ── -->
+  <div class="search-bar">
+    <div class="search-inputs">
+      <div class="s-field">
+        <label>Driving Licence No. <span>*</span></label>
+        <input type="text" id="dlInput" value="" placeholder="HR-2620120142433"/>
+      </div>
+      <div class="s-field">
+        <label>Date Of Birth (DOB) <span>*</span></label>
+        <input type="text" id="dobInput" value="" placeholder="DD-MM-YYYY"/>
+      </div>
+    </div>
+    <div class="search-btns">
+      <button class="btn-reset" onclick="resetDL()">Reset</button>
+      <button class="btn-check" onclick="checkDL()">Check Status</button>
+    </div>
+  </div>
+
+  <!-- ── MAIN ── -->
+  <div class="dl-main">
+
+    <!-- Title -->
+    <div class="heading-wrapper">
+      <span class="dl-section-heading">Details Of Driving License: HR-2620120142433</span>
+    </div>
+
+    <!-- Basic Info Table -->
+    <table class="dl-info-table">
+      <tbody>
+        <tr>
+          <td>Current Status</td>
+          <td><span class="badge-active">ACTIVE</span></td>
+        </tr>
+        <tr>
+          <td>Holder Name</td>
+          <td>MTL* TYL</td>
+        </tr>
+        <tr>
+          <td>Old / New DL No.</td>
+          <td>NA</td>
+        </tr>
+        <tr>
+          <td>Source Of Data</td>
+          <td>SARATHI</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Initial Details -->
+    <div class="heading-wrapper">
+      <span class="dl-section-heading">Driving License Initial Details</span>
+    </div>
+
+    <table class="dl-info-table">
+      <tbody>
+        <tr>
+          <td>Initial Issue Date</td>
+          <td>05-Dec-2012</td>
+        </tr>
+        <tr>
+          <td>Initial Issuing Office</td>
+          <td>RLA GURUGRAM</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Validity Details -->
+    <div class="heading-wrapper">
+      <span class="dl-section-heading">Driving License Validity Details</span>
+    </div>
+
+    <table class="validity-table">
+      <tbody>
+        <tr>
+          <td>Non-Transport</td>
+          <td class="from-col">
+            <span>From:</span>
+            05-Dec-2012
+          </td>
+          <td class="to-col">
+            <span>To:</span>
+            01-Sep-2026
+          </td>
+        </tr>
+        <tr>
+          <td>Transport</td>
+          <td class="from-col">
+            <span>From:</span>
+            NA
+          </td>
+          <td class="to-col">
+            <span>From:</span>
+            NA
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- COV Details -->
+    <div class="heading-wrapper">
+      <span class="dl-section-heading">Class Of Vehicle Details</span>
+    </div>
+
+    <table class="cov-table">
+      <thead>
+        <tr>
+          <th>COV Category</th>
+          <th>Class Of Vehicle</th>
+          <th>COV Issue Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="COV Category">NT</td>
+          <td data-label="Class Of Vehicle">LMV</td>
+          <td data-label="COV Issue Date">05-Dec-2012</td>
+        </tr>
+        <tr>
+          <td data-label="COV Category">NT</td>
+          <td data-label="Class Of Vehicle">MCWOG</td>
+          <td data-label="COV Issue Date">05-Dec-2012</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+     <footer class="footer">
+    <div class="footer-main">
+
+      <!-- Col 1: Logo -->
+      <div class="footer-brand">
+        <a href="#" class="footer-logo">
+          <img src="/assets/footer-logo.png" alt="">
+        </a>
+      </div>
+
+      <div class="footer-cols">
+        <!-- Col 2: Services -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Services provided</h4>
+          <ul class="footer-links">
+            <li><a href="#">Citizen services <span class="arrow">›</span></a></li>
+            <li><a href="#">Driving Liecens <span class="arrow">›</span></a></li>
+            <li><a href="#">Campus (coming soon)</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Contact -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Contact us</h4>
+          <ul class="footer-contact">
+            <li>
+              <span class="contact-icon"><i data-lucide="map-pin"></i></span>
+              <span>Headquarters<br>22-A Lajpat Nagar -IV,<br>Ring Road, New Delhi- 110024</span>
+            </li>
+            <li>
+              <span class="contact-icon"><i data-lucide="phone"></i></span>
+              <span>9020978686</span>
+            </li>
+            <li>
+              <span class="contact-icon"><i data-lucide="mail"></i></span>
+              <span>drive@itzeazy.com</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Links -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Links</h4>
+          <ul class="footer-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Question Banks</a></li>
+            <li><a href="#">mock Test</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">List Your Buisness</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 5: App + Social -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Download our App<br>Banzo – "An ItzEazy App"</h4>
+          <a href="#" class="google-play">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+              alt="Get it on Google Play" />
+          </a>
+
+          <h4 class="footer-heading" style="margin-top: 28px;">Follow us</h4>
+          <div class="social-icons">
+            <a href="https://www.facebook.com/Itzeazycom/" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/itzeazyindia" class="social-btn"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/company/itzeazy-com/" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://x.com/Itzeazyindia" class="social-btn"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://www.youtube.com/@itzeazyindia/shorts" class="social-btn"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+      <p>© 2024 Itzeazy GovTech Services. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Terms of use</a>
+        <a href="#">Privacy</a>
+        <a href="#">Security</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+   
+ 
+    function resetDL() {
+      document.getElementById('dlInput').value = '';
+      document.getElementById('dobInput').value = '';
+    }
+ 
+    function checkDL() {
+      const dl  = document.getElementById('dlInput');
+      const dob = document.getElementById('dobInput');
+      if (dl.value.trim() === '') {
+        dl.style.borderColor = '#e8192c';
+        dl.focus();
+        setTimeout(() => { dl.style.borderColor = ''; }, 2000);
+        return;
+      }
+      if (dob.value.trim() === '') {
+        dob.style.borderColor = '#e8192c';
+        dob.focus();
+        setTimeout(() => { dob.style.borderColor = ''; }, 2000);
+        return;
+      }
+    }
+ 
+    // Auto uppercase DL
+    document.getElementById('dlInput').addEventListener('input', function() {
+      const s = this.selectionStart, e = this.selectionEnd;
+      this.value = this.value.toUpperCase();
+      this.setSelectionRange(s, e);
+    });
+
+     lucide.createIcons();
+  
+  </script>
+</body>
+</html>

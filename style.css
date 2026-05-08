@@ -346,7 +346,6 @@
       .btn-login {
         display: block;
         padding: 13px 0;
-        border-bottom: 1px solid #f0f0f0;
         width: 100%;
         color: #333;
         font-size: 15px;
@@ -1978,10 +1977,13 @@
         padding: 28px 20px 24px;
         border-radius: 12px;
       }
+      .tabs {
+        margin-bottom: 10px;
+      }
 
       .tab {
-        font-size: 12px;
-        margin-right: 16px;
+        font-size: 11px;
+        margin-right: 14px;
       }
 
       .form-input {
