@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Consultation & Utility – ItzeEazy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #e8192c;
+      --red-dark: #c8101f;
+      --dark: #111;
+      --white: #fff;
+      --border: #e4e4e4;
+      --text: #1a1a1a;
+      --muted: #555;
+      --input-border: #d1d5db;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text);
+    }
+
+    /* ══════════════════════════
+       CONSULTATION SECTION
+    ══════════════════════════ */
+    .consultation-section {
+      background: #fff;
+      padding: 60px 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 80px;
+    }
+
+    /* Left */
+    .consult-left {
+      flex: 1;
+      max-width: 470px;
+    }
+
+    .consult-title {
+      font-size: 38px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .consult-title span { color: var(--red); }
+
+    .consult-tag {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--red);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .consult-contact {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* Right — Form */
+    .consult-right {
+      flex: 1;
+      max-width: 520px;
+    }
+
+    .consult-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .consult-input,
+    .consult-textarea {
+      width: 100%;
+      border: 1.5px solid var(--input-border);
+      border-radius: 8px;
+      padding: 13px 16px;
+      font-size: 14px;
+      font-family: 'Poppins', sans-serif;
+      color: var(--text);
+      outline: none;
+      background: #fff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .consult-input::placeholder,
+    .consult-textarea::placeholder { color: #aab0ba; }
+
+    .consult-input:focus,
+    .consult-textarea:focus {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(232,25,44,0.08);
+    }
+
+    .consult-time-wrap {
+      position: relative;
+    }
+
+    .consult-time-wrap .consult-input {
+      padding-right: 40px;
+    }
+
+    .consult-time-icon {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #aaa;
+      pointer-events: none;
+      font-size: 15px;
+    }
+
+    .consult-textarea {
+      resize: none;
+      height: 90px;
+    }
+
+    .btn-callback {
+      background: var(--red);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 28px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 4px 16px rgba(232,25,44,0.30);
+      width: 100%;
+    }
+
+    .btn-callback:hover {
+      background: var(--red-dark);
+      transform: translateY(-1px);
+    }
+
+    /* ══════════════════════════
+       UTILITY SECTION
+    ══════════════════════════ */
+    .utility-section {
+      background: #111;
+      padding: 60px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Topographic background lines */
+    .utility-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 40px,
+          rgba(255,255,255,0.02) 40px,
+          rgba(255,255,255,0.02) 41px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 40px,
+          rgba(255,255,255,0.02) 40px,
+          rgba(255,255,255,0.02) 41px
+        );
+      pointer-events: none;
+    }
+
+    /* Curved lines overlay */
+    .utility-section::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(232,25,44,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .utility-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 36px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .utility-line {
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.15);
+    }
+
+    .utility-title {
+      font-size: 26px;
+      font-weight: 600;
+      color: #fff;
+      white-space: nowrap;
+    }
+
+    /* Grid */
+    .utility-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .utility-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px 16px 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .utility-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.25);
+    }
+
+    .utility-card-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--red);
+      font-size: 28px;
+    }
+
+    .utility-card-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    /* ══════════════════════════
+       RESPONSIVE
+    ══════════════════════════ */
+    @media (max-width: 900px) {
+      .consultation-section {
+        flex-direction: column;
+        padding: 40px 32px;
+        gap: 36px;
+      }
+
+      .consult-left { max-width: 100%; }
+      .consult-title { font-size: 28px; }
+      .consult-right { max-width: 100%; width: 100%; }
+
+      .utility-section { padding: 40px 32px; }
+      .utility-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .consultation-section { padding: 32px 16px; gap: 28px; }
+      .consult-title { font-size: 24px; }
+      .consult-tag { font-size: 11px; }
+      .consult-contact { font-size: 12.5px; }
+
+      .form-row { grid-template-columns: 1fr; gap: 10px; }
+      .consult-input, .consult-textarea { padding: 12px 14px; font-size: 13px; }
+
+      .utility-section { padding: 32px 16px; }
+      .utility-title { font-size: 20px; }
+      .utility-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+      .utility-card { padding: 22px 12px 18px; gap: 10px; }
+      .utility-card-icon { font-size: 24px; width: 40px; height: 40px; }
+      .utility-card-label { font-size: 12px; }
+
+      .btn-callback { font-size: 14px; padding: 13px; }
+    }
+
+    @media (max-width: 380px) {
+      .utility-grid { grid-template-columns: repeat(2, 1fr); }
+      .consult-title { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════
+       CONSULTATION SECTION
+  ══════════════════════════ -->
+  <section class="consultation-section">
+
+    <!-- Left -->
+    <div class="consult-left">
+      <h2 class="consult-title">
+        Hassle free <span>Door-step</span><br>
+        Citizen services
+      </h2>
+      <p class="consult-tag">Claim Your Free Consultation</p>
+      <p class="consult-contact">
+        Call Us Now At +91 9020978686 Or Email At<br>
+        Info@Itzeazy.Com
+      </p>
+    </div>
+
+    <!-- Right — Form -->
+    <div class="consult-right">
+      <div class="consult-form">
+
+        <div class="form-row">
+          <input class="consult-input" type="text"   placeholder="Name*"/>
+          <input class="consult-input" type="email"  placeholder="Email*"/>
+        </div>
+
+        <div class="form-row">
+          <input class="consult-input" type="tel"    placeholder="Phone*"/>
+          <input class="consult-input" type="text"   placeholder="City*"/>
+        </div>
+
+        <div class="consult-time-wrap">
+          <input class="consult-input" type="text" placeholder="Preferred Time*"/>
+          <i class="fa-regular fa-calendar consult-time-icon"></i>
+        </div>
+
+        <textarea class="consult-textarea" placeholder="Message*"></textarea>
+
+        <button class="btn-callback">
+          Request call back &nbsp;→
+        </button>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ══════════════════════════
+       UTILITY SECTION
+  ══════════════════════════ -->
+  <section class="utility-section">
+
+    <div class="utility-header">
+      <div class="utility-line"></div>
+      <h2 class="utility-title">Utility</h2>
+      <div class="utility-line"></div>
+    </div>
+
+    <div class="utility-grid">
+
+      <a href="#" class="utility-card">
+        <div class="utility-card-icon">
+          <i class="fa-solid fa-car"></i>
+        </div>
+        <span class="utility-card-label">Vehicle information</span>
+      </a>
+
+      <a href="#" class="utility-card">
+        <div class="utility-card-icon">
+          <i class="fa-solid fa-file-invoice"></i>
+        </div>
+        <span class="utility-card-label">Challan information</span>
+      </a>
+
+      <a href="#" class="utility-card">
+        <div class="utility-card-icon">
+          <i class="fa-solid fa-id-card"></i>
+        </div>
+        <span class="utility-card-label">Driving Licence information</span>
+      </a>
+
+      <a href="#" class="utility-card">
+        <div class="utility-card-icon">
+          <i class="fa-solid fa-building-columns"></i>
+        </div>
+        <span class="utility-card-label">TS Vehicle</span>
+      </a>
+
+      <a href="#" class="utility-card">
+        <div class="utility-card-icon">
+          <i class="fa-solid fa-credit-card"></i>
+        </div>
+        <span class="utility-card-label">Telangana DL information</span>
+      </a>
+
+      <a href="#" class="utility-card">
+        <div class="utility-card-icon">
+          <i class="fa-solid fa-calculator"></i>
+        </div>
+        <span class="utility-card-label">Road tax calculator</span>
+      </a>
+
+      <a href="#" class="utility-card">
+        <div class="utility-card-icon">
+          <i class="fa-solid fa-charging-station"></i>
+        </div>
+        <span class="utility-card-label">EV charging station nearby</span>
+      </a>
+
+      <a href="#" class="utility-card">
+        <div class="utility-card-icon">
+          <i class="fa-solid fa-gas-pump"></i>
+        </div>
+        <span class="utility-card-label">Petrol pump nearby</span>
+      </a>
+
+      <a href="#" class="utility-card">
+        <div class="utility-card-icon">
+          <i class="fa-solid fa-book-open"></i>
+        </div>
+        <span class="utility-card-label">LL question bank</span>
+      </a>
+
+      <a href="#" class="utility-card">
+        <div class="utility-card-icon">
+          <i class="fa-solid fa-clipboard-question"></i>
+        </div>
+        <span class="utility-card-label">LL mock test</span>
+      </a>
+
+    </div>
+  </section>
+
+</body>
+</html>
