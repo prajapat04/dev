@@ -1286,32 +1286,111 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
         </div>
       </div>
 
-      <!-- Accordion 2: RC Docs -->
-      <div class="fees-acc-item" id="acc-rc-docs">
-        <button class="fees-acc-header" onclick="toggleFeesAcc('acc-rc-docs')">
-          <span>Documents Required For RTO Registration Certificate</span>
-          <i class="fa-solid fa-chevron-down fees-acc-icon"></i>
-        </button>
-        <div class="fees-acc-body">
-          <div class="nested-acc-item open" id="nacc-new-reg">
-            <button class="nested-acc-header" onclick="toggleNestedAcc('nacc-new-reg')">
-              <span>New Vehicle Registration</span>
-              <i class="fa-solid fa-chevron-up nested-acc-icon"></i>
-            </button>
-            <div class="nested-acc-body">
-              <ul class="docs-list">
-                <li>Form 20 (Application for Registration)</li>
-                <li>Invoice from dealer</li>
-                <li>Insurance certificate</li>
-                <li>PUC certificate</li>
-                <li>Address proof</li>
-                <li>Identity proof</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
 
+      <!--change start here 22-05-2026 -->
+      <!-- Accordion 2: RC Docs -->
+    <div class="fees-acc-item" id="acc-rc-docs">
+  <button class="fees-acc-header" onclick="toggleFeesAcc('acc-rc-docs')">
+    <span>Documents required for vehicle registration</span>
+    <i class="fa-solid fa-chevron-down fees-acc-icon"></i>
+  </button>
+  <div class="fees-acc-body">
+
+    <!-- Transfer of ownership -->
+    <div class="nested-acc-item open" id="nacc-new-reg">
+      <button class="nested-acc-header" onclick="toggleNestedAcc('nacc-new-reg')">
+        <span>Transfer of ownership of vehicle</span>
+        <i class="fa-solid fa-chevron-up nested-acc-icon"></i>
+      </button>
+      <div class="nested-acc-body">
+        <ul class="docs-list">
+          <li>Original RC</li>
+          <li>2 nos. of duly filled & signed Form no.29</li>
+          <li>2 nos. of duly filled & signed Form no.30</li>
+          <li>Copy of valid insurance</li>
+          <li>Copy of valid pollution under control certificate</li>
+          <li>Copy of address proof of buyer (voter card / passport / telephone (BSNL/MTNL) / electricity bill / Adhar / Govt bank Account / Rent agreement) any one</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Duplicate RC -->
+    <div class="nested-acc-item" id="nacc-dup-rc">
+      <button class="nested-acc-header" onclick="toggleNestedAcc('nacc-dup-rc')">
+        <span>Duplicate RC</span>
+        <i class="fa-solid fa-chevron-down nested-acc-icon"></i>
+      </button>
+      <div class="nested-acc-body">
+        <ul class="docs-list">
+          <li>2 copy of application on Form 26</li>
+          <li>Copy of valid insurance policy</li>
+          <li>Copy of pollution under control certificate</li>
+          <li>Copy of address proof</li>
+          <li>Copy of FIR</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- HP Termination -->
+    <div class="nested-acc-item" id="nacc-hp-term">
+      <button class="nested-acc-header" onclick="toggleNestedAcc('nacc-hp-term')">
+        <span>HP Termination</span>
+        <i class="fa-solid fa-chevron-down nested-acc-icon"></i>
+      </button>
+      <div class="nested-acc-body">
+        <ul class="docs-list">
+          <li>2 nos. of Form no. 35 duly filled & signed by registered owner</li>
+          <li>A certificate from financier (Bank) for having retained full dues</li>
+          <li>Original RC</li>
+          <li>Copy of valid insurance</li>
+          <li>Copy of valid pollution under control certificate</li>
+          <li>Copy of address proof of the registered owner (voter card / passport / telephone (BSNL/MTNL) / electricity bill / Adhar / Govt bank account) any one</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- NOC for Vehicle -->
+    <div class="nested-acc-item" id="nacc-noc-veh">
+      <button class="nested-acc-header" onclick="toggleNestedAcc('nacc-noc-veh')">
+        <span>NOC for Vehicle</span>
+        <i class="fa-solid fa-chevron-down nested-acc-icon"></i>
+      </button>
+      <div class="nested-acc-body">
+        <ul class="docs-list">
+          <li>4 nos. of Application on Form 28 along with pencil impression of chassis no.</li>
+          <li>Copy of RC</li>
+          <li>Copy of valid insurance</li>
+          <li>Copy of pollution certificate</li>
+          <li>Address proof of city where vehicle is moving (address proof of buyer in case of selling)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Re-registration -->
+    <div class="nested-acc-item" id="nacc-rereg-veh">
+      <button class="nested-acc-header" onclick="toggleNestedAcc('nacc-rereg-veh')">
+        <span>Re-registration of other state vehicle</span>
+        <i class="fa-solid fa-chevron-down nested-acc-icon"></i>
+      </button>
+      <div class="nested-acc-body">
+        <ul class="docs-list">
+          <li>Original RC</li>
+          <li>Original NOC and 2 nos of Form 28</li>
+          <li>Valid insurance</li>
+          <li>Valid Pollution certificate</li>
+          <li>Address proof</li>
+          <li>Copy of purchase invoice</li>
+          <li>1 no. of Form 20</li>
+          <li>2 nos. of Form 27</li>
+          <li>2 nos. of Form 33</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+ <!--change start here 22-05-2026 -->
     </div>
   </div>
 
@@ -1428,6 +1507,10 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
 
     </div>
   </div>
+
+
+
+  
 <!----------FOOTER------------->
     <footer>
 <section id="footer" class="pt-5 pb-2">
