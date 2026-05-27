@@ -1,0 +1,332 @@
+
+.testimonials-slider {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 20px 0;
+}
+.custom-carousel {
+  width: 100%;
+  overflow: hidden;
+}
+.carousel-track {
+  display: flex;
+  width: max-content;
+  animation: scroll 20s linear infinite;
+}
+.carousel-item {
+  flex: 0 0 auto;
+  width: 200px;
+  margin: 0 15px;
+}
+.carousel-item img {
+  width: 100%;
+  height: 110px;
+  display: block;
+  border-radius: 8px;
+}
+.carousel-item {
+display: block;
+}
+.howtorow .card-body{
+  background: #fff;
+  min-height: 140px;
+}
+.howtorow .text-how{
+      color: #3333ff;
+    font-weight: 700;
+}
+.howtorow h5.card-title{
+    color: #000;
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 33px;
+}
+/* Animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .carousel-item {
+    width: 150px;
+    margin: 0 10px;
+  }
+  .slider-card {
+    max-width: 90%;
+  }
+}
+
+/*testimonial slider*/
+
+
+.slider {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 40px auto;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.custom-slider-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
+}
+
+.slider-card {
+  flex: 0 0 100%;
+  max-width: 100%;
+  padding: 30px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+
+.imgs {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.nameedu h3 {
+  margin: 0;
+  font-weight: bold;
+}
+
+.nameedu p {
+  margin: 0;
+  font-size: 14px;
+  color: #888;
+  line-height: 18px;
+}
+
+.clientwords {
+  text-align: center;
+  font-size: 16px;
+  margin-top: 20px;
+  color: #555;
+}
+.slider-card {
+  opacity: 2;
+}
+/* New section CSS Start */
+body{
+  overflow-x:hidden;
+}
+
+.consultation-section{
+  width:100%;
+  overflow:hidden;
+}
+
+    :root {
+      --red: #fa3737;
+      --red-dark: #fa3737;
+      --dark: #111;
+      --white: #fff;
+      --border: #e4e4e4;
+      --text: #1a1a1a;
+      --muted: #555;
+      --input-border: #d1d5db;
+    }
+
+  
+
+    /* ══════════════════════════
+       CONSULTATION SECTION
+    ══════════════════════════ */
+    .consultation-section {
+      background: #fff;
+      padding: 60px 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 80px;
+    }
+
+    /* Left */
+    .consult-left {
+      flex: 1;
+      max-width: 470px;
+    }
+
+    .consult-title {
+      font-size: 38px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .consult-title span { color: var(--red); }
+
+    .consult-tag {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--red);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .consult-contact {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* Right — Form */
+    .consult-right {
+      flex: 1;
+      max-width: 520px;
+    }
+
+    .consult-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .consult-input,
+    .consult-textarea {
+      width: 100%;
+      border: 1px;
+      border-radius: 10px;
+      padding: 13px 16px;
+      font-size: 14px;
+      font-family: 'Poppins', sans-serif;
+       color: #000;
+      outline: none;
+      background-color: #F3F3F3;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .consult-multi-input{
+     width: 96%;
+      border: 1px;
+      border-radius: 10px;
+      padding: 13px 16px;
+      margin-left: 6px;
+      font-size: 14px;
+      font-family: 'Poppins', sans-serif;
+       color: #000;
+      outline: none;
+      background-color: #F3F3F3;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    
+    .consult-input::placeholder,
+    .consult-textarea::placeholder { color: #aab0ba; }
+
+    .consult-input:focus,
+    .consult-textarea:focus {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(232,25,44,0.08);
+    }
+
+    .consult-time-wrap {
+      position: relative;
+    }
+
+    .consult-time-wrap .consult-input {
+      padding-right: 40px;
+    }
+
+    .consult-time-icon {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #aaa;
+      pointer-events: none;
+      font-size: 15px;
+    }
+
+    .consult-textarea {
+      resize: none;
+      height: 90px;
+    }
+
+    .btn-callback {
+      background: var(--red);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 28px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.2s, transform 0.15s;
+    
+      width: 100%;
+    }
+
+    .btn-callback:hover {
+      background: var(--red-dark);
+      transform: translateY(-1px);
+    }
+
+   
+    /* ══════════════════════════
+       RESPONSIVE
+    ══════════════════════════ */
+    @media (max-width: 900px) {
+      .consultation-section {
+        flex-direction: column;
+        padding: 40px 32px;
+        gap: 36px;
+      }
+
+      .consult-left { max-width: 100%; }
+      .consult-title { font-size: 28px; }
+      .consult-right { max-width: 100%; width: 100%; }
+
+      .utility-section { padding: 40px 32px; }
+      .utility-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .consultation-section { padding: 32px 16px; gap: 28px; }
+      .consult-title { font-size: 24px; }
+      .consult-tag { font-size: 11px; }
+      .consult-contact { font-size: 12.5px; }
+
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+      .consult-input, .consult-textarea { padding: 12px 14px; font-size: 13px; }
+
+     
+
+      .btn-callback { font-size: 14px; padding: 13px; }
+    }
+
+    @media (max-width: 380px) {
+      .utility-grid { grid-template-columns: repeat(2, 1fr); }
+      .consult-title { font-size: 20px; }
+    }
+
+
+
+/* New section CSS End */
