@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Certificate of Registration</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+    :root {
+      --blue: #1a3a6b;
+      --red: #c0392b;
+      --paper: #fafafa;
+      --ink: #111;
+      --muted: #555;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #ddd;
+      font-family: 'DM Sans', sans-serif;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .top-bar {
+      width: 100%;
+      max-width: 794px;
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      padding: 9px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      background: var(--blue);
+      color: #fff;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: #0f2547;
+    }
+
+    .btn:disabled {
+      background: #999;
+      cursor: not-allowed;
+    }
+
+    .rc-wrapper {
+      width: 100%;
+      max-width: 794px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #dl-pdf {
+      width: 794px;
+      transform-origin: top left;
+      background: var(--paper);
+      padding: 14px 26px 12px;
+      position: relative;
+      box-shadow: 0 6px 32px rgba(0, 0, 0, 0.2);
+      border: 1px solid #bbb;
+      font-size: 9.8px;
+      color: var(--ink);
+      line-height: 1.38;
+    }
+
+    #dl-pdf::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .rc-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .emblem {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid var(--blue);
+      background: linear-gradient(135deg, #f0f4ff, #dce8ff);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 7px;
+      font-weight: 700;
+      color: var(--blue);
+      text-align: center;
+      line-height: 1.4;
+      overflow: hidden;
+    }
+
+    .emblem img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .header-center {
+      text-align: center;
+    }
+
+    .h-state {
+      font-family: 'EB Garamond', serif;
+      font-size: 14.5px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--blue);
+      text-transform: uppercase;
+    }
+
+    .h-dept {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    .h-form {
+      font-size: 10.5px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .h-title {
+      font-family: 'EB Garamond', serif;
+      font-size: 12.5px;
+      font-weight: 700;
+      text-decoration: underline;
+      color: var(--blue);
+    }
+
+    .qr-box {
+      width: 50px;
+      height: 50px;
+      border: 1px solid #aaa;
+      background: repeating-conic-gradient(#ccc 0% 25%, #fff 0% 50%) 0 0/6px 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 7px;
+      color: #888;
+      text-align: center;
+      visibility: hidden;
+    }
+
+    .div-bold {
+      border: none;
+      border-top: 1.5px solid #111;
+      margin: 4px 0;
+    }
+
+    .div-thin {
+      border: none;
+      border-top: 0.6px solid #aaa;
+      margin: 3px 0;
+    }
+
+    .t {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .t td {
+      padding: 1.2px 3px;
+      vertical-align: top;
+      line-height: 1.38;
+    }
+
+    .t .lb {
+      font-weight: 600;
+      white-space: nowrap;
+      width: 38%;
+      color: #222;
+    }
+
+    .t .cl {
+      width: 8px;
+    }
+
+    .t .vl {
+      color: var(--ink);
+    }
+
+    .two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 8px;
+    }
+
+    .red-box {
+      border: 2px solid var(--red);
+      padding: 3px 8px;
+      margin: 4px 0;
+    }
+
+    .rb-title {
+      font-weight: 700;
+      font-size: 9px;
+      margin-bottom: 2px;
+    }
+
+    .rb-hdr {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      font-size: 9px;
+      font-weight: 600;
+      border-bottom: 1px solid #aaa;
+      padding-bottom: 2px;
+      margin-bottom: 2px;
+    }
+
+    .not-req {
+      text-align: center;
+      color: var(--red);
+      font-weight: 700;
+      font-size: 11px;
+      padding: 3px 0;
+    }
+
+    .rb-rows {
+      font-size: 9px;
+      color: #555;
+    }
+
+    .rb-rows div {
+      padding: 0.5px 0;
+    }
+
+    .hypo {
+      font-size: 9.5px;
+      line-height: 1.5;
+      margin: 3px 0;
+    }
+
+    .sig-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin: 5px 0 3px;
+    }
+
+    .sig-right {
+      text-align: right;
+    }
+
+    .sig-cursive {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 13px;
+      color: var(--red);
+    }
+
+    .signature {
+      width: 100px;
+      height: 42px;
+    }
+
+    .signature img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .validity {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--blue);
+      margin: 3px 0;
+    }
+
+    .doc-num {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 3px;
+    }
+
+    .pg-num {
+      text-align: right;
+      font-size: 8px;
+      color: #888;
+      margin-top: 1px;
+    }
+
+    .gov-strip {
+      background: var(--blue);
+      color: rgba(255, 255, 255, .85);
+      text-align: center;
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: .8px;
+      padding: 3px 0;
+      margin-top: 5px;
+    }
+
+    @media print {
+      body {
+        background: none;
+        padding: 0;
+      }
+
+      .top-bar {
+        display: none;
+      }
+
+      #dl-pdf {
+        box-shadow: none;
+        border: none;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-bar">
+    <button class="btn" id="downloadBtn">⬇ Download PDF</button>
+  </div>
+
+  <div class="rc-wrapper">
+    <div id="dl-pdf">
+      <div class="content" id="rc-content"></div>
+    </div>
+  </div>
+
+  <script>
+    const rcData = {
+      state: "Government of Uttar Pradesh", dept: "Transport Department Noida",
+      regNo: "22BH1602B", regDate: "08-Jul-2022", purpose: "NEW",
+      vehicleDesc: "MOTOR CAR", dealer: "SAGAR MOTORS, B-123 SEC-5, NOIDA G B NAGAR",
+      ownerName: "SANJAY GAUR", parentName: "SHIV PRASAD",
+      addrPerm: "FLAT NO. 802, TOWER NO. 15, LOTUS ZING, SECTOR-168, NOIDA, GAUTAM BUDDHA NAGAR, UP-201301",
+      addrTemp: "FLAT NO. 802, TOWER NO. 15, LOTUS ZING, SECTOR-168, NOIDA, GAUTAM BUDDHA NAGAR, UP-201301",
+      fitnessUpto: "07-Jul-2037", taxUpto: "22-Jun-2024", ownerSerial: "1", detailedDesc: "",
+      vehicleClass: "MOTOR CAR", ownership: "INDIVIDUAL", maker: "TATA MOTORS PASSENGER VEHICLES LTD",
+      norms: "BHARAT STAGE VI", frontHsrp: "BA2502671669", rearHsrp: "BA2502671670",
+      bodyType: "5 DOOR STEEL SHELL", mfgDate: "06/2022", cylinders: "3",
+      chassisNo: "MAT627129NLF60975", engineNo: "REVTRN11EXXK65548", fuel: "PETROL",
+      bhp: "118.19", cc: "1199.00", classification: "TATA NEXON XZ+ 1.2 RTN B S6",
+      wheelbase: "2498", seating: "5", standing: "0", sleeper: "0",
+      unladenWt: "1226", ladenWt: "1636", colour: "CALGARY WHITE", ac: "YES",
+      otherCriteria: "", purchaseAs: "Fully Built", linkVehicle: "--",
+      hypoBank: "BANK OF INDIA, NOIDA", hypoAddr: "Gautam Buddha Nagar, Uttar Pradesh-201301", hypoDate: "24-Jun-2022",
+      purchaseDt: "23-Jun-2022", ottDate: "23-Jun-2022", saleAmt: "1024900/-",
+      rcptNo: "17082 / UP16D22070002125", govtPvt: "PRIVATE", approvalDate: "08-Jul-2022",
+      taxExempt: "NOT EXEMPTED", prevOwner: "--", prevReg: "--", oldState: "--",
+      entryDate: "--", transferDate: "--", conversionDate: "--",
+      validFrom: "08-Jul-2022", validTo: "07-Jul-2037",
+      sigDate: "30-Jul-2022 16:35:21", authority: "MV Inspector, Noida", docNo: "N   3095974",
+    };
+
+    // ── Inject data using getElementById pattern ──
+    function injectData(root, d) {
+      const set = (id, val) => { const el = root.getElementById ? root.getElementById(id) : root.querySelector('#' + id); if (el) el.innerText = val || ''; };
+      Object.keys(d).forEach(k => set(k, d[k]));
+      const hypo = root.getElementById ? root.getElementById('hypoText') : root.querySelector('#hypoText');
+      if (hypo) hypo.innerHTML = `The motor vehicle above described is subject to <strong>Hypothecation</strong> in favour of <strong>${d.hypoBank}</strong>, ${d.hypoAddr} w.e.f. ${d.hypoDate}.`;
+      const v = root.getElementById ? root.getElementById('validity') : root.querySelector('#validity');
+      if (v) v.innerText = `This certificate is valid from ${d.validFrom} to ${d.validTo}`;
+      const a = root.getElementById ? root.getElementById('approvalDateSig') : root.querySelector('#approvalDateSig');
+      if (a) a.innerText = d.approvalDate;
+      const t2 = root.getElementById ? root.getElementById('taxUpto2') : root.querySelector('#taxUpto2');
+      if (t2) t2.innerText = d.taxUpto;
+    }
+
+    // ── RC inner HTML template ──
+    const rcInnerHTML = `
+  <div class="rc-header">
+    <div class="emblem"><img src="/assets/Seal_of_Uttar_Pradesh.svg" alt="UP Seal"/></div>
+    <div class="header-center">
+      <div class="h-state" id="state"></div>
+      <div class="h-dept" id="dept"></div>
+      <div class="h-form">FORM 23</div>
+      <div class="h-title">Certificate of Registration</div>
+    </div>
+    <div class="qr-box">QR<br>CODE</div>
+  </div>
+  <hr class="div-bold"/>
+  <div class="two">
+    <table class="t">
+      <tr><td class="lb">Registration No</td><td class="cl">:</td><td class="vl"><strong id="regNo"></strong></td></tr>
+      <tr><td class="lb">Description of Vehicle</td><td class="cl">:</td><td class="vl" id="vehicleDesc"></td></tr>
+      <tr><td class="lb">Dealer's Name &amp; Address</td><td class="cl">:</td><td class="vl" id="dealer"></td></tr>
+      <tr><td class="lb">Owner Name</td><td class="cl">:</td><td class="vl" id="ownerName"></td></tr>
+      <tr><td class="lb">Full Address (Permanent)</td><td class="cl">:</td><td class="vl" id="addrPerm"></td></tr>
+      <tr><td class="lb">Full Address (Temporary)</td><td class="cl">:</td><td class="vl" id="addrTemp"></td></tr>
+      <tr><td class="lb">Fitness UpTo</td><td class="cl">:</td><td class="vl" id="fitnessUpto"></td></tr>
+      <tr><td class="lb">Owner Serial No</td><td class="cl">:</td><td class="vl" id="ownerSerial"></td></tr>
+      <tr><td class="lb">Detailed Description</td><td class="cl">:</td><td class="vl" id="detailedDesc"></td></tr>
+    </table>
+    <table class="t">
+      <tr><td class="lb">Registration Date</td><td class="cl">:</td><td class="vl" id="regDate"></td></tr>
+      <tr><td class="lb">Purpose For Printing RC</td><td class="cl">:</td><td class="vl" id="purpose"></td></tr>
+      <tr><td class="lb">Son/Wife/Daughter of</td><td class="cl">:</td><td class="vl" id="parentName"></td></tr>
+      <tr><td class="lb">Tax UpTo</td><td class="cl">:</td><td class="vl" id="taxUpto"></td></tr>
+    </table>
+  </div>
+  <hr class="div-thin"/>
+  <div class="two">
+    <table class="t">
+      <tr><td class="lb">Class of Vehicle</td><td class="cl">:</td><td class="vl" id="vehicleClass"></td></tr>
+      <tr><td class="lb">Ownership</td><td class="cl">:</td><td class="vl" id="ownership"></td></tr>
+      <tr><td class="lb">Maker's Name</td><td class="cl">:</td><td class="vl" id="maker"></td></tr>
+      <tr><td class="lb">Front HSRP No</td><td class="cl">:</td><td class="vl" id="frontHsrp"></td></tr>
+      <tr><td class="lb">Type of Body</td><td class="cl">:</td><td class="vl" id="bodyType"></td></tr>
+      <tr><td class="lb">No of Cylinders</td><td class="cl">:</td><td class="vl" id="cylinders"></td></tr>
+      <tr><td class="lb">Engine No</td><td class="cl">:</td><td class="vl" id="engineNo"></td></tr>
+      <tr><td class="lb">Horse Power (BHP)</td><td class="cl">:</td><td class="vl" id="bhp"></td></tr>
+      <tr><td class="lb">Maker's Classification</td><td class="cl">:</td><td class="vl" id="classification"></td></tr>
+      <tr><td class="lb">Seating Cap (in all)</td><td class="cl">:</td><td class="vl" id="seating"></td></tr>
+      <tr><td class="lb">Sleeper Cap</td><td class="cl">:</td><td class="vl" id="sleeper"></td></tr>
+      <tr><td class="lb">Colour</td><td class="cl">:</td><td class="vl" id="colour"></td></tr>
+      <tr><td class="lb">Other Criteria</td><td class="cl">:</td><td class="vl" id="otherCriteria"></td></tr>
+      <tr><td class="lb">Vehicle Purchase As</td><td class="cl">:</td><td class="vl" id="purchaseAs"></td></tr>
+    </table>
+    <table class="t">
+      <tr><td class="lb">Link Vehicle No</td><td class="cl">:</td><td class="vl" id="linkVehicle"></td></tr>
+      <tr><td class="lb">Norms</td><td class="cl">:</td><td class="vl" id="norms"></td></tr>
+      <tr><td class="lb">Rear HSRP No</td><td class="cl">:</td><td class="vl" id="rearHsrp"></td></tr>
+      <tr><td class="lb">Month/Year of Manuf.</td><td class="cl">:</td><td class="vl" id="mfgDate"></td></tr>
+      <tr><td class="lb">Chassis No</td><td class="cl">:</td><td class="vl" id="chassisNo"></td></tr>
+      <tr><td class="lb">Fuel</td><td class="cl">:</td><td class="vl" id="fuel"></td></tr>
+      <tr><td class="lb">Cubic Capacity</td><td class="cl">:</td><td class="vl" id="cc"></td></tr>
+      <tr><td class="lb">Wheel Base</td><td class="cl">:</td><td class="vl" id="wheelbase"></td></tr>
+      <tr><td class="lb">Standing Cap</td><td class="cl">:</td><td class="vl" id="standing"></td></tr>
+      <tr><td class="lb">Unladen Wt (kgs)</td><td class="cl">:</td><td class="vl" id="unladenWt"></td></tr>
+      <tr><td class="lb">Laden/GV Wt (kgs)</td><td class="cl">:</td><td class="vl" id="ladenWt"></td></tr>
+      <tr><td class="lb">AC Fitted</td><td class="cl">:</td><td class="vl" id="ac"></td></tr>
+    </table>
+  </div>
+  <div class="red-box">
+    <div class="rb-title">Additional Particulars of all transport vehicles other than motor cabs (Gross Vehicle Weight)</div>
+    <div class="rb-hdr"><span>By Manuf.</span><span>As Regd.</span><span></span></div>
+    <div class="rb-hdr"><span>Description</span><span>Weight (in kgs)</span><span></span></div>
+    <div class="not-req">this section not required</div>
+    <div class="rb-rows"><div>a) Front:</div><div>b) Rear:</div><div>c) Other:</div><div>d) Tandem:</div></div>
+  </div>
+  <div class="hypo" id="hypoText"></div>
+  <hr class="div-thin"/>
+  <div class="two">
+    <table class="t">
+      <tr><td class="lb">Purchase dt</td><td class="cl">:</td><td class="vl" id="purchaseDt"></td></tr>
+      <tr><td class="lb">OTT Date</td><td class="cl">:</td><td class="vl" id="ottDate"></td></tr>
+      <tr><td class="lb">TaxUpTo</td><td class="cl">:</td><td class="vl" id="taxUpto2"></td></tr>
+      <tr><td class="lb">Tax Exempted or Not</td><td class="cl">:</td><td class="vl" id="taxExempt"></td></tr>
+    </table>
+    <table class="t">
+      <tr><td class="lb">Sale Amt</td><td class="cl">:</td><td class="vl" id="saleAmt"></td></tr>
+      <tr><td class="lb">Amount/Rcpt No</td><td class="cl">:</td><td class="vl" id="rcptNo"></td></tr>
+      <tr><td class="lb">Vehicle is Govt./Pvt.</td><td class="cl">:</td><td class="vl" id="govtPvt"></td></tr>
+      <tr><td class="lb">Date of Approval</td><td class="cl">:</td><td class="vl" id="approvalDate"></td></tr>
+    </table>
+  </div>
+  <table class="t" style="margin-top:3px;">
+    <tr><td class="lb" colspan="6" style="font-weight:700;padding-bottom:2px;">Other State/Transfer/Conversion Details</td></tr>
+    <tr>
+      <td class="lb" style="width:24%">Previous Owner</td><td class="cl">:</td>
+      <td class="vl" id="prevOwner" style="width:20%"></td>
+      <td class="lb" style="width:20%">Previous RegNo</td><td class="cl">:</td>
+      <td class="vl" id="prevReg"></td>
+    </tr>
+    <tr>
+      <td class="lb">Old State</td><td class="cl">:</td><td class="vl" id="oldState"></td>
+      <td class="lb">Entry Date</td><td class="cl">:</td><td class="vl" id="entryDate"></td>
+    </tr>
+    <tr>
+      <td class="lb">Transfer Date</td><td class="cl">:</td><td class="vl" id="transferDate"></td>
+      <td class="lb">Conversion Date</td><td class="cl">:</td><td class="vl" id="conversionDate"></td>
+    </tr>
+  </table>
+  <div class="validity" id="validity"></div>
+  <div class="sig-row">
+    <div>
+      <div style="font-size:9.5px;">Date : <span id="sigDate"></span></div>
+      <div style="margin-top:2px;font-size:8px;color:#666;">Taxation Particulars / Advance Registration Mark Fee Details</div>
+    </div>
+    <div class="sig-right">
+      <div class="signature"><img src="/assets/signature-up.jpg" alt=""/></div>
+    
+      <div style="font-size:9px;">Signature of Registering Authority</div>
+      <div style="font-weight:700;font-size:9.5px;">Date : <span id="approvalDateSig"></span></div>
+    </div>
+  </div>
+  <div class="doc-num" id="docNo"></div>
+  <div class="pg-num">1/1</div>
+  <div class="gov-strip">Uttar Pradesh Government &nbsp;·&nbsp; Uttar Pradesh Government &nbsp;·&nbsp; Uttar Pradesh Government &nbsp;·&nbsp; Uttar Pradesh Government</div>
+`;
+
+    // Inject into visible preview
+    document.getElementById('rc-content').innerHTML = rcInnerHTML;
+    injectData(document, rcData);
+
+    // Screen scaling
+    function scaleRC() {
+      const wrapper = document.querySelector('.rc-wrapper');
+      const pdf = document.getElementById('dl-pdf');
+      const scale = wrapper.offsetWidth < 794 ? wrapper.offsetWidth / 794 : 1;
+      pdf.style.transform = `scale(${scale})`;
+      pdf.style.transformOrigin = 'top left';
+      wrapper.style.height = (pdf.offsetHeight * scale) + 'px';
+    }
+    scaleRC();
+    window.addEventListener('resize', scaleRC);
+
+    // ── DOWNLOAD: temporarily pin element to top-left at full size ──
+    document.getElementById("downloadBtn").addEventListener("click", () => {
+      const btn = document.getElementById("downloadBtn");
+      const el = document.getElementById("dl-pdf");
+      const wrapper = document.querySelector('.rc-wrapper');
+
+      btn.disabled = true;
+      btn.textContent = '⏳ Generating…';
+
+      // Save current state
+      const prevTransform = el.style.transform;
+      const prevPosition = el.style.position;
+      const prevTop = el.style.top;
+      const prevLeft = el.style.left;
+      const prevZIndex = el.style.zIndex;
+      const prevWrapperH = wrapper.style.height;
+      const prevOverflow = wrapper.style.overflow;
+
+      // Pin to top-left of viewport at full 794px — no scaling, fully visible to html2canvas
+      el.style.transform = 'none';
+      el.style.position = 'fixed';
+      el.style.top = '0';
+      el.style.left = '0';
+      el.style.zIndex = '-1';   // behind everything so user doesn't see flash
+      wrapper.style.overflow = 'visible';
+
+      // Wait for reflow
+      setTimeout(() => {
+        const W = el.scrollWidth;
+        const H = el.scrollHeight;
+
+        html2pdf()
+          .set({
+            margin: 0,
+            filename: "RC-Certificate.pdf",
+            image: { type: "jpeg", quality: 1 },
+            html2canvas: {
+              scale: 2,
+              useCORS: true,
+              scrollX: 0,
+              scrollY: 0,
+              width: W,
+              height: H,
+              windowWidth: W,
+              windowHeight: H,
+              x: 0,
+              y: 0
+            },
+            jsPDF: {
+              unit: "px",
+              format: [W, H],
+              orientation: "portrait",
+              hotfixes: ["px_scaling"]
+            },
+            pagebreak: { mode: 'avoid-all' }
+          })
+          .from(el)
+          .save()
+          .then(() => {
+            // Restore original state
+            el.style.transform = prevTransform;
+            el.style.position = prevPosition;
+            el.style.top = prevTop;
+            el.style.left = prevLeft;
+            el.style.zIndex = prevZIndex;
+            wrapper.style.height = prevWrapperH;
+            wrapper.style.overflow = prevOverflow;
+
+            btn.disabled = false;
+            btn.textContent = '⬇ Download PDF';
+            scaleRC();
+          });
+      }, 400);
+    });
+  </script>
+</body>
+
+</html>

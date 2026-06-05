@@ -120,7 +120,8 @@
           <div class="challan-right">
             <span class="challan-amount">₹1,000</span>
             <div class="challan-actions">
-              <button class="btn-add added" onclick="toggleAdd(this, 'card1')">Added</button>
+              <button class="btn-details" onclick="openMobPopup('card1')">Details</button>
+              <button class="btn-add" onclick="toggleAdd(this, 'card1')">Added</button>
               <button class="btn-expand" onclick="toggleExpand('card1')">
                 <i data-lucide="chevron-down"></i>
               </button>
@@ -262,7 +263,8 @@
           <div class="challan-right">
             <span class="challan-amount">₹1,000</span>
             <div class="challan-actions">
-              <button class="btn-add added" onclick="toggleAdd(this, 'card2')">Added</button>
+              <button class="btn-details" onclick="openMobPopup('card2')">Details</button>
+              <button class="btn-add" onclick="toggleAdd(this, 'card2')">Added</button>
               <button class="btn-expand" onclick="toggleExpand('card2')">
                 <i data-lucide="chevron-down"></i>
               </button>
@@ -404,7 +406,8 @@
           <div class="challan-right">
             <span class="challan-amount">₹500</span>
             <div class="challan-actions">
-              <button class="btn-add added" onclick="toggleAdd(this, 'card3')">Added</button>
+              <button class="btn-details" onclick="openMobPopup('card3')">Details</button>
+              <button class="btn-add" onclick="toggleAdd(this, 'card3')">Added</button>
               <button class="btn-expand" onclick="toggleExpand('card3')">
                 <i data-lucide="chevron-down"></i>
               </button>
@@ -667,6 +670,202 @@
   </footer>
 
   <script src="script.js"></script>
-<script> lucide.createIcons();</script>
+<script> lucide.createIcons();
+
+  // Card data for popup
+const cardData = {
+  card1: {
+    challanNo: 'UP04231523804092235',
+    date: '11.02.2023 13:26:31',
+    place: 'Western Express Highway, Near Borivali, Mumbai',
+    stateCode: 'MH',
+    offence: 'Contravention of the speed limits (In the light motor vehicle)',
+    act: 'MV Act 1988 s 112',
+    fine: '₹ 1000.00',
+    procDate: '2023-07-22',
+    rtoDist: 'Mumbai, MH',
+    court: 'CJM MUMBAI, MAHARASHTRA',
+    total: '₹ 1000'
+  },
+  card2: {
+    challanNo: 'UP04231523804092236',
+    date: '28.09.2023 20:20:00',
+    place: 'Worli Seaface Intersection, Mumbai',
+    stateCode: 'MH',
+    offence: 'Violation of traffic signal (Red Light Jump)',
+    act: 'MV Act 1988 s 119',
+    fine: '₹ 1000.00',
+    procDate: '2023-09-28',
+    rtoDist: 'Mumbai, MH',
+    court: 'CJD GBN, GAUTAMBUDHNAGAR',
+    total: '₹ 1000'
+  },
+  card3: {
+    challanNo: 'UP04231523804092237',
+    date: '15.09.2023 09:10:00',
+    place: 'Link Road, Malad West, Mumbai',
+    stateCode: 'MH',
+    offence: 'Not wearing helmet while riding two-wheeler',
+    act: 'MV Act 1988 s 129',
+    fine: '₹ 500.00',
+    procDate: '2023-09-15',
+    rtoDist: 'Mumbai, MH',
+    court: 'CJM MUMBAI, MAHARASHTRA',
+    total: '₹ 500'
+  }
+};
+
+function openMobPopup(cardId) {
+  const d = cardData[cardId];
+  document.getElementById('mob-challan-no').textContent   = d.challanNo;
+  document.getElementById('mob-challan-date').textContent = d.date;
+  document.getElementById('mob-challan-place').textContent = d.place;
+  document.getElementById('mob-state-code').textContent   = d.stateCode;
+  document.getElementById('mob-offence-name').textContent = d.offence;
+  document.getElementById('mob-act').textContent          = d.act;
+  document.getElementById('mob-fine').textContent         = d.fine;
+  document.getElementById('mob-proc-date').textContent    = d.procDate;
+  document.getElementById('mob-rto-dist').textContent     = d.rtoDist;
+  document.getElementById('mob-court').textContent        = d.court;
+  document.getElementById('mob-total').textContent        = d.total;
+
+  // Reset to first tab
+  switchMobTab('challan');
+
+  document.getElementById('mobPopup').classList.add('show');
+  document.body.style.overflow = 'hidden';
+  lucide.createIcons();
+}
+
+function closeMobPopupDirect() {
+  document.getElementById('mobPopup').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+function closeMobPopup(e) {
+  if (e.target === document.getElementById('mobPopup')) {
+    closeMobPopupDirect();
+  }
+}
+
+function switchMobTab(tab) {
+  document.querySelectorAll('.mob-popup-tab').forEach((t, i) => {
+    t.classList.toggle('active', (i === 0 && tab === 'challan') || (i === 1 && tab === 'offence'));
+  });
+  document.getElementById('mob-panel-challan').classList.toggle('active', tab === 'challan');
+  document.getElementById('mob-panel-offence').classList.toggle('active', tab === 'offence');
+}
+</script>
+
+
+<!-- Popup -->
+ <!-- MOBILE DETAILS POPUP -->
+<div class="mob-popup-overlay" id="mobPopup" onclick="closeMobPopup(event)">
+  <div class="mob-popup-box" id="mobPopupBox">
+
+    <div class="mob-popup-header">
+      <div class="mob-popup-tabs">
+        <button class="mob-popup-tab active" onclick="switchMobTab('challan')">Challan Details</button>
+        <button class="mob-popup-tab" onclick="switchMobTab('offence')">Offence Details</button>
+      </div>
+      <button class="mob-popup-close" onclick="closeMobPopupDirect()">✕</button>
+    </div>
+
+    <div class="mob-popup-content">
+
+      <!-- Challan Details Panel -->
+      <div class="mob-panel active" id="mob-panel-challan">
+        <div class="mob-field">
+          <span class="mob-field-label">Challan No</span>
+          <span class="mob-field-value" id="mob-challan-no">UP04231523804092235</span>
+        </div>
+        <div class="mob-field">
+          <span class="mob-field-label">Status</span>
+          <span class="mob-status-badge">PENDING</span>
+        </div>
+        <div class="mob-field">
+          <span class="mob-field-label">Challan Date &amp; Time</span>
+          <span class="mob-field-value" id="mob-challan-date">11.02.2023 13:26:31</span>
+        </div>
+        <div class="mob-field">
+          <span class="mob-field-label">Challan Place</span>
+          <div class="mob-place">
+            <i data-lucide="map-pin"></i>
+            <span id="mob-challan-place">Noida Sec25, Sec25 OverBridge Towards Arta L2</span>
+          </div>
+        </div>
+        <div class="mob-field-row">
+          <div class="mob-field">
+            <span class="mob-field-label">Sent to Court</span>
+            <div class="mob-court-yes">
+              <i data-lucide="circle-check"></i>
+              Yes
+            </div>
+          </div>
+          <div class="mob-field">
+            <span class="mob-field-label">State Code</span>
+            <span class="mob-field-value" id="mob-state-code">UP</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Offence Details Panel -->
+      <div class="mob-panel" id="mob-panel-offence">
+        <div class="mob-field">
+          <span class="mob-field-label">Name of Offence</span>
+          <div class="mob-offence-box" id="mob-offence-name">
+            Contravention of the speed limits (In the light motor vehicle)
+          </div>
+        </div>
+        <div class="mob-field-row">
+          <div class="mob-field">
+            <span class="mob-field-label">Act</span>
+            <span class="mob-field-value" id="mob-act">MV Act 1988 s 112</span>
+          </div>
+          <div class="mob-field">
+            <span class="mob-field-label">Fine Amount</span>
+            <span class="mob-field-value" id="mob-fine">₹ 1000.00</span>
+          </div>
+        </div>
+        <div class="mob-field-row">
+          <div class="mob-field">
+            <span class="mob-field-label">Processing Date</span>
+            <span class="mob-field-value" id="mob-proc-date">2023-07-22</span>
+          </div>
+          <div class="mob-field">
+            <span class="mob-field-label">RTO District</span>
+            <span class="mob-field-value" id="mob-rto-dist">Noida, GBN</span>
+          </div>
+        </div>
+        <div class="mob-field">
+          <span class="mob-field-label">Court Details</span>
+          <span class="mob-field-value" id="mob-court">CJM GBN, GAUTAMBUDHNAGAR</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="mob-popup-footer">
+      <div>
+        <div class="mob-footer-total-label">Total Fine Imposed</div>
+        <div class="mob-footer-total-amount" id="mob-total">₹ 2000</div>
+      </div>
+      <div class="mob-footer-actions">
+        <button class="mob-btn-receipt">
+          <i data-lucide="download"></i>
+          Receipt
+        </button>
+        <button class="mob-btn-pay-now">
+          <i data-lucide="credit-card"></i>
+          Pay Now
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!--popup close-->
 </body>
 </html>
