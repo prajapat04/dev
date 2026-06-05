@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SARATHI DL Extract</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#dcdcdc;
+  font-family:Arial, Helvetica, sans-serif;
+  padding:20px;
+}
+
+#dl-pdf{
+    position:relative;
+    width:794px;
+    min-height:1123px;
+    margin:20px auto;
+    background:#fff;
+    padding:40px;
+    overflow:hidden;
+    box-sizing:border-box;
+}
+
+.watermark{
+    position:absolute;
+    top:500px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:72px;
+    color:rgba(0,0,0,.12);
+    font-weight:bold;
+    z-index:0;
+}
+
+.watermark2{
+    position:absolute;
+    top:800px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:52px;
+    color:rgba(0,0,0,.12);
+    font-weight:bold;
+    z-index:0;
+}
+
+.header{
+  text-align:center;
+  line-height:1.15;
+  position:relative;
+  z-index:1;
+}
+
+.header h2{
+  font-size:18px;
+  margin-top:4px;
+}
+
+.header p{
+  font-size:13px;
+  font-weight:700;
+}
+
+.status-bar{
+  margin-top:8px;
+  border:1px solid #000;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  font-size:13px;
+}
+
+.status-bar div{
+  padding:4px 6px;
+}
+
+.section-title{
+  font-weight:bold;
+  font-size:14px;
+  margin-top:8px;
+  border-bottom:1px solid #000;
+}
+
+.personal-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:6px;
+  position:relative;
+  z-index:1;
+}
+
+.details p{
+  margin:3px 0;
+  font-size:13px;
+}
+
+.photo{
+  border:1px solid #000;
+  position:absolute;
+  top: 350px;
+  right:90px;
+  width:110px;
+  height:130px;
+  overflow:hidden;
+}
+
+.photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.address-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:15px;
+  margin-top:8px;
+}
+
+.address-grid h4{
+  margin-bottom:4px;
+}
+
+.address-grid p{
+  font-size:12px;
+  line-height:1.5;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:5px;
+}
+
+table th,
+table td{
+  border:1px solid #000;
+  padding:3px;
+  font-size:10px;
+}
+
+.footer-row{
+  margin-top:25px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+}
+
+.qr{
+  width:80px;
+  height:80px;
+  border:1px solid #000;
+}
+
+.signature{
+  text-align:center;
+}
+
+.signature img{
+  width:130px;
+  height:60px;
+  object-fit:contain;
+}
+
+.end-report{
+  text-align:center;
+  margin-top:25px;
+  font-weight:bold;
+}
+
+.download-wrap{
+  text-align:center;
+  margin-top:20px;
+}
+
+button{
+  padding:12px 25px;
+  cursor:pointer;
+  border:none;
+  background:#0057ff;
+  color:#fff;
+  border-radius:6px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="dl-pdf">
+
+<div class="watermark">SARATHI</div>
+<div class="watermark2">SARATHI</div>
+
+<div class="header">
+  <p>MOTOR VEHICLES DEPARTMENT, GOVERNMENT OF</p>
+  <p>MAHARASHTRA</p>
+  <p>REGIONAL TRANSPORT OFFICE</p>
+  <p>RTO,MUMBAI CENTRAL</p>
+  <h2>EXTRACT OF DRIVING LICENCE</h2>
+</div>
+
+<div class="status-bar">
+  <div><b>Lience Holder Personal Details</b></div>
+  <div style="margin: auto;"><b>DL Status :</b> <span id="status"></span></div>
+  <div style="margin-left: 40px;"><b>Printed :</b> <span id="printedDateTime"></span></div>
+</div>
+
+<div class="section-title">Licence Holder Personal Details</div>
+
+<div class="personal-grid">
+
+  <div class="details">
+    <p><b>Application No :</b> <span id="applicationNo"></span></p>
+    <p><b>DL Number :</b> <span id="dlNumber"></span></p>
+    <p><b>DL Issued By :</b> <span id="issuedBy"></span></p>
+    <p><b>DL Issued On :</b> <span id="issuedOn"></span></p>
+    <p><b>Name :</b> <span id="name"></span></p>
+    <p><b>Father Name :</b> <span id="fatherName"></span></p>
+    <p><b>Gender :</b> <span id="gender"></span></p>
+    <p><b>Date Last Endorsed :</b> <span id="lastEndorsed"></span></p>
+    <p><b>Id Marks :</b> <span id="idMarks"></span></p>
+  </div>
+
+  <div class="details">
+    <p><b>Application Date :</b> <span id="applicationDate"></span></p>
+    <p><b>Prev. DL Number :</b> <span id="prevDlNumber"></span></p>
+    <p><b>Date Of Birth :</b> <span id="dob"></span></p>
+    <p><b>Age :</b> <span id="age"></span></p>
+    <p><b>Mobile :</b> <span id="mobile"></span></p>
+    <p><b>Blood Group :</b> <span id="bloodGroup"></span></p>
+    <p><b>Aadhaar :</b> <span id="aadhaar"></span></p>
+    <p><b>Organ doner :</b> <span id="organDonor"></span></p>
+    <p><b>Nationality :</b> <span id="nationality"></span></p>
+  </div>
+
+
+
+</div>
+
+<div class="address-grid">
+
+  <div>
+    <h4>Present Address</h4>
+    <p id="presentAddress"></p>
+  </div>
+
+  <div>
+    <h4>Permanent Address</h4>
+    <p id="permanentAddress"></p>
+  </div>
+
+   <div class="photo">
+    <img id="photo" src="https://via.placeholder.com/110x130">
+  </div>
+
+</div>
+
+ 
+<div class="address-grid">
+
+  <div>
+    <h4>Validity Details</h4>
+   <div class="details">
+    <p>Non-Transport <span id="nonTransport"></span></p>
+    <p>Transport : <span id="transport"></span></p>
+    <p>Hazardous : <span id="hazardous"></span></p>
+    <p><b>Fee Details :</b> <span id="feeDetails"></span></p>
+  </div>
+</div>
+
+<div style="    margin: auto;">
+  <h4></h4>
+  <p>Hill: -- <span></span></p>
+  </div>
+
+</div>
+
+<!-- <div class="section-title">Validity Details</div>
+
+<table>
+<tr>
+<td><b>Non Transport</b></td>
+<td id="nonTransport"></td>
+</tr>
+
+<tr>
+<td><b>Transport</b></td>
+<td id="transport"></td>
+</tr>
+
+<tr>
+<td><b>Hazardous</b></td>
+<td>--</td>
+</tr>
+</table> -->
+
+<div class="section-title">COV Detail</div>
+
+<table>
+<tr>
+<th>SL NO</th>
+<th>COV</th>
+<th>DATE OF ISSUE</th>
+<th>ISSUED BY</th>
+<th>CATEGORY</th>
+<th>BADGE NUMBER</th>
+<th>BADGE ISSUE DATE</th>
+<th>BADGE ISSUED</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td>LMV</td>
+<td>07-07-2014</td>
+<td>MH04</td>
+<td>NT</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+
+<div class="section-title">DL Transaction History</div>
+
+<table>
+<tr>
+<th>SL NO</th>
+<th>TRANSACTION</th>
+<th>AUTHORITY</th>
+<th>DATE</th>
+<th>VALIDITY</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td>ISSUE OF DRIVING LICENCE</td>
+<td>RTO THANE</td>
+<td>16-08-2014</td>
+<td>10-03-2029</td>
+</tr>
+</table>
+
+
+<div class="section-title">Validity Gap Period(if any)</div>
+<p>The Licence was valid throughout the period except as following(s)</p>
+
+<table>
+<tr>
+<th>SL NO</th>
+<th>CATEGORY</th>
+<th>FROM DATE</th>
+<th>TO DATE</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+
+
+<div class="section-title">DL Suspension / Cancellation / Blocking Detail</div>
+
+<table>
+<tr>
+<th>SL NO</th>
+<th>ORDER NO</th>
+<th>ORDER DATE</th>
+<th>TYPE</th>
+<th>FROM DATE</th>
+<th>TO DATE</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</table>
+
+<div class="section-title">REMARKS</div>
+<hr>
+
+<div class="footer-row">
+
+  <div>
+    <img class="qr"
+    src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=DL">
+  </div>
+
+  <div class="signature">
+    <img id="sign"
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Signature_of_Mahatma_Gandhi.svg/320px-Signature_of_Mahatma_Gandhi.svg.png">
+    <p><b>Signature of Licensing Authority</b></p>
+    <img id="sign"
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Signature_of_Mahatma_Gandhi.svg/320px-Signature_of_Mahatma_Gandhi.svg.png">
+ 
+  </div>
+
+</div>
+
+<div class="end-report">
+*** END OF REPORT ***
+</div>
+
+</div>
+
+<div class="download-wrap">
+  <button id="downloadBtn">Download PDF</button>
+</div>
+
+<script>
+
+const dlData = {
+
+status:"Active",
+printedDateTime:"16/04/2026 10:30 AM",
+
+applicationNo:"1364238726",
+applicationDate:"27-Mar-2026",
+
+dlNumber:"MH04 20140031253",
+prevDlNumber:"--",
+
+issuedBy:"RTO THANE (MH04)",
+issuedOn:"07-Jul-2014",
+
+name:"SUDEEP ACHARYA",
+fatherName:"SAMIR KUMAR ACHARYA",
+
+gender:"Male",
+dob:"11-03-1979",
+age:"47 Years",
+
+mobile:"",
+bloodGroup:"Unknown",
+aadhaar:"NO",
+nationality:"IND",
+
+lastEndorsed:"16-Aug-2014",
+
+presentAddress:"802/342 KALPATARU SRISHTI COMPLEX, PHASE-V TYPE A-4 SRISHTI LAYOUT",
+
+permanentAddress:"802/342 KALPATARU SRISHTI COMPLEX, PHASE-V TYPE A-4 SRISHTI LAYOUT",
+
+feeDetails:"Not Applicable",
+
+nonTransport:"07-07-2014 to 10-03-2029.",
+
+transport:"--",
+
+Hazardous:"--",
+
+nonTransport:"07-07-2014 to 10-03-2029",
+transport:"--",
+
+};
+
+Object.keys(dlData).forEach(key=>{
+ const el=document.getElementById(key);
+ if(el) el.innerText=dlData[key];
+});
+
+document.getElementById("downloadBtn").addEventListener("click", () => {
+
+    const element = document.getElementById("dl-pdf");
+
+    html2pdf()
+    .set({
+        margin:0,
+        filename:"Driving-Licence.pdf",
+
+        image:{
+            type:"jpeg",
+            quality:1
+        },
+
+        html2canvas:{
+            scale:2,
+            useCORS:true,
+            scrollX:0,
+            scrollY:0
+        },
+
+        jsPDF:{
+            unit:"px",
+            format:[794,1123],
+            orientation:"portrait"
+        }
+    })
+    .from(element)
+    .save();
+
+});
+
+</script>
+
+</body>
+</html>
