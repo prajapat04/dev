@@ -37,7 +37,7 @@
   /* ── TOP BAR ── */
   .top-bar {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     margin-bottom: 16px;
   }
 
@@ -340,7 +340,21 @@
      your API response object.
      All fields are dynamically rendered.
 ════════════════════════════════════ -->
-<script>
+<!-- <script>
+  const params = new URLSearchParams(window.location.search);
+
+document.getElementById("challanNo").innerText =
+params.get("challanNo");
+
+document.getElementById("challanDate").innerText =
+params.get("date");
+
+document.getElementById("offence").innerText =
+params.get("offence");
+
+document.getElementById("fine").innerText =
+params.get("fine");
+
 const challanData = {
   challanNo:      "HR4342240716000353",
   challanDate:    "16-07-2024 00:03:53",
@@ -390,7 +404,7 @@ const challanData = {
 
   violatorSig:    "F*****N K****I / K*******T S****H"
 };
-</script>
+</script> -->
 
 <!-- Download Button -->
 <div class="top-bar">
@@ -580,70 +594,156 @@ const challanData = {
 </div><!-- /challanCard -->
 
 <script>
-// ══════════════════════════════════════
-// DATA BINDING — populate all fields from challanData
-// API INTEGRATION: Replace challanData above with your
-// API response. This function will auto-populate everything.
-// ══════════════════════════════════════
-function populateChallan(data) {
-  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val || ''; };
 
-  set('officeName',      data.officeName);
-  set('challanDate',     data.challanDate);
-  set('challanNo',       data.challanNo);
-  set('vehicleClass',    data.vehicleClass);
-  set('vehicleNo',       data.vehicleNo);
-  set('chassisNo',       data.chassisNo);
-  set('engineNo',        data.engineNo);
-  set('bookNo',          data.bookNo);
-  set('formNo',          data.formNo);
-  set('lgdCode',         data.lgdCode);
-  set('ownerName',       data.ownerName);
-  set('ownerContact',    data.ownerContact);
-  set('ownerAddress',    data.ownerAddress);
-  set('driverName',      data.driverName);
-  set('fatherName',      data.fatherName);
-  set('age',             data.age);
-  set('dlNo',            data.dlNo);
-  set('dlValidity',      data.dlValidity);
-  set('placeOfIncident', data.placeOfIncident);
-  set('impoundedDoc',    data.impoundedDoc);
-  set('totalPenalty',    data.totalPenalty);
-  set('penaltyWords',    data.penaltyWords);
-  set('remarks',         data.remarks);
-  set('violatorSig',     data.violatorSig);
-  set('officerName',     data.officerName);
-  set('officerEmail',    data.officerEmail);
-  set('officerRank',     data.officerRank);
+//Jab API ya Challan Page se complete data aane lage tab, tab is dummy data ko hata ke neeche diye gaye code ko uncomment kar dena
 
-  // Payment link
+// const challanData = JSON.parse(
+//   localStorage.getItem("receiptData") || "{}"
+// );
+
+// populateChallan(challanData);
+
+
+
+
+
+// Get data from localStorage
+window.addEventListener("DOMContentLoaded", () => {
+
+  populateChallan(mappedData);
+
+});
+
+const mappedData = {
+  challanNo:      "HR4342240716000353",
+  challanDate:    "16-07-2024 00:03:53",
+  officeName:     "Gurgaon",
+
+  vehicleClass:   "M-Cycle/Scooter (2WN)",
+  vehicleNo:      "MH02EG7515",
+  chassisNo:      "MD2A55FZ0GCA*****",
+  engineNo:       "JLZCGA*****",
+  bookNo:         ".........",
+  formNo:         ".........",
+  lgdCode:        "62",
+
+  ownerName:      "F*****N K****I",
+  ownerContact:   "*******388",
+  ownerAddress:   "A****, R*****N T****, S**. R****, S*****R S*****, J*********, W**T M******, -*****2",
+
+  driverName:     "K*******T S****H",
+  fatherName:     "P******T S***H",
+  age:            ".........",
+  dlNo:           "************350",
+  dlValidity:     ".........",
+
+  placeOfIncident:"Raghvendra Marg, Golf Link Apartments, Sector 54, Gurugram, Haryana. Pin-122011 (India)",
+
+  impoundedDoc:   "Driving Licence - Digitally Impounded",
+
+  offences: [
+    {
+      srNo:       "1.",
+      offence:    "70. Number Plate pattern/Without High Security Registration Number Plate",
+      mvAct:      "NA",
+      fee:        "500",
+      type:       "Normal Penalty"
+    }
+  ],
+
+  totalPenalty:   "500",
+  penaltyWords:   "Five Hundred Rupees only",
+  remarks:        "........",
+
+  paymentUrl:     "https://echallan.parivahan.gov.in/index/accused-challan",
+
+  officerName:    "INSP SATENDER SHO SEC 53",
+  officerEmail:   "ggm@shosec53.in",
+  officerRank:    "Insp.",
+
+  violatorSig:    "F*****N K****I / K*******T S****H"
+};
+
+// Populate fields
+function populateChallan(mappedData) {
+
+  const set = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val || '';
+  };
+
+  set('officeName', mappedData.officeName);
+  set('challanDate', mappedData.challanDate);
+  set('challanNo', mappedData.challanNo);
+  set('vehicleClass', mappedData.vehicleClass);
+  set('vehicleNo', mappedData.vehicleNo);
+  set('chassisNo', mappedData.chassisNo);
+  set('engineNo', mappedData.engineNo);
+  set('bookNo', mappedData.bookNo);
+  set('formNo', mappedData.formNo);
+  set('lgdCode', mappedData.lgdCode);
+  set('ownerName', mappedData.ownerName);
+  set('ownerContact', mappedData.ownerContact);
+  set('ownerAddress', mappedData.ownerAddress);
+  set('driverName', mappedData.driverName);
+  set('fatherName', mappedData.fatherName);
+  set('age', mappedData.age);
+  set('dlNo', mappedData.dlNo);
+  set('dlValidity', mappedData.dlValidity);
+  set('placeOfIncident', mappedData.placeOfIncident);
+  set('impoundedDoc', mappedData.impoundedDoc);
+  set('totalPenalty', mappedData.totalPenalty);
+  set('penaltyWords', mappedData.penaltyWords);
+  set('remarks', mappedData.remarks);
+  set('violatorSig', mappedData.violatorSig);
+  set('officerName', mappedData.officerName);
+  set('officerEmail', mappedData.officerEmail);
+  set('officerRank', mappedData.officerRank);
+
+  // Payment Link
   const pl = document.getElementById('paymentLink');
-  if (pl) { pl.href = data.paymentUrl; pl.textContent = data.paymentUrl; }
+  if (pl && mappedData.paymentUrl) {
+    pl.href = mappedData.paymentUrl;
+    pl.textContent = mappedData.paymentUrl;
+  }
 
-  // Offences table
+  // Offences Table
   const tbody = document.getElementById('offencesBody');
-  if (tbody && data.offences) {
-    tbody.innerHTML = data.offences.map(o => `
+
+  if (tbody && mappedData.offences?.length) {
+
+    tbody.innerHTML = mappedData.offences.map(o => `
       <tr>
-        <td style="text-align:center">${o.srNo}</td>
-        <td>${o.offence}</td>
-        <td style="text-align:center">${o.mvAct}</td>
-        <td style="text-align:center"><span class="penalty-amount">₹${o.fee}</span></td>
-        <td style="text-align:center"><span class="badge-normal">${o.type}</span></td>
-      </tr>`).join('');
+        <td style="text-align:center">${o.srNo || ''}</td>
+        <td>${o.offence || ''}</td>
+        <td style="text-align:center">${o.mvAct || ''}</td>
+        <td style="text-align:center">
+          <span class="penalty-amount">₹${o.fee || ''}</span>
+        </td>
+        <td style="text-align:center">
+          <span class="badge-normal">${o.type || ''}</span>
+        </td>
+      </tr>
+    `).join('');
   }
 }
 
-// Run on load
-populateChallan(challanData);
+// Load data
+window.addEventListener("DOMContentLoaded", () => {
 
-// ══════════════════════════════════════
-// PDF DOWNLOAD
-// ══════════════════════════════════════
-async function downloadPDF() {
+  if (Object.keys(challanData).length) {
+    populateChallan(challanData);
+  } else {
+    console.error("receiptData not found in localStorage");
+  }
 
+});
+
+// PDF Download Button
+function downloadPDF() {
   window.print();
 }
+
 </script>
 </body>
 </html>
