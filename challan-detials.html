@@ -230,7 +230,7 @@
       <span class="cdc-total-amount">₹ 2000</span>
     </div>
     <div class="cdc-footer-actions">
-      <button class="cdc-btn-receipt">
+      <button class="cdc-btn-receipt" onclick="openReceipt('card1')">
         <i data-lucide="download"></i>
         Receipt
       </button>
@@ -373,7 +373,7 @@
       <span class="cdc-total-amount">₹ 2000</span>
     </div>
     <div class="cdc-footer-actions">
-      <button class="cdc-btn-receipt">
+      <button class="cdc-btn-receipt" onclick="openReceipt('card2')">
         <i data-lucide="download"></i>
         Receipt
       </button>
@@ -516,7 +516,7 @@
       <span class="cdc-total-amount">₹ 2000</span>
     </div>
     <div class="cdc-footer-actions">
-      <button class="cdc-btn-receipt">
+      <button class="cdc-btn-receipt"  onclick="openReceipt('card3')">
         <i data-lucide="download"></i>
         Receipt
       </button>
@@ -852,11 +852,11 @@ function switchMobTab(tab) {
         <div class="mob-footer-total-amount" id="mob-total">₹ 2000</div>
       </div>
       <div class="mob-footer-actions">
-        <button class="mob-btn-receipt">
+        <button class="mob-btn-receipt" onclick="openReceipt(currentCardId)">
           <i data-lucide="download"></i>
           Receipt
         </button>
-        <button class="mob-btn-pay-now">
+        <button class="mob-btn-pay-now" >
           <i data-lucide="credit-card"></i>
           Pay Now
         </button>
@@ -867,5 +867,46 @@ function switchMobTab(tab) {
 </div>
 
 <!--popup close-->
+
+<script>
+ function openReceipt(cardId) {
+
+    const data = cardData[cardId];
+
+    localStorage.setItem(
+  "receiptData",
+  JSON.stringify(cardData[cardId])
+);
+
+window.open("receipt.html", "_blank");
+  
+}
+
+let currentCardId = null; // ← global variable add karo
+
+function openMobPopup(cardId) {
+  currentCardId = cardId; // ← yeh line add karo
+  
+  const d = cardData[cardId];
+  document.getElementById('mob-challan-no').textContent    = d.challanNo;
+  document.getElementById('mob-challan-date').textContent  = d.date;
+  document.getElementById('mob-challan-place').textContent = d.place;
+  document.getElementById('mob-state-code').textContent    = d.stateCode;
+  document.getElementById('mob-offence-name').textContent  = d.offence;
+  document.getElementById('mob-act').textContent           = d.act;
+  document.getElementById('mob-fine').textContent          = d.fine;
+  document.getElementById('mob-proc-date').textContent     = d.procDate;
+  document.getElementById('mob-rto-dist').textContent      = d.rtoDist;
+  document.getElementById('mob-court').textContent         = d.court;
+  document.getElementById('mob-total').textContent         = d.total;
+
+  switchMobTab('challan');
+  document.getElementById('mobPopup').classList.add('show');
+  document.body.style.overflow = 'hidden';
+  lucide.createIcons();
+}
+
+
+</script>
 </body>
 </html>
