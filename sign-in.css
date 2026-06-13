@@ -1,0 +1,575 @@
+.signupContainer ,.loginContainer{
+    background: url(../Images/bgmp.jpg);
+    width: 100%;
+    height: 900px;
+    display: none;
+}
+.signupContainer.active ,.loginContainer.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.createaccountContanier p {
+    font-size: 16px;
+    line-height: 20px;
+    color: #464646;
+    margin-bottom: 10px;
+
+}
+.createaccountContanier , .verifyMobileNumberCotainer {
+    background-color: #fff;
+    padding: 32px;
+    box-shadow: 0px 6px 24px rgba(70, 70, 70, 0.25);
+border-radius: 20px;
+width: 500px;
+display: none;
+}
+.createaccountContanier.active{
+    display: block;
+}
+.verifyMobileNumberCotainer.active{
+    display: block;
+}
+.createaccount {
+    font-weight: 700 !important;
+font-size: 36px !important;
+line-height: 44px !important;
+color: #FA3737 !important;
+}
+
+.mainHeading {
+    font-weight: 700 !important;
+    font-size: 36px !important;
+    line-height: 44px !important;
+    color: #FA3737 !important;
+}
+
+
+.createaccountContanier input ,.enterotpin input{
+    background: #F3F3F3;
+border-radius: 10px;
+border: none;
+width: 100%;
+padding: 14px 24px;
+margin-bottom: 20px;
+}
+.createaccountContanier .ccodenum input{
+   border-radius: 0 10px 10px 0;
+}
+.createaccountContanier input:focus
+{
+    outline: none;
+}
+.ccodenum {
+    display: flex;
+    align-items: center;
+/*  justify-content: space-between;*/
+}
+.ccodenum p {
+    padding: 14px ;
+    font-size: 14px;
+    background: #F3F3F3;
+border-radius: 10px 0 0 10px;
+margin-bottom: 20px;
+
+
+}
+.ccodenum input{
+    width: 10   0%;
+    padding: 14px 14px 14px 14px;
+}
+/* Chrome, Safari, Edge, Opera */
+.ccodenum input::-webkit-outer-spin-button,
+.ccodenum input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.ccodenum input[type=number] {
+  -moz-appearance: textfield;
+}
+.createuserbtn , .createuserbtn1 ,.createitz{
+    width: 100%;
+    padding: 14px;
+    color: #fff;
+    background-color: #FA3737;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.logintoaccount {
+    margin-top: 30px;
+    text-align: center;
+}
+.logintoacc {
+    text-align: center;
+}
+
+.logintoaccount a {
+   color: #FA3737 !important;
+   cursor: pointer;
+}
+.changenum {
+    color: #FA3737;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.enterresotp {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.resendotp {
+    color: #FA3737 !important;
+    cursor: pointer;
+}
+
+.invalidotpcotainer {
+    background: #FFFFFF;
+
+border: 2px solid #DE0F0F;
+
+box-shadow: 0px 6px 24px rgba(70, 70, 70, 0.25);
+border-radius: 20px;
+
+margin-bottom: 20px;
+gap: 20px;
+padding: 16px 38px;
+display: none;
+}
+.invalidotpcotainer.active {
+    display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.invalidotpcotainer span {
+    background-color: #DE0F0F;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+.invalidotpcotainer p ,.numberexisted p{
+    margin-bottom: 0px;
+}
+
+.numberexisted {
+    background: #FFFFFF;
+    border: 2px solid #DEBD0F;
+    box-shadow: 0px 6px 24px rgba(70, 70, 70, 0.25);
+    border-radius: 20px;
+    margin-bottom: 20px;
+gap: 20px;
+padding: 16px 38px;
+display: none;
+width: 500px;
+}
+.numberexisted span {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    color: #fff;
+    background-color:#DEBD0F ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.numberexisted.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.resendedotp {
+    background: #FFFFFF;
+border: 2px solid #20DE0F;
+box-shadow: 0px 6px 24px rgba(70, 70, 70, 0.25);
+border-radius: 20px;
+display: none;
+gap: 10px;
+padding: 14px 28px;
+}
+
+.resendedotp.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.resendedotp  p {
+    font-size: 16px;
+    line-height: 150%;
+    /* identical to box height, or 24px */
+    
+    letter-spacing: 0.005em;
+    
+    color: #14840A;
+    margin-bottom: 0px;
+}
+
+.tick {
+    width: 25px;
+    height: 25px;
+    background-color: #20DE0F;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* SIGN IN CONTAINER  */
+
+.login , .loginwithEmial ,.loginwithOTP ,.forgetPassword ,.verificationRequired , .createPassword{
+    background-color: #fff;
+    padding: 24px 32px;
+    border-radius: 20px;
+    display: none;
+    width: 500px;
+}
+.login.active , .loginwithEmial.active ,.loginwithOTP.active ,.forgetPassword.active ,.verificationRequired.active ,.createPassword.active{
+    display: block;
+}
+
+ .inp {
+    width: 100%;
+padding: 16px;
+border: none;
+background-color:#F3F3F3;
+border-radius: 10px;
+margin-bottom: 10px;
+}
+
+ .inp:focus {
+    outline: none;
+}
+
+
+.MainBtn {
+    width: 100%;
+    text-align: center;
+    background-color: #FA3737;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.crtacc {
+    color: #FA3737;
+    cursor: pointer;
+}
+
+.passfpass {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.getotponph  , .loginwithPhone{
+    background: #FFFFFF;
+border: 1px solid #FA3737;
+box-shadow: 0px 6px 24px rgba(70, 70, 70, 0.15);
+border-radius: 10px;
+color: #FA3737;
+text-align: center;
+font-weight: 600;
+padding: 14px;
+cursor: pointer;
+}
+
+.loginwithmailerror , .invalidotp , .passwordnotmatch { 
+    gap: 20px;
+    background: #FFFFFF;
+    border: 2px solid #DE0F0F;
+    box-shadow: 0px 6px 24px rgba(70, 70, 70, 0.25);
+    border-radius: 20px;
+    padding: 16px;
+    margin-bottom: 20px;
+    /* width: 100%; */
+    display: none;
+}
+
+.loginwithmailerror.active  ,.invalidotp.active , .passwordnotmatch.active{
+    display: flex;
+    align-items: center;
+}
+
+.Wrongc {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color:#840A0A ;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.changeotpNUmber  {
+    margin-left: 10px;
+}
+.resendSuce {
+    gap: 16px;
+    padding: 16px;
+    /* width: 100%; */
+    background-color: #fff;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    display: none;
+    border: 2px solid #20DE0F;
+}
+.resendSuce.active {
+    display: flex;
+    align-items: center;
+
+}
+.correctch {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #20DE0F;
+}
+.resendsuctext {
+    color: #14840A;
+}
+@media only screen and (max-width: 420px) {
+    .signupContainer, .loginContainer {
+        background: #fff;
+        height: auto;
+    }
+    .signupContainer.active ,.loginContainer.active {
+        display: flex;
+    }
+    .login , .loginwithEmial ,.loginwithOTP ,.forgetPassword ,.verificationRequired ,.createPassword {
+        
+        width: 100%;
+        margin: auto;
+    }
+    .loginwithmailerror, .invalidotp , .resendSuce ,.passwordnotmatch {
+        width: 90%;
+        margin: 30px auto 20px auto;
+    }
+    .createaccountContanier , .verifyMobileNumberCotainer {
+        width: 95%;
+        margin:  40px auto;
+    }
+    .ccodenum p {
+        font-size: 10px;
+        width: 25%;
+/*        margin-right: 10px;*/
+    }
+    .createaccountContanier input, .enterotpin input{
+        font-size: 13px;
+    }
+    .createaccount {
+        font-size: 28px !important;
+        line-height: 34px !important;
+    }
+    .createaccountContanier p {
+        font-size: 14px;
+        margin-left: 4px;
+    }
+  }
+
+/* new added css */
+
+.login, .loginwithEmial, .loginwithOTP, .forgetPassword, .verificationRequired, .createPassword {
+/*    margin-top: -248px;*/
+}
+
+ .loginContainer.active {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding-top: 138px;
+}
+
+ .loginContainer {
+    background: url(../Images/bgmp.jpg);
+    width: 100%;
+    /* height: 900px; */
+    display: none;
+    height: 90vh;
+}
+
+/* dashboard */ 
+
+#main-container .side-box {
+    width: 350px !important;
+}
+.container.mobile-container {
+    padding-left: 40px !important;
+}
+.container.mobile-container {
+    padding-left: 40px !important;
+}
+.myo_heading_head {
+    margin-left: 2px !important;
+}
+.pay_order_box {
+    width: 102.5% !important;
+}
+.edit_right {
+    margin-top: -26px !important;
+}
+.row.profile-info-card {
+    width: 100% !important;
+}
+.main-box-payment {
+    padding-left: 40px !important;
+}
+.container.mobile-container {
+    padding-left: 40px !important;
+}
+
+.help_support .l_bxt {
+    width: 995px !important;
+}
+.head_pay_sub {
+    width: 101.5% !important;
+}
+.phone_wrapper header {
+    width: 100% !important;
+}
+@media (min-width: 418px) and (max-width: 500px){ 
+    .login, .loginwithEmial, .loginwithOTP, .forgetPassword, .verificationRequired, .createPassword {
+        width: 380px;
+        margin: auto;
+        margin-top: 0px;
+    }
+    .signupContainer.active, .loginContainer.active {
+        justify-content: unset !important;
+    }
+
+    .createaccountContanier, .verifyMobileNumberCotainer {
+        width:390px;
+        margin-top: 40px;
+    }
+}
+
+/* ── PHONE INPUT ── */
+.phone-input-wrap {
+  display: flex;
+  align-items: center;
+  background: #F3F3F3;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  overflow: visible;
+  position: relative;
+}
+
+.country-select-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 10px 14px 14px;
+  cursor: pointer;
+  border-right: 1px solid #ddd;
+  position: relative;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.country-flag {
+  width: 24px;
+  height: 16px;
+  border-radius: 2px;
+  object-fit: cover;
+}
+
+.country-dial {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  white-space: nowrap;
+}
+
+.country-chevron {
+  font-size: 10px;
+  color: #888;
+}
+
+/* Dropdown */
+.country-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  width: 280px;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.country-dropdown.open { display: block; }
+
+.country-search {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #eee;
+  padding: 12px 14px;
+  font-size: 14px;
+  outline: none;
+  background: #f9f9f9;
+}
+
+.country-list {
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.country-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #333;
+  transition: background 0.15s;
+}
+
+.country-item:hover { background: #f5f5f5; }
+.country-item.active { background: #fff0f0; color: #FA3737; font-weight: 600; }
+
+.country-item img {
+  width: 24px;
+  height: 16px;
+  border-radius: 2px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.country-item-name { flex: 1; }
+.country-item-dial { color: #888; font-size: 12px; }
+
+/* Phone input itself */
+.phone-inp {
+  flex: 1;
+  border: none !important;
+  background: transparent !important;
+  border-radius: 0 10px 10px 0 !important;
+  margin-bottom: 0 !important;
+  padding: 14px 14px !important;
+}
+
+

@@ -1,0 +1,973 @@
+
+<!DOCTYPE html>
+<html class="no-js" lang="">
+  <head>    
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Login/signup</title>
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://itzeazy.in/fav/favicon-32x32.png">
+  <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src https://*; child-src 'none'; frame-src ‘self’; img-src https:" /> -->
+  <link rel="stylesheet" href="https://itzeazy.in/assets/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://itzeazy.in/assets/css/orderService.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" async></script>
+  <script src="https://itzeazy.in/assets/sweet-alert/dist/sweetalert.min.js" defer></script>
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;400;500;700;800&family=Open+Sans:wght@500;800&display=swap" rel="stylesheet" /> -->
+  <link href="https://itzeazy.in/assets/css/open-sans.css?family=Open+Sans:wght@500;800&display=swap" rel="stylesheet" />
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KNXKESYDMT" async></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KNXKESYDMT');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-78354027-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2893438740888213');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "name": "Last Updated",
+        "dateModified": "2026-06-06T11:19:34+05:30"
+    }
+</script>
+
+
+ 
+ <link rel="stylesheet" href="profile/assets/css/sign-log.css" />
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ <script src="assets/js/login.js"></script>
+ <link rel="stylesheet" href="/sign-in.css"> 
+  </head>
+  <body>
+     <section id="menubar">
+      <div class="container">
+        <div class="row totalnav">
+          <a href="https://itzeazy.in/">
+            <div class="col-md-2">
+              <div class="logo">
+                <img src="https://itzeazy.in/assets/img/itz-logosmall.jpg" alt="Itzeazy logo" />
+              </div>
+            </div>
+          </a>
+          <div class="col-md-8 mobile_right allLinkNav">
+            <nav class="navbar navbar-expand-lg navbar-light cus_menu">
+              <button class="navbar-toggler" type="button" data-toggle="modal" data-target="#exampleModal">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="modal fade right" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="">
+                      <button type="button" class="close pt-5" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body cuss_svgs">
+                      <div class="">
+                        <div class="col-md-2 mobile_menu">
+                          <div class="link_btn mt-3">
+                            <ul class="list-unstyled">
+                                                            <li>
+                                <a href="https://itzeazy.in/sign-in" class="login_btn">Login</a>
+                              </li>
+                              <li>
+                                <a href="https://itzeazy.in/sign-in" class="btn-linkk">Sign Up</a>
+                              </li>
+                                                        </ul>
+                            <hr class="hrr" />
+                          </div>
+                        </div>
+                        <ul class="navbar-nav mr-auto med-des-m0">
+                          <li class="nav-item active">
+                            <a class="nav-link" href="https://itzeazy.in/">Home <span class="sr-only">(current)</span>
+                              <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6.81283 5L1.81283 10L0.916992 9.10417L5.04199 5L0.937825 0.895834L1.83366 -4.00688e-08L6.81283 5Z" fill="black" />
+                              </svg>
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="https://itzeazy.in/about-us">About us <span class="sr-only">(current)</span>
+                              <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6.81283 5L1.81283 10L0.916992 9.10417L5.04199 5L0.937825 0.895834L1.83366 -4.00688e-08L6.81283 5Z" fill="black" />
+                              </svg>
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="https://itzeazy.in/blog">Blog <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6.81283 5L1.81283 10L0.916992 9.10417L5.04199 5L0.937825 0.895834L1.83366 -4.00688e-08L6.81283 5Z" fill="black" />
+                              </svg>
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="https://itzeazy.in/pricing">Pricing <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6.81283 5L1.81283 10L0.916992 9.10417L5.04199 5L0.937825 0.895834L1.83366 -4.00688e-08L6.81283 5Z" fill="black" />
+                              </svg>
+                            </a>
+                          </li>
+                          <li class="nav-item dropdown">
+                            <a class="nav-link" href="https://itzeazy.in/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> How to <svg width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 6.81252L0 1.81252L0.895833 0.916687L5 5.04169L9.10417 0.93752L10 1.83335L5 6.81252Z" fill="#0D0D0D" />
+                              </svg>
+                            </a>
+                            <div class="dropdown-content" aria-labelledby="navbarDropdown">
+                              <a class="dropdown-item" href="https://itzeazy.in/articles/marriage-certificate-online">Marriage Registration <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
+                                </svg>
+                              </a>
+                              <a class="dropdown-item" href="https://itzeazy.in/articles/passport-online-application">Passport <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
+                                </svg>
+                              </a>
+                              <a class="dropdown-item" href="https://itzeazy.in/articles/aadhar-card">Aadhar Card <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
+                                </svg>
+                              </a>
+                              <a class="dropdown-item" href="https://itzeazy.in/articles/pan-card-online">Pan Card <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
+                                </svg>
+                              </a>
+                            </div>
+                          </li>
+                          <li class="nav-item dropdown">
+                            <a class="nav-link" href="https://itzeazy.in/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Tool <svg width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 6.81252L0 1.81252L0.895833 0.916687L5 5.04169L9.10417 0.93752L10 1.83335L5 6.81252Z" fill="#0D0D0D" />
+                              </svg>
+                            </a>
+                            <div class="dropdown-content" aria-labelledby="navbarDropdown">
+                              <a class="dropdown-item" href="https://itzeazy.in/road-tax/">Road Tax Calculator <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
+                                </svg>
+                              </a>
+                              <a class="dropdown-item" href="https://itzeazy.in/vehicle-search/">Vehicle Search <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
+                                </svg>
+                              </a>
+                              <a class="dropdown-item" href="https://itzeazy.in/forms/">Forms <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
+                                </svg>
+                              </a>
+                            </div>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="https://itzeazy.in/contact-us">Contact <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6.81283 5L1.81283 10L0.916992 9.10417L5.04199 5L0.937825 0.895834L1.83366 -4.00688e-08L6.81283 5Z" fill="black" />
+                              </svg>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="collapse navbar-collapse">
+                <div class="col-md-2 mobile_menu">
+                  <div class="link_btn mt-3">
+                    <ul class="list-unstyled">                      
+                                          <li>
+                        <a href="https://itzeazy.in/sign-in" class="login_btn">Login</a>
+                      </li>
+                      <li>
+                        <a href="https://itzeazy.in/sign-in" class="btn-linkk">Sign Up</a>
+                      </li>
+                                        </ul>
+                    <hr class="hr" />
+                  </div>
+                </div>
+                <ul class="navbar-nav mr-auto med-des-m0">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="https://itzeazy.in/">Home <span class="sr-only">(current)</span>
+                    </a>
+                  </li>
+                  <li class="nav-item active">
+                    <a class="nav-link" href="https://itzeazy.in/about-us">About us <span class="sr-only">(current)</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="https://itzeazy.in/blog">Blog</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="https://itzeazy.in/pricing">Pricing</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link" href="https://itzeazy.in/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> How to <svg width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 6.81252L0 1.81252L0.895833 0.916687L5 5.04169L9.10417 0.93752L10 1.83335L5 6.81252Z" fill="#0D0D0D" />
+                      </svg>
+                    </a>
+                    <div class="dropdown-content" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="https://itzeazy.in/articles/marriage-certificate-online">Marriage Registration <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
+                        </svg>
+                      </a>
+                      <a class="dropdown-item" href="https://itzeazy.in/articles/passport-online-application">Passport <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
+                        </svg>
+                      </a>
+                      <a class="dropdown-item" href="https://itzeazy.in/articles/aadhar-card">Aadhar Card <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
+                        </svg>
+                      </a>
+                      <a class="dropdown-item" href="https://itzeazy.in/articles/pan-card-online">Pan Card <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
+                        </svg>
+                      </a>
+                    </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link" href="https://itzeazy.in/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Tools <svg width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 6.81252L0 1.81252L0.895833 0.916687L5 5.04169L9.10417 0.93752L10 1.83335L5 6.81252Z" fill="#0D0D0D" />
+                      </svg>
+                    </a>
+                    <div class="dropdown-content" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="https://itzeazy.in/road-tax/">Road Tax Calculator <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
+                        </svg>
+                      </a>
+                      <a class="dropdown-item" href="https://itzeazy.in/vehicle-search/">Vehicle Search <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
+                        </svg>
+                      </a>
+                      <a class="dropdown-item" href="https://itzeazy.in/forms/">Forms <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
+                        </svg>
+                      </a>
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="https://itzeazy.in/contact-us">Contact </a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+          
+                      <div class="col-md-2 desktop loginSigninNav">
+            <div class="link_btn mt-3">
+              <a href="https://itzeazy.in/sign-in" class="login_btn">Login</a>
+              <a href="https://itzeazy.in/sign-in" class="btn-linkk">Sign Up</a>
+            </div>
+          </div>  
+               </div>
+      </div>
+      <!-- desktop other services -->
+      <div class="bg-dark oServD desktop" >
+        <div class="container">
+          <div class="row text-center ">
+            <div class="col-md-4 text-center p-1 border-bottom border-bottom-white">
+              <a href="https://itzeazy.in/" class="text-white font-weight-normal " >Citizen Services</a>
+            </div>
+            <div class="col-md-4 text-center p-1">
+              <a href="https://itzeazy.in/driving-school" class="text-muted font-weight-normal" >Driving School</a>
+            </div>
+            <div class="col-md-4 text-center p-1">
+              <a href="#" class="text-muted font-weight-normal" onclick="return false;">Student Campus (Coming Soon!)</a>
+            </div>
+          </div> 
+        </div>  
+      </div> 
+      <!-- mobile -->
+      <div class="allservicelinksmobile mobile_menu">
+        <p class="citezenServices">Citizen Services</p>
+        <p class="DrivingLessons">Driving Lessons</p>
+        <p class="text-muted campus">Campus (Coming Soon!)</p>
+     </div> 
+               
+    </section>
+
+<!-- SIGN UP CONTENT  -->
+<!-- // add active class to show this container -->
+<form action="" method="post"  >
+    <section class="signupContainer active ">
+    <!-- // we can use active class here to get the number existed error -->
+  
+    <div id="signupForm">
+    <div id="numberexisted" class="numberexisted ">
+      <span>!</span>
+      <p>An account already exists with given Email Or Phone. </p>
+    </div>
+    <div class="createaccountContanier active">
+          <p class="createaccount">Create Account</p>
+          <div class="yournamein">
+            <p>Your Name</p>
+            <input type="text" name="name" placeholder="Enter your name" id="yourname">
+          </div>
+          <div class="mobilenumberin">
+            <p>Mobile Number</p>
+          <!--change start here-->
+             <div class="phone-input-wrap">
+    <div class="ccodenum country-select-wrap" id="countrySelectWrap">
+      <img id="selectedFlag"
+     src="https://flagcdn.com/w40/in.png"
+     alt="IN"
+     width="20">
+      <span class="country-dial" id="selectedDial">+91</span>
+      <span class="country-chevron">&#x25BE;</span>
+      <div class="country-dropdown" id="countryDropdown">
+        <input class="country-search" id="countrySearch"  placeholder="Enter Your Phone number"/>
+        <div class="country-list" id="countryList"></div>
+      </div>
+    </div>
+    <input type="text" name="mobile" id="phonenumber" placeholder="Enter your email / mobile number" class="inp phone-inp"/>
+  </div>
+  <!--change end here-->
+
+          </div>
+          <div class="emainin">
+            <p>Email</p>
+            <input type="email" placeholder="Enter your email" name="email" id="emial">
+          </div>
+          <div class="Passwordin">
+            <p>Set Password</p>
+            <input type="password" name="password" placeholder="Enter Password" id="password" >
+          </div>
+          <!-- <input type="submit" name="em" id="emailRegForm" value="Get verification code on Email" class="createuserbtn" style="background-color: #FA3737;"> -->
+          <div id="emailRegForm" class="createuserbtn">Get verification code on Email</div>
+           <p class="text-center">( Or )</p>
+          <div id="phoneRegBtn" class="createuserbtn1">Get verification code on Mobile</div>
+        <hr> 
+        <p class="logintoaccount">Already have an account? <div class="crtacc logintoacc">Login to your account</div></p>
+    </div>
+  </div>
+  <!-- register Email Otp Form -->
+  <div id="emailOtpForm" >
+    <!-- // active class will be added here when the otp is wrong -->
+    <div id="invalidOtp" class="invalidotpcotainer ">
+        <span id="remvAlertOtp">X</span>
+        <p>Invalid OTP. Please check the OTP and try again.</p>
+    </div>
+    <!-- // active class will be added when the new otp has been sent -->
+    <div class="resendedotp">
+      <div class="tick"><svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.51276 7.41276L0.246094 4.1461L0.873177 3.51901L3.51276 6.1586L9.11276 0.558594L9.73984 1.18568L3.51276 7.41276Z" fill="white"/>
+        </svg>
+        </div>
+      <p>New OTP has been sent to your Email</p>
+    </div>
+    <div id="verifyMoCotainer" class="verifyMobileNumberCotainer ">
+          <p class="createaccount">Verify Account</p>
+          <p class="numbinfo">A text with One Time Password (OTP) has been sent to Email : <b id="enterEmail"></b>  <span id="changeEmail" class="changenum">Change</span></p>
+            <div class="enterotpin">
+              <p class="enterresotp"><b>Enter OTP</b> 
+                <span id="reSendOtp" class="resendotp" style="display: none;">Resend OTP</span>
+                <span id="reTimer1" class="resendotp"></span></p>
+              <input type="number" placeholder="Enter OTP" name="e_otp" id="e_otp" required>
+            </div>
+          <div id="emailOtpSubmit" class="createitz">Create your ItzEazy account</div>
+          <hr>
+          <p class="logintoaccount">Already have an account? <div class="crtacc logintoacc">Login to your account</div></p> 
+
+    </div>
+  </div>
+<!-- Mobile Otp Form -->
+  <div id="mobileOtpForm">
+    <!-- // active class will be added here when the otp is wrong -->
+    <div id="invalidMoOtp" class="invalidotpcotainer">
+        <span>X</span>
+        <p>Invalid OTP. Please check the code and try again.</p>
+    </div>
+    <!-- // active class will be added when the new otp has been sent -->
+    <div class="resendedotp">
+      <div class="tick"><svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.51276 7.41276L0.246094 4.1461L0.873177 3.51901L3.51276 6.1586L9.11276 0.558594L9.73984 1.18568L3.51276 7.41276Z" fill="white"/>
+        </svg>
+        </div>
+      <p>New OTP has been sent to your mobile number</p>
+    </div>
+    <div id="verifyMobileCotainer" class="verifyMobileNumberCotainer ">
+          <p class="createaccount">Verify Account</p>
+          <p class="numbinfo">A text with One Time Password (OTP) has been sent to your mobile number : <b id="enterMobile"></b>  <span id="changeMobile" class="changenum">Change</span></p>
+            <div class="enterotpin">
+              <p class="enterresotp"><b>Enter OTP</b> <span id="reMoOtp" class="resendotp">Resend OTP</span></p>
+              <input type="number" id="m_otp" placeholder="Enter OTP" name="m_otp">
+            </div>
+          <div id="mobileOtpSubmit" class="createitz">Create your ItzEazy account</div>
+          <hr>
+          <p class="logintoaccount">Already have an account? <div class="crtacc logintoacc">Login to your account</div></p> 
+    </div>
+  </div>
+</section>
+
+<!-- // add active class to show this Login Container -->
+<section class="loginContainer active">
+  <div id="noExistError" class="loginwithmailerror ">
+    <div class="Wrongc">x</div>
+    <div id="noExst" style="display: none;">Email or phone does not exist. Please try again.</div>
+    <div id="invalMoPh" style="display: none;">Invalid Email or phone. Please try again.</div>
+  </div>
+<div id="loginScreen" class="login active">
+  <p class="mainHeading">Login</p>
+  <p>Email or Mobile Number</p>
+
+  <!-- Country code + input -->
+  <div class="phone-input-wrap">
+    <div class="country-select-wrap" id="countrySelectWrap">
+      <img id="selectedFlag"
+     src="https://flagcdn.com/w40/in.png"
+     alt="IN"
+     width="20">
+      <span class="country-dial" id="selectedDial">+91</span>
+      <span class="country-chevron">&#x25BE;</span>
+      <div class="country-dropdown" id="countryDropdown">
+        <input class="country-search" id="countrySearch" type="text" placeholder="Search country..."/>
+        <div class="country-list" id="countryList"></div>
+      </div>
+    </div>
+    <input type="text" name="pho_email" id="pho_email" placeholder="Enter your email / mobile number" class="inp phone-inp"/>
+  </div>
+
+  <div id="myIds" class="MainBtn continelogin">Continue</div>
+  <hr>
+  <p>New to ItzEazy? <span class="crtacc loginaccount">Create your itzEazy account</span></p>
+</div>
+
+<div class="loginwithEmialContainer">
+<!-- error messages for login with mail we need to add error class to that to enavle -->
+
+  <div id="lognError" class="loginwithmailerror ">
+    <div class="Wrongc">x</div>
+    <div id="invDtl">Incorrect login details. Please try again.</div>
+    <div id="emptyPsw">Please Enter Password!</div>
+  </div>
+
+<!-- use active class to show this  -->
+  <div id="pswScreen" class="loginwithEmial ">
+    <p class="mainHeading">Login</p>
+  <p><span id="changeId"></span> <span id="chngCred" class="changeMial crtacc">Change</span></p>
+  <div class="passfpass">
+    <p>Password</p>
+    <p class="forgetPasswordclick crtacc">Forgot Password</p>
+  </div>
+  <input type="password" name="psw" id="psw" placeholder="Enter your password" class="inp">
+  <div id="contineLogin" class="MainBtn ">
+    Login
+   </div>
+  <hr>
+  <div id="getOtpBtn" class="getotponph">
+    Get OTP on your phone
+  </div>
+  </div>
+</div>
+<div class="loginwithOTPContainer">
+
+  <!-- ERROR MSG IN THE otp  we need to add active classs to show invalid otp error-->
+
+  <div id="invalidotp1" class="invalidotp ">
+    <div class="Wrongc">x</div>
+    <div>Invalid OTP. Please check the code and try again.</div>
+  </div>
+
+  <!-- RESSEND OTP MESSAGE  we need add active class to get that class -->
+  <div class="resendSuce ">
+    <div class="correctch">v</div>
+    <div class="resendsuctext">New OTP has been sent to your mobile number</div>
+  </div>
+  <!-- we need to add active class to activave this container -->
+  <div id="loginwithOTP" class="loginwithOTP ">
+    <p class="mainHeading">Login</p>
+  <p>A text with One Time Password (OTP) has been sent to your mobile number : <b id="showMoNo"></b> <span id="chgMobile" class="changeotpNUmber crtacc">Change</span></p>
+  <div class="passfpass">
+    <p>Enter OTP</p>
+    <p id="reSendLogOtp" class="crtacc">Resend OTP</p>
+  </div>
+    <input type="number" id="l_otp" name="l_otp" placeholder="Enter OTP" class="inp enterotp">
+  <div id="otpLogBtn" class="MainBtn ">
+    Login
+   </div>
+  <hr>
+  <div class="loginwithPhone">
+    Login with your password
+  </div>
+  </div>
+</div>
+
+<!-- we need add active class to activatte this container  -->
+<div class="forgotPasswordContainer">
+  <!-- PAAWORD DID NOT MATCH ERROR ADD ACTIVE CLASS TO IT   -->
+<div id="fgtNotMtchErr" class="passwordnotmatch">
+ 
+    <div class="Wrongc">x</div>
+    <div id="validMPh">Please Enter valid email or phone.</div>
+    <div id="notRegMPh" style="display: none;">Email or phone Not registered please register.</div>
+    <div id="invlOtpMPh" style="display: none;">Invalid OTP. Please check otp and try again.</div>
+    <div id="emtyChPsw" style="display: none;">Password is empty! Please enter new password.</div>
+    <div id="mtchPsw" style="display: none;">Passwords do not match.</div>
+    
+  
+</div>
+
+<div id="forgetPassword" class="forgetPassword ">
+
+  <p class="mainHeading">Forgot Password</p>
+  <p>Enter the email address or mobile number associated with your ItzEazy account.</p>
+  <b>Email or Mobile Number</b>
+  <input type="text" name="emailPhon" id="emailPhon" class="inp" placeholder="Enter your email / mobile number">
+  <div id="fgt1Btn" class="MainBtn nextverifi">
+    Continue
+   </div>
+</div>
+
+<!-- if threr is error in otp show invalidotpdiv or succes div in the otp login container -->
+
+<div class="verificationRequired ">
+  <p class="mainHeading">Verification Required</p>
+  <p>We have sent an One Time Password (OTP) on your registered <b id="viewEmailPhon">
+  </b> . Please enter it below to complete verification. </p>
+  <div id="emailOtpBox">
+    <div class="passfpass">
+      <p>Enter OTP</p>
+      <p id="fgtReSendOtpEml" class="ResendOTPforPsw crtacc reEmao" style="display:none;">Resend OTP</p>
+      <p id="reTimer" class="crtacc"><span id="timer"></span></p>
+    </div>
+      <input type="text" name="fgtEmailOtp" id="fgtEmailOtp" class="inp" placeholder="Enter Email OTP">
+  
+    <div id="fgtConEmBtn" class="MainBtn toconfpasbtn">
+      Continue
+    </div>
+  </div>
+  <div id="phoneOtpBox">
+    <div class="passfpass">
+      <p>Enter OTP</p>
+      <p id="fgtReSendOtp" class="ResendOTPforPsw crtacc">Resend OTP</p>
+    </div>
+    <input type="text" name="fgtPhoneOtp" id="fgtPhoneOtp" class="inp" placeholder="Enter phone OTP">
+  
+    <div id="fgtConPhBtn" class="MainBtn toconfpasbtn">
+      Continue
+    </div>
+  </div>  
+</div>
+
+
+<div class="createPassword ">
+  <p class="mainHeading">Create Password</p>
+  <p>This password will be used whenever you login. </p>
+  <p> <b> New Password </b> </p>
+  <input type="password" id="f_psw1" name="f_psw1" placeholder="Enter new password" class="inp newpassword">
+  <p><b> New Password Again</b></p>
+  <input type="password" id="f_psw2" name="f_psw1" placeholder="Enter new password again" class="inp cnewpassword">
+  <div id="setNewPsw" class="MainBtn savecandl">
+    Save changes and Login
+   </div>
+</div>
+</div>
+</section>
+</form>
+
+    <!----------FOOTER------------->
+    <script src="assets/js/jquery1.12.4.min.js" ></script>
+    <script src="assets/js/article.js"></script>
+    <script>
+      $(document).ready(function(){
+        $("#changeEmail").click(function(){
+            $("#verifyMoCotainer").removeClass("active");
+            $("#signupForm").show();
+        });
+        $("#changeMobile").click(function(){
+            $("#verifyMobileCotainer").removeClass("active");
+            $("#mobileOtpForm").hide();
+            $("#signupForm").show();
+        });
+        $("#remvAlertOtp").click(function(){
+            $("#invalidOtp").removeClass("active");
+        });
+        $("#chngCred").click(function(){
+            $("#loginScreen").addClass("active");
+            $("#pswScreen").removeClass("active");
+            $("#pswScreen").hide();
+            $("#lognError").removeClass("active");
+        });
+
+        $("#myIds").click(function(){    
+           var m_id = $('#pho_email').val();     
+            $("#changeId").html(m_id);
+        });
+        $("#chgMobile").click(function(){    
+            $("#loginScreen").addClass("active");
+            $("#loginwithOTP").removeClass("active");
+        });
+
+         $( ".forgetPasswordclick" ).click( function(){
+            $("#pswScreen").hide();
+        });
+      });
+
+
+
+      // avv
+
+
+  const loginaccount = document.querySelector('.loginaccount')
+  const loginContainer = document.querySelector(".loginContainer")
+  const  signupContainer = document.querySelector(".signupContainer")
+
+  const verifyMobileNumberCotainer = document.querySelector(".verifyMobileNumberCotainer")
+  const createaccountContanier = document.querySelector(".createaccountContanier")
+
+const logintoaccs  = document.querySelectorAll(".logintoacc")
+
+logintoaccs.forEach((logintoacc)=>{
+
+  logintoacc.addEventListener("click",()=>{
+  
+    loginContainer.classList.add("active")
+    signupContainer.classList.remove("active")
+  })
+})
+
+
+loginaccount.addEventListener("click",()=>{
+  loginContainer.classList.remove("active")
+  signupContainer.classList.add("active")
+  verifyMobileNumberCotainer.classList.remove("active")
+  createaccountContanier.classList.add("active")
+})
+
+
+
+
+      const toogler = document.querySelector(".navbar-toggler")
+      const modelOpen = document.querySelector("#exampleModal")
+      // const closebtn =document.querySelector(".closebtn")
+      toogler.addEventListener("click",()=>{
+        modelOpen.classList.add("show")
+        modelOpen.style.display="block"
+      })
+
+      // closebtn.addEventListener("click",()=>{
+      //   modelOpen.classList.remove("show")
+      //   modelOpen.style.display="none"
+      // })
+
+
+    // singup functions  
+
+    const createuserbtn = document.querySelector(".createuserbtn")
+    const createuserbtn1 = document.querySelector(".createuserbtn1")
+
+
+
+    const yourname = document.querySelector("#yourname")
+    const phonenumber = document.querySelector("#phonenumber")
+     const emial = document.querySelector("#emial")
+     const password = document.querySelector("#password") 
+  
+
+    const resendotp = document.querySelector(".resendotp")
+
+     
+    createuserbtn.addEventListener("click",()=>{
+      if(yourname.value==""){
+        swal({
+                icon: "error", title: "Oops...", text: "Please fill the value!", position: "top-end", button: false, timer: 800,
+            })
+      }else if(phonenumber.value==""){
+        swal({
+                icon: "error", title: "Oops...", text: "Please fill the value!", position: "top-end", button: false, timer: 800,
+            })
+      }else if(emial.value==""){
+        swal({
+                icon: "error", title: "Oops...", text: "Please fill the value!", position: "top-end", button: false, timer: 800,
+            })
+      }else if(password.value==""){
+        swal({
+                icon: "error", title: "Oops...", text: "Please fill the value!", position: "top-end", button: false, timer: 800,
+            })
+      }else {
+        // verifyMobileNumberCotainer.classList.add("active")
+        // createaccountContanier.classList.remove("active")
+      }
+    })
+
+createuserbtn1.addEventListener("click",()=>{
+      if(yourname.value==""){
+        swal({
+                icon: "error", title: "Oops...", text: "Please fill the value!", position: "top-end", button: false, timer: 800,
+            })
+      }else if(phonenumber.value==""){
+        swal({
+                icon: "error", title: "Oops...", text: "Please fill the value!", position: "top-end", button: false, timer: 800,
+            })
+      }else if(emial.value==""){
+        swal({
+                icon: "error", title: "Oops...", text: "Please fill the value!", position: "top-end", button: false, timer: 800,
+            })
+      }else if(password.value==""){
+        swal({
+                icon: "error", title: "Oops...", text: "Please fill the value!", position: "top-end", button: false, timer: 800,
+            })
+      }else {
+        // verifyMobileNumberCotainer.classList.add("active")
+        // createaccountContanier.classList.remove("active")
+      }
+    })
+
+    // resendotp.addEventListener("click",()=>{
+    //   alert("resent")
+    // })
+
+ 
+
+ // LOGIN FUNCTIONALITYs  
+
+const login = document.querySelector(".login")
+const loginwithEmial = document.querySelector(".loginwithEmial")
+const loginwithOTP = document.querySelector(".loginwithOTP")
+const forgetPassword = document.querySelector(".forgetPassword")
+
+const emailrmobile = document.querySelector(".continelogin")
+
+
+const getotponph = document.querySelector(".getotponph")
+
+
+const forgetPasswordclick = document.querySelector(".forgetPasswordclick")
+const lognError = document.querySelector("#lognError")
+
+const ResendOTP  = document.querySelector(".ResendOTP ")
+
+const loginwithPhone = document.querySelector(".loginwithPhone")
+
+const changeMial  = document.querySelector(".changeMial")
+
+emailrmobile.addEventListener("click",()=>{
+  if(emailrmobile.previousElementSibling.value == ""){
+    swal({
+            icon: "error", title: "Oops...", text: "Please fill the value!", position: "top-end", button: false, timer: 800,
+        })
+  }else {
+    // login.classList.remove("active")
+    // loginwithEmial.classList.add("active")
+    // loginwithOTP.classList.remove("active")
+    //forgetPassword.classList.remove("active")
+  }
+})
+
+loginwithPhone.addEventListener("click",()=>{
+  login.classList.remove("active")
+    loginwithEmial.classList.add("active")
+    loginwithOTP.classList.remove("active")
+    forgetPassword.classList.remove("active")
+})
+
+getotponph.addEventListener("click",()=>{
+  login.classList.remove("active")
+    loginwithEmial.classList.remove("active")
+    loginwithOTP.classList.add("active")
+    forgetPassword.classList.remove("active")
+})
+
+forgetPasswordclick.addEventListener("click",()=>{
+  login.classList.remove("active")
+    loginwithEmial.classList.remove("active")
+    loginwithOTP.classList.remove("active")
+    forgetPassword.classList.add("active")
+    lognError.classList.remove("active")    
+})
+// ResendOTP.addEventListener("click",()=>{
+//   alert("otp sent seccessfully")
+// })
+
+
+// changeMial.addEventListener("click",()=>{
+//   alert("clicked change")
+// })
+// forgor pasword slides 
+const verificationRequired = document.querySelector(".verificationRequired")
+
+const createPassword = document.querySelector(".createPassword")
+
+
+const nextverifi = document.querySelector(".nextverifi")
+const ResendOTPforPsw  = document.querySelector(".ResendOTPforPsw ")
+const toconfpasbtn = document.querySelector(".toconfpasbtn")
+
+
+
+nextverifi.addEventListener("click",()=>{
+  if(nextverifi.previousElementSibling.value==""){
+    swal({
+            icon: "error", title: "Oops...", text: "Please fill the value!", position: "top-end", button: false, timer: 800,
+        })
+  }else {
+
+    //verificationRequired.classList.add("active")
+    createPassword.classList.remove("active")
+    forgetPassword.classList.remove("active")
+  }
+})
+toconfpasbtn.addEventListener("click",()=>{
+
+  if(toconfpasbtn.previousElementSibling.value==""){
+    swal({
+            icon: "error", title: "Oops...", text: "Please fill the value!", position: "top-end", button: false, timer: 800,
+        })
+  }else {
+    // verificationRequired.classList.remove("active")
+    // createPassword.classList.add("active")
+    forgetPassword.classList.remove("active")
+  }
+})
+
+// ResendOTPforPsw.addEventListener("click",()=>{
+//   alert("password otp")
+// })
+
+
+//Pasword and conform password
+
+const savecandl = document.querySelector(".savecandl")
+const newpassword = document.querySelector(".newpassword")
+const cnewpassword = document.querySelector(".cnewpassword")
+const passwordnotmatch = document.querySelector(".passwordnotmatch")
+
+savecandl.addEventListener("click",()=>{
+  if(newpassword.value !== cnewpassword.value ){
+    passwordnotmatch.classList.add("active")
+  }else if (newpassword.value == "" || cnewpassword.value == "") {
+    swal({
+            icon: "error", title: "Oops...", text: "Please fill the value!", position: "top-end", button: false, timer: 800,
+        })
+  }else {
+    // alert("signinfunction trigered")
+  }
+})
+
+
+
+// ── COUNTRY DATA ──
+const countries = [
+  { code: 'IN', name: 'India',          dial: '+91' },
+  { code: 'US', name: 'United States',  dial: '+1'  },
+  { code: 'GB', name: 'United Kingdom', dial: '+44' },
+  { code: 'AU', name: 'Australia',      dial: '+61' },
+  { code: 'CA', name: 'Canada',         dial: '+1'  },
+  { code: 'AE', name: 'UAE',            dial: '+971'},
+  { code: 'SG', name: 'Singapore',      dial: '+65' },
+  { code: 'DE', name: 'Germany',        dial: '+49' },
+  { code: 'FR', name: 'France',         dial: '+33' },
+  { code: 'JP', name: 'Japan',          dial: '+81' },
+  { code: 'CN', name: 'China',          dial: '+86' },
+  { code: 'BR', name: 'Brazil',         dial: '+55' },
+  { code: 'ZA', name: 'South Africa',   dial: '+27' },
+  { code: 'NG', name: 'Nigeria',        dial: '+234'},
+  { code: 'PK', name: 'Pakistan',       dial: '+92' },
+  { code: 'BD', name: 'Bangladesh',     dial: '+880'},
+  { code: 'NP', name: 'Nepal',          dial: '+977'},
+  { code: 'LK', name: 'Sri Lanka',      dial: '+94' },
+  { code: 'MY', name: 'Malaysia',       dial: '+60' },
+  { code: 'PH', name: 'Philippines',    dial: '+63' },
+  { code: 'ID', name: 'Indonesia',      dial: '+62' },
+  { code: 'TH', name: 'Thailand',       dial: '+66' },
+  { code: 'KR', name: 'South Korea',    dial: '+82' },
+  { code: 'IT', name: 'Italy',          dial: '+39' },
+  { code: 'ES', name: 'Spain',          dial: '+34' },
+  { code: 'MX', name: 'Mexico',         dial: '+52' },
+  { code: 'AR', name: 'Argentina',      dial: '+54' },
+  { code: 'EG', name: 'Egypt',          dial: '+20' },
+  { code: 'SA', name: 'Saudi Arabia',   dial: '+966'},
+  { code: 'QA', name: 'Qatar',          dial: '+974'},
+];
+
+let selectedCountry = countries[0]; // India default
+
+function renderCountryList(filter = '') {
+  const list = document.getElementById('countryList');
+  const filtered = countries.filter(c =>
+    c.name.toLowerCase().includes(filter.toLowerCase()) ||
+    c.dial.includes(filter)
+  );
+  list.innerHTML = filtered.map(c => `
+    <div class="country-item ${c.code === selectedCountry.code ? 'active' : ''}"
+         onclick="selectCountry('${c.code}')">
+      <img src="https://flagcdn.com/w40/${c.code.toLowerCase()}.png" alt="${c.code}"/>
+      <span class="country-item-name">${c.name}</span>
+      <span class="country-item-dial">${c.dial}</span>
+    </div>
+  `).join('');
+}
+
+function selectCountry(code) {
+  selectedCountry = countries.find(c => c.code === code);
+
+  const flag = document.getElementById("selectedFlag");
+  const dial = document.getElementById("selectedDial");
+
+  if (flag) {
+    flag.src = `https://flagcdn.com/w40/${code.toLowerCase()}.png`;
+    flag.alt = code;
+  }
+
+  if (dial) {
+    dial.textContent = selectedCountry.dial;
+  }
+
+  closeCountryDropdown();
+  renderCountryList();
+}
+
+function closeCountryDropdown() {
+  document.getElementById('countryDropdown').classList.remove('open');
+}
+
+// Toggle dropdown
+document.getElementById('countrySelectWrap').addEventListener('click', function(e) {
+  e.stopPropagation();
+  document.getElementById('countryDropdown').classList.toggle('open');
+  document.getElementById('countrySearch').focus();
+  renderCountryList();
+});
+
+// Search
+document.getElementById('countrySearch').addEventListener('input', function(e) {
+  e.stopPropagation();
+  renderCountryList(this.value);
+});
+
+document.getElementById('countrySearch').addEventListener('click', function(e) {
+  e.stopPropagation();
+});
+
+// Close on outside click
+document.addEventListener('click', function() {
+  closeCountryDropdown();
+});
+
+// Init
+renderCountryList();
+
+    </script>
+</body>
+</html>
+
