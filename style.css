@@ -3142,10 +3142,14 @@
 /* Show only on mobile */
 @media (min-width: 769px) {
   .mob-popup-overlay { display: none !important; }
+  
 }
 
-   .btn-details {
-     background: #E2E2E2;
+
+
+ .btn-details {
+    display: none;
+    background: #E2E2E2;
     color: #1a1a2e;
     border: none;
     padding: 8px 20px;
@@ -3155,4 +3159,31 @@
     cursor: pointer;
     font-family: 'Poppins', sans-serif;
     transition: background 0.2s;
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+    .btn-details {
+        display: inline-block;
     }
+}
+
+.download-section{
+    text-align:center;
+    margin:40px 0;
+}
+
+.btn-download-pdf{
+    background:#e8192c;
+    color:#fff;
+    border:none;
+    padding:14px 28px;
+    border-radius:8px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.btn-download-pdf:hover{
+    opacity:.9;
+}

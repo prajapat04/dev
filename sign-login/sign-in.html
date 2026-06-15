@@ -309,7 +309,7 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
 <!-- SIGN UP CONTENT  -->
 <!-- // add active class to show this container -->
 <form action="" method="post"  >
-    <section class="signupContainer active ">
+    <section class="signupContainer active">
     <!-- // we can use active class here to get the number existed error -->
   
     <div id="signupForm">
@@ -339,7 +339,7 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
         <div class="country-list" id="countryList"></div>
       </div>
     </div>
-    <input type="text" name="mobile" id="phonenumber" placeholder="Enter your email / mobile number" class="inp phone-inp"/>
+    <input type="text" name="mobile" id="phonenumber" placeholder="Enter your mobile number" class="inp phone-inp"/>
   </div>
   <!--change end here-->
 
@@ -431,21 +431,33 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
   <p>Email or Mobile Number</p>
 
   <!-- Country code + input -->
-  <div class="phone-input-wrap">
-    <div class="country-select-wrap" id="countrySelectWrap">
-      <img id="selectedFlag"
-     src="https://flagcdn.com/w40/in.png"
-     alt="IN"
-     width="20">
-      <span class="country-dial" id="selectedDial">+91</span>
-      <span class="country-chevron">&#x25BE;</span>
-      <div class="country-dropdown" id="countryDropdown">
-        <input class="country-search" id="countrySearch" type="text" placeholder="Search country..."/>
-        <div class="country-list" id="countryList"></div>
-      </div>
+<div class="phone-input-wrap">
+  <div class="ccodenum country-select-wrap" id="loginCountryWrap">
+    <img id="loginSelectedFlag"
+         src="https://flagcdn.com/w40/in.png"
+         alt="IN"
+         width="20">
+
+    <span class="country-dial" id="loginSelectedDial">+91</span>
+
+    <span class="country-chevron">&#x25BE;</span>
+
+    <div class="country-dropdown" id="loginCountryDropdown">
+      <input class="country-search"
+             id="loginCountrySearch"
+             type="text"
+             placeholder="Search country..."/>
+
+      <div class="country-list" id="loginCountryList"></div>
     </div>
-    <input type="text" name="pho_email" id="pho_email" placeholder="Enter your email / mobile number" class="inp phone-inp"/>
   </div>
+
+  <input type="text"
+         name="pho_email"
+         id="pho_email"
+         placeholder="Enter your email / mobile number"
+         class="inp phone-inp"/>
+</div>
 
   <div id="myIds" class="MainBtn continelogin">Continue</div>
   <hr>
@@ -867,106 +879,131 @@ savecandl.addEventListener("click",()=>{
 
 
 // ── COUNTRY DATA ──
+// ── COUNTRY DATA ──
 const countries = [
-  { code: 'IN', name: 'India',          dial: '+91' },
-  { code: 'US', name: 'United States',  dial: '+1'  },
-  { code: 'GB', name: 'United Kingdom', dial: '+44' },
-  { code: 'AU', name: 'Australia',      dial: '+61' },
-  { code: 'CA', name: 'Canada',         dial: '+1'  },
-  { code: 'AE', name: 'UAE',            dial: '+971'},
-  { code: 'SG', name: 'Singapore',      dial: '+65' },
-  { code: 'DE', name: 'Germany',        dial: '+49' },
-  { code: 'FR', name: 'France',         dial: '+33' },
-  { code: 'JP', name: 'Japan',          dial: '+81' },
-  { code: 'CN', name: 'China',          dial: '+86' },
-  { code: 'BR', name: 'Brazil',         dial: '+55' },
-  { code: 'ZA', name: 'South Africa',   dial: '+27' },
-  { code: 'NG', name: 'Nigeria',        dial: '+234'},
-  { code: 'PK', name: 'Pakistan',       dial: '+92' },
-  { code: 'BD', name: 'Bangladesh',     dial: '+880'},
-  { code: 'NP', name: 'Nepal',          dial: '+977'},
-  { code: 'LK', name: 'Sri Lanka',      dial: '+94' },
-  { code: 'MY', name: 'Malaysia',       dial: '+60' },
-  { code: 'PH', name: 'Philippines',    dial: '+63' },
-  { code: 'ID', name: 'Indonesia',      dial: '+62' },
-  { code: 'TH', name: 'Thailand',       dial: '+66' },
-  { code: 'KR', name: 'South Korea',    dial: '+82' },
-  { code: 'IT', name: 'Italy',          dial: '+39' },
-  { code: 'ES', name: 'Spain',          dial: '+34' },
-  { code: 'MX', name: 'Mexico',         dial: '+52' },
-  { code: 'AR', name: 'Argentina',      dial: '+54' },
-  { code: 'EG', name: 'Egypt',          dial: '+20' },
-  { code: 'SA', name: 'Saudi Arabia',   dial: '+966'},
-  { code: 'QA', name: 'Qatar',          dial: '+974'},
+  { code: 'IN', name: 'India',          dial: '+91'  },
+  { code: 'US', name: 'United States',  dial: '+1'   },
+  { code: 'GB', name: 'United Kingdom', dial: '+44'  },
+  { code: 'AU', name: 'Australia',      dial: '+61'  },
+  { code: 'CA', name: 'Canada',         dial: '+1'   },
+  { code: 'AE', name: 'UAE',            dial: '+971' },
+  { code: 'SG', name: 'Singapore',      dial: '+65'  },
+  { code: 'DE', name: 'Germany',        dial: '+49'  },
+  { code: 'FR', name: 'France',         dial: '+33'  },
+  { code: 'JP', name: 'Japan',          dial: '+81'  },
+  { code: 'CN', name: 'China',          dial: '+86'  },
+  { code: 'BR', name: 'Brazil',         dial: '+55'  },
+  { code: 'ZA', name: 'South Africa',   dial: '+27'  },
+  { code: 'NG', name: 'Nigeria',        dial: '+234' },
+  { code: 'PK', name: 'Pakistan',       dial: '+92'  },
+  { code: 'BD', name: 'Bangladesh',     dial: '+880' },
+  { code: 'NP', name: 'Nepal',          dial: '+977' },
+  { code: 'LK', name: 'Sri Lanka',      dial: '+94'  },
+  { code: 'MY', name: 'Malaysia',       dial: '+60'  },
+  { code: 'PH', name: 'Philippines',    dial: '+63'  },
+  { code: 'ID', name: 'Indonesia',      dial: '+62'  },
+  { code: 'TH', name: 'Thailand',       dial: '+66'  },
+  { code: 'KR', name: 'South Korea',    dial: '+82'  },
+  { code: 'IT', name: 'Italy',          dial: '+39'  },
+  { code: 'ES', name: 'Spain',          dial: '+34'  },
+  { code: 'MX', name: 'Mexico',         dial: '+52'  },
+  { code: 'AR', name: 'Argentina',      dial: '+54'  },
+  { code: 'EG', name: 'Egypt',          dial: '+20'  },
+  { code: 'SA', name: 'Saudi Arabia',   dial: '+966' },
+  { code: 'QA', name: 'Qatar',          dial: '+974' },
 ];
 
-let selectedCountry = countries[0]; // India default
+// ── GENERIC INIT FOR EACH COUNTRY WRAP ──
+function initCountrySelector(wrapEl) {
+  if (!wrapEl) return;
 
-function renderCountryList(filter = '') {
-  const list = document.getElementById('countryList');
-  const filtered = countries.filter(c =>
-    c.name.toLowerCase().includes(filter.toLowerCase()) ||
-    c.dial.includes(filter)
-  );
-  list.innerHTML = filtered.map(c => `
-    <div class="country-item ${c.code === selectedCountry.code ? 'active' : ''}"
-         onclick="selectCountry('${c.code}')">
-      <img src="https://flagcdn.com/w40/${c.code.toLowerCase()}.png" alt="${c.code}"/>
-      <span class="country-item-name">${c.name}</span>
-      <span class="country-item-dial">${c.dial}</span>
-    </div>
-  `).join('');
-}
+  const dropdown = wrapEl.querySelector('.country-dropdown');
+  const search   = wrapEl.querySelector('.country-search');
+  const list     = wrapEl.querySelector('.country-list');
+  // ✅ Fix: querySelector by tag, not wrong class
+  const flagImg  = wrapEl.querySelector('img');
+  const dialSpan = wrapEl.querySelector('.country-dial');
 
-function selectCountry(code) {
-  selectedCountry = countries.find(c => c.code === code);
-
-  const flag = document.getElementById("selectedFlag");
-  const dial = document.getElementById("selectedDial");
-
-  if (flag) {
-    flag.src = `https://flagcdn.com/w40/${code.toLowerCase()}.png`;
-    flag.alt = code;
+  function renderList(filter = '') {
+    const filtered = countries.filter(c =>
+      c.name.toLowerCase().includes(filter.toLowerCase()) ||
+      c.dial.includes(filter)
+    );
+    list.innerHTML = filtered.map(c => `
+      <div class="country-item" data-code="${c.code}" data-dial="${c.dial}">
+        <img src="https://flagcdn.com/w40/${c.code.toLowerCase()}.png" alt="${c.code}" width="24"/>
+        <span class="country-item-name">${c.name}</span>
+        <span class="country-item-dial">${c.dial}</span>
+      </div>
+    `).join('');
   }
 
-  if (dial) {
-    dial.textContent = selectedCountry.dial;
-  }
+  renderList();
 
-  closeCountryDropdown();
-  renderCountryList();
+  // Toggle dropdown
+  wrapEl.addEventListener('click', function(e) {
+    e.stopPropagation();
+    dropdown.classList.toggle('open');
+    if (dropdown.classList.contains('open')) {
+      search.value = '';
+      renderList();
+      search.focus();
+    }
+  });
+
+  // Search click — don't bubble
+  search.addEventListener('click', e => e.stopPropagation());
+
+  // Search input
+  search.addEventListener('input', function() {
+    renderList(this.value);
+  });
+
+  // Select country
+  list.addEventListener('click', function(e) {
+    const item = e.target.closest('.country-item');
+    if (!item) return;
+
+    const code = item.dataset.code;
+    const sel  = countries.find(c => c.code === code);
+    if (!sel) return;
+
+    // ✅ Fix: update img and span correctly
+    if (flagImg)  { flagImg.src = `https://flagcdn.com/w40/${sel.code.toLowerCase()}.png`; flagImg.alt = sel.code; }
+    if (dialSpan) { dialSpan.textContent = sel.dial; }
+
+    dropdown.classList.remove('open');
+    e.stopPropagation();
+  });
 }
 
-function closeCountryDropdown() {
-  document.getElementById('countryDropdown').classList.remove('open');
-}
+// Init both selectors
+initCountrySelector(document.getElementById('countrySelectWrap'));
+initCountrySelector(document.getElementById('loginCountryWrap'));
 
-// Toggle dropdown
-document.getElementById('countrySelectWrap').addEventListener('click', function(e) {
-  e.stopPropagation();
-  document.getElementById('countryDropdown').classList.toggle('open');
-  document.getElementById('countrySearch').focus();
-  renderCountryList();
-});
-
-// Search
-document.getElementById('countrySearch').addEventListener('input', function(e) {
-  e.stopPropagation();
-  renderCountryList(this.value);
-});
-
-document.getElementById('countrySearch').addEventListener('click', function(e) {
-  e.stopPropagation();
-});
-
-// Close on outside click
+// Close all dropdowns on outside click
 document.addEventListener('click', function() {
-  closeCountryDropdown();
+  document.querySelectorAll('.country-dropdown.open').forEach(d => d.classList.remove('open'));
 });
 
-// Init
-renderCountryList();
+// ── LOGIN: show/hide country wrap based on input ──
+const loginInput       = document.getElementById('pho_email');
+const loginCountryWrap = document.getElementById('loginCountryWrap');
 
+if (loginInput && loginCountryWrap) {
+  // Default hide karo
+  loginCountryWrap.style.display = 'none';
+
+  loginInput.addEventListener('input', function() {
+    const val = this.value.trim();
+    // Agar number type kare tab show karo
+    if (/^\d/.test(val)) {
+      loginCountryWrap.style.display = 'flex';
+    } else {
+      loginCountryWrap.style.display = 'none';
+    }
+  });
+}
     </script>
 </body>
 </html>

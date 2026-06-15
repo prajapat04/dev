@@ -741,3 +741,25 @@ body {
 @media (min-width: 601px) {
   .state-card-grid { display: none; }
 }
+
+
+/* added download button */
+.download-section{
+    text-align:center;
+    margin:40px 0;
+}
+
+.btn-download-pdf{
+    background:#e8192c;
+    color:#fff;
+    border:none;
+    padding:14px 28px;
+    border-radius:8px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.btn-download-pdf:hover{
+    opacity:.9;
+}

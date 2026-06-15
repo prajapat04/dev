@@ -181,6 +181,13 @@
 
   </div>
 
+  <div class="download-section">
+    <button class="btn-download-pdf" onclick="goToPdfPage()">
+        <i class="fa-solid fa-file-pdf"></i>
+        Download PDF
+    </button>
+</div>
+
      <footer class="footer">
     <div class="footer-main">
 
@@ -298,6 +305,27 @@
     });
 
      lucide.createIcons();
+
+     function goToPdfPage(){
+
+    const dlData = {
+        dlNumber: "HR-2620120142433",
+        status: "ACTIVE",
+        holderName: "MTL* TYL",
+        source: "SARATHI",
+        initialIssueDate: "05-Dec-2012",
+        issuingOffice: "RLA GURUGRAM",
+        nonTransportFrom: "05-Dec-2012",
+        nonTransportTo: "01-Sep-2026"
+    };
+
+    sessionStorage.setItem(
+        "dlPdfData",
+        JSON.stringify(dlData)
+    );
+
+    window.location.href = "/pdf-code/dl-pdf.html";
+}
   
   </script>
 </body>
