@@ -96,8 +96,10 @@ body {
 @media (min-width:320px) and (max-width:395px) {
 .hero h1{
    margin: 0 10px;
-    font-size:34px;
-    
+    font-size:31px;
 }
+.hero p{
+    margin: 10px;
+    font-size:17px;
 
 }
