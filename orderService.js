@@ -36,22 +36,3 @@ const qiestions = document.querySelectorAll(".qiestions")
     })
 
 
-    /* Scroll to h1 on mobile devices  start */
-
-    document.addEventListener("DOMContentLoaded", function () {
-    if (window.innerWidth <= 768) { // Mobile only
-
-        const heading = document.querySelector("h1");
-
-        if (heading) {
-            setTimeout(() => {
-                heading.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
-            }, 300);
-        }
-    }
-});
-
-/* Scroll to h1 on mobile devices end */
