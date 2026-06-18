@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RTO Information</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#fff;
+}
+
+/* ==========================
+   HERO
+========================== */
+
+.hero{
+    height:180px;
+    background:url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1400')
+    center center/cover no-repeat;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.hero::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.45);
+}
+
+.hero h1{
+    position:relative;
+    color:#fff;
+    font-size:52px;
+    font-weight:700;
+    text-align:center;
+}
+
+/* ==========================
+   SECTION
+========================== */
+
+.section{
+    padding:45px 20px;
+}
+
+.section-title{
+    text-align:center;
+    font-size:46px;
+    font-weight:700;
+    margin-bottom:35px;
+    color:#222;
+}
+
+/* ==========================
+   GRID
+========================== */
+
+.grid{
+    max-width:1200px;
+    margin:auto;
+
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:22px;
+}
+
+/* ==========================
+   CARD
+========================== */
+
+.card{
+    height:115px;
+    background:#fff;
+    border:1px solid #d9d9d9;
+    border-radius:12px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+
+    cursor:pointer;
+    transition:.3s ease;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 10px 25px rgba(0,0,0,.12);
+}
+
+.card i{
+    font-size:26px;
+    color:#ff1d1d;
+}
+
+.card span{
+    font-size:15px;
+    font-weight:500;
+    color:#111;
+}
+
+/* ==========================
+   DARK SECTION
+========================== */
+
+.dark-section{
+    background:linear-gradient(
+    90deg,
+    #0d0f12,
+    #14191d,
+    #0d0f12
+    );
+
+    padding:50px 20px;
+}
+
+.dark-section .section-title{
+    color:#fff;
+}
+
+/* ==========================
+   MOBILE
+========================== */
+
+@media(max-width:991px){
+
+    .hero{
+        height:150px;
+    }
+
+    .hero h1{
+        font-size:38px;
+        padding:0 20px;
+    }
+
+    .section-title{
+        font-size:34px;
+    }
+
+    .grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+}
+
+@media(max-width:767px){
+
+    .hero{
+        height:130px;
+    }
+
+    .hero h1{
+        font-size:28px;
+        line-height:1.3;
+    }
+
+    .section{
+        padding:35px 15px;
+    }
+
+    .dark-section{
+        padding:35px 15px;
+    }
+
+    .section-title{
+        font-size:28px;
+        margin-bottom:25px;
+    }
+
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:15px;
+    }
+
+    .card{
+        height:100px;
+    }
+
+    .card i{
+        font-size:22px;
+    }
+
+    .card span{
+        font-size:13px;
+        text-align:center;
+    }
+}
+
+
+/* ===================
+PROCESS
+=================== */
+
+.process-section{
+    padding:80px 20px;
+    background:#fff;
+}
+
+.process-header{
+    max-width:1200px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    gap:50px;
+    margin-bottom:40px;
+}
+
+.tag{
+    color:#ff3030;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:2px;
+}
+
+.process-header h2{
+    font-size:54px;
+    line-height:1.1;
+    color:#161616;
+    margin-top:8px;
+    max-width:500px;
+}
+
+.process-header .right{
+    color:#8b8b8b;
+    max-width:340px;
+    display:flex;
+    align-items:center;
+    font-size:15px;
+}
+
+.process-grid{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+
+.process-card{
+    border:1px solid #efefef;
+    border-radius:18px;
+    padding:24px;
+    min-height:180px;
+}
+
+.top{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:22px;
+}
+
+.top i{
+    color:#ff2020;
+    font-size:18px;
+}
+
+.top span{
+    color:#ffc2c2;
+    font-weight:600;
+}
+
+.process-card h4{
+    font-size:18px;
+    color:#222;
+    margin-bottom:10px;
+}
+
+.process-card p{
+    color:#8b8b8b;
+    line-height:1.7;
+    font-size:14px;
+}
+
+/* ===================
+WHY
+=================== */
+
+.why-section{
+    background:#050505;
+    padding:90px 20px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+.why-section h2{
+    text-align:center;
+    color:#fff;
+    font-size:50px;
+    margin-bottom:50px;
+}
+
+.why-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.why-card{
+    background:linear-gradient(
+        145deg,
+        #1a1a1a,
+        #141414
+    );
+
+    border:1px solid #242424;
+    border-radius:22px;
+    padding:30px;
+    min-height:220px;
+}
+
+.icon-wrap{
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    background:#ff1212;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    box-shadow:0 0 25px rgba(255,0,0,.4);
+}
+
+.icon-wrap i{
+    color:#fff;
+}
+
+.why-card h4{
+    color:#fff;
+    margin-top:25px;
+    margin-bottom:12px;
+}
+
+.why-card p{
+    color:#8e8e8e;
+    line-height:1.8;
+}
+
+/* ===================
+FAQ
+=================== */
+
+.faq-section{
+    padding:80px 20px;
+    background:#fff;
+}
+
+.faq-container{
+    max-width:900px;
+    margin:auto;
+}
+
+.faq-container h2{
+    text-align:center;
+    font-size:48px;
+    margin-bottom:40px;
+    color:#222;
+}
+
+.faq-item{
+    border:1px solid #e5e5e5;
+    border-radius:12px;
+    margin-bottom:14px;
+    overflow:hidden;
+}
+
+.faq-item summary{
+    padding:18px 20px;
+    cursor:pointer;
+    font-weight:500;
+    list-style:none;
+}
+
+.faq-item summary::-webkit-details-marker{
+    display:none;
+}
+
+.faq-item p{
+    padding:0 20px 20px;
+    color:#777;
+}
+
+/* ===================
+TABLET
+=================== */
+
+@media(max-width:992px){
+
+    .process-header{
+        flex-direction:column;
+        gap:20px;
+    }
+
+    .process-header h2{
+        font-size:42px;
+    }
+
+    .process-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .why-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+/* ===================
+MOBILE
+=================== */
+
+@media(max-width:768px){
+
+    .process-section,
+    .why-section,
+    .faq-section{
+        padding:60px 16px;
+    }
+
+    .process-header h2{
+        font-size:34px;
+    }
+
+    .process-grid{
+        grid-template-columns:1fr;
+    }
+
+    .why-section h2{
+        font-size:34px;
+    }
+
+    .faq-container h2{
+        font-size:32px;
+    }
+
+    .process-card,
+    .why-card{
+        min-height:auto;
+    }
+}
+
+.faq-item summary{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 20px;
+    cursor:pointer;
+    list-style:none;
+    font-weight:500;
+}
+
+.faq-item summary::-webkit-details-marker{
+    display:none;
+}
+
+.dl-faq-icon{
+    width:18px;
+    height:18px;
+    color:#666;
+    transition:transform .3s ease;
+    flex-shrink:0;
+}
+
+.faq-item[open] .dl-faq-icon{
+    transform:rotate(180deg);
+}
+
+.faq-content{
+    padding:0 20px 20px;
+    color:#777;
+    line-height:1.7;
+}
+
+@media (max-width:768px){
+
+    .process-header{
+        flex-direction:column;
+        gap:15px;
+        margin-bottom:30px;
+    }
+
+    .process-header h2{
+        font-size:42px;
+        line-height:1.1;
+    }
+
+    .process-header .right{
+        max-width:100%;
+    }
+
+    .process-grid{
+        display:flex;
+        flex-direction:column;
+        gap:32px;
+        position:relative;
+    }
+
+    .process-card{
+        position:relative;
+        margin-left:40px;
+        min-height:auto;
+        padding:24px 20px;
+        border-radius:20px;
+    }
+
+    /* Hide top row */
+    .process-card .top{
+        margin-bottom:0;
+    }
+
+    .process-card .top i{
+        display:none;
+    }
+
+    /* Red Circle Number */
+    .process-card .top span{
+        position:absolute;
+        left:-48px;
+        top:0;
+
+        width:32px;
+        height:32px;
+
+        background:#ff0000;
+        color:#fff;
+
+        border-radius:50%;
+
+        display:flex;
+        align-items:center;
+        justify-content:center;
+
+        font-size:11px;
+        font-weight:700;
+
+        z-index:2;
+    }
+
+    /* Vertical Line */
+    .process-card:not(:last-child)::before{
+        content:"";
+        position:absolute;
+        left:-32px;
+        top:30px;
+        width:1px;
+        height:130px;
+        background:#ffbcbc;
+    }
+
+    .process-card h4{
+        font-size:24px;
+        margin-bottom:10px;
+    }
+
+    .process-card p{
+        font-size:14px;
+        line-height:1.7;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+
+<section class="hero">
+    <h1>Get RTO Information At One Place</h1>
+</section>
+
+<!-- UTILITIES -->
+
+<section class="section">
+
+    <h2 class="section-title">Utilities</h2>
+
+    <div class="grid">
+
+        <div class="card">
+            <i class="fa-solid fa-car"></i>
+            <span>Vehicle Info</span>
+        </div>
+
+        <div class="card">
+            <i class="fa-regular fa-id-card"></i>
+            <span>Car Info</span>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-motorcycle"></i>
+            <span>Bike Info</span>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Telangana Vehicle</span>
+        </div>
+
+        <div class="card">
+            <i class="fa-regular fa-file-lines"></i>
+            <span>Challan Info</span>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-briefcase"></i>
+            <span>DL Info</span>
+        </div>
+
+        <div class="card">
+            <i class="fa-regular fa-calendar"></i>
+            <span>Telangana DL</span>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-calculator"></i>
+            <span>Tax Calculator</span>
+        </div>
+
+        <div class="card">
+            <i class="fa-regular fa-file"></i>
+            <span>RTO Forms</span>
+        </div>
+
+        <div class="card">
+            <i class="fa-regular fa-pen-to-square"></i>
+            <span>LL Mock Test</span>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- SERVICES -->
+
+<section class="dark-section">
+
+    <h2 class="section-title">
+        Services We Provide
+    </h2>
+
+    <div class="grid">
+
+        <div class="card">
+            <i class="fa-solid fa-car"></i>
+            <span>RTO Service</span>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-book-open"></i>
+            <span>Passport</span>
+        </div>
+
+        <div class="card">
+            <i class="fa-regular fa-heart"></i>
+            <span>Marriage Reg.</span>
+        </div>
+
+        <div class="card">
+            <i class="fa-regular fa-face-smile"></i>
+            <span>Birth Cert.</span>
+        </div>
+
+        <div class="card">
+            <i class="fa-regular fa-id-badge"></i>
+            <span>IT Returns</span>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-plane-departure"></i>
+            <span>Visa</span>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-gavel"></i>
+            <span>Affidavit</span>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-earth-americas"></i>
+            <span>POI/RRRO</span>
+        </div>
+
+        <div class="card">
+            <i class="fa-regular fa-shield"></i>
+            <span>Attestation</span>
+        </div>
+
+        <div class="card">
+            <i class="fa-regular fa-credit-card"></i>
+            <span>Pan Card</span>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="process-section">
+
+    <div class="process-header">
+
+        <div class="left">
+            <span class="tag">PROCESS</span>
+            <h2>A Seamless Concierge Journey</h2>
+        </div>
+
+        <div class="right">
+            Four simple steps to access your complete vehicle
+            profile instantly from government databases.
+        </div>
+
+    </div>
+
+    <div class="process-grid">
+
+        <div class="process-card">
+            <div class="top">
+                <i class="fa-solid fa-file-lines"></i>
+                <span>01</span>
+            </div>
+
+            <h4>Enter Number</h4>
+
+            <p>
+                Provide your vehicle registration number
+                accurately.
+            </p>
+        </div>
+
+        <div class="process-card">
+            <div class="top">
+                <i class="fa-solid fa-cloud-arrow-down"></i>
+                <span>02</span>
+            </div>
+
+            <h4>Fetch Details</h4>
+
+            <p>
+                Our system connects to the official
+                RTO databases.
+            </p>
+        </div>
+
+        <div class="process-card">
+            <div class="top">
+                <i class="fa-regular fa-shield"></i>
+                <span>03</span>
+            </div>
+
+            <h4>Verify</h4>
+
+            <p>
+                Review the fetched information
+                for accuracy.
+            </p>
+        </div>
+
+        <div class="process-card">
+            <div class="top">
+                <i class="fa-solid fa-rocket"></i>
+                <span>04</span>
+            </div>
+
+            <h4>Continue</h4>
+
+            <p>
+                Proceed with your required
+                RTO services.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<section class="why-section">
+
+    <div class="container">
+
+        <h2>Why ItzEazy?</h2>
+
+        <div class="why-grid">
+
+            <div class="why-card">
+                <div class="icon-wrap">
+                    <i class="fa-solid fa-crosshairs"></i>
+                </div>
+
+                <h4>Verified Info</h4>
+
+                <p>
+                    Directly sourced from government
+                    transport servers for 100% accuracy.
+                </p>
+            </div>
+
+            <div class="why-card">
+                <div class="icon-wrap">
+                    <i class="fa-regular fa-clock"></i>
+                </div>
+
+                <h4>Fast Search</h4>
+
+                <p>
+                    Optimized algorithms deliver vehicle
+                    results in under 2 seconds.
+                </p>
+            </div>
+
+            <div class="why-card">
+                <div class="icon-wrap">
+                    <i class="fa-regular fa-folder-open"></i>
+                </div>
+
+                <h4>All-in-one</h4>
+
+                <p>
+                    From RC transfer to DL status,
+                    manage every transport need here.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<section class="faq-section">
+
+    <div class="faq-container">
+
+        <h2>Frequently Asked Questions</h2>
+
+        <details class="faq-item">
+            <summary> <span>How to check RC status online?</span>
+        <i data-lucide="chevron-down" class="dl-faq-icon"></i></summary>
+            <div class="faq-content">
+                Enter your vehicle registration number and
+                fetch the latest status instantly.
+            </div>
+        </details>
+
+        <details class="faq-item">
+            <summary><span>Is the data 100% accurate?</span>
+        <i data-lucide="chevron-down" class="dl-faq-icon"></i></summary>
+            <div class="faq-content">
+                Data is sourced directly from official
+                transport databases.
+            </div>
+        </details>
+
+        <details class="faq-item">
+            <summary><span>How can I check pending challans?</span>
+        <i data-lucide="chevron-down" class="dl-faq-icon"></i></summary>
+            <div class="faq-content">
+                Use the challan lookup utility and enter
+                your vehicle details.
+            </div>
+        </details>
+
+    </div>
+
+</section>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<script>
+    lucide.createIcons();
+</script>
+</body>
+</html>
