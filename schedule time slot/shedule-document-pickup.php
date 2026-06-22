@@ -492,21 +492,24 @@ $(document).ready(function(){
 <!-----------date Validations scripts-------------->
 
 <!-----------script changes start here-------------->
+
+
 <script>
   const hour = new Date().getHours();
   var today = new Date();
 
-  // After 5 PM, skip to day after tomorrow
-  if (hour >= 17) {
-    var dd = today.getDate() + 2;
-  } else {
-    var dd = today.getDate() + 1;
+  // After 5 PM = +2 days, else +1 day
+  var daysToAdd = (hour >= 17) ? 2 : 1;
+
+  var tempDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + daysToAdd);
+
+  // Agar Sunday aaye to skip karke Monday karo
+  if (tempDate.getDay() === 0) {
+    tempDate.setDate(tempDate.getDate() + 1);
   }
 
-  // Handle month overflow
-  var tempDate = new Date(today.getFullYear(), today.getMonth(), dd);
-  var yyyy = tempDate.getFullYear();
-  var mm   = String(tempDate.getMonth() + 1).padStart(2, '0');
+  var yyyy  = tempDate.getFullYear();
+  var mm    = String(tempDate.getMonth() + 1).padStart(2, '0');
   var ddStr = String(tempDate.getDate()).padStart(2, '0');
 
   var minDate = yyyy + '-' + mm + '-' + ddStr;
@@ -518,17 +521,16 @@ $(document).ready(function(){
     let date = new Date(year, month, 1);
     while (date.getMonth() === month) {
       if (date.getDay() === 6) {
-        saturdays.push(new Date(date)); // store full date object
+        saturdays.push(new Date(date));
       }
       date.setDate(date.getDate() + 1);
     }
-    // Return only 2nd (index 1) and 4th (index 3) Saturdays
     return saturdays.filter((_, index) => index === 1 || index === 3);
   }
 
   // Check if a given date string (YYYY-MM-DD) is a 2nd or 4th Saturday
   function isAltSaturday(dateStr) {
-    var d = new Date(dateStr + 'T00:00:00'); // avoid timezone issues
+    var d = new Date(dateStr + 'T00:00:00');
     var year  = d.getFullYear();
     var month = d.getMonth();
     var altSats = getAltSaturdays(year, month);
