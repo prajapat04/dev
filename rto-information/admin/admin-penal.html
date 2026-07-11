@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - RTO Operations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        /* LAYOUT */
+        .main-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 215px;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 24px 16px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .logo {
+            margin-bottom: 32px;
+        }
+
+        .logo-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .logo-subtitle {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 400;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 12px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .nav-link.active {
+            background: #fff;
+            color: #1a1a1a;
+        }
+
+        .nav-icon {
+            font-size: 18px;
+        }
+
+        /* CONTENT */
+        .content {
+            margin-left: 215px;
+            flex: 1;
+            padding: 32px;
+            background: #f5f5f5;
+        }
+
+        /* HEADER */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .search-box {
+            position: relative;
+            width: 220px;
+        }
+
+        .search-box input {
+            width: 100%;
+            height: 42px;
+            padding: 10px 16px 10px 42px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 13px;
+            background: #fff;
+            font-family: 'Inter', sans-serif;
+            transition: all .3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #1a1a1a;
+            box-shadow: 0 0 0 3px rgba(26, 26, 26, .05);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            color: #9ca3af;
+            pointer-events: none;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            background: #fff;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 27px;
+            right: 81px;
+            width: 20px;
+            height: 20px;
+            background: #ff4444;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        /* TABLE */
+        .table-container {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        th {
+            padding: 16px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 13px;
+            color: #333;
+        }
+
+        tbody tr:hover {
+            background: #fafafa;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* VEHICLE DETAILS */
+        .vehicle-cell {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .vehicle-main {
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .vehicle-sub {
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* STATUS BADGES */
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+            width: fit-content;
+        }
+
+        .status-red {
+            background: #ffe0e0;
+            color: #d32f2f;
+        }
+
+        .status-blue {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .status-green {
+            background: #e8f5e9;
+            color: #388e3c;
+        }
+
+        .status-yellow {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        /* AGING BADGE */
+        .aging-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            background: #f5f5f5;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .aging-icon {
+            font-size: 14px;
+        }
+
+        /* ACTION LINK */
+        .action-link {
+            color: #ff4444;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .action-link:hover {
+            color: #cc0000;
+        }
+
+        /* PAGINATION */
+        .pagination-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 16px;
+            border-top: 1px solid #f0f0f0;
+            font-size: 13px;
+            color: #999;
+        }
+
+        .pagination {
+            display: flex;
+            gap: 8px;
+        }
+
+        .page-btn {
+            padding: 8px 12px;
+            border: 1px solid #e0e0e0;
+            background: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.3s;
+            color: #333;
+        }
+
+        .page-btn:hover {
+            background: #f5f5f5;
+        }
+
+        .page-btn.active {
+            background: #1a1a1a;
+            color: #fff;
+            border-color: #1a1a1a;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* MOBILE RESPONSIVE */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            width: 40px;
+            height: 40px;
+            background: #1a1a1a;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+                width: 250px;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .content {
+                margin-left: 0;
+                padding: 16px;
+            }
+
+            .menu-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .header {
+                flex-wrap: wrap;
+                gap: 12px;
+                margin-bottom: 24px;
+                margin-top: 50px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+                order: 1;
+                width: 100%;
+            }
+
+            .header-right {
+                width: 100%;
+                order: 2;
+            }
+
+            .search-box {
+                flex: 1;
+            }
+
+            .header-icons {
+                gap: 12px;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th,
+            td {
+                padding: 12px 8px;
+            }
+
+            .vehicle-cell {
+                gap: 2px;
+            }
+
+            .vehicle-main {
+                font-size: 12px;
+            }
+
+            .vehicle-sub {
+                font-size: 11px;
+            }
+
+            .status-badge {
+                padding: 4px 8px;
+                font-size: 11px;
+            }
+
+            .pagination-container {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar {
+                width: 280px;
+                padding: 16px 12px;
+            }
+
+            .content {
+                padding: 12px;
+            }
+
+            .header {
+                flex-direction: column;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .table-container {
+                overflow-x: auto;
+            }
+
+            table {
+                min-width: 600px;
+            }
+
+            th {
+                padding: 12px 6px;
+                font-size: 11px;
+            }
+
+            td {
+                padding: 12px 6px;
+                font-size: 11px;
+            }
+
+            .pagination {
+                flex-wrap: wrap;
+                gap: 4px;
+            }
+
+            .page-btn {
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+
+            .status-badge {
+                padding: 4px 6px;
+                font-size: 10px;
+            }
+
+            .action-link {
+                font-size: 12px;
+            }
+        }
+
+        .desktop-table {
+            display: block;
+        }
+
+        .mobile-cards {
+            display: none;
+        }
+
+        @media (max-width:768px) {
+
+            .desktop-table {
+                display: none;
+            }
+
+            .mobile-cards {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+        }
+
+        .mobile-card {
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .05);
+        }
+
+        .mobile-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .vehicle-no {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .mobile-tags {
+            display: flex;
+            gap: 6px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .mobile-bottom {
+            display: flex;
+            gap: 18px;
+            margin-top: 14px;
+            color: #666;
+            font-size: 13px;
+        }
+
+        .arrow {
+            font-size: 22px;
+            color: #bbb;
+        }
+        .nav-link{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.nav-icon{
+    width:18px;
+    height:18px;
+    flex-shrink:0;
+    stroke-width:2.2;
+}
+
+.nav-link.active .nav-icon{
+    color:#1a1a1a;
+}
+
+.nav-link:not(.active) .nav-icon{
+    color:rgba(255,255,255,.7);
+}
+
+.nav-link:hover .nav-icon{
+    color:#fff;
+}
+.aging-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:4px 8px;
+    background:#f5f5f5;
+    border-radius:4px;
+    font-size:12px;
+    font-weight:500;
+}
+
+.aging-icon{
+    width:14px;
+    height:14px;
+    color:#666;
+    stroke-width:2.2;
+    flex-shrink:0;
+}
+    </style>
+</head>
+
+<body>
+    <!-- MENU TOGGLE (Mobile) -->
+    <button class="menu-toggle" id="menuToggle">☰</button>
+
+    <div class="main-container">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="logo">
+                <div class="logo-title">Admin Panel</div>
+                <div class="logo-subtitle">RTO Operations</div>
+            </div>
+<ul class="nav-menu">
+
+    <li class="nav-item">
+        <a class="nav-link active" onclick="setActive(this)">
+            <i data-lucide="layout-dashboard" class="nav-icon"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" onclick="setActive(this)">
+            <i data-lucide="file-text" class="nav-icon"></i>
+            <span>Applications</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" onclick="setActive(this)">
+            <i data-lucide="credit-card" class="nav-icon"></i>
+            <span>Payments</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" onclick="setActive(this)">
+            <i data-lucide="bar-chart-3" class="nav-icon"></i>
+            <span>Reports</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" onclick="setActive(this)">
+            <i data-lucide="settings" class="nav-icon"></i>
+            <span>Settings</span>
+        </a>
+    </li>
+
+</ul>
+        </aside>
+
+        <!-- CONTENT -->
+        <div class="content">
+            <!-- HEADER -->
+            <div class="header">
+                <h1>Operations Overview</h1>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i data-lucide="search" class="search-icon"></i>
+                        <input type="text" id="searchInput" placeholder="Search operations...">
+                    </div>
+                    <div class="header-icons">
+                        <button class="icon-btn">
+                            <i data-lucide="bell"></i>
+                            <!-- <span class="notification-badge">2</span> -->
+                        </button>
+                        <button class="icon-btn"><i data-lucide="user-round"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TABLE -->
+            <div class="table-container">
+                <div class="desktop-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>SR NO.</th>
+                                <th>VEHICLE DETAILS</th>
+                                <th>STATUS</th>
+                                <th>WORK TYPE</th>
+                                <th>AGING</th>
+                                <th>MONTH & DATE</th>
+                                <th>ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <tr>
+                                <td>10294</td>
+                                <td>
+                                    <div class="vehicle-cell">
+                                        <span class="vehicle-main">KA05MU0578</span>
+                                        <span class="vehicle-sub">BLRRTNO22811</span>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge status-red">Document collected</span></td>
+                                <td>NOC</td>
+                                    
+                                <td>Sept 12, 2025</td>
+                                <td><a class="action-link">View →</a></td>
+                            </tr>
+                            <tr>
+                                <td>10295</td>
+                                <td>
+                                    <div class="vehicle-cell">
+                                        <span class="vehicle-main">MH12AB1234</span>
+                                        <span class="vehicle-sub">PUNRTNO11223</span>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge status-blue">Online done</span></td>
+                                <td>HPT</td>
+                                <td><span class="aging-badge"> <i data-lucide="clock-3" class="aging-icon"></i>5 Days</span></td>
+                                <td>Sept 15, 2025</td>
+                                <td><a class="action-link">View →</a></td>
+                            </tr>
+                            <tr>
+                                <td>10296</td>
+                                <td>
+                                    <div class="vehicle-cell">
+                                        <span class="vehicle-main">DL03SK9981</span>
+                                        <span class="vehicle-sub">DELIRTNO99011</span>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge status-green">Card received</span></td>
+                                <td>RR</td>
+                                <td><span class="aging-badge"> <i data-lucide="clock-3" class="aging-icon"></i>12 Days</span></td>
+                                <td>Aug 22, 2025</td>
+                                <td><a class="action-link">View →</a></td>
+                            </tr>
+                            <tr>
+                                <td>10297</td>
+                                <td>
+                                    <div class="vehicle-cell">
+                                        <span class="vehicle-main">HR26CP4421</span>
+                                        <span class="vehicle-sub">GURRNO44210</span>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge status-yellow">Inward done</span></td>
+                                <td>NOC</td>
+                                <td><span class="aging-badge"> <i data-lucide="clock-3" class="aging-icon"></i>4 Days</span></td>
+                                <td>Sept 08, 2025</td>
+                                <td><a class="action-link">View →</a></td>
+                            </tr>
+                            <tr>
+                                <td>10298</td>
+                                <td>
+                                    <div class="vehicle-cell">
+                                        <span class="vehicle-main">TS09EF0987</span>
+                                        <span class="vehicle-sub">HYDRRTNO00987</span>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge status-red">Document collected</span></td>
+                                <td>HPT</td>
+                                <td><span class="aging-badge"> <i data-lucide="clock-3" class="aging-icon"></i>2 Days</span></td>
+                                <td>Sept 20, 2025</td>
+                                <td><a class="action-link">View →</a></td>
+                            </tr>
+                            <tr>
+                                <td>10299</td>
+                                <td>
+                                    <div class="vehicle-cell">
+                                        <span class="vehicle-main">UP16GT8876</span>
+                                        <span class="vehicle-sub">NOIRTNO66554</span>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge status-blue">Online done</span></td>
+                                <td>RR</td>
+                                <td><span class="aging-badge"> <i data-lucide="clock-3" class="aging-icon"></i>15 Days</span></td>
+                                <td>Aug 10, 2025</td>
+                                <td><a class="action-link">View →</a></td>
+                            </tr>
+                            <tr>
+                                <td>10300</td>
+                                <td>
+                                    <div class="vehicle-cell">
+                                        <span class="vehicle-main">TN01AB9876</span>
+                                        <span class="vehicle-sub">CHENRTNO09876</span>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge status-red">Document collected</span></td>
+                                <td>NOC</td>
+                                <td><span class="aging-badge"> <i data-lucide="clock-3" class="aging-icon"></i>1 Day</span></td>
+                                <td>Oct 01, 2025</td>
+                                <td><a class="action-link">View →</a></td>
+                            </tr>
+                            <tr>
+                                <td>10301</td>
+                                <td>
+                                    <div class="vehicle-cell">
+                                        <span class="vehicle-main">KA51MD5566</span>
+                                        <span class="vehicle-sub">ELCRTNO11223</span>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge status-green">Card received</span></td>
+                                <td>RR</td>
+                                <td><span class="aging-badge"> <i data-lucide="clock-3" class="aging-icon"></i>7 Days</span></td>
+                                <td>Oct 05, 2025</td>
+                                <td><a class="action-link">View →</a></td>
+                            </tr>
+                            <tr>
+                                <td>10302</td>
+                                <td>
+                                    <div class="vehicle-cell">
+                                        <span class="vehicle-main">MH01XY1212</span>
+                                        <span class="vehicle-sub">MUMRTNO12121</span>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge status-blue">Online done</span></td>
+                                <td>HPT</td>
+                                <td><span class="aging-badge"> <i data-lucide="clock-3" class="aging-icon"></i>20 Days</span></td>
+                                <td>Nov 12, 2025</td>
+                                <td><a class="action-link">View →</a></td>
+                            </tr>
+                            <tr>
+                                <td>10303</td>
+                                <td>
+                                    <div class="vehicle-cell">
+                                        <span class="vehicle-main">DL01AZ1010</span>
+                                        <span class="vehicle-sub">DELIRTNO1001</span>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge status-yellow">Inward done</span></td>
+                                <td>NOC</td>
+                                <td><span class="aging-badge"> <i data-lucide="clock-3" class="aging-icon"></i>6 Days</span></td>
+                                <td>Nov 18, 2025</td>
+                                <td><a class="action-link">View →</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="mobileCards" class="mobile-cards"></div>
+                <!-- PAGINATION -->
+                <div class="pagination-container">
+                    <span id="paginationInfo"></span>
+                    <div class="pagination" id="pagination">
+                        <button class="page-btn">Previous</button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        // ================================
+        // MOBILE MENU
+        // ================================
+
+
+        const menuToggle = document.getElementById("menuToggle");
+        const sidebar = document.getElementById("sidebar");
+
+        menuToggle.addEventListener("click", () => {
+            sidebar.classList.toggle("active");
+        });
+
+        document.addEventListener("click", (e) => {
+
+            if (
+                !sidebar.contains(e.target) &&
+                !menuToggle.contains(e.target) &&
+                sidebar.classList.contains("active")
+            ) {
+                sidebar.classList.remove("active");
+            }
+
+        });
+
+        function setActive(el) {
+
+            document.querySelectorAll(".nav-link").forEach(link => {
+                link.classList.remove("active");
+            });
+
+            el.classList.add("active");
+
+            if (window.innerWidth <= 768) {
+                sidebar.classList.remove("active");
+            }
+
+        }
+
+        // ================================
+        // DUMMY DATA
+        // ================================
+
+        const statusList = [
+            { text: "Document collected", class: "status-red" },
+            { text: "Online done", class: "status-blue" },
+            { text: "Card received", class: "status-green" },
+            { text: "Inward done", class: "status-yellow" }
+        ];
+
+        const workTypes = ["NOC", "RR", "HPT"];
+        const vehiclePrefixes = ["KA", "MH", "DL", "UP", "HR", "TS", "TN", "RJ", "PB", "GJ"];
+
+        const operations = [];
+
+        for (let i = 1; i <= 120; i++) {
+
+            const status = statusList[Math.floor(Math.random() * statusList.length)];
+
+            operations.push({
+
+                sr: 10000 + i,
+
+                vehicle:
+                    vehiclePrefixes[Math.floor(Math.random() * vehiclePrefixes.length)] +
+                    (Math.floor(Math.random() * 90) + 10) +
+                    "AB" +
+                    (1000 + i),
+
+                sub: "RTO" + (20000 + i),
+
+                status: status.text,
+
+                statusClass: status.class,
+
+                work: workTypes[Math.floor(Math.random() * workTypes.length)],
+
+                aging: (Math.floor(Math.random() * 20) + 1) + " Days",
+
+                date: "Sept " + ((i % 28) + 1) + ", 2025"
+
+            });
+
+        }
+
+        let filteredData = [...operations];
+        let currentPage = 1;
+        const rowsPerPage = 10;
+
+        // ================================
+        // TABLE
+        // ================================
+
+        function renderTable() {
+
+            const tbody = document.getElementById("tableBody");
+
+            tbody.innerHTML = "";
+
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+
+            const pageData = filteredData.slice(start, end);
+
+            pageData.forEach(item => {
+
+                tbody.innerHTML += `
+
+<tr>
+
+<td>${item.sr}</td>
+
+<td>
+<div class="vehicle-cell">
+<span class="vehicle-main">${item.vehicle}</span>
+<span class="vehicle-sub">${item.sub}</span>
+</div>
+</td>
+
+<td>
+<span class="status-badge ${item.statusClass}">
+${item.status}
+</span>
+</td>
+
+<td>${item.work}</td>
+
+<td>
+<span class="aging-badge">
+ <i data-lucide="clock-3" class="aging-icon"></i> ${item.aging}
+</span>
+</td>
+
+<td>${item.date}</td>
+
+<td>
+<a class="action-link"
+onclick="viewOperation(${item.sr})">
+View  <i data-lucide="chevron-right"></i>
+</a>
+</td>
+
+</tr>
+
+`;
+
+            });
+
+            renderPagination();
+            renderMobileCards();
+
+        }
+
+        // ================================
+        // MOBILE CARDS
+        // ================================
+
+        function renderMobileCards() {
+
+            const container = document.getElementById("mobileCards");
+
+            container.innerHTML = "";
+
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+
+            const pageData = filteredData.slice(start, end);
+
+            pageData.forEach(item => {
+
+                container.innerHTML += `
+
+<div class="mobile-card"
+onclick="viewOperation(${item.sr})">
+
+<div class="mobile-top">
+
+<div>
+
+<div class="vehicle-no">${item.vehicle}</div>
+
+<div class="mobile-tags">
+
+<span class="tag">${item.work}</span>
+
+<span class="status-badge ${item.statusClass}">
+${item.status}
+</span>
+
+</div>
+
+</div>
+
+<div class="arrow"> <i data-lucide="chevron-right"></i></div>
+
+</div>
+
+<div class="mobile-bottom">
+
+<span><i data-lucide="calendar-days"></i> ${item.date}</span>
+
+<span> <i data-lucide="hourglass"></i>
+     ${item.aging}</span>
+
+</div>
+
+</div>
+
+`;
+
+            });
+
+        }
+
+        // ================================
+        // PAGINATION
+        // ================================
+
+        function renderPagination() {
+
+            const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+
+            const pagination = document.getElementById("pagination");
+
+            pagination.innerHTML = "";
+
+            pagination.innerHTML += `
+<button class="page-btn"
+${currentPage === 1 ? "disabled" : ""}
+onclick="changePage(${currentPage - 1})">
+Previous
+</button>
+`;
+
+            const maxVisible = window.innerWidth <= 768 ? 3 : 5;
+
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+
+            let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+
+            if (endPage === totalPages) {
+                startPage = Math.max(1, endPage - maxVisible + 1);
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+
+                pagination.innerHTML += `
+<button
+class="page-btn ${i === currentPage ? "active" : ""}"
+onclick="changePage(${i})">
+${i}
+</button>
+`;
+
+            }
+
+            pagination.innerHTML += `
+<button class="page-btn"
+${currentPage === totalPages ? "disabled" : ""}
+onclick="changePage(${currentPage + 1})">
+Next
+</button>
+`;
+
+            const start = (currentPage - 1) * rowsPerPage + 1;
+
+            const end = Math.min(currentPage * rowsPerPage, filteredData.length);
+
+            document.getElementById("paginationInfo").innerHTML =
+                `Showing ${start} to ${end} of ${filteredData.length} entries`;
+
+        }
+
+        // ================================
+        // PAGE CHANGE
+        // ================================
+
+        function changePage(page) {
+
+            const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+
+            if (page < 1 || page > totalPages) return;
+
+            currentPage = page;
+
+            renderTable();
+
+        }
+
+        // ================================
+        // SEARCH
+        // ================================
+
+        document.getElementById("searchInput").addEventListener("input", function () {
+
+            const keyword = this.value.toLowerCase();
+
+            filteredData = operations.filter(item =>
+
+                item.sr.toString().includes(keyword) ||
+
+                item.vehicle.toLowerCase().includes(keyword) ||
+
+                item.sub.toLowerCase().includes(keyword) ||
+
+                item.status.toLowerCase().includes(keyword) ||
+
+                item.work.toLowerCase().includes(keyword)
+
+            );
+
+            currentPage = 1;
+
+            renderTable();
+
+        });
+
+        // ================================
+        // VIEW DETAILS
+        // ================================
+
+        function viewOperation(id) {
+
+            window.location.href = `operation.html?id=${id}`;
+
+        }
+
+        // ================================
+
+        window.addEventListener("resize", renderPagination);
+
+        renderTable();
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>
