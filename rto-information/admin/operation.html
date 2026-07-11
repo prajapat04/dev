@@ -687,6 +687,265 @@
 }
 
 }
+.payment-row{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    width:100%;
+
+}
+
+.payment-info{
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+
+}
+
+.payment-btn{
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    background:#ff1d1d;
+    color:#fff;
+
+    border:none;
+
+    padding:12px 22px;
+
+    border-radius:30px;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.payment-btn:hover{
+
+    background:#e00000;
+
+    transform:translateY(-1px);
+
+}
+
+.payment-btn svg{
+
+    width:16px;
+    height:16px;
+
+}
+
+@media(max-width:768px){
+
+.payment-row{
+
+    flex-direction:column;
+    align-items:flex-start;
+
+}
+
+.payment-btn{
+
+    width:100%;
+    justify-content:center;
+    margin-top:14px;
+
+}
+
+}
+@media (max-width:768px){
+
+    /* Stack label and value vertically */
+    #financialCard .detail-row{
+        display:block;
+        padding:20px 24px;
+    }
+
+    #financialCard .detail-label{
+        display:block;
+        font-size:13px;
+        font-weight:700;
+        color:#6b7280;
+        text-transform:uppercase;
+        margin-bottom:10px;
+        letter-spacing:.5px;
+    }
+
+    #financialCard .detail-value{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        width:100%;
+    }
+
+    /* Advance payment date below amount */
+    .payment-date{
+        display:block;
+        margin:6px 0 0;
+        font-size:13px;
+        color:#2b83c6;
+    }
+
+    /* Balance section */
+    .payment-row{
+        display:block;
+        width:100%;
+    }
+
+    .payment-info{
+        display:flex;
+        justify-content:space-between;
+        align-items:flex-start;
+        width:100%;
+        flex-wrap:wrap;
+    }
+
+    .balance-amount{
+        font-size:20px;
+        font-weight:800;
+        color:#ff1d1d;
+    }
+
+    .pending-badge{
+        margin-top:8px;
+        margin-left:0;
+    }
+
+    /* Full-width payment button */
+    .payment-btn{
+        width:100%;
+        margin-top:28px;
+        height:56px;
+        border-radius:40px;
+        justify-content:center;
+        font-size:22px;
+        font-weight:700;
+    }
+
+    .payment-btn svg{
+        width:18px;
+        height:18px;
+    }
+
+}
+
+.mobile-block{
+    margin-bottom:28px;
+}
+
+.mobile-two-col{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:24px;
+
+    margin:28px 0;
+
+}
+
+.receiving-card{
+
+    background:#f5f5f5;
+
+    border-radius:22px;
+
+    padding:22px;
+
+    border-left:5px solid #ff1d1d;
+
+    margin:28px 0;
+
+}
+
+.receiving-date{
+
+    margin-top:10px;
+
+    font-size:18px;
+
+    font-weight:700;
+
+}
+
+@media(min-width:769px){
+
+.mobile-block,
+.mobile-two-col,
+.receiving-card{
+
+display:none;
+
+}
+
+}
+
+.mobile-doc-status{
+    background:#fff7f7;
+    border:1px solid #ffd9d9;
+    border-radius:18px;
+    padding:18px;
+    margin-bottom:28px;
+}
+
+.mobile-doc-header{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:#8a8a8a;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:1px;
+}
+
+.mobile-doc-header svg{
+    width:18px;
+    height:18px;
+    color:#ff1d1d;
+}
+
+.mobile-doc-value{
+    margin-top:8px;
+    color:#ff1d1d;
+    font-size:22px;
+    font-weight:700;
+}
+
+.mobile-section{
+    margin-bottom:26px;
+}
+
+.mobile-note{
+    margin-top:8px;
+    padding-left:14px;
+    border-left:3px solid #e5e5e5;
+    color:#444;
+    line-height:1.8;
+}
+
+.mobile-text{
+    margin-top:10px;
+    line-height:1.9;
+    color:#333;
+}
+
+.mobile-observation{
+    color:#ff1d1d;
+    font-weight:700;
+}
+
   </style>
 </head>
 
@@ -901,15 +1160,28 @@
 `;
 
 }
-    function renderStatusCard() {
 
-      let badgeClass = "badge-blue";
 
-      if (operation.statusColor === "red") badgeClass = "badge-red";
-      if (operation.statusColor === "green") badgeClass = "badge-green";
-      if (operation.statusColor === "orange") badgeClass = "badge-orange";
+function renderStatusCard() {
 
-      document.getElementById("statusCard").innerHTML = `
+    let badgeClass = "badge-blue";
+
+    if (operation.statusColor === "red") badgeClass = "badge-red";
+    if (operation.statusColor === "green") badgeClass = "badge-green";
+    if (operation.statusColor === "orange") badgeClass = "badge-orange";
+
+    const isMobile = window.innerWidth <= 768;
+
+    document.getElementById("statusCard").innerHTML = isMobile
+        ? renderMobileStatus(badgeClass)
+        : renderDesktopStatus(badgeClass);
+
+  
+}
+
+function renderDesktopStatus(badgeClass){
+
+return `
 
 <div class="card">
 
@@ -1051,27 +1323,161 @@ ${operation.dispatchDate}
 
 `;
 
+}
+
+function renderMobileStatus(badgeClass){
+
+return `
+
+<div class="card">
+
+    <div class="card-header">
+
+        <div class="card-title">
+
+            <i data-lucide="history"></i>
+
+            <span>Status & Lifecycle</span>
+
+        </div>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="mobile-block">
+
+            <div class="detail-label">
+                STATUS
+            </div>
+
+            <div class="detail-value">
+
+                <span class="status-pill ${badgeClass}">
+                    ${operation.status}
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="mobile-block">
+
+            <div class="detail-label">
+                WORK TYPE
+            </div>
+
+            <div class="detail-value">
+
+                ${operation.workType}
+
+            </div>
+
+        </div>
+
+        <div class="mobile-two-col">
+
+            <div>
+
+                <div class="detail-label">
+                    STATUS CHANGE
+                </div>
+
+                <div class="detail-value">
+
+                    ${operation.statusChangeDate}
+
+                </div>
+
+            </div>
+
+            <div>
+
+                <div class="detail-label">
+                    COLLECTION MODE
+                </div>
+
+                <div class="detail-value">
+
+                    ${operation.collectionMode}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="receiving-card">
+
+            <div class="detail-label">
+                DOCUMENT RECEIVING DATE
+            </div>
+
+            <div class="receiving-date">
+
+                ${operation.receivingDate}
+
+            </div>
+
+        </div>
+
+        <div class="mobile-two-col">
+
+            <div>
+
+                <div class="detail-label">
+                    COMPLETION
+                </div>
+
+                <div class="detail-value">
+
+                    ${operation.completionDate}
+
+                </div>
+
+            </div>
+
+            <div>
+
+                <div class="detail-label">
+                    DISPATCH
+                </div>
+
+                <div class="detail-value">
+
+                    ${operation.dispatchDate}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+`;
+
+}
+
+
+function renderVerificationCard() {
+
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+        renderVerificationMobile();
+    } else {
+        renderVerificationDesktop();
     }
 
-    function copyHypercode() {
+    
+}
+ 
+function renderVerificationDesktop() {
 
-      navigator.clipboard.writeText(operation.hypercode);
-
-      const btn = document.querySelector(".copy-btn");
-
-      btn.innerHTML = "✅ Copied";
-
-      setTimeout(() => {
-
-        btn.innerHTML = "📋 Copy";
-
-      }, 1500);
-
-    }
-
-    function renderVerificationCard() {
-
-      document.getElementById("verificationCard").innerHTML = `
+document.getElementById("verificationCard").innerHTML = `
 
 <div class="card">
 
@@ -1171,9 +1577,106 @@ ${operation.observation}
 
 </div>
 
+
 `;
 
-    }
+}
+
+
+function renderVerificationMobile() {
+
+document.getElementById("verificationCard").innerHTML = `
+
+<div class="card">
+
+    <div class="card-header">
+
+        <div class="card-title">
+
+            <i data-lucide="shield-check"></i>
+
+            <span>Verification & Remarks</span>
+
+        </div>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="mobile-doc-status">
+
+            <div class="mobile-doc-header">
+
+                <i data-lucide="alert-circle"></i>
+
+                <span>DOC STATUS</span>
+
+            </div>
+
+            <div class="mobile-doc-value">
+
+                ${operation.documentStatus}
+
+            </div>
+
+        </div>
+
+        <div class="mobile-section">
+
+            <div class="detail-label">
+
+                REMARKS BY PRASANNA
+
+            </div>
+
+            <div class="mobile-note">
+
+                ${operation.verificationOfficer}
+
+            </div>
+
+        </div>
+
+        <div class="mobile-section">
+
+            <div class="detail-label">
+
+                PRAGATI RESOLUTION
+
+            </div>
+
+            <div class="mobile-text">
+
+                ${operation.remarks}
+
+            </div>
+
+        </div>
+
+        <div class="mobile-section">
+
+            <div class="detail-label">
+
+                LIMISHA OBSERVATION
+
+            </div>
+
+            <div class="mobile-text mobile-observation">
+
+                ${operation.observation}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+`;
+
+}
+
 
 function renderFinancialCard() {
 
@@ -1226,36 +1729,53 @@ document.getElementById("financialCard").innerHTML = `
 
         </div>
 
-        <div class="detail-row">
+<div class="detail-row">
 
-            <div class="detail-label">
-                Balance Payable
-            </div>
+    <div class="detail-label">
+        Balance Payable
+    </div>
 
-            <div class="detail-value">
+    <div class="detail-value payment-row">
 
-                <span class="balance-amount">
+        <div class="payment-info">
 
-                    ₹ ${operation.balance.toLocaleString("en-IN")}.00
+            <span class="balance-amount">
+                ₹ ${operation.balance.toLocaleString("en-IN")}.00
+            </span>
 
-                </span>
-
-                <span class="pending-badge">
-
-
-                    Pending
-
-                </span>
-
-            </div>
+            <span class="pending-badge">
+                <i data-lucide="clock-3"></i>
+                Pending
+            </span>
 
         </div>
+
+        <button class="payment-btn">
+
+            Complete Payment
+
+            <i data-lucide="arrow-right"></i>
+
+        </button>
 
     </div>
 
 </div>
 
 `;
+
+
+document.addEventListener("click", function(e){
+
+    if(e.target.closest(".payment-btn")){
+
+        alert("Redirect to Payment Gateway");
+
+        // window.location.href="payment.html?id="+operation.sr;
+
+    }
+
+});
 
     // Render Lucide icons
     lucide.createIcons();
