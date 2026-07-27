@@ -111,14 +111,13 @@ rto online exam, mock test for learning license">
 </script>
  <!-- changes start here -->
 <style>
-  .language-modal{
+ .language-modal{
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.65);
+    background:rgba(15,15,20,.55);
     display:flex;
     justify-content:center;
     align-items:center;
-    flex-direction: column;
     z-index:999999;
 }
 
@@ -127,152 +126,135 @@ rto online exam, mock test for learning license">
 }
 
 .language-modal-content{
-
-    width:700px;
-    max-width:95%;
-    max-height:90vh;
-
+    width:420px;
+    max-width:92%;
+    max-height:80vh;
     background:#fff;
-    border-radius:20px;
-
+    border-radius:14px;
+    box-shadow:0 20px 50px rgba(0,0,0,.18);
     overflow:hidden;
-
+    display:flex;
+    flex-direction:column;
 }
 
 .language-header{
-
-    padding:25px;
-    text-align:center;
+    padding:20px 22px 14px;
     border-bottom:1px solid #eee;
-
 }
 
 .language-header h2{
-
     margin:0;
-    font-size:28px;
-
+    font-size:18px;
+    font-weight:600;
+    color:#101223;
 }
 
 .language-header p{
-
-    margin-top:8px;
-    color:#666;
-
+    margin-top:4px;
+    font-size:13px;
+    color:#7a7d89;
 }
 
 #languageSearchPopup{
+    width:calc(100% - 44px);
+    margin:14px 22px 4px;
+    padding:9px 12px;
+    border:1px solid #e2e3e8;
+    border-radius:8px;
+    font-size:13.5px;
+    outline:none;
+}
 
-    width:calc(100% - 40px);
-
-    margin:20px;
-
-    padding:14px 18px;
-
-    border:1px solid #ddd;
-
-    border-radius:12px;
-
-    font-size:16px;
-
+#languageSearchPopup:focus{
+    border-color:#c9cbd4;
 }
 
 #languageListPopup{
-
-    display:grid;
-
-    grid-template-columns:repeat(2,1fr);
-
-    gap:15px;
-
-    padding:20px;
-
-    max-height:450px;
-
-    overflow:auto;
-
+    display:flex;
+    flex-direction:column;
+    padding:8px 12px 12px;
+    max-height:320px;
+    overflow-y:auto;
 }
 
 .language-card{
-
-    border:1px solid #ddd;
-
-    border-radius:14px;
-
-    padding:18px;
-
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:10px 12px;
+    margin:2px 0;
+    border-radius:8px;
     cursor:pointer;
+    font-size:14px;
+    color:#31333f;
+    transition:.15s;
+}
 
-    transition:.25s;
-
-    text-align:center;
-
+.language-card::after{
+    content:"";
+    width:16px;
+    height:16px;
+    border-radius:50%;
+    border:1.5px solid #d5d6dd;
+    flex-shrink:0;
 }
 
 .language-card:hover{
-
-    border-color:#e31e24;
-
-    background:#fff4f4;
-
+    background:#f6f6f8;
 }
 
 .language-card.active{
+    background:#fdf2f2;
+    color:#e31e24;
+    font-weight:600;
+}
 
-    background:#e31e24;
-
-    color:#fff;
-
+.language-card.active::after{
+    border-color:#e31e24;
+    background:radial-gradient(#e31e24 0 40%, transparent 45%);
 }
 
 #continueBtn{
-
-    width:220px;
-
-    height:48px;
-
+    width:calc(100% - 44px);
+    margin:0 22px 20px;
+    height:42px;
     border:none;
-
-    border-radius:10px;
-
+    border-radius:8px;
     background:#e31e24;
-
     color:#fff;
-
-    font-size:16px;
-
+    font-size:14px;
+    font-weight:600;
     cursor:pointer;
-
+    transition:.15s;
 }
 
 #continueBtn:disabled{
-
-    opacity:.5;
-
+    background:#f0abaf;
     cursor:not-allowed;
-
 }
 
 .languageSelectorBar{
-    background:#f1f3f5;
-    padding:15px 0;
+    background:#f7f8fa;
+    padding:10px 0;
+    border-bottom:1px solid #eee;
 }
 .languageSelectorBar .container{
     display:flex;
     align-items:center;
-    gap:15px;
+    gap:10px;
 }
 .languageSelectorBar label{
-    font-weight:600;
-    color:#101223;
+    font-weight:500;
+    font-size:13.5px;
+    color:#404252;
 }
 .languageSelectorBar select{
-    padding:10px 15px;
-    border:1px solid #ddd;
-    border-radius:8px;
-    font-size:15px;
+    padding:7px 10px;
+    border:1px solid #e2e3e8;
+    border-radius:6px;
+    font-size:13.5px;
     background:#fff;
-    min-width:200px;
+    min-width:160px;
     cursor:pointer;
 }
 </style>
@@ -1485,15 +1467,11 @@ rLessbtn.addEventListener("click",()=>{
 
         <div id="languageListPopup"></div>
 
-    </div>
-    
-<div style="padding:20px;text-align:center;">
-
-    <button id="continueBtn" disabled>
-
-        Continue
-
-    </button>
+ <div style="padding:14px 22px 20px;">
+            <button id="continueBtn" disabled>
+                Continue
+            </button>
+        </div>
 
 </div>
 </div>
@@ -1514,7 +1492,7 @@ const languageSearchPopup = document.getElementById("languageSearchPopup");
 const languages = [
     { code: "en", name: "English" },
     { code: "hi", name: "Hindi (हिन्दी)" },
-    { code: "bn", name: "বাংলা" },
+    { code: "bn", name: "বাংলা bangali" },
     { code: "mr", name: "मराठी" },
     { code: "ta", name: "தமிழ்" },
     { code: "te", name: "తెలుగు" },
@@ -1545,6 +1523,10 @@ function renderLanguages(filter = "") {
 
             card.innerHTML = lang.name;
 
+            if (lang.code === selectedLanguage) {
+                card.classList.add("active");
+            }
+
             card.onclick = () => {
 
                 document
@@ -1566,6 +1548,7 @@ function renderLanguages(filter = "") {
 }
 
 renderLanguages();
+continueBtn.disabled = false;
 
 
 function renderQuestions(language = currentLanguage) {
