@@ -1523,6 +1523,10 @@ function renderLanguages(filter = "") {
 
             card.innerHTML = lang.name;
 
+            if (lang.code === selectedLanguage) {
+                card.classList.add("active");
+            }
+
             card.onclick = () => {
 
                 document
@@ -1544,6 +1548,7 @@ function renderLanguages(filter = "") {
 }
 
 renderLanguages();
+continueBtn.disabled = false;
 
 
 function renderQuestions(language = currentLanguage) {
