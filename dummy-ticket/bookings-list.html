@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Bookings & Reservations</title>
+<style>
+  :root{
+    --red:#ee1111;
+    --red-dark:#d40e0e;
+    --ink:#111214;
+    --gray-1:#6b7280;
+    --gray-2:#9aa0a6;
+    --border:#e5e7eb;
+    --page-bg:#f4f5f7;
+    --green-bg:#d1fae5; --green-text:#059669;
+    --amber-bg:#fef3c7; --amber-text:#b45309;
+    --slate-bg:#e5e7eb; --slate-text:#4b5563;
+    --red-bg:#fde2e2; --red-text:#dc2626;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0;padding:0;
+    font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    background:var(--page-bg);
+    color:var(--ink);
+  }
+  .page{ max-width:full; margin:0 auto; padding: 80px 160px; }
+
+  .breadcrumb{ font-size:13px; color:var(--gray-1); margin-bottom:14px; }
+  .breadcrumb a{ color:var(--gray-1); text-decoration:none; }
+  .breadcrumb a:hover{ text-decoration:underline; }
+  .breadcrumb .sep{ margin:0 6px; }
+  .breadcrumb .current{ color:var(--ink); font-weight:600; }
+
+  h1{ font-size:26px; font-weight:800; margin:0 0 8px 0; }
+  .subtitle{ font-size:14px; color:var(--gray-1); margin:0 0 24px 0; }
+
+  .search-wrap{
+    background:#fff; border:1px solid var(--border); border-radius:14px;
+    padding:14px 18px; display:flex; align-items:center; gap:10px;
+    margin-bottom:18px;
+  }
+  .search-wrap svg{ color:var(--gray-2); flex:0 0 auto; }
+  .search-wrap input{
+    border:none; outline:none; font-size:14px; width:100%; font-family:inherit; color:var(--ink);
+  }
+  .search-wrap input::placeholder{ color:var(--gray-2); }
+
+  .filter-tabs{
+    display:flex; gap:8px; margin-bottom:22px; flex-wrap:wrap;
+  }
+  .filter-tab{
+    background:#fff; border:1.5px solid var(--border); border-radius:20px;
+    padding:9px 18px; font-size:13px; font-weight:700; color:var(--gray-1);
+    cursor:pointer; display:flex; align-items:center; gap:7px;
+  }
+  .filter-tab .count{
+    background:#f3f4f6; color:var(--gray-1); font-size:11px; font-weight:800;
+    padding:1px 7px; border-radius:10px;
+  }
+  .filter-tab.active{ background:var(--ink); border-color:var(--ink); color:#fff; }
+  .filter-tab.active .count{ background:rgba(255,255,255,0.18); color:#fff; }
+  .filter-tab:hover:not(.active){ border-color:var(--gray-2); color:var(--ink); }
+
+  .type-tag{
+    font-size:9.5px; font-weight:800; letter-spacing:0.3px; text-transform:uppercase;
+    padding:3px 8px; border-radius:5px; display:inline-block; margin-bottom:4px;
+  }
+  .type-flight{ background:#dbeafe; color:#1d4ed8; }
+  .type-hotel{ background:#fce7f3; color:#be185d; }
+  .type-both{ background:#ede9fe; color:#6d28d9; }
+
+  .empty-state{
+    text-align:center; padding:50px 20px; color:var(--gray-2); font-size:14px;
+    background:#fff; border:1px dashed var(--border); border-radius:14px;
+  }
+
+  .booking-list{ display:flex; flex-direction:column; gap:14px; }
+
+  .booking-card{
+    background:#fff; border:1px solid var(--border); border-radius:14px;
+    padding:16px; display:flex; align-items:center; gap:40px;
+  }
+  .b-thumb{
+    width:64px; height:64px; border-radius:10px; background-size:cover; background-position:center; flex:0 0 auto;
+  }
+  .b-col{ min-width:0; }
+  .b-col.grow{ flex:1; }
+
+  .b-id{ font-size:11px; color:var(--gray-2); font-weight:600; margin-bottom:3px; }
+  .b-loc{ font-size:15px; font-weight:800; margin-bottom:3px; }
+  .b-guest{ font-size:12px; color:var(--gray-1); }
+
+  .b-label{ font-size:10.5px; font-weight:800; color:var(--gray-2); letter-spacing:0.4px; text-transform:uppercase; margin-bottom:5px; }
+  .b-hotel{ font-size:14px; font-weight:700; margin-bottom:3px; }
+  .b-room{ font-size:12px; color:var(--gray-1); }
+
+  .b-dates-row{ display:flex; align-items:center; gap:6px; font-size:13.5px; font-weight:700; margin-bottom:3px; }
+  .b-dates-row svg{ color:var(--red); flex:0 0 auto; }
+  .b-month{ font-size:11.5px; color:var(--gray-2); }
+
+  .status-pill{
+    font-size:11.5px; font-weight:700; padding:6px 14px; border-radius:20px;
+    display:flex; align-items:center; gap:6px; white-space:nowrap;
+  }
+  .status-pill .dot{ width:6px; height:6px; border-radius:50%; }
+  .status-confirmed{ background:var(--green-bg); color:var(--green-text); }
+  .status-confirmed .dot{ background:var(--green-text); }
+  .status-pending{ background:var(--amber-bg); color:var(--amber-text); }
+  .status-pending .dot{ background:var(--amber-text); }
+  .status-completed{ background:var(--slate-bg); color:var(--slate-text); }
+  .status-completed .dot{ background:var(--slate-text); }
+  .status-cancelled{ background:var(--red-bg); color:var(--red-text); }
+  .status-cancelled .dot{ background:var(--red-text); }
+
+  .icon-btn{
+    width:40px; height:40px; border-radius:10px; border:1.5px solid var(--border);
+    background:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; flex:0 0 auto;
+    color:var(--ink);
+  }
+  .icon-btn:hover{ border-color:var(--red); color:var(--red); }
+
+  .view-btn{
+    background:var(--red); color:#fff; border:none; padding:11px 20px; border-radius:10px;
+    font-weight:800; font-size:13px; cursor:pointer; white-space:nowrap; flex:0 0 auto;
+  }
+  .view-btn:hover{ background:var(--red-dark); }
+
+  .list-footer{
+    display:flex; align-items:center; justify-content:space-between; margin-top:20px;
+    font-size:13px; color:var(--gray-1);
+  }
+  .pager{ display:flex; gap:10px; }
+  .pager button{
+    background:#fff; border:1px solid var(--border); border-radius:8px; padding:9px 18px;
+    font-size:13px; font-weight:600; color:var(--gray-1); cursor:pointer;
+  }
+  .pager button:hover:not(:disabled){ border-color:var(--gray-2); color:var(--ink); }
+  .pager button:disabled{ opacity:0.5; cursor:not-allowed; }
+
+  /* ---------------- Responsive ---------------- */
+  @media (max-width: 720px){
+    .booking-card{ flex-wrap:wrap; }
+    .b-thumb{ width:100%; height:140px; order:0; }
+    .b-col.grow{ flex:1 1 45%; order:1; }
+    .status-pill{ order:2; margin-left:auto; }
+    .icon-btn{ order:3; }
+    .view-btn{ order:4; width:100%; margin-top:8px; justify-content:center; }
+  }
+  @media (max-width:480px){
+    .page{ padding:22px 14px 50px; }
+    h1{ font-size:21px; }
+    .b-col.grow{ flex:1 1 100%; }
+    .list-footer{ flex-direction:column; gap:12px; align-items:flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="breadcrumb">
+    <a href="dummy-ticket.html">Home</a>
+    <span class="sep">›</span>
+    <span class="current">My Bookings</span>
+  </div>
+
+  <h1>My Bookings &amp; Reservations</h1>
+  <p class="subtitle">Track and manage your hotel bookings, driving licenses, and visa state services.</p>
+
+  <div class="search-wrap">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" id="searchInput" placeholder="Search by Booking ID...">
+  </div>
+
+  <div class="filter-tabs" id="filterTabs"></div>
+
+  <div class="booking-list" id="bookingList"></div>
+
+  <div class="list-footer">
+    <div id="recordCount">Showing 4 of 4 active records</div>
+    <div class="pager">
+      <button disabled>Previous</button>
+      <button disabled>Next</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const bookings = [
+    {
+      id: '#ITZ-H782-990',
+      bookingType: 'hotel',
+      reservationNo: 'RES-2024-78432',
+      destination: 'Paris, France',
+      guest: 'Alexander Harrison',
+      hotel: 'Hotel Plaza Athénée',
+      hotelPdfName: 'Le Grand Palace Hotel',
+      room: 'Deluxe King Room • Half Board',
+      roomType: 'Deluxe Suite',
+      checkIn: 'October 12, 2024',
+      checkOut: 'October 18, 2024',
+      dateRange: 'Oct 12 - Oct 18',
+      monthYear: 'Oct 2024',
+      guests: '2 Adults',
+      status: 'confirmed',
+      statusLabel: 'Confirmed',
+      thumb: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=200&q=80'
+    },
+    {
+      id: '#ITZ-L204-551',
+      bookingType: 'hotel',
+      reservationNo: 'RES-2024-55190',
+      destination: 'London, United Kingdom',
+      guest: 'Alexander Harrison',
+      hotel: 'The Savoy',
+      hotelPdfName: 'The Savoy London',
+      room: 'Luxury Queen Room • Bed & Breakfast',
+      roomType: 'Luxury Queen Room',
+      checkIn: 'November 3, 2024',
+      checkOut: 'November 8, 2024',
+      dateRange: 'Nov 03 - Nov 08',
+      monthYear: 'Oct 2024',
+      guests: '2 Adults',
+      status: 'pending',
+      statusLabel: 'Pending',
+      thumb: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=200&q=80'
+    },
+    {
+      id: '#ITZ-D902-114',
+      bookingType: 'hotel',
+      reservationNo: 'RES-2024-11402',
+      destination: 'Dubai, United Arab Emirates',
+      guest: 'Alexander Harrison',
+      hotel: 'Burj Al Arab',
+      hotelPdfName: 'Burj Al Arab Jumeirah',
+      room: 'Panoramic One Bedroom Suite • All Inclusive',
+      roomType: 'Panoramic One Bedroom Suite',
+      checkIn: 'September 15, 2024',
+      checkOut: 'September 20, 2024',
+      dateRange: 'Sep 15 - Sep 20',
+      monthYear: 'Oct 2024',
+      guests: '2 Adults',
+      status: 'completed',
+      statusLabel: 'Completed',
+      thumb: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=200&q=80'
+    },
+    {
+      id: '#ITZ-R308-412',
+      bookingType: 'hotel',
+      reservationNo: 'RES-2024-30841',
+      destination: 'Rome, Italy',
+      guest: 'Alexander Harrison',
+      hotel: 'Hotel Artemide',
+      hotelPdfName: 'Hotel Artemide Rome',
+      room: 'Superior Double Room • Room Only',
+      roomType: 'Superior Double Room',
+      checkIn: 'July 22, 2024',
+      checkOut: 'July 25, 2024',
+      dateRange: 'Jul 22 - Jul 25',
+      monthYear: 'Oct 2024',
+      guests: '2 Adults',
+      status: 'cancelled',
+      statusLabel: 'Cancelled',
+      thumb: 'https://images.unsplash.com/photo-1591088398332-8a7791972843?auto=format&fit=crop&w=200&q=80'
+    },
+    {
+      id: '#ITZ-FL392-220',
+      bookingType: 'flight',
+      reservationNo: 'RES-2024-39220',
+      destination: 'Mumbai to Dubai',
+      guest: 'Alexander Harrison',
+      hotel: 'IndiGo • 6E-1453',
+      room: 'Economy Saver • Direct Flight',
+      checkIn: 'December 2, 2024',
+      checkOut: 'December 2, 2024',
+      dateRange: 'Dec 02, 2024',
+      monthYear: 'Dec 2024',
+      guests: '2 Adults',
+      status: 'confirmed',
+      statusLabel: 'Confirmed',
+      thumb: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=200&q=80',
+      flightData: {
+        flightBookingNo: '#ITZ-FL392-220',
+        pnr: 'IG-2024-39220',
+        passengerName: 'Alexander Harrison',
+        airline: 'IndiGo',
+        departure: 'December 2, 2024',
+        returnDate: '—',
+        route: 'Mumbai (BOM) → Dubai (DXB)',
+        flightPax: '2 Adults',
+        seatClass: 'Economy Saver',
+        flightStatus: 'Confirmed'
+      }
+    },
+    {
+      id: '#ITZ-FLHT-6610',
+      bookingType: 'both',
+      reservationNo: 'RES-2024-66102',
+      destination: 'Istanbul, Turkey',
+      guest: 'Alexander Harrison',
+      hotel: 'Turkish Airlines + The Ritz-Carlton Istanbul',
+      room: 'Business Class • Deluxe Suite',
+      checkIn: 'November 10, 2024',
+      checkOut: 'November 14, 2024',
+      dateRange: 'Nov 10 - Nov 14',
+      monthYear: 'Nov 2024',
+      guests: '2 Adults',
+      status: 'confirmed',
+      statusLabel: 'Confirmed',
+      thumb: 'https://images.unsplash.com/photo-1524219791949-eddc19c4e7a5?auto=format&fit=crop&w=200&q=80',
+      bothData: {
+        flightBookingNo: '#ITZ-FLPY-8834',
+        pnr: 'TK-2024-73901',
+        passengerName: 'Alexander Harrison',
+        airline: 'Turkish Airlines',
+        departure: 'November 5, 2024',
+        returnDate: 'November 12, 2024',
+        route: 'New Delhi → Istanbul',
+        flightPax: '2 Adults',
+        seatClass: 'Business Class',
+        flightStatus: 'Confirmed',
+        hotelBookingId: 'HTL-BKG-7621',
+        confirmationNo: 'HC-2024-55901',
+        guestName: 'Alexander Harrison',
+        checkIn: 'November 10, 2024',
+        checkOut: 'November 14, 2024',
+        hotelName: 'The Ritz-Carlton Istanbul',
+        destination: 'Istanbul, Turkey',
+        hotelPax: '2 Adults',
+        roomType: 'Deluxe Suite',
+        mealPlan: 'Breakfast Included',
+        hotelStatus: 'Confirmed'
+      }
+    }
+  ];
+
+  const filterDefs = [
+    { key: 'all', label: 'All' },
+    { key: 'flight', label: 'Flights' },
+    { key: 'hotel', label: 'Hotels' },
+    { key: 'both', label: 'Combined' }
+  ];
+  let activeFilter = 'all';
+
+  function buildPdfUrl(b, autodownload){
+    const dl = autodownload ? '&autodownload=1' : '';
+
+    if(b.bookingType === 'hotel'){
+      const params = new URLSearchParams({
+        bookingId: b.id,
+        reservationNo: b.reservationNo,
+        guest: b.guest,
+        hotel: b.hotelPdfName,
+        destination: b.destination,
+        roomType: b.roomType,
+        checkIn: b.checkIn,
+        checkOut: b.checkOut,
+        guests: b.guests,
+        status: b.statusLabel
+      });
+      return 'reservation-pdf.html?' + params.toString() + dl;
+    }
+
+    if(b.bookingType === 'flight'){
+      const params = new URLSearchParams(b.flightData);
+      return 'both-reservation-pdf.html?' + params.toString() + '&hideHotel=1' + dl;
+    }
+
+    // both
+    const params = new URLSearchParams(b.bothData);
+    return 'both-reservation-pdf.html?' + params.toString() + dl;
+  }
+
+  const typeTagLabel = { flight: 'Flight', hotel: 'Hotel', both: 'Flight + Hotel' };
+
+  function renderFilterTabs(){
+    const wrap = document.getElementById('filterTabs');
+    wrap.innerHTML = '';
+    filterDefs.forEach(f=>{
+      const count = f.key === 'all' ? bookings.length : bookings.filter(b=>b.bookingType===f.key).length;
+      const btn = document.createElement('div');
+      btn.className = 'filter-tab' + (activeFilter === f.key ? ' active' : '');
+      btn.innerHTML = `${f.label} <span class="count">${count}</span>`;
+      btn.onclick = ()=>{ activeFilter = f.key; renderFilterTabs(); renderBookings(document.getElementById('searchInput').value); };
+      wrap.appendChild(btn);
+    });
+  }
+
+  function renderBookings(filter){
+    const list = document.getElementById('bookingList');
+    list.innerHTML = '';
+    const q = (filter || '').trim().toLowerCase();
+    const filtered = bookings.filter(b=>{
+      const matchesQuery = !q || b.id.toLowerCase().includes(q);
+      const matchesType = activeFilter === 'all' || b.bookingType === activeFilter;
+      return matchesQuery && matchesType;
+    });
+
+    if(filtered.length === 0){
+      list.innerHTML = `<div class="empty-state">No bookings match this filter yet.</div>`;
+    }
+
+    filtered.forEach(b=>{
+      const card = document.createElement('div');
+      card.className = 'booking-card';
+      card.innerHTML = `
+        <div class="b-thumb" style="background-image:url('${b.thumb}');"></div>
+        <div class="b-col" style="max-width:150px;">
+          <span class="type-tag type-${b.bookingType}">${typeTagLabel[b.bookingType]}</span>
+          <div class="b-id">${b.id}</div>
+          <div class="b-loc">${b.destination}</div>
+          <div class="b-guest">Guest: ${b.guest}</div>
+        </div>
+        <div class="b-col grow">
+          <div class="b-label">${b.bookingType === 'flight' ? 'Flight' : b.bookingType === 'both' ? 'Flight + Hotel' : 'Accommodation'}</div>
+          <div class="b-hotel">${b.hotel}</div>
+          <div class="b-room">${b.room}</div>
+        </div>
+        <div class="b-col">
+          <div class="b-label">Dates &amp; Stay</div>
+          <div class="b-dates-row">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            ${b.dateRange}
+          </div>
+          <div class="b-month">${b.monthYear}</div>
+        </div>
+        <div class="status-pill status-${b.status}"><span class="dot"></span>${b.statusLabel}</div>
+        <div class="icon-btn" title="Download PDF" onclick="window.location.href='${buildPdfUrl(b, true)}'">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </div>
+        <button class="view-btn" onclick="window.location.href='${buildPdfUrl(b, false)}'">View Details</button>
+      `;
+      list.appendChild(card);
+    });
+
+    document.getElementById('recordCount').textContent =
+      `Showing ${filtered.length} of ${bookings.length} active records`;
+  }
+
+  document.getElementById('searchInput').addEventListener('input', (e)=>{
+    renderBookings(e.target.value);
+  });
+
+  renderFilterTabs();
+  renderBookings('');
+</script>
+
+</body>
+</html>

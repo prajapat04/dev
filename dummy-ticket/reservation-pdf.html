@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel Reservation PDF</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --red:#ee1111;
+    --red-dark:#d40e0e;
+    --ink:#111214;
+    --gray-1:#6b7280;
+    --gray-2:#9aa0a6;
+    --border:#e5e7eb;
+    --green-bg:#d1fae5; --green-text:#059669;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0;padding:0;
+    font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    background:#e9eaed;
+    color:var(--ink);
+  }
+
+  .toolbar{
+    background:var(--ink); color:#fff;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 22px;
+    position:sticky; top:0; z-index:10;
+  }
+  .toolbar .left{ display:flex; align-items:center; gap:14px; }
+  .back-btn{
+    background:transparent; border:none; color:#fff; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .toolbar .title{ font-size:15px; font-weight:700; }
+  .toolbar .right{ display:flex; gap:10px; }
+  .tb-btn{
+    display:flex; align-items:center; gap:7px;
+    background:transparent; border:1.5px solid #3a3d42; color:#e5e7eb;
+    padding:9px 14px; border-radius:8px; font-size:12.5px; font-weight:700; cursor:pointer;
+  }
+  .tb-btn:hover{ border-color:#5a5e65; }
+  .tb-btn.primary{ background:var(--red); border-color:var(--red); color:#fff; }
+  .tb-btn.primary:hover{ background:var(--red-dark); }
+
+  .doc-wrap{
+    max-width:640px; margin:0 auto; padding:34px 20px 60px;
+  }
+
+  .doc-card{
+    background:#fff;
+    border-radius:12px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    overflow:hidden;
+  }
+  .doc-topbar{ height:5px; background:var(--red); }
+  .doc-body{ padding:34px 36px; }
+
+  .brand-row{ display:flex; align-items:center; gap:8px; margin-bottom:22px; }
+  .brand-row svg{ color:var(--red); }
+  .brand-row .brand-name{ font-size:19px; font-weight:800; color:var(--ink); }
+
+  .doc-heading{
+    font-size:16px; font-weight:800; letter-spacing:0.4px;
+    padding-bottom:12px; border-bottom:3px solid var(--red);
+    margin-bottom:24px; display:inline-block;
+  }
+
+  .info-grid{
+    display:grid; grid-template-columns:1fr 1fr auto; gap:18px 30px; align-items:start; margin-bottom:26px;
+  }
+  .info-cols{ display:contents; }
+  .info-item{ }
+  .i-label{ font-size:10px; font-weight:800; color:var(--gray-2); letter-spacing:0.5px; text-transform:uppercase; margin-bottom:5px; }
+  .i-value{ font-size:14.5px; font-weight:700; }
+  .status-pill-doc{
+    display:inline-flex; align-items:center; gap:6px; background:var(--green-bg); color:var(--green-text);
+    font-size:12px; font-weight:700; padding:5px 12px; border-radius:20px; margin-top:2px;
+  }
+
+  .qr-box{
+    grid-row: 1 / span 5;
+    grid-column: 3;
+    width:96px; text-align:center;
+  }
+  .qr-pattern{
+    width:88px; height:88px; border:1.5px solid var(--border); border-radius:8px;
+    display:grid; grid-template-columns:repeat(5,1fr); grid-template-rows:repeat(5,1fr);
+    padding:8px; gap:3px; margin:0 auto 8px auto;
+  }
+  .qr-pattern span{ background:transparent; }
+  .qr-pattern span.on{ background:var(--ink); border-radius:1px; }
+  .qr-caption{ font-size:9.5px; color:var(--gray-2); line-height:1.4; }
+
+  .doc-divider{ border-top:1px solid var(--border); margin:8px 0 22px 0; }
+
+  .terms-heading{ font-size:12.5px; font-weight:800; letter-spacing:0.5px; margin-bottom:12px; }
+  .terms-list{ list-style:none; margin:0 0 30px 0; padding:0; }
+  .terms-list li{
+    font-size:12px; color:#4b5563; line-height:1.6; padding-left:16px; position:relative; margin-bottom:8px;
+  }
+  .terms-list li::before{
+    content:''; position:absolute; left:0; top:6px; width:5px; height:5px; border-radius:50%; background:var(--red);
+  }
+
+  .sign-row{ display:flex; justify-content:space-between; align-items:flex-end; margin-top:10px; }
+  .stamp{
+    width:66px; height:66px; border-radius:50%; border:2px dashed var(--red);
+    display:flex; align-items:center; justify-content:center; color:var(--red);
+    font-size:7.5px; font-weight:800; text-align:center; line-height:1.2; padding:4px;
+    margin-bottom:8px;
+  }
+  .stamp-caption{ font-size:10.5px; color:var(--gray-2); }
+  .sign-block{ text-align:right; }
+  .sign-line{ width:130px; border-top:1.5px solid var(--ink); margin-bottom:6px; margin-left:auto; }
+  .sign-caption{ font-size:11px; color:var(--gray-2); }
+
+  .page-pager{
+    display:flex; align-items:center; justify-content:center; gap:14px;
+    margin:22px auto 0; background:#fff; border:1px solid var(--border); border-radius:20px;
+    padding:8px 18px; width:fit-content; font-size:13px; color:var(--gray-1); font-weight:600;
+  }
+  .page-pager svg{ cursor:pointer; color:var(--gray-2); }
+
+  .toast{
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+    background:var(--ink); color:#fff; padding:12px 22px; border-radius:10px;
+    font-size:13px; font-weight:600; opacity:0; pointer-events:none; transition:opacity .25s ease;
+    z-index:50;
+  }
+  .toast.show{ opacity:1; }
+
+  @media (max-width:640px){
+    .toolbar{ padding:12px 14px; flex-wrap:wrap; gap:10px; }
+    .toolbar .title{ font-size:13px; }
+    .tb-btn span.btn-text{ display:none; }
+    .tb-btn{ padding:9px 11px; }
+    .doc-wrap{ padding:20px 12px 40px; }
+    .doc-body{ padding:24px 20px; }
+    .info-grid{ grid-template-columns:1fr 1fr; }
+    .qr-box{ grid-row:auto; grid-column:1 / span 2; width:100%; margin-top:6px; }
+    .qr-pattern{ margin:0 0 8px 0; }
+    .sign-row{ flex-direction:column; align-items:flex-start; gap:16px; }
+    .sign-block{ text-align:left; }
+    .sign-line{ margin-left:0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="left">
+    <button class="back-btn" onclick="history.length > 1 ? history.back() : window.location.href='bookings-list.html'">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    </button>
+    <div class="title">Hotel Reservation PDF</div>
+  </div>
+  <div class="right">
+    <button class="tb-btn" id="shareBtn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg>
+      <span class="btn-text">Share</span>
+    </button>
+    <button class="tb-btn" onclick="window.print()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      <span class="btn-text">Print</span>
+    </button>
+    <button class="tb-btn primary" id="downloadBtn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <span class="btn-text">Download</span>
+    </button>
+  </div>
+</div>
+
+<div class="doc-wrap">
+  <div class="doc-card">
+    <div class="doc-topbar"></div>
+    <div class="doc-body">
+      <div class="brand-row">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.5-9.5-9C.5 8 2 4 6 4c2 0 3.5 1 4 2 .5-1 2-2 4-2 4 0 5.5 4 3.5 8-2.5 4.5-9.5 9-9.5 9z"/></svg>
+        <span class="brand-name">Itzeazy</span>
+      </div>
+
+      <div class="doc-heading">HOTEL RESERVATION CONFIRMATION</div>
+
+      <div class="info-grid">
+        <div class="info-item"><div class="i-label">Booking ID</div><div class="i-value" id="v-bookingId">#ITZ-H782-990</div></div>
+        <div class="info-item"><div class="i-label">Reservation No</div><div class="i-value" id="v-reservationNo">RES-2024-78432</div></div>
+
+        <div class="info-item"><div class="i-label">Guest Name</div><div class="i-value" id="v-guest">Alexander Harrison</div></div>
+        <div class="info-item"><div class="i-label">Check-In</div><div class="i-value" id="v-checkIn">October 12, 2024</div></div>
+
+        <div class="info-item"><div class="i-label">Hotel Name</div><div class="i-value" id="v-hotel">Le Grand Palace Hotel</div></div>
+        <div class="info-item"><div class="i-label">Check-Out</div><div class="i-value" id="v-checkOut">October 18, 2024</div></div>
+
+        <div class="info-item"><div class="i-label">Destination</div><div class="i-value" id="v-destination">Paris, France</div></div>
+        <div class="info-item"><div class="i-label">Number of Guests</div><div class="i-value" id="v-guests">2 Adults</div></div>
+
+        <div class="info-item"><div class="i-label">Room Type</div><div class="i-value" id="v-roomType">Deluxe Suite</div></div>
+        <div class="info-item"><div class="i-label">Reservation Status</div><div class="status-pill-doc" id="v-status">Confirmed</div></div>
+
+        <div class="qr-box">
+          <div class="qr-pattern" id="qrPattern"></div>
+          <div class="qr-caption">Scan QR code to verify this GovTech official reservation.</div>
+        </div>
+      </div>
+
+      <div class="doc-divider"></div>
+
+      <div class="terms-heading">TERMS &amp; CONDITIONS</div>
+      <ul class="terms-list">
+        <li>This reservation is guaranteed and embassy-ready for official visa application purposes.</li>
+        <li>Any cancellation or modification must be requested at least 72 hours prior to the scheduled check-in date.</li>
+        <li>Guests are required to present a valid government-issued photo ID and credit card upon arrival.</li>
+        <li>For immediate assistance or modification, please contact our helpline at drive@itzeazy.com.</li>
+      </ul>
+
+      <div class="sign-row">
+        <div>
+          <div class="stamp">VISA STAMPED APPROVED</div>
+          <div class="stamp-caption">Authorized by Itzeazy GovTech</div>
+        </div>
+        <div class="sign-block">
+          <div class="sign-line"></div>
+          <div class="sign-caption">Authorized Signatory</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-pager">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    Page 1 of 1
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+  </div>
+</div>
+
+<div class="toast" id="toast">Link copied to clipboard</div>
+
+<script>
+  // Read booking data from the query string, falling back to sample data.
+  const params = new URLSearchParams(window.location.search);
+  const data = {
+    bookingId: params.get('bookingId') || '#ITZ-H782-990',
+    reservationNo: params.get('reservationNo') || 'RES-2024-78432',
+    guest: params.get('guest') || 'Alexander Harrison',
+    hotel: params.get('hotel') || 'Le Grand Palace Hotel',
+    destination: params.get('destination') || 'Paris, France',
+    roomType: params.get('roomType') || 'Deluxe Suite',
+    checkIn: params.get('checkIn') || 'October 12, 2024',
+    checkOut: params.get('checkOut') || 'October 18, 2024',
+    guests: params.get('guests') || '2 Adults',
+    status: params.get('status') || 'Confirmed'
+  };
+
+  document.getElementById('v-bookingId').textContent = data.bookingId;
+  document.getElementById('v-reservationNo').textContent = data.reservationNo;
+  document.getElementById('v-guest').textContent = data.guest;
+  document.getElementById('v-hotel').textContent = data.hotel;
+  document.getElementById('v-destination').textContent = data.destination;
+  document.getElementById('v-roomType').textContent = data.roomType;
+  document.getElementById('v-checkIn').textContent = data.checkIn;
+  document.getElementById('v-checkOut').textContent = data.checkOut;
+  document.getElementById('v-guests').textContent = data.guests;
+
+  const statusEl = document.getElementById('v-status');
+  statusEl.textContent = data.status;
+  const statusColors = {
+    'Confirmed': {bg:'#d1fae5', text:'#059669'},
+    'Pending':   {bg:'#fef3c7', text:'#b45309'},
+    'Completed': {bg:'#e5e7eb', text:'#4b5563'},
+    'Cancelled': {bg:'#fde2e2', text:'#dc2626'}
+  };
+  const sc = statusColors[data.status] || statusColors['Confirmed'];
+  statusEl.style.background = sc.bg;
+  statusEl.style.color = sc.text;
+
+  document.title = 'Hotel Reservation PDF - ' + data.bookingId;
+
+  // --- Decorative QR-like pattern (visual only, not a real scannable code) ---
+  (function buildQrPattern(){
+    const grid = document.getElementById('qrPattern');
+    // Deterministic pseudo-random pattern seeded by booking ID so it's stable per booking
+    let seed = 0;
+    for(let i=0;i<data.bookingId.length;i++){ seed += data.bookingId.charCodeAt(i); }
+    for(let i=0;i<25;i++){
+      seed = (seed * 9301 + 49297) % 233280;
+      const on = (seed / 233280) > 0.5;
+      const cell = document.createElement('span');
+      if(on) cell.className = 'on';
+      grid.appendChild(cell);
+    }
+  })();
+
+  function showToast(msg){
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(()=> toast.classList.remove('show'), 2200);
+  }
+
+  // --- Share button ---
+  document.getElementById('shareBtn').addEventListener('click', async ()=>{
+    const shareData = {
+      title: 'Hotel Reservation - ' + data.bookingId,
+      text: 'Hotel reservation confirmation for ' + data.guest + ' at ' + data.hotel,
+      url: window.location.href
+    };
+    if(navigator.share){
+      try{ await navigator.share(shareData); } catch(e){ /* user cancelled */ }
+    } else {
+      try{
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('Link copied to clipboard');
+      } catch(e){
+        showToast('Unable to copy link');
+      }
+    }
+  });
+
+  // --- Real PDF generation & download ---
+  function generateAndDownloadPdf(){
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const margin = 56;
+    let y = 60;
+
+    // Red top bar
+    doc.setFillColor(238, 17, 17);
+    doc.rect(0, 0, pageWidth, 6, 'F');
+
+    // Brand
+    doc.setTextColor(17, 18, 20);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(18);
+    doc.text('Itzeazy', margin, y);
+    y += 34;
+
+    // Heading with red underline
+    doc.setFontSize(15);
+    doc.text('HOTEL RESERVATION CONFIRMATION', margin, y);
+    doc.setDrawColor(238, 17, 17);
+    doc.setLineWidth(2);
+    doc.line(margin, y + 8, margin + 260, y + 8);
+    y += 40;
+
+    const rows = [
+      ['Booking ID', data.bookingId, 'Reservation No', data.reservationNo],
+      ['Guest Name', data.guest, 'Check-In', data.checkIn],
+      ['Hotel Name', data.hotel, 'Check-Out', data.checkOut],
+      ['Destination', data.destination, 'Number of Guests', data.guests],
+      ['Room Type', data.roomType, 'Reservation Status', data.status]
+    ];
+
+    const col1X = margin;
+    const col2X = margin + 260;
+
+    rows.forEach(([l1, v1, l2, v2])=>{
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8.5);
+      doc.setTextColor(154, 160, 166);
+      doc.text(l1.toUpperCase(), col1X, y);
+      doc.text(l2.toUpperCase(), col2X, y);
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(11.5);
+      doc.setTextColor(17, 18, 20);
+      doc.text(v1, col1X, y + 15);
+      doc.text(v2, col2X, y + 15);
+
+      y += 38;
+    });
+
+    y += 8;
+    doc.setDrawColor(229, 231, 235);
+    doc.setLineWidth(1);
+    doc.line(margin, y, pageWidth - margin, y);
+    y += 26;
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10.5);
+    doc.setTextColor(17, 18, 20);
+    doc.text('TERMS & CONDITIONS', margin, y);
+    y += 18;
+
+    const terms = [
+      'This reservation is guaranteed and embassy-ready for official visa application purposes.',
+      'Any cancellation or modification must be requested at least 72 hours prior to the scheduled check-in date.',
+      'Guests are required to present a valid government-issued photo ID and credit card upon arrival.',
+      'For immediate assistance or modification, please contact our helpline at drive@itzeazy.com.'
+    ];
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9.5);
+    doc.setTextColor(75, 85, 99);
+    terms.forEach(term=>{
+      const lines = doc.splitTextToSize('•  ' + term, pageWidth - margin * 2 - 10);
+      doc.text(lines, margin, y);
+      y += lines.length * 13 + 6;
+    });
+
+    y += 30;
+    doc.setDrawColor(238, 17, 17);
+    doc.setLineWidth(1.2);
+    doc.circle(margin + 33, y, 33, 'S');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(6.5);
+    doc.setTextColor(238, 17, 17);
+    doc.text('VISA STAMPED', margin + 33, y - 3, { align: 'center' });
+    doc.text('APPROVED', margin + 33, y + 6, { align: 'center' });
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(154, 160, 166);
+    doc.text('Authorized by Itzeazy GovTech', margin, y + 50);
+
+    const signX = pageWidth - margin - 150;
+    doc.setDrawColor(17, 18, 20);
+    doc.line(signX, y + 20, signX + 150, y + 20);
+    doc.text('Authorized Signatory', signX, y + 34);
+
+    const fileName = 'Hotel-Reservation-' + data.bookingId.replace('#','') + '.pdf';
+    doc.save(fileName);
+  }
+
+  document.getElementById('downloadBtn').addEventListener('click', generateAndDownloadPdf);
+
+  // Auto-trigger download if opened via the list page's download icon
+  if(params.get('autodownload') === '1'){
+    setTimeout(generateAndDownloadPdf, 400);
+  }
+</script>
+
+</body>
+</html>

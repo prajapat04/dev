@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Itzeazy Dummy Ticket - Booking</title>
+<style>
+  :root{
+    --red:#ee1111;
+    --red-dark:#d40e0e;
+    --pink-bg:#fdeaea;
+    --ink:#111214;
+    --gray-1:#6b7280;
+    --gray-2:#9aa0a6;
+    --border:#e5e7eb;
+    --field-border:#d9d9d9;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0;padding:0;
+    font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    background:#f3f4f6;
+    color:var(--ink);
+  }
+  .page{
+    max-width:1180px;
+    margin:0 auto;
+    padding:28px 20px 60px;
+  }
+
+  /* ---------------- Stepper ---------------- */
+  .stepper{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:30px;
+    position:relative;
+  }
+  .step{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    flex:1;
+    position:relative;
+  }
+  .step-line{
+    position:absolute;
+    top:14px;
+    left:50%;
+    width:100%;
+    height:2px;
+    background:var(--border);
+    z-index:0;
+  }
+  .step:last-child .step-line{ display:none; }
+  .step.done .step-line, .step.active .step-line{ background:var(--red); }
+  .circle{
+    width:28px;height:28px;border-radius:50%;
+    background:#e5e7eb;color:#9aa0a6;
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;font-weight:700;
+    position:relative;z-index:1;
+    border:2px solid transparent;
+  }
+  .step.done .circle, .step.active .circle{
+    background:var(--red);color:#fff;
+  }
+  .step-label{
+    margin-top:8px;
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:0.4px;
+    color:#9aa0a6;
+    text-align:center;
+    white-space:nowrap;
+  }
+  .step.active .step-label{ color:var(--red); }
+  .step.done .step-label{ color:#9aa0a6; }
+
+  /* ---------------- Layout ---------------- */
+  .grid{
+    display:grid;
+    grid-template-columns:1fr 340px;
+    gap:24px;
+    align-items:start;
+  }
+  .panel{
+    background:#fff;
+    border-radius:16px;
+    border:1px solid var(--border);
+    padding:26px;
+  }
+
+  .section-title{
+    font-size:17px;
+    font-weight:800;
+    margin:0 0 18px 0;
+  }
+
+  /* ---------------- Trip type tabs (step1) ---------------- */
+  .trip-tabs{
+    display:flex;
+    gap:12px;
+    margin-bottom:22px;
+    flex-wrap:wrap;
+  }
+  .trip-tab{
+    flex:1;
+    min-width:140px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:14px 10px;
+    border-radius:10px;
+    border:1.5px solid var(--border);
+    background:#f9fafb;
+    color:#6b7280;
+    font-weight:700;
+    font-size:14px;
+    cursor:pointer;
+  }
+  .trip-tab.active{
+    border-color:var(--red);
+    background:var(--pink-bg);
+    color:var(--red);
+  }
+
+  .route-box{
+    background:#f7f8fa;
+    border-radius:14px;
+    padding:20px;
+    position:relative;
+    overflow:hidden;
+  }
+  .route-box .watermark{
+    position:absolute;
+    top:14px;right:18px;
+    opacity:0.25;
+    color:#c7cbd1;
+  }
+  .route-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+    margin-bottom:18px;
+  }
+  .field label{
+    display:block;
+    font-size:11px;
+    font-weight:800;
+    color:#4b5563;
+    letter-spacing:0.4px;
+    margin-bottom:8px;
+    text-transform:uppercase;
+  }
+  .field-input{
+    position:relative;
+  }
+  .field-input input, .field-input select, .field-input textarea{
+    width:100%;
+    padding:13px 14px 13px 38px;
+    border:1.5px solid var(--field-border);
+    border-radius:10px;
+    font-size:14px;
+    background:#fff;
+    outline:none;
+    font-family:inherit;
+    color:var(--ink);
+  }
+  .field-input.no-icon input, .field-input.no-icon select, .field-input.no-icon textarea{
+    padding-left:14px;
+  }
+  .field-input textarea{
+    padding-left:14px;
+    resize:vertical;
+    min-height:80px;
+  }
+  .field-input input:focus, .field-input select:focus, .field-input textarea:focus{
+    border-color:var(--red);
+  }
+  .field-input .icon-left{
+    position:absolute;
+    left:12px;top:50%;
+    transform:translateY(-50%);
+    color:var(--red);
+  }
+  .field-input .icon-right{
+    position:absolute;
+    right:12px;top:50%;
+    transform:translateY(-50%);
+    color:#9aa0a6;
+    pointer-events:none;
+  }
+  .add-routes{
+    text-align:right;
+    color:var(--red);
+    font-weight:700;
+    font-size:13px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:6px;
+  }
+
+  .actions-row{
+    display:flex;
+    justify-content:flex-end;
+    gap:12px;
+    margin-top:24px;
+  }
+  .actions-row.between{ justify-content:space-between; }
+
+  .btn{
+    padding:14px 26px;
+    border-radius:10px;
+    font-weight:800;
+    font-size:13.5px;
+    letter-spacing:0.4px;
+    border:none;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .btn-primary{ background:var(--red); color:#fff; }
+  .btn-primary:hover{ background:var(--red-dark); }
+  .btn-outline{
+    background:#fff;
+    border:1.5px solid var(--red);
+    color:var(--red);
+  }
+
+  /* ---------------- Black section headers (steps 2/3/4) ---------------- */
+  .black-bar{
+    background:var(--ink);
+    color:#fff;
+    padding:14px 18px;
+    border-radius:12px 12px 0 0;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    font-weight:700;
+    font-size:14.5px;
+    margin-bottom:0;
+  }
+  .black-bar .left{
+    display:flex;align-items:center;gap:10px;
+  }
+  .black-bar .icon-badge{
+    width:26px;height:26px;border-radius:50%;
+    background:rgba(255,255,255,0.15);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .black-bar .edit-link{
+    color:var(--red);
+    font-size:12.5px;
+    font-weight:700;
+    cursor:pointer;
+  }
+  .subtext-under-bar{
+    font-size:12px;
+    color:#9aa0a6;
+    font-weight:400;
+    margin-top:2px;
+  }
+  .fields-block{
+    border:1px solid var(--border);
+    border-top:none;
+    border-radius:0 0 12px 12px;
+    padding:20px;
+    margin-bottom:24px;
+  }
+  .fields-block .row3, .fields-block .row2{
+    display:grid;
+    gap:16px;
+    margin-bottom:16px;
+  }
+  .fields-block .row3{ grid-template-columns:repeat(3,1fr); }
+  .fields-block .row2{ grid-template-columns:repeat(2,1fr); }
+  .fields-block .row2.readonly-grid > div{
+    background:#f7f8fa;
+    border-radius:10px;
+    padding:12px 16px;
+  }
+  .readonly-grid .r-label{
+    font-size:10.5px;
+    font-weight:800;
+    color:#9aa0a6;
+    letter-spacing:0.4px;
+    text-transform:uppercase;
+    margin-bottom:4px;
+  }
+  .readonly-grid .r-value{
+    font-size:14.5px;
+    font-weight:700;
+  }
+
+  /* ---------------- Checkboxes (step3) ---------------- */
+  .checkrow{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:12px;
+    font-size:14px;
+    cursor:pointer;
+  }
+  .checkrow input{
+    width:18px;height:18px;
+    accent-color:var(--red);
+    cursor:pointer;
+  }
+  .urgent-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:var(--pink-bg);
+    border-radius:10px;
+    padding:12px 16px;
+    margin:14px 0 18px 0;
+  }
+  .urgent-row .left{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:14px; }
+  .urgent-row .price{ color:var(--red); font-weight:800; }
+
+  .info-box{
+    background:#eef4fb;
+    border-left:4px solid var(--red);
+    border-radius:8px;
+    padding:14px 16px;
+    font-size:13px;
+    color:#374151;
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+  }
+  .info-box svg{ flex:0 0 auto; margin-top:2px; color:var(--red); }
+
+  /* ---------------- Services chips (step4) ---------------- */
+  .services-title{
+    display:flex;align-items:center;gap:8px;
+    font-weight:700;font-size:14.5px;
+    margin-bottom:14px;
+  }
+  .chips{ display:flex; gap:10px; flex-wrap:wrap; }
+  .chip{
+    background:var(--pink-bg);
+    color:var(--red);
+    font-size:12.5px;
+    font-weight:700;
+    padding:8px 14px;
+    border-radius:20px;
+    display:flex;align-items:center;gap:6px;
+  }
+
+  /* ---------------- Summary cards (right column) ---------------- */
+  .summary-card{
+    border-radius:16px;
+    overflow:hidden;
+    border:1px solid var(--border);
+  }
+  .summary-header{
+    background:var(--red);
+    color:#fff;
+    padding:14px 18px;
+    font-weight:800;
+    font-size:14.5px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .summary-body{
+    background:var(--ink);
+    color:#fff;
+    padding:20px;
+  }
+  .route-mini{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    margin-bottom:16px;
+  }
+  .route-mini .dot-line{
+    display:flex;flex-direction:column;align-items:center;
+    padding-top:4px;
+  }
+  .route-mini .dot{ width:7px;height:7px;border-radius:50%;background:var(--red); }
+  .route-mini .line{ width:1.5px; flex:1; background:#4b4f57; margin:4px 0; min-height:26px; }
+  .route-mini .info div:first-child{
+    font-size:10.5px;color:#9aa0a6;letter-spacing:0.4px;font-weight:700;margin-bottom:3px;text-transform:uppercase;
+  }
+  .route-mini .info div:last-child{
+    font-size:15px;font-weight:700;margin-bottom:14px;
+  }
+
+  .route-compact{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:16px;
+  }
+  .route-compact .side{ text-align:center; }
+  .route-compact .code{ font-size:20px;font-weight:800; }
+  .route-compact .city{ font-size:10.5px;color:#9aa0a6;letter-spacing:0.5px;font-weight:700; }
+  .route-compact .mid{
+    flex:1;display:flex;align-items:center;justify-content:center;position:relative;
+    margin:0 10px;
+  }
+  .route-compact .mid::before{
+    content:"";
+    position:absolute;left:0;right:0;top:50%;
+    border-top:1.5px dashed #4b4f57;
+  }
+  .route-compact .plane-badge{
+    background:var(--red);
+    width:26px;height:26px;border-radius:6px;
+    display:flex;align-items:center;justify-content:center;
+    position:relative;z-index:1;
+  }
+
+  .white-pill-row{
+    background:#fff;
+    color:var(--ink);
+    border-radius:12px;
+    padding:12px 16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:16px;
+  }
+  .white-pill-row .lab{ font-size:10.5px;color:#9aa0a6;font-weight:800;letter-spacing:0.4px;text-transform:uppercase; }
+  .white-pill-row .val{ font-size:14.5px;font-weight:800; margin-top:2px; }
+
+  .line-item{
+    display:flex;justify-content:space-between;
+    font-size:13.5px;color:#d1d5db;
+    margin-bottom:10px;
+  }
+  .line-item.strong{ color:#fff; font-weight:700; }
+  .line-item .sub{ font-size:11.5px; color:#9aa0a6; display:block; margin-top:2px; }
+  .line-item.red-text, .line-item.red-text span{ color:var(--red); }
+
+  .divider-dash{ border-top:1px dashed #4b4f57; margin:14px 0; }
+  .divider-solid{ border-top:1px solid #33363c; margin:14px 0; }
+
+  .total-row{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-top:6px;
+  }
+  .total-row .lab{ font-size:15px;font-weight:800;color:#fff; }
+  .total-row .val{ font-size:22px;font-weight:800;color:var(--red); }
+  .total-row.small .val{ font-size:18px; }
+
+  .below-card-note{
+    display:flex;align-items:flex-start;gap:8px;
+    font-size:12px;color:#6b7280;
+    margin-top:16px;
+    padding:0 4px;
+  }
+  .below-card-note svg{ color:var(--red); flex:0 0 auto; margin-top:2px; }
+
+  .secure-box{
+    background:#1c1e22;
+    border-radius:10px;
+    padding:14px 16px;
+    margin-top:16px;
+    display:flex;gap:10px;
+  }
+  .secure-box .t{ font-weight:700;font-size:13.5px;margin-bottom:3px; }
+  .secure-box .d{ font-size:11.5px;color:#9aa0a6;line-height:1.4; }
+
+  /* ---------------- Step 5 payment ---------------- */
+  .pay-grid{
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:24px;
+    align-items:stretch;
+  }
+  .pay-main{ padding:10px 6px; }
+  .currency-row{
+    display:flex;justify-content:flex-end;align-items:center;gap:10px;margin-bottom:30px;
+  }
+  .currency-row .lab{ font-size:11px;font-weight:800;color:#9aa0a6;letter-spacing:0.5px; }
+  .currency-toggle{
+    display:flex;background:#f3f4f6;border-radius:8px;overflow:hidden;border:1px solid var(--border);
+  }
+  .currency-toggle button{
+    border:none;background:transparent;padding:7px 16px;font-size:12.5px;font-weight:700;color:#6b7280;cursor:pointer;
+  }
+  .currency-toggle button.active{ background:var(--ink); color:#fff; }
+
+  .pay-heading{ text-align:center; margin-bottom:30px; }
+  .pay-heading h2{ font-size:24px;font-weight:800;margin:0 0 8px 0; }
+  .pay-heading p{ font-size:14px;color:#6b7280;margin:0; }
+
+  .pay-option-wrap{
+    border:1.5px solid var(--red);
+    border-radius:12px;
+    margin-bottom:16px;
+    overflow:hidden;
+    background:#fff;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .pay-option-wrap:hover{
+    box-shadow:0 2px 10px rgba(238,17,17,0.12);
+  }
+  .pay-option-wrap.expanded{
+    border-color:var(--red);
+    box-shadow:0 6px 20px rgba(238,17,17,0.14);
+  }
+  .pay-option{
+    display:flex;align-items:center;gap:16px;
+    padding:16px 18px;
+    cursor:pointer;
+    background:#fff;
+  }
+  .pay-option .pic{
+    width:44px;height:44px;border-radius:50%;
+    background:var(--pink-bg);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--red);
+    flex:0 0 auto;
+  }
+  .pay-option .txt{ flex:1; }
+  .pay-option .txt .t1{ font-weight:700;font-size:15px; }
+  .pay-option .txt .t2{ font-size:12.5px;color:#9aa0a6;margin-top:2px; }
+  .pay-option .chev{ color:#6b7280; transition:transform .2s ease; flex:0 0 auto; }
+  .pay-option-wrap.expanded .chev{ transform:rotate(180deg); }
+
+  .acc-panel{
+    max-height:0;
+    overflow:hidden;
+    background:#f7f8fa;
+    transition:max-height .25s ease;
+  }
+  .pay-option-wrap.expanded .acc-panel{
+    max-height:400px;
+  }
+  .acc-panel-inner{
+    padding:18px;
+  }
+  .acc-panel-inner label{
+    display:block;
+    font-size:12.5px;
+    font-weight:700;
+    color:var(--ink);
+    margin-bottom:8px;
+  }
+  .acc-panel-inner input, .acc-panel-inner select{
+    width:100%;
+    padding:13px 14px;
+    border:1.5px solid var(--field-border);
+    border-radius:10px;
+    font-size:14px;
+    background:#fff;
+    outline:none;
+    font-family:inherit;
+    color:var(--ink);
+  }
+  .acc-panel-inner input:focus, .acc-panel-inner select:focus{
+    border-color:var(--red);
+  }
+  .acc-field{ margin-bottom:16px; }
+  .acc-field:last-child{ margin-bottom:0; }
+  .acc-row2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+
+  .billing-block{ margin:24px 0 20px 0; }
+  .billing-block label{
+    display:block;font-size:11px;font-weight:800;color:#9aa0a6;letter-spacing:0.5px;margin-bottom:8px;text-transform:uppercase;
+  }
+  .billing-block select{
+    width:100%;padding:14px;border-radius:10px;border:1.5px solid var(--field-border);font-size:14px;background:#fff;font-family:inherit;
+  }
+
+  .order-card-dark{
+    background:var(--ink);
+    color:#fff;
+    border-radius:20px 20px 20px 64px;
+    padding:26px 24px;
+    box-shadow:0 20px 45px rgba(0,0,0,0.22);
+    display:flex;
+    flex-direction:column;
+  }
+  .order-card-dark h3{ margin:0 0 4px 0; font-size:17px;font-weight:800; }
+  .order-card-dark .oid{ font-size:11.5px;color:#9aa0a6;margin-bottom:20px; }
+  .order-card-dark .items-lab{ font-size:11px;color:#9aa0a6;font-weight:800;letter-spacing:0.5px;margin-bottom:12px; }
+
+  /* ---------------- Responsive ---------------- */
+  @media (max-width: 860px){
+    .grid, .pay-grid{ grid-template-columns:1fr; }
+    .panel{ padding:20px; }
+    .route-grid, .fields-block .row3, .fields-block .row2{ grid-template-columns:1fr; }
+    .step-label{ display:none; }
+    .step.active .step-label{
+      display:block;
+      position:absolute;
+      top:34px;
+      font-size:9.5px;
+    }
+    .circle{ width:24px;height:24px;font-size:11px; }
+    .trip-tab{ min-width:100px; font-size:12.5px; padding:12px 6px; }
+    .trip-tab span.label-text{ display:inline; }
+    .actions-row{ flex-wrap:wrap; }
+    .btn{ flex:1; justify-content:center; }
+    .pay-option{ padding:14px; }
+    .acc-row2{ grid-template-columns:1fr; }
+    .currency-row{ justify-content:space-between; }
+    .order-card-dark{ border-radius:16px; }
+  }
+
+  @media (max-width: 480px){
+    .page{ padding:18px 12px 40px; }
+    .step-label{ font-size:8.5px; letter-spacing:0.2px; }
+    .trip-tab .label-text{ display:none; }
+  }
+
+  /* ---------------- Success screen (step 6) ---------------- */
+  .success-wrap{
+    max-width:520px;
+    margin:20px auto 0;
+    text-align:center;
+    padding:20px 16px 40px;
+  }
+  .success-icon{
+    width:90px;height:90px;border-radius:50%;
+    background:var(--red);
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 26px;
+  }
+  .success-wrap h2{
+    font-size:22px;font-weight:800;margin:0 0 10px 0;
+  }
+  .success-wrap > p{
+    font-size:14px;color:#6b7280;margin:0 0 22px 0;
+    line-height:1.5;
+  }
+  .delivery-pill{
+    display:inline-flex;align-items:center;gap:8px;
+    background:#f3f4f6;
+    color:#374151;
+    font-size:12.5px;font-weight:700;
+    padding:9px 16px;
+    border-radius:20px;
+    margin-bottom:28px;
+  }
+  .order-details-card{
+    border:1.5px solid var(--border);
+    border-left:4px solid var(--red);
+    border-radius:12px;
+    padding:20px;
+    text-align:left;
+    margin-bottom:24px;
+  }
+  .odc-top{
+    display:flex;justify-content:space-between;align-items:flex-start;
+  }
+  .odc-lab{
+    font-size:10.5px;font-weight:800;color:#9aa0a6;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:6px;
+  }
+  .odc-id{ font-size:15px;font-weight:800; }
+  .odc-val{ font-size:14.5px;font-weight:700; }
+  .processing-pill{
+    background:var(--pink-bg);color:var(--red);
+    font-size:11px;font-weight:800;letter-spacing:0.3px;
+    padding:6px 12px;border-radius:20px;
+    display:flex;align-items:center;gap:6px;
+    flex:0 0 auto;
+  }
+  .processing-pill .dot{
+    width:6px;height:6px;border-radius:50%;background:var(--red);
+  }
+  .odc-divider{
+    border-top:1px solid var(--border);
+    margin:16px 0;
+  }
+  .odc-row2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+  .success-actions{
+    display:flex;gap:12px;justify-content:center;flex-wrap:wrap;
+  }
+  .btn-dark{ background:var(--ink); color:#fff; }
+  .btn-dark:hover{ background:#000; }
+  .btn-plain{
+    background:#fff;
+    border:1.5px solid var(--border);
+    color:#374151;
+  }
+  @media (max-width:480px){
+    .success-actions{ flex-direction:column; }
+    .success-actions .btn{ width:100%; justify-content:center; }
+    .odc-row2{ grid-template-columns:1fr; }
+  }
+
+  .hidden{ display:none !important; }
+</style>
+ <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <!-- NAVBAR -->
+   <nav>
+  <a href="#" class="logo">
+    <img src="/assets/logo.png" alt="ItzeEazy">
+  </a>
+
+  <div class="links" id="navLinks">
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#">About us</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Pricing</a></li>
+      <li class="has-dropdown">
+        <a href="#">How to <i class="fa-solid fa-chevron-down"></i></a>
+        <ul class="dropdown">
+          <li><a href="#">How to check challan</a></li>
+          <li><a href="#">How to pay challan</a></li>
+          <li><a href="#">How to apply DL</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Tools <i class="fa-solid fa-chevron-down"></i></a>
+        <ul class="dropdown">
+          <li><a href="#">EMI Calculator</a></li>
+          <li><a href="#">RTO Finder</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <button class="btn-pay btn-pay-mobile">Sign Up</button>
+  </div>
+
+  <div class="nav-right">
+    <a href="#" class="btn-login">Login</a>
+    <button class="btn-pay btn-pay-desktop">Sign Up</button>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+<div class="page">
+
+  <!-- STEPPER -->
+  <div class="stepper" id="stepper"></div>
+
+  <!-- STEP 1: ROUTE DETAILS -->
+  <div class="step-panel" data-step="1">
+    <div class="grid">
+      <div class="panel">
+        <div class="section-title">Select Trip Type</div>
+        <div class="trip-tabs">
+          <div class="trip-tab active" data-trip="oneway">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M2.5 19.5l19-7.5-19-7.5v6l12 1.5-12 1.5z"/></svg>
+            <span class="label-text">One Way</span>
+          </div>
+          <div class="trip-tab" data-trip="round">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+            <span class="label-text">Round Trip</span>
+          </div>
+          <div class="trip-tab" data-trip="multi">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 00-2 2v3"/><path d="M21 8V5a2 2 0 00-2-2h-3"/><path d="M16 21h3a2 2 0 002-2v-3"/><path d="M3 16v3a2 2 0 002 2h3"/></svg>
+            <span class="label-text">Multi City</span>
+          </div>
+        </div>
+
+        <div class="route-box">
+          <svg class="watermark" width="70" height="70" viewBox="0 0 24 24" fill="currentColor"><path d="M2.5 19.5l19-7.5-19-7.5v6l12 1.5-12 1.5z"/></svg>
+          <div class="route-grid">
+            <div class="field">
+              <label>Origin City</label>
+              <div class="field-input">
+                <span class="icon-left">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </span>
+                <input type="text" id="originCity" value="Mumbai, India (BOM)">
+              </div>
+            </div>
+            <div class="field">
+              <label>Destination City</label>
+              <div class="field-input">
+                <span class="icon-left">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M2.5 19.5l19-7.5-19-7.5v6l12 1.5-12 1.5z"/></svg>
+                </span>
+                <input type="text" id="destCity" value="Paris, France (CDG)">
+              </div>
+            </div>
+          </div>
+          <div class="field" style="margin-bottom:6px;">
+            <label>Departure Date</label>
+            <div class="field-input" style="max-width:260px;">
+              <span class="icon-left">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </span>
+              <input type="text" id="depDate" value="22-05-2026" readonly style="cursor:pointer;" onclick="document.getElementById('depDatePicker').showPicker()">
+            <input type="date" id="depDatePicker" style="position:absolute;opacity:0;width:0;height:0;top:0;right:0;pointer-events:none;" tabindex="-1">
+            </div>
+          </div>
+          <div class="add-routes">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            Add More Routes
+          </div>
+        </div>
+
+        <div class="actions-row">
+          <button class="btn btn-primary" onclick="goStep(2)">NEXT
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-header">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+          Flight Summary
+        </div>
+        <div class="summary-body">
+          <div class="route-mini">
+            <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
+            <div class="info">
+              <div>
+                <div>Origin</div>
+                <div id="sumOrigin">Mumbai, IN (BOM)</div>
+              </div>
+              <div>
+                <div>Destination</div>
+                <div id="sumDest">Paris, FR (CDG)</div>
+              </div>
+            </div>
+          </div>
+          <div class="white-pill-row">
+            <div>
+              <div class="lab">Travel Date</div>
+              <div class="val" id="sumDate1">May 22, 2026</div>
+            </div>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9aa0a6" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div class="line-item"><span>Base Fare (1 Adult)</span><span id="s1BaseFare">₹699.00</span></div>
+          <div class="line-item"><span>GST (18%)</span><span id="s1Gst">₹126.00</span></div>
+          <div class="divider-dash"></div>
+          <div class="total-row"><span class="lab">Total Amount</span><span class="val" id="s1Total">₹825.00</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="below-card-note">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Securely verified by Itzeazy Dummy Ticket Services. Instant delivery guaranteed.
+    </div>
+  </div>
+
+  <!-- STEP 2: PASSENGER DETAILS -->
+  <div class="step-panel hidden" data-step="2">
+    <div class="grid">
+      <div class="panel" style="padding:0; overflow:hidden;">
+        <div class="black-bar">
+          <div class="left">
+            <span class="icon-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            </span>
+            Contact Details
+          </div>
+        </div>
+        <div class="fields-block">
+          <div class="row3">
+            <div class="field">
+              <label>Country Code</label>
+              <div class="field-input no-icon">
+                <select id="countryCode"><option>India (+91)</option><option>USA (+1)</option><option>UK (+44)</option></select>
+              </div>
+            </div>
+            <div class="field">
+              <label>Contact Number</label>
+              <div class="field-input no-icon"><input type="text" id="contactPhone" value=""></div>
+            </div>
+            <div class="field">
+              <label>Email Address</label>
+              <div class="field-input no-icon"><input type="text" id="contactEmail" value=""></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="black-bar" style="border-radius:0;">
+          <div class="left">
+            <span class="icon-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </span>
+            Passenger 1
+          </div>
+          <div class="edit-link">+ Add Passenger</div>
+        </div>
+        <div class="fields-block" style="border-radius:0 0 12px 12px;">
+          <div class="row3">
+            <div class="field">
+              <label>Title</label>
+              <div class="field-input no-icon"><select id="passengerTitle"><option>Mr.</option><option>Mrs.</option><option>Ms.</option></select></div>
+            </div>
+            <div class="field">
+              <label>First Name</label>
+              <div class="field-input no-icon"><input type="text" id="passengerFirst" value=""></div>
+            </div>
+            <div class="field">
+              <label>Last Name</label>
+              <div class="field-input no-icon"><input type="text" id="passengerLast" value=""></div>
+            </div>
+          </div>
+          <div class="row3">
+            <div class="field">
+              <label>Date of Birth</label>
+              <div class="field-input no-icon"><input type="text" placeholder="mm/dd/yyyy"></div>
+            </div>
+            <div class="field">
+              <label>Nationality</label>
+              <div class="field-input no-icon"><select id="passengerNationality"><option>Indian</option><option>American</option><option>British</option></select></div>
+            </div>
+            <div class="field">
+              <label>Gender</label>
+              <div class="field-input no-icon"><select id="passengerGender"><option>Male</option><option>Female</option><option>Other</option></select></div>
+            </div>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label>Passport Number</label>
+              <div class="field-input no-icon"><input type="text" id="passportNumber" value=""></div>
+            </div>
+            <div class="field">
+              <label>Passport Expiry</label>
+              <div class="field-input no-icon"><input type="text" placeholder="mm/dd/yyyy"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions-row between" style="padding:0 22px 22px;">
+          <button class="btn btn-outline" onclick="goStep(1)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            PREVIOUS
+          </button>
+          <button class="btn btn-primary" onclick="goStep(3)">NEXT
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-header">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.5 19.5l19-7.5-19-7.5v6l12 1.5-12 1.5z" fill="currentColor" stroke="none"/></svg>
+          Flight Summary
+        </div>
+        <div class="summary-body">
+          <div class="route-compact">
+            <div class="side"><div class="code">BOM</div><div class="city">MUMBAI</div></div>
+            <div class="mid"><div class="plane-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M2.5 19.5l19-7.5-19-7.5v6l12 1.5-12 1.5z"/></svg>
+            </div></div>
+            <div class="side"><div class="code">CDG</div><div class="city">PARIS</div></div>
+          </div>
+          <div class="white-pill-row">
+            <div class="lab" style="text-transform:none;font-weight:600;color:#374151;">Travel Date</div>
+            <div class="val">22-05-2026</div>
+          </div>
+          <div class="line-item"><span>Routes</span><span>1</span></div>
+          <div class="line-item"><span>Amount x1</span><span id="s2BaseFare">₹699</span></div>
+          <div class="line-item"><span>GST (18%)</span><span id="s2Gst">₹126</span></div>
+          <div class="divider-solid"></div>
+          <div class="total-row"><span class="lab">GRAND TOTAL</span><span class="val" id="s2Total">₹825</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="below-card-note">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Secured by 256-bit SSL
+    </div>
+  </div>
+
+  <!-- STEP 3: ADDITIONAL DETAILS -->
+  <div class="step-panel hidden" data-step="3">
+    <div class="grid">
+      <div class="panel" style="padding:0; overflow:hidden;">
+        <div class="black-bar">
+          <div class="left">
+            <span class="icon-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            </span>
+            <div>
+              Additional Details
+              <div class="subtext-under-bar">Please provide information to help us customize your dummy ticket.</div>
+            </div>
+          </div>
+        </div>
+        <div class="fields-block" style="border-radius:0 0 12px 12px;">
+          <div class="field" style="margin-bottom:18px;">
+            <label style="text-transform:none;font-weight:600;color:#374151;">Travel Purpose</label>
+            <div class="field-input no-icon"><select id="travelPurpose"><option>Tourist</option><option>Business</option><option>Student</option><option>Medical</option></select></div>
+          </div>
+          <div class="field" style="margin-bottom:6px;">
+            <label style="text-transform:none;font-weight:600;color:#374151;">Special Instructions</label>
+            <div class="field-input no-icon"><textarea id="specialInstructions" placeholder="Need embassy-ready reservation for visa application"></textarea></div>
+          </div>
+
+          <label class="checkrow"><input type="checkbox" id="chkWhatsApp"> Send WhatsApp Ticket Copy</label>
+          <label class="checkrow"><input type="checkbox" id="chkEmail" checked> Email PDF Copy (Official Letterhead)</label>
+
+          <div class="urgent-row">
+            <label class="left"><input type="checkbox" id="chkUrgent" checked style="accent-color:var(--red);width:17px;height:17px;" onchange="renderPrices()"> Urgent Processing</label>
+            <span class="price">+₹199</span>
+          </div>
+
+          <div class="info-box">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <span>Embassy-ready reservations are typically delivered within <strong>30–60 minutes</strong> during working hours. All tickets come with a valid PNR verifiable on airline websites.</span>
+          </div>
+        </div>
+
+        <div class="actions-row between" style="padding:0 22px 22px;">
+          <button class="btn btn-outline" onclick="goStep(2)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            PREVIOUS
+          </button>
+          <button class="btn btn-primary" onclick="goStep(4)">NEXT
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-header">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 2h6a2 2 0 012 2v16l-5-3-5 3V4a2 2 0 012-2z"/></svg>
+          Order Summary
+        </div>
+        <div class="summary-body">
+          <div class="line-item strong">
+            <span id="s3RouteLabel">One-Way Ticket<span class="sub">Mumbai (BOM) → Paris (CDG)</span></span>
+            <span id="s3BaseFare">₹699</span>
+          </div>
+          <div class="line-item"><span>Service Fee</span><span>Included</span></div>
+          <div class="line-item red-text" id="s3UrgentRow"><span>Urgent Processing</span><span>+₹199</span></div>
+          <div class="divider-solid"></div>
+          <div class="total-row"><span class="lab">Total Amount</span><span class="val" id="s3Total">₹898</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4: REVIEW BOOKING -->
+  <div class="step-panel hidden" data-step="4">
+    <div class="grid">
+      <div class="panel" style="padding:0; overflow:hidden;">
+
+        <div class="black-bar">
+          <div class="left">
+            <span class="icon-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M9 3H5a2 2 0 00-2 2v4"/><path d="M15 3h4a2 2 0 012 2v4"/><path d="M9 21H5a2 2 0 01-2-2v-4"/><path d="M15 21h4a2 2 0 002-2v-4"/></svg>
+            </span>
+            Route Information
+          </div>
+          <div class="edit-link" onclick="goStep(1)">Edit</div>
+        </div>
+        <div class="fields-block" style="border-radius:0;">
+          <div class="row3" style="align-items:center;">
+            <div>
+              <div class="readonly-grid"><div class="r-label" style="margin-bottom:6px;">From</div></div>
+              <div class="r-value" style="font-size:15px;">Mumbai (BOM)</div>
+            </div>
+            <div style="text-align:center;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--red)"><path d="M2.5 19.5l19-7.5-19-7.5v6l12 1.5-12 1.5z"/></svg>
+              <div style="font-size:11px;color:#9aa0a6;margin-top:4px;">22 May 2026</div>
+            </div>
+            <div style="text-align:right;">
+              <div class="r-label" style="margin-bottom:6px;">To</div>
+              <div class="r-value" style="font-size:15px;">Paris (CDG)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="black-bar" style="border-radius:0;">
+          <div class="left">
+            <span class="icon-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </span>
+            Passenger Details
+          </div>
+          <div class="edit-link" onclick="goStep(2)">Edit</div>
+        </div>
+        <div class="fields-block" style="border-radius:0;">
+          <div class="row2 readonly-grid">
+            <div><div class="r-label">Full Name</div><div class="r-value">Amar Patil</div></div>
+            <div><div class="r-label">Passport Number</div><div class="r-value">Z12345678</div></div>
+            <div><div class="r-label">Nationality</div><div class="r-value">Indian</div></div>
+            <div><div class="r-label">Travel Purpose</div><div class="r-value">Tourist Visa</div></div>
+          </div>
+        </div>
+
+        <div class="black-bar" style="border-radius:0;">
+          <div class="left">
+            <span class="icon-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            </span>
+            Contact Details
+          </div>
+          <div class="edit-link" onclick="goStep(2)">Edit</div>
+        </div>
+        <div class="fields-block" style="border-radius:0 0 12px 12px;">
+          <div class="row2">
+            <div style="display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.12.9.34 1.79.65 2.65a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.43-1.27a2 2 0 012.11-.45c.86.31 1.75.53 2.65.65A2 2 0 0122 16.92z"/></svg>
+              +91 98765 43210
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+              amar@gmail.com
+            </div>
+          </div>
+
+          <div style="margin-top:20px;">
+            <div class="services-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7h-3V5a3 3 0 00-3-3H10a3 3 0 00-3 3v2H4a1 1 0 00-1 1v11a2 2 0 002 2h14a2 2 0 002-2V8a1 1 0 00-1-1zM9 5a1 1 0 011-1h4a1 1 0 011 1v2H9z"/></svg>
+              Services Selected
+            </div>
+            <div class="chips">
+              <div class="chip">🎫 Dummy Ticket</div>
+              <div class="chip">⚡ Urgent Processing</div>
+              <div class="chip">🖨 PDF Delivery</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions-row between" style="padding:0 22px 22px;">
+          <button class="btn btn-outline" onclick="goStep(3)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            PREVIOUS
+          </button>
+          <button class="btn btn-primary" onclick="proceedToPayment()">PROCES PAYMENT
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-header">Payment Summary</div>
+        <div class="summary-body">
+          <div class="line-item"><span>Base Fare</span><span id="s4BaseFare">₹699</span></div>
+          <div class="line-item" id="s4UrgentRow"><span>Urgent Fee</span><span id="s4UrgentFee">₹199</span></div>
+          <div class="line-item"><span>GST (18%)</span><span id="s4Gst">₹126</span></div>
+          <div class="divider-solid"></div>
+          <div class="total-row small"><span class="lab">Total Amount</span><span class="val" id="s4Total">₹825</span></div>
+          <div class="secure-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <div>
+              <div class="t">Secure Checkout</div>
+              <div class="d">Your payment information is encrypted and processed through industry-leading secure payment gateways.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5: PAYMENT -->
+  <div class="step-panel hidden" data-step="5">
+    <div class="pay-grid">
+      <div class="pay-main">
+        <div class="currency-row">
+          <span class="lab">CURRENCY</span>
+          <div class="currency-toggle">
+            <button class="active" data-cur="INR">INR</button>
+            <button data-cur="USD">USD</button>
+          </div>
+        </div>
+        <div class="pay-heading">
+          <h2>Select Payment Method</h2>
+          <p>Choose how you'd like to pay for your travel documents</p>
+        </div>
+
+        <div class="pay-option-wrap" data-pay="card">
+          <div class="pay-option" onclick="togglePayOption(this)">
+            <div class="pic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+            <div class="txt"><div class="t1">Debit / Credit Card</div><div class="t2">Visa, MasterCard, RuPay</div></div>
+            <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="acc-panel">
+            <div class="acc-panel-inner">
+              <div class="acc-field">
+                <label>Card Number</label>
+                <input type="text" id="cardNumberInput" placeholder="0000 0000 0000 0000" maxlength="19" inputmode="numeric">
+              </div>
+              <div class="acc-field">
+                <label>Card Holder Name</label>
+                <input type="text" placeholder="Enter name on card">
+              </div>
+              <div class="acc-row2">
+                <div class="acc-field">
+                  <label>Expiry Date</label>
+                  <input type="text" id="expiryInput" placeholder="MM / YY" maxlength="7" inputmode="numeric">
+                </div>
+                <div class="acc-field">
+                  <label>CVV</label>
+                  <input type="text" id="cvvInput" placeholder="123" maxlength="3" inputmode="numeric">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pay-option-wrap" data-pay="netbanking">
+          <div class="pay-option" onclick="togglePayOption(this)">
+            <div class="pic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V9l7-6 7 6v12"/><path d="M9 21V13h6v8"/></svg></div>
+            <div class="txt"><div class="t1">Net Banking</div><div class="t2">All major banks supported</div></div>
+            <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="acc-panel">
+            <div class="acc-panel-inner">
+              <div class="acc-field">
+                <label>Enter your Bank</label>
+                <select>
+                  <option>Choose your bank</option>
+                  <option>State Bank of India</option>
+                  <option>HDFC Bank</option>
+                  <option>ICICI Bank</option>
+                  <option>Axis Bank</option>
+                  <option>Punjab National Bank</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pay-option-wrap" data-pay="upi">
+          <div class="pay-option" onclick="togglePayOption(this)">
+            <div class="pic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><line x1="14" y1="14" x2="21" y2="14"/><line x1="14" y1="21" x2="21" y2="21"/><line x1="17.5" y1="14" x2="17.5" y2="21"/></svg></div>
+            <div class="txt"><div class="t1">UPI</div><div class="t2">Google Pay, PhonePe, Paytm</div></div>
+            <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="acc-panel">
+            <div class="acc-panel-inner">
+              <div class="acc-field">
+                <label>Enter your UPI ID</label>
+                <input type="text" placeholder="example@upi">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="billing-block">
+          <label>Billing State (GST Compliance)</label>
+          <select>
+            <option>Select your state</option>
+            <option>Maharashtra</option>
+            <option>Rajasthan</option>
+            <option>Delhi</option>
+            <option>Karnataka</option>
+          </select>
+        </div>
+
+        <button class="btn btn-primary" style="width:100%;justify-content:center;padding:16px;font-size:14.5px;" onclick="handleMakePayment()">MAKE PAYMENT</button>
+      </div>
+
+      <div class="order-card-dark">
+        <h3>Order Details</h3>
+        <div class="oid">ID: IFOSR</div>
+        <div class="items-lab">ITEMS</div>
+        <div class="line-item strong">
+          <span>Dummy Ticket Charges<span class="sub">Standard Service x1</span></span>
+          <span id="s5BaseFare">₹699.00</span>
+        </div>
+        <div class="divider-solid"></div>
+        <div class="line-item"><span>Passengers (1)</span><span id="s5Passengers">₹699.00</span></div>
+        <div class="line-item"><span>GST (18%)</span><span id="s5Gst">₹126.00</span></div>
+        <div class="divider-solid"></div>
+        <div class="total-row"><span class="lab">Total Amount</span><span class="val" id="s5Total">₹825.00</span></div>
+        <div class="secure-box">
+          <div class="d">Secure checkout powered by Itzeazy. By proceeding you agree to our Terms of Service.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 6: SUCCESS -->
+  <div class="step-panel hidden" data-step="6">
+    <div class="success-wrap">
+      <div class="success-icon">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h2>Booking Submitted Successfully</h2>
+      <p>Your embassy-ready reservation is being generated by our legal experts.</p>
+      <div class="delivery-pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Delivery time: 30–60 Minutes
+      </div>
+
+      <div class="order-details-card">
+        <div class="odc-top">
+          <div>
+            <div class="odc-lab">ORDER DETAILS</div>
+            <div class="odc-id" id="s6BookingId">Booking ID: #DT-20891</div>
+          </div>
+          <div class="processing-pill"><span class="dot"></span> PROCESSING</div>
+        </div>
+        <div class="odc-divider"></div>
+        <div class="odc-row2">
+          <div>
+            <div class="odc-lab">Confirmation Email</div>
+            <div class="odc-val" id="s6Email">—</div>
+          </div>
+          <div>
+            <div class="odc-lab">Document Type</div>
+            <div class="odc-val">Dummy Flight Ticket</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="success-actions">
+        <button class="btn btn-primary" onclick="handleDownloadFlightPdf()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download PDF
+        </button>
+        <button class="btn btn-dark" onclick="window.location.href='bookings-list.html'">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          View Booking
+        </button>
+        <button class="btn btn-plain" onclick="goStep(1)">Back Home</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ─── Booking state ───────────────────────────────────────────────────────────
+  const bookingState = {
+    from: '', to: '', date: '',
+    tripType: 'oneway',
+    phone: '', email: '',
+    title: 'Mr.', firstName: '', lastName: '', nationality: 'Indian',
+    gender: 'Male', passport: '',
+    travelPurpose: 'Tourist',
+    chkUrgent: true, chkWhatsApp: false, chkEmail: true
+  };
+
+  // ─── Price calculator ────────────────────────────────────────────────────────
+  const BASE_FARE = 699;
+  const URGENT_FEE = 199;
+  const GST_RATE = 0.18;
+
+  function calcPrices() {
+    const urgent = document.getElementById('chkUrgent') ? document.getElementById('chkUrgent').checked : bookingState.chkUrgent;
+    const urgentFee = urgent ? URGENT_FEE : 0;
+    const gst = Math.round(BASE_FARE * GST_RATE);
+    const total = BASE_FARE + urgentFee + gst;
+    return { base: BASE_FARE, urgentFee, gst, total };
+  }
+
+  function fmt(n) { return '\u20b9' + n.toLocaleString('en-IN', {minimumFractionDigits:0, maximumFractionDigits:0}); }
+
+  function renderPrices() {
+    const p = calcPrices();
+    // Step 1 summary
+    const s1b = document.getElementById('s1BaseFare'); if(s1b) s1b.textContent = fmt(p.base);
+    const s1g = document.getElementById('s1Gst'); if(s1g) s1g.textContent = fmt(p.gst);
+    const s1t = document.getElementById('s1Total'); if(s1t) s1t.textContent = fmt(p.base + p.gst);
+    // Step 2 summary
+    const s2b = document.getElementById('s2BaseFare'); if(s2b) s2b.textContent = fmt(p.base);
+    const s2g = document.getElementById('s2Gst'); if(s2g) s2g.textContent = fmt(p.gst);
+    const s2t = document.getElementById('s2Total'); if(s2t) s2t.textContent = fmt(p.base + p.gst);
+    // Step 3 order summary
+    const s3b = document.getElementById('s3BaseFare'); if(s3b) s3b.textContent = fmt(p.base);
+    const s3u = document.getElementById('s3UrgentRow'); if(s3u) s3u.style.display = p.urgentFee ? '' : 'none';
+    const s3t = document.getElementById('s3Total'); if(s3t) s3t.textContent = fmt(p.total);
+    // Step 4 payment summary
+    const s4b = document.getElementById('s4BaseFare'); if(s4b) s4b.textContent = fmt(p.base);
+    const s4ur = document.getElementById('s4UrgentRow'); if(s4ur) s4ur.style.display = p.urgentFee ? '' : 'none';
+    const s4uf = document.getElementById('s4UrgentFee'); if(s4uf) s4uf.textContent = fmt(p.urgentFee);
+    const s4g = document.getElementById('s4Gst'); if(s4g) s4g.textContent = fmt(p.gst);
+    const s4t = document.getElementById('s4Total'); if(s4t) s4t.textContent = fmt(p.total);
+    // Step 5 order card
+    const s5b = document.getElementById('s5BaseFare'); if(s5b) s5b.textContent = fmt(p.base) + '.00';
+    const s5p = document.getElementById('s5Passengers'); if(s5p) s5p.textContent = fmt(p.base) + '.00';
+    const s5g = document.getElementById('s5Gst'); if(s5g) s5g.textContent = fmt(p.gst) + '.00';
+    const s5t = document.getElementById('s5Total'); if(s5t) s5t.textContent = fmt(p.total) + '.00';
+  }
+
+  // ─── Date picker wiring ──────────────────────────────────────────────────────
+  function wireDate(textId, pickerId) {
+    const picker = document.getElementById(pickerId);
+    const display = document.getElementById(textId);
+    if (!picker || !display) return;
+    picker.addEventListener('change', function() {
+      if (!this.value) return;
+      const [y, m, d] = this.value.split('-');
+      display.value = d + '-' + m + '-' + y;
+    });
+    // Make calendar icon also open picker
+    const icon = display.closest('.field-input') && display.closest('.field-input').querySelector('.icon-left');
+    if (icon) {
+      icon.style.pointerEvents = 'auto';
+      icon.style.cursor = 'pointer';
+      icon.addEventListener('click', function(e) { e.stopPropagation(); picker.showPicker && picker.showPicker(); });
+    }
+  }
+  wireDate('depDate', 'depDatePicker');
+
+  // ─── Save / restore form state ───────────────────────────────────────────────
+  function collectState() {
+    const g = (id) => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
+    bookingState.from = g('originCity');
+    bookingState.to   = g('destCity');
+    bookingState.date = g('depDate');
+    const activeTrip = document.querySelector('.trip-tab.active');
+    bookingState.tripType = activeTrip ? activeTrip.dataset.trip : 'oneway';
+    bookingState.phone = g('contactPhone');
+    bookingState.email = g('contactEmail');
+    const title = document.getElementById('passengerTitle');
+    bookingState.title = title ? title.value : 'Mr.';
+    bookingState.firstName = g('passengerFirst');
+    bookingState.lastName  = g('passengerLast');
+    const nat = document.getElementById('passengerNationality');
+    bookingState.nationality = nat ? nat.value : 'Indian';
+    const gen = document.getElementById('passengerGender');
+    bookingState.gender = gen ? gen.value : 'Male';
+    bookingState.passport = g('passportNumber');
+    const purp = document.getElementById('travelPurpose');
+    bookingState.travelPurpose = purp ? purp.value : 'Tourist';
+    const urg = document.getElementById('chkUrgent');
+    bookingState.chkUrgent = urg ? urg.checked : true;
+    const wa = document.getElementById('chkWhatsApp');
+    bookingState.chkWhatsApp = wa ? wa.checked : false;
+    const em = document.getElementById('chkEmail');
+    bookingState.chkEmail = em ? em.checked : true;
+  }
+
+  // ─── Populate Review Booking (Step 4) with live data ────────────────────────
+  function populateReview() {
+    collectState();
+    // Route info read-only row
+    const reviewFrom = document.querySelector('[data-step="4"] .fields-block .r-value[data-field="from"]') ||
+                       document.querySelector('[data-step="4"] .row3 div:first-child .r-value');
+    if (reviewFrom) reviewFrom.textContent = bookingState.from || 'Mumbai (BOM)';
+    const reviewDate = document.querySelector('[data-step="4"] .row3 div:nth-child(2) div:last-child');
+    if (reviewDate) reviewDate.textContent = bookingState.date || '—';
+    const reviewTo = document.querySelector('[data-step="4"] .row3 div:last-child .r-value');
+    if (reviewTo) reviewTo.textContent = bookingState.to || 'Paris (CDG)';
+
+    // Passenger details readonly grid
+    const fullName = [bookingState.title, bookingState.firstName, bookingState.lastName].filter(Boolean).join(' ');
+    const rdGridVals = document.querySelectorAll('[data-step="4"] .readonly-grid .r-value');
+    if (rdGridVals.length >= 1 && fullName.trim()) rdGridVals[0].textContent = fullName;
+    if (rdGridVals.length >= 2 && bookingState.passport) rdGridVals[1].textContent = bookingState.passport;
+    if (rdGridVals.length >= 3 && bookingState.nationality) rdGridVals[2].textContent = bookingState.nationality;
+    if (rdGridVals.length >= 4 && bookingState.travelPurpose) rdGridVals[3].textContent = bookingState.travelPurpose + ' Visa';
+
+    // Contact details
+    const contactRows = document.querySelectorAll('[data-step="4"] .row2 div[style*="display:flex"]');
+    if (contactRows.length >= 1 && bookingState.phone) {
+      const phoneEl = contactRows[0];
+      const textNodes = [...phoneEl.childNodes].filter(n => n.nodeType === 3);
+      if (textNodes.length) textNodes[textNodes.length-1].textContent = ' ' + bookingState.phone;
+      else phoneEl.append(' ' + bookingState.phone);
+      // More robust: set the text after the svg
+      phoneEl.innerHTML = phoneEl.innerHTML.replace(/\+91[^<]*/g, '').trim();
+      phoneEl.innerHTML += (bookingState.phone ? ' ' + bookingState.phone : '');
+    }
+    if (contactRows.length >= 2 && bookingState.email) {
+      const emailEl = contactRows[1];
+      emailEl.innerHTML = emailEl.innerHTML.replace(/[^<@>]+@[^<]+/g, bookingState.email);
+    }
+
+    // Services chips
+    const chips = document.querySelector('[data-step="4"] .chips');
+    if (chips) {
+      let html = '<div class="chip">\uD83C\uDFAB Dummy Ticket</div>';
+      if (bookingState.chkUrgent) html += '<div class="chip">\u26A1 Urgent Processing</div>';
+      if (bookingState.chkEmail) html += '<div class="chip">\uD83D\uDDA8 PDF Delivery</div>';
+      if (bookingState.chkWhatsApp) html += '<div class="chip">\uD83D\uDCAC WhatsApp Copy</div>';
+      chips.innerHTML = html;
+    }
+
+    // Summary date pill in step 2 side card
+    const s2DateVal = document.querySelector('[data-step="2"] .white-pill-row .val');
+    if (s2DateVal && bookingState.date) s2DateVal.textContent = bookingState.date;
+
+    // Success screen email
+    const s6email = document.getElementById('s6Email');
+    if (s6email && bookingState.email) s6email.textContent = bookingState.email;
+  }
+
+  // ─── Stepper + step navigation ───────────────────────────────────────────────
+  const stepNames = ["ROUTE DETAILS","PASSENGER DETAILS","ADDITIONAL DETAILS","REVIEW BOOKING","PAYMENT"];
+  let currentStep = 1;
+
+  function renderStepper(){
+    const el = document.getElementById('stepper');
+    el.innerHTML = "";
+    stepNames.forEach((name, i)=>{
+      const num = i+1;
+      const div = document.createElement('div');
+      div.className = 'step' + (num < currentStep ? ' done' : '') + (num === currentStep ? ' active' : '');
+      div.innerHTML = `
+        <div class="step-line"></div>
+        <div class="circle">${ num <= currentStep ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' : num }</div>
+        <div class="step-label">${name}</div>
+      `;
+      el.appendChild(div);
+    });
+  }
+
+  function handleDownloadFlightPdf(){
+    const origin = (document.getElementById('originCity') || {}).value || 'Mumbai, India (BOM)';
+    const dest = (document.getElementById('destCity') || {}).value || 'Paris, France (CDG)';
+    const date = (document.getElementById('depDate') || {}).value || '22-05-2026';
+
+    const params = new URLSearchParams({
+      flightBookingNo: '#DT-20891',
+      pnr: 'DT-2026-20891',
+      passengerName: 'Amar Patil',
+      airline: 'Dummy Airlines',
+      departure: date,
+      returnDate: '—',
+      route: origin + ' → ' + dest,
+      flightPax: '1 Adult',
+      seatClass: 'Economy',
+      flightStatus: 'Confirmed',
+      hideHotel: '1'
+    });
+
+    window.location.href = 'both-reservation-pdf.html?' + params.toString();
+  }
+
+  function goStep(n){
+    if(n === 4){ populateReview(); }
+    currentStep = n;
+    document.querySelectorAll('.step-panel').forEach(p=>{
+      p.classList.toggle('hidden', parseInt(p.dataset.step) !== n);
+    });
+    const stepperEl = document.getElementById('stepper');
+    if(n > 5){
+      stepperEl.classList.add('hidden');
+    } else {
+      stepperEl.classList.remove('hidden');
+      renderStepper();
+    }
+    renderPrices();
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function togglePayOption(headerEl){
+    const wrap = headerEl.closest('.pay-option-wrap');
+    const wasExpanded = wrap.classList.contains('expanded');
+    document.querySelectorAll('.pay-option-wrap').forEach(w=>w.classList.remove('expanded'));
+    if(!wasExpanded){
+      wrap.classList.add('expanded');
+    }
+  }
+
+  // =====================================================================
+  // AUTH CHECK CONFIG — edit these 2 values to match your live login system
+  // =====================================================================
+  const AUTH_CONFIG = {
+    storageKey: 'itzeazy_logged_in',   // key your live login page sets on success
+    loginUrl: 'login.html'             // your real login page
+  };
+
+  function isLoggedIn(){
+    return localStorage.getItem(AUTH_CONFIG.storageKey) === 'true';
+  }
+
+  // Runs when "PROCES PAYMENT" (Step 4 → Step 5) is clicked.
+  function proceedToPayment(){
+    if(!isLoggedIn()){
+      // FIX: encode full return URL (page + step param) as one encoded value
+      const currentPage = window.location.pathname.split('/').pop() || 'booking-flow.html';
+      const returnUrl = encodeURIComponent(currentPage + '?step=5');
+      window.location.href = AUTH_CONFIG.loginUrl + '?redirect=' + returnUrl;
+      return;
+    }
+    goStep(5);
+  }
+
+  // If we just came back from a successful login, resume at Step 5.
+  (function resumeAfterLogin(){
+    const params = new URLSearchParams(window.location.search);
+    const resumeStep = params.get('step');
+    if(resumeStep && isLoggedIn()){
+      goStep(parseInt(resumeStep, 10));
+      // Clean the URL so refreshing doesn't re-trigger the jump.
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+  })();
+
+  // --- DEV/TESTING ONLY ---
+  // Visit with ?simulateLogin=1 to fake a logged-in session for testing
+  // (since the real login page isn't wired in yet). ?simulateLogin=0 logs out.
+  // Remove this block once real login is connected.
+  (function devSimulateLogin(){
+    const p = new URLSearchParams(window.location.search);
+    if(p.get('simulateLogin') === '1') localStorage.setItem(AUTH_CONFIG.storageKey, 'true');
+    if(p.get('simulateLogin') === '0') localStorage.removeItem(AUTH_CONFIG.storageKey);
+  })();
+
+  // --- Card number auto-spacing ---
+  const cardNumberInput = document.getElementById('cardNumberInput');
+  if(cardNumberInput){
+    cardNumberInput.addEventListener('input', (e)=>{
+      let digits = e.target.value.replace(/\D/g,'').slice(0,16);
+      e.target.value = digits.replace(/(.{4})/g,'$1 ').trim();
+    });
+  }
+
+  // --- Expiry MM / YY auto-slash ---
+  const expiryInput = document.getElementById('expiryInput');
+  if(expiryInput){
+    expiryInput.addEventListener('input', (e)=>{
+      let digits = e.target.value.replace(/\D/g,'').slice(0,4);
+      if(digits.length >= 3){
+        e.target.value = digits.slice(0,2) + ' / ' + digits.slice(2);
+      } else {
+        e.target.value = digits;
+      }
+    });
+  }
+
+  // --- CVV digits only ---
+  const cvvInput = document.getElementById('cvvInput');
+  if(cvvInput){
+    cvvInput.addEventListener('input', (e)=>{
+      e.target.value = e.target.value.replace(/\D/g,'').slice(0,3);
+    });
+  }
+
+  function getActivePaymentMethod(){
+    const expandedWrap = document.querySelector('.pay-option-wrap.expanded');
+    return expandedWrap ? expandedWrap.dataset.pay : null;
+  }
+
+  function handleMakePayment(){
+    const method = getActivePaymentMethod();
+    if(!method){
+      alert('Please select a payment method to continue.');
+      return;
+    }
+    if(method === 'card'){
+      const num = cardNumberInput ? cardNumberInput.value.replace(/\s/g,'') : '';
+      const name = document.querySelector('[data-pay="card"] .acc-panel-inner input[placeholder="Enter name on card"]');
+      const expiry = expiryInput ? expiryInput.value : '';
+      const cvv = cvvInput ? cvvInput.value : '';
+      if(num.length < 16 || !name.value.trim() || expiry.length < 7 || cvv.length < 3){
+        alert('Please fill in all card details to continue.');
+        return;
+      }
+    } else if(method === 'upi'){
+      const upi = document.querySelector('[data-pay="upi"] .acc-panel-inner input');
+      if(!upi.value.trim() || !upi.value.includes('@')){
+        alert('Please enter a valid UPI ID to continue.');
+        return;
+      }
+    } else if(method === 'netbanking'){
+      const bank = document.querySelector('[data-pay="netbanking"] .acc-panel-inner select');
+      if(bank.selectedIndex === 0){
+        alert('Please choose your bank to continue.');
+        return;
+      }
+    }
+    goStep(6);
+  }
+
+  // trip type tabs
+  document.querySelectorAll('.trip-tab').forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      document.querySelectorAll('.trip-tab').forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+
+  // currency toggle
+  document.querySelectorAll('.currency-toggle button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.currency-toggle button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // --- Prefill Step 1 from data handed off by the landing page form ---
+  (function prefillFromLandingPage(){
+    const raw = sessionStorage.getItem('dummyTicketBooking');
+    if(!raw) return;
+
+    let data;
+    try{
+      data = JSON.parse(raw);
+    } catch(e){
+      return;
+    }
+
+    const flight = data.type === 'both' ? data.flight : (data.type === 'flight' ? data : null);
+
+    if(flight){
+      const originEl = document.getElementById('originCity');
+      const destEl = document.getElementById('destCity');
+      const dateEl = document.getElementById('depDate');
+      if(originEl && flight.from) originEl.value = flight.from;
+      if(destEl && flight.to) destEl.value = flight.to;
+      if(dateEl && flight.departure) dateEl.value = flight.departure;
+
+      const sumOriginEl = document.getElementById('sumOrigin');
+      const sumDestEl = document.getElementById('sumDest');
+      const sumDateEl = document.getElementById('sumDate1');
+      if(sumOriginEl && flight.from) sumOriginEl.textContent = flight.from;
+      if(sumDestEl && flight.to) sumDestEl.textContent = flight.to;
+      if(sumDateEl && flight.departure) sumDateEl.textContent = flight.departure;
+    }
+
+    if(data.type === 'hotel'){
+      // This flow currently only models flight bookings — a hotel-only
+      // request has no matching step yet. Surface that clearly instead
+      // of silently ignoring the data.
+      console.warn('Hotel-only booking data received, but this flow only supports flight steps:', data.hotel || data);
+    }
+
+    // Consume it once so a page refresh doesn't reapply stale data.
+    sessionStorage.removeItem('dummyTicketBooking');
+  })();
+
+  renderStepper();
+  renderPrices();
+</script>
+
+</body>
+</html>
