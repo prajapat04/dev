@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Itzeazy Dummy Ticket - Flight + Hotel Booking</title>
+<style>
+  :root{
+    --red:#ee1111;
+    --red-dark:#d40e0e;
+    --pink-bg:#fdeaea;
+    --ink:#111214;
+    --gray-1:#6b7280;
+    --gray-2:#9aa0a6;
+    --border:#e5e7eb;
+    --field-border:#d9d9d9;
+    --green:#16a34a;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0;padding:0;
+    font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    background:#f3f4f6;
+    color:var(--ink);
+  }
+  .page{ max-width:1180px; margin:0 auto; padding:28px 20px 60px; }
+
+  /* ---------------- Stepper ---------------- */
+  .stepper{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:30px; position:relative; }
+  .step{ display:flex; flex-direction:column; align-items:center; flex:1; position:relative; }
+  .step-line{ position:absolute; top:14px; left:50%; width:100%; height:2px; background:var(--border); z-index:0; }
+  .step:last-child .step-line{ display:none; }
+  .step.done .step-line, .step.active .step-line{ background:var(--red); }
+  .circle{ width:28px;height:28px;border-radius:50%; background:#e5e7eb;color:#9aa0a6; display:flex;align-items:center;justify-content:center; font-size:12px;font-weight:700; position:relative;z-index:1; }
+  .step.done .circle, .step.active .circle{ background:var(--red);color:#fff; }
+  .step-label{ margin-top:8px;font-size:10.5px;font-weight:700;letter-spacing:0.4px; color:#9aa0a6;text-align:center;white-space:nowrap; }
+  .step.active .step-label{ color:var(--red); }
+  .step.done .step-label{ color:#9aa0a6; }
+
+  /* ---------------- Layout ---------------- */
+  .grid{ display:grid; grid-template-columns:1fr 340px; gap:24px; align-items:start; }
+  .panel{ background:#fff; border-radius:16px; border:1px solid var(--border); overflow:hidden; }
+
+  .black-bar{
+    background:var(--ink); color:#fff; padding:14px 18px;
+    display:flex; align-items:center; justify-content:space-between; font-weight:700; font-size:14.5px;
+  }
+  .black-bar .left{ display:flex;align-items:center;gap:10px; }
+  .black-bar .icon-badge{ width:26px;height:26px;border-radius:50%; background:rgba(255,255,255,0.15); display:flex;align-items:center;justify-content:center; flex:0 0 auto; }
+  .black-bar .edit-link{ color:var(--red); font-size:12.5px; font-weight:700; cursor:pointer; }
+
+  .segment-toggle{ display:flex; background:rgba(255,255,255,0.12); border-radius:8px; padding:3px; gap:2px; }
+  .segment-toggle button{
+    border:none; background:transparent; color:#c7cbd1; font-size:11.5px; font-weight:700;
+    padding:6px 14px; border-radius:6px; cursor:pointer;
+  }
+  .segment-toggle button.active{ background:var(--red); color:#fff; }
+
+  .fields-block{ padding:22px; }
+  .row3{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:16px; }
+  .row2{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-bottom:16px; }
+  .row2:last-child, .row3:last-child{ margin-bottom:0; }
+
+  .field label{ display:block;font-size:11px;font-weight:800;color:#4b5563; letter-spacing:0.4px;margin-bottom:8px;text-transform:uppercase; }
+  .field-input{ position:relative; }
+  .field-input input, .field-input select, .field-input textarea{
+    width:100%;padding:13px 14px;border:1.5px solid var(--field-border);border-radius:10px;
+    font-size:14px;background:#fff;outline:none;font-family:inherit;color:var(--ink);
+  }
+  .field-input.has-icon-left input{ padding-left:38px; }
+  .field-input.has-icon input{ padding-right:38px; }
+  .field-input textarea{ resize:vertical; min-height:80px; }
+  .field-input input:focus, .field-input select:focus, .field-input textarea:focus{ border-color:var(--red); }
+  .field-input .icon-left{ position:absolute; left:12px; top:50%; transform:translateY(-50%); color:#9aa0a6; pointer-events:none; }
+  .field-input .icon-right{ position:absolute; right:12px; top:50%; transform:translateY(-50%); color:#9aa0a6; pointer-events:none; }
+
+  .add-link{ text-align:right;color:var(--red);font-weight:700;font-size:12.5px;cursor:pointer; text-transform:uppercase; letter-spacing:0.3px; display:flex; align-items:center; justify-content:flex-end; gap:5px; }
+
+  .actions-row{ display:flex; justify-content:space-between; gap:12px; }
+  .btn{ padding:14px 26px;border-radius:10px;font-weight:800;font-size:13.5px;letter-spacing:0.4px; border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px; }
+  .btn-primary{ background:var(--red); color:#fff; }
+  .btn-primary:hover{ background:var(--red-dark); }
+  .btn-outline{ background:#fff; border:1.5px solid var(--red); color:var(--red); }
+  .btn-dark{ background:var(--ink); color:#fff; }
+  .btn-plain{ background:#fff; border:1.5px solid var(--border); color:#374151; }
+
+  /* ---------------- Preference pills / checkcards (reused pattern) ---------------- */
+  .pref-pill-row{ display:flex; gap:12px; flex-wrap:wrap; }
+  .pref-pill{ flex:1; min-width:110px; border:1.5px solid var(--field-border); border-radius:10px; padding:12px 14px; text-align:center; font-weight:700; font-size:13px; color:#374151; cursor:pointer; }
+  .pref-pill.selected{ border-color:var(--red); color:var(--red); }
+
+  .checkcard-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:20px; }
+  .checkcard{ display:flex;align-items:flex-start;gap:12px; border:1.5px solid var(--field-border); border-radius:10px; padding:14px 16px; cursor:pointer; background:#fff; }
+  .checkcard.checked{ border-color:transparent; background:var(--pink-bg); }
+  .checkcard input{ width:18px;height:18px;accent-color:var(--red);margin-top:2px;flex:0 0 auto;cursor:pointer; }
+  .checkcard .t1{ font-weight:700; font-size:14px; }
+  .checkcard .t2{ font-size:12px; color:#9aa0a6; margin-top:2px; }
+
+  .mini-block{ border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+  .mini-block .black-bar{ padding:12px 16px; font-size:13px; }
+  .mini-block .black-bar .icon-badge{ width:22px;height:22px; }
+  .mini-block-body{ padding:16px; }
+  .mini-two{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:20px; }
+  .arrival-hint{ font-size:11.5px; color:#9aa0a6; margin-top:8px; }
+  .delivery-opt-row{ display:flex; gap:10px; }
+  .delivery-opt{ flex:1; display:flex;align-items:center;justify-content:center;gap:8px; border:1.5px solid var(--field-border); border-radius:10px; padding:12px; font-weight:700; font-size:13px; color:#374151; cursor:pointer; }
+  .delivery-opt.selected{ border-color:var(--red); color:var(--red); }
+
+  .agree-box{ display:flex;gap:10px;align-items:flex-start; border:1.5px solid var(--border); border-radius:10px; padding:14px 16px; font-size:12.5px; color:#4b5563; line-height:1.5; margin-top:18px; }
+  .agree-box input{ margin-top:2px; accent-color:var(--red); flex:0 0 auto; cursor:pointer; }
+  .agree-box a{ color:var(--red); font-weight:700; text-decoration:none; }
+
+  /* ---------------- Summary card (steps 1-3) ---------------- */
+  .summary-card{ border-radius:16px; overflow:hidden; border:1px solid var(--border); }
+  .summary-header{ background:var(--red); color:#fff; padding:14px 18px; }
+  .summary-header .h-title{ font-weight:800; font-size:14.5px; display:flex; align-items:center; gap:8px; }
+  .summary-header .h-ref{ font-size:10.5px; color:rgba(255,255,255,0.85); font-weight:600; margin-top:2px; }
+  .summary-body{ background:var(--ink); color:#fff; padding:20px; }
+
+  .item-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:14px; }
+  .item-row .left{ display:flex; gap:10px; align-items:flex-start; }
+  .item-row .icon-dot{ width:26px;height:26px;border-radius:50%; background:rgba(255,255,255,0.1); display:flex;align-items:center;justify-content:center; flex:0 0 auto; color:var(--red); }
+  .item-row .t1{ font-weight:700; font-size:13.5px; }
+  .item-row .t2{ font-size:11.5px; color:#9aa0a6; margin-top:2px; }
+  .item-row .price{ font-weight:700; font-size:13.5px; white-space:nowrap; }
+
+  .divider-dash{ border-top:1px dashed #4b4f57; margin:14px 0; }
+  .divider-solid{ border-top:1px solid #33363c; margin:14px 0; }
+  .line-item{ display:flex; justify-content:space-between; font-size:13.5px; color:#d1d5db; margin-bottom:10px; }
+  .line-item.discount{ color:var(--green); }
+  .total-row{ display:flex; justify-content:space-between; align-items:center; }
+  .total-row .lab{ font-size:14.5px; font-weight:800; color:#fff; }
+  .total-row .val{ font-size:20px; font-weight:800; color:var(--red); }
+
+  .security-note{
+    display:flex; gap:10px; align-items:flex-start; background:#f7f8fa; border-radius:12px; padding:14px 16px; font-size:11.5px; color:#6b7280; line-height:1.5;
+  }
+  .security-note svg{ color:var(--red); flex:0 0 auto; margin-top:1px; }
+
+  /* ---------------- Step 4: Review Booking ---------------- */
+  .review-flight{ padding:20px 22px; display:flex; align-items:center; justify-content:space-between; }
+  .review-flight .code{ font-size:19px; font-weight:800; }
+  .review-flight .loc{ font-size:11.5px; color:#9aa0a6; margin-top:2px; }
+  .review-flight .mid{ flex:1; text-align:center; position:relative; margin:0 20px; }
+  .review-flight .mid::before{ content:""; position:absolute; left:0; right:0; top:50%; border-top:1.5px dashed var(--border); }
+  .review-flight .mid svg{ position:relative; background:#fff; padding:0 8px; color:var(--red); }
+  .review-flight .mid .tag{ display:block; font-size:10px; color:#c7cbd1; margin-top:4px; }
+
+  .review-facts{ display:grid; grid-template-columns:1fr 1fr; background:#f7f8fa; border-radius:10px; padding:14px 16px; margin:0 22px 20px 22px; gap:10px; }
+  .review-facts .r-label{ font-size:10.5px; font-weight:800; color:var(--red); letter-spacing:0.4px; text-transform:uppercase; margin-bottom:4px; }
+  .review-facts .r-value{ font-size:14px; font-weight:700; }
+
+  .review-simple{ padding:18px 22px; }
+  .review-simple .r-row{ display:flex; justify-content:space-between; margin-bottom:14px; }
+  .review-simple .r-row:last-child{ margin-bottom:0; }
+  .review-simple .r-label{ font-size:12px; color:#9aa0a6; font-weight:600; }
+  .review-simple .r-value{ font-size:13.5px; font-weight:700; }
+
+  .delivery-note{ padding:18px 22px; font-size:13px; color:#374151; display:flex; align-items:center; gap:8px; }
+  .delivery-note::before{ content:""; width:6px;height:6px;border-radius:50%; background:var(--red); flex:0 0 auto; }
+
+  .note-box{ background:#1c1e22; border-radius:10px; padding:14px 16px; margin-top:16px; display:flex; gap:10px; font-size:12px; color:#9aa0a6; line-height:1.4; }
+  .note-box svg{ color:var(--red); flex:0 0 auto; margin-top:1px; }
+
+  /* ---------------- Step 5: Payment (reused pattern) ---------------- */
+  .pay-grid{ display:grid; grid-template-columns:1fr 320px; gap:24px; align-items:stretch; }
+  .pay-main{ padding:10px 6px; }
+  .currency-row{ display:flex; justify-content:flex-end; align-items:center; gap:10px; margin-bottom:30px; }
+  .currency-row .lab{ font-size:11px; font-weight:800; color:#9aa0a6; letter-spacing:0.5px; }
+  .currency-toggle{ display:flex; background:#f3f4f6; border-radius:8px; overflow:hidden; border:1px solid var(--border); }
+  .currency-toggle button{ border:none; background:transparent; padding:7px 16px; font-size:12.5px; font-weight:700; color:#6b7280; cursor:pointer; }
+  .currency-toggle button.active{ background:var(--ink); color:#fff; }
+  .pay-heading{ text-align:center; margin-bottom:30px; }
+  .pay-heading h2{ font-size:24px; font-weight:800; margin:0 0 8px 0; }
+  .pay-heading p{ font-size:14px; color:#6b7280; margin:0; }
+
+  .pay-option-wrap{ border:1.5px solid var(--red); border-radius:12px; margin-bottom:16px; overflow:hidden; background:#fff; transition:box-shadow .15s ease; }
+  .pay-option-wrap:hover{ box-shadow:0 2px 10px rgba(238,17,17,0.12); }
+  .pay-option-wrap.expanded{ box-shadow:0 6px 20px rgba(238,17,17,0.14); }
+  .pay-option{ display:flex; align-items:center; gap:16px; padding:16px 18px; cursor:pointer; background:#fff; }
+  .pay-option .pic{ width:44px;height:44px;border-radius:50%; background:var(--pink-bg); display:flex;align-items:center;justify-content:center; color:var(--red); flex:0 0 auto; }
+  .pay-option .txt{ flex:1; }
+  .pay-option .txt .t1{ font-weight:700;font-size:15px; }
+  .pay-option .txt .t2{ font-size:12.5px;color:#9aa0a6;margin-top:2px; }
+  .pay-option .chev{ color:#6b7280; transition:transform .2s ease; flex:0 0 auto; }
+  .pay-option-wrap.expanded .chev{ transform:rotate(180deg); }
+  .acc-panel{ max-height:0; overflow:hidden; background:#f7f8fa; transition:max-height .25s ease; }
+  .pay-option-wrap.expanded .acc-panel{ max-height:400px; }
+  .acc-panel-inner{ padding:18px; }
+  .acc-panel-inner label{ display:block;font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:8px; }
+  .acc-panel-inner input, .acc-panel-inner select{
+    width:100%;padding:13px 14px;border:1.5px solid var(--field-border);border-radius:10px;font-size:14px;background:#fff;outline:none;font-family:inherit;color:var(--ink);
+  }
+  .acc-field{ margin-bottom:16px; }
+  .acc-field:last-child{ margin-bottom:0; }
+  .acc-row2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+
+  .billing-block{ margin:24px 0 20px 0; }
+  .billing-block label{ display:block;font-size:11px;font-weight:800;color:#9aa0a6;letter-spacing:0.5px;margin-bottom:8px;text-transform:uppercase; }
+  .billing-block select{ width:100%;padding:14px;border-radius:10px;border:1.5px solid var(--field-border);font-size:14px;background:#fff;font-family:inherit; }
+
+  .order-card-dark{ background:var(--ink); color:#fff; border-radius:20px 20px 20px 64px; padding:22px; box-shadow:0 20px 45px rgba(0,0,0,0.22); }
+  .order-card-dark h3{ margin:0 0 16px 0; font-size:16px;font-weight:800; }
+  .order-item{ margin-bottom:12px; }
+  .order-item .lab-red{ font-size:11px; font-weight:800; color:var(--red); letter-spacing:0.3px; text-transform:uppercase; }
+  .order-item .name{ font-weight:700; font-size:14px; margin-top:3px; }
+  .order-item .sub{ font-size:11.5px; color:#9aa0a6; margin-top:2px; }
+  .order-item .price{ float:right; font-weight:700; font-size:13.5px; }
+  .discount-text{ color:var(--green) !important; }
+
+  /* ---------------- Success screen ---------------- */
+  .success-wrap{ max-width:560px; margin:20px auto 0; text-align:center; padding:20px 16px 40px; }
+  .success-icon{ width:90px;height:90px;border-radius:50%; background:var(--red); display:flex;align-items:center;justify-content:center; margin:0 auto 26px; }
+  .success-wrap h2{ font-size:22px;font-weight:800;margin:0 0 10px 0; }
+  .success-wrap > p{ font-size:14px;color:#6b7280;margin:0 0 28px 0; line-height:1.5; }
+  .booking-card{ border:1.5px solid var(--border); border-top:4px solid var(--red); border-radius:12px; padding:20px; text-align:left; margin-bottom:24px; position:relative; overflow:hidden; }
+  .booking-card .decor-dot{ position:absolute; top:-20px; right:-20px; width:90px; height:90px; border-radius:50%; background:var(--pink-bg); z-index:0; }
+  .booking-card .content{ position:relative; z-index:1; }
+  .booking-row2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+  .booking-row2 .r-label{ font-size:10.5px; font-weight:800; color:#9aa0a6; letter-spacing:0.4px; text-transform:uppercase; margin-bottom:5px; }
+  .booking-row2 .r-value{ font-size:14.5px; font-weight:700; display:flex; align-items:center; gap:6px; }
+  .hotel-status-lab{ font-size:11px; font-weight:800; color:var(--red); letter-spacing:0.4px; text-transform:uppercase; display:flex; align-items:center; gap:6px; margin-bottom:10px; }
+  .hotel-status-box{ border:1px solid var(--border); border-radius:10px; padding:14px 16px; display:flex; justify-content:space-between; align-items:flex-start; }
+  .hotel-status-box .hname{ font-weight:700; font-size:14px; }
+  .hotel-status-box .hsub{ font-size:11.5px; color:#9aa0a6; margin-top:2px; }
+  .hotel-status-box .hid{ font-size:10.5px; color:#9aa0a6; margin-top:8px; }
+  .stars{ color:var(--red); white-space:nowrap; }
+  .success-actions{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+  .hidden{ display:none !important; }
+
+  /* ---------------- Responsive ---------------- */
+  @media (max-width: 860px){
+    .grid, .pay-grid{ grid-template-columns:1fr; }
+    .row3, .row2, .checkcard-grid, .mini-two, .review-facts, .booking-row2, .acc-row2{ grid-template-columns:1fr; }
+    .step-label{ display:none; }
+    .step.active .step-label{ display:block; position:absolute; top:34px; font-size:9.5px; }
+    .circle{ width:24px;height:24px;font-size:11px; }
+    .actions-row{ flex-wrap:wrap; }
+    .btn{ flex:1; justify-content:center; }
+    .order-card-dark{ border-radius:16px; }
+    .black-bar{ flex-wrap:wrap; gap:8px; }
+    .segment-toggle{ width:100%; justify-content:center; }
+  }
+  @media (max-width:480px){
+    .page{ padding:18px 12px 40px; }
+    .step-label{ font-size:8.5px; letter-spacing:0.2px; }
+    .success-actions{ flex-direction:column; }
+    .success-actions .btn{ width:100%; justify-content:center; }
+    .pref-pill-row, .delivery-opt-row{ flex-direction:column; }
+    .review-flight{ flex-direction:column; gap:12px; }
+    .review-flight .mid{ margin:0; width:100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="stepper" id="stepper"></div>
+
+  <!-- STEP 1: ROUTE DETAILS -->
+  <div class="step-panel" data-step="1">
+    <div class="grid">
+      <div style="display:flex; flex-direction:column; gap:20px;">
+
+        <div class="panel">
+          <div class="black-bar">
+            <div class="left">
+              <span class="icon-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M2.5 19.5l19-7.5-19-7.5v6l12 1.5-12 1.5z"/></svg></span>
+              Flight Details
+            </div>
+            <div class="segment-toggle">
+              <button class="active" onclick="selectSegment(this,'trip')">One Way</button>
+              <button onclick="selectSegment(this,'trip')">Round Trip</button>
+            </div>
+          </div>
+          <div class="fields-block">
+            <div class="row2">
+              <div class="field">
+                <label>From</label>
+                <div class="field-input has-icon-left">
+                  <span class="icon-left"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+                  <input type="text" id="fromCity" value="Mumbai">
+                </div>
+              </div>
+              <div class="field">
+                <label>To</label>
+                <div class="field-input has-icon-left">
+                  <span class="icon-left"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M2.5 19.5l19-7.5-19-7.5v6l12 1.5-12 1.5z"/></svg></span>
+                  <input type="text" id="toCity" value="Paris">
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label>Departure Date</label>
+              <div class="field-input has-icon">
+                <input type="text" id="departureDate" value="22-05-2026" readonly style="cursor:pointer;" onclick="document.getElementById('departureDatePicker').showPicker()">
+                <input type="date" id="departureDatePicker" style="position:absolute;opacity:0;width:0;height:0;top:0;right:0;pointer-events:none;" tabindex="-1">
+                <span class="icon-right" style="cursor:pointer;pointer-events:auto;" onclick="document.getElementById('departureDatePicker').showPicker()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="black-bar">
+            <div class="left">
+              <span class="icon-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="1"/><line x1="9" y1="6" x2="9" y2="6.01"/><line x1="15" y1="6" x2="15" y2="6.01"/><line x1="9" y1="10" x2="9" y2="10.01"/><line x1="15" y1="10" x2="15" y2="10.01"/></svg></span>
+              Stay Details
+            </div>
+            <div class="add-link">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+              Add More Hotel
+            </div>
+          </div>
+          <div class="fields-block">
+            <div class="field">
+              <label>City</label>
+              <div class="field-input has-icon-left">
+                <span class="icon-left"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V9l7-6 7 6v12"/><path d="M9 21V13h6v8"/></svg></span>
+                <input type="text" id="stayCity" value="Paris">
+              </div>
+            </div>
+            <div class="row2" style="margin-bottom:0;">
+              <div class="field">
+                <label>Check In</label>
+                <div class="field-input has-icon">
+                  <input type="text" id="checkInDate" value="22-05-2026" readonly style="cursor:pointer;" onclick="document.getElementById('checkInDatePicker').showPicker()">
+                  <input type="date" id="checkInDatePicker" style="position:absolute;opacity:0;width:0;height:0;top:0;right:0;pointer-events:none;" tabindex="-1">
+                  <span class="icon-right" style="cursor:pointer;pointer-events:auto;" onclick="document.getElementById('checkInDatePicker').showPicker()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg></span>
+                </div>
+              </div>
+              <div class="field">
+                <label>Check Out</label>
+                <div class="field-input has-icon">
+                  <input type="text" id="checkOutDate" value="26-05-2026" readonly style="cursor:pointer;" onclick="document.getElementById('checkOutDatePicker').showPicker()">
+                  <input type="date" id="checkOutDatePicker" style="position:absolute;opacity:0;width:0;height:0;top:0;right:0;pointer-events:none;" tabindex="-1">
+                  <span class="icon-right" style="cursor:pointer;pointer-events:auto;" onclick="document.getElementById('checkOutDatePicker').showPicker()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="14 7 9 12 14 17"/><line x1="9" y1="12" x2="21" y2="12"/></svg></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:20px;">
+        <div class="summary-card">
+          <div class="summary-header">
+            <div class="h-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M2.5 19.5l19-7.5-19-7.5v6l12 1.5-12 1.5z"/></svg>
+              +
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V9l7-6 7 6v12"/></svg>
+              Booking Summary
+            </div>
+          </div>
+          <div class="summary-body">
+            <div class="item-row">
+              <div class="left">
+                <div class="icon-dot"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M2.5 19.5l19-7.5-19-7.5v6l12 1.5-12 1.5z"/></svg></div>
+                <div><div class="t1">FLIGHT</div><div class="t2" id="s1FlightRoute">Mumbai → Paris</div></div>
+              </div>
+              <div class="price" id="s1FlightBase">₹699</div>
+            </div>
+            <div class="item-row">
+              <div class="left">
+                <div class="icon-dot"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V9l7-6 7 6v12"/></svg></div>
+                <div><div class="t1">HOTEL</div><div class="t2" id="s1HotelDest">Paris (Deluxe Suite)</div></div>
+              </div>
+              <div class="price" id="s1HotelBase">₹499</div>
+            </div>
+            <div class="divider-dash"></div>
+            <div class="line-item"><span>Taxes (GST)</span><span id="s1Gst">₹180</span></div>
+            <div class="divider-solid"></div>
+            <div class="total-row"><span class="lab">Total Amount</span><span class="val" id="s1Total">₹1,178</span></div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" style="width:100%; justify-content:center; padding:16px;" onclick="goStep(2)">NEXT
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+
+        <div class="security-note">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><polyline points="9 12 11 14 15 10"/></svg>
+          <span>Your data is secured with AES-256 encryption. Our booking concierge is a licensed travel and government documentation provider.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2: GUEST DETAILS -->
+  <div class="step-panel hidden" data-step="2">
+    <div class="grid">
+      <div class="panel">
+        <div class="black-bar">
+          <div class="left">
+            <span class="icon-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></span>
+            Contact Details
+          </div>
+        </div>
+        <div class="fields-block">
+          <div class="row3">
+            <div class="field"><label>Country Code</label><div class="field-input"><select id="contactCode"><option>India (+91)</option><option>USA (+1)</option><option>UK (+44)</option></select></div></div>
+            <div class="field"><label>Mobile Number</label><div class="field-input"><input type="text" id="contactPhone" value="9876543210"></div></div>
+            <div class="field"><label>Email Address</label><div class="field-input"><input type="text" id="contactEmail" placeholder="john.doe@example.com"></div></div>
+          </div>
+        </div>
+
+        <div class="black-bar">
+          <div class="left">
+            <span class="icon-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+            Passenger 1 <span style="font-weight:400; font-size:12px; color:#9aa0a6;">(Primary)</span>
+          </div>
+          <div class="edit-link">+ Add Passenger</div>
+        </div>
+        <div class="fields-block">
+          <div class="row3">
+            <div class="field"><label>Title</label><div class="field-input"><select id="guestTitle"><option>Mr.</option><option>Mrs.</option><option>Ms.</option></select></div></div>
+            <div class="field"><label>First Name</label><div class="field-input"><input type="text" id="guestFirst" placeholder="As per passport"></div></div>
+            <div class="field"><label>Last Name</label><div class="field-input"><input type="text" id="guestLast" placeholder="Surname"></div></div>
+          </div>
+          <div class="row3">
+            <div class="field"><label>Date of Birth</label><div class="field-input"><input type="text" id="guestDob" placeholder="mm/dd/yyyy"></div></div>
+            <div class="field"><label>Nationality</label><div class="field-input"><select id="guestNationality"><option>Indian</option><option>American</option><option>British</option></select></div></div>
+            <div class="field"><label>Passport Number</label><div class="field-input"><input type="text" id="guestPassport" placeholder="Enter valid passport ID"></div></div>
+          </div>
+        </div>
+
+        <div class="black-bar">
+          <div class="left">
+            <span class="icon-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="1"/><line x1="9" y1="6" x2="9" y2="6.01"/><line x1="15" y1="6" x2="15" y2="6.01"/></svg></span>
+            Hotel Guest Preferences
+          </div>
+        </div>
+        <div class="fields-block">
+          <div class="row2">
+            <div class="field">
+              <label>Smoking Preference</label>
+              <div class="pref-pill-row">
+                <div class="pref-pill selected" onclick="selectPill(this)">Non-Smoking</div>
+                <div class="pref-pill" onclick="selectPill(this)">Smoking</div>
+              </div>
+            </div>
+            <div class="field">
+              <label>Bed Type</label>
+              <div class="pref-pill-row">
+                <div class="pref-pill" onclick="selectPill(this)">Twin Beds</div>
+                <div class="pref-pill selected" onclick="selectPill(this)">King Size</div>
+              </div>
+            </div>
+          </div>
+          <div class="row3" style="margin-bottom:0;">
+            <div class="field"><label>Adults</label><div class="field-input"><input type="text" id="guestAdults" value="1"></div></div>
+            <div class="field"><label>Children</label><div class="field-input"><input type="text" id="guestChildren" value="0"></div></div>
+            <div class="field"><label>Rooms</label><div class="field-input"><input type="text" id="hotelRooms" value="1"></div></div>
+          </div>
+        </div>
+
+        <div style="padding:0 22px 22px;">
+          <div class="actions-row">
+            <button class="btn btn-outline" onclick="goStep(1)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+              PREVIOUS
+            </button>
+            <button class="btn btn-primary" onclick="goStep(3)">Next
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:20px;">
+        <div class="summary-card">
+          <div class="summary-header">
+            <div class="h-title">Booking Summary</div>
+            <div class="h-ref">Ref: ITZ-98231-A</div>
+          </div>
+          <div class="summary-body">
+            <div class="item-row">
+              <div class="left">
+                <div class="icon-dot"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M2.5 19.5l19-7.5-19-7.5v6l12 1.5-12 1.5z"/></svg></div>
+                <div><div class="t1" id="s2FlightRouteLabel">Flight: Mumbai to Dubai</div><div class="t2">Emirates EK-501 • Economy</div></div>
+              </div>
+              <div class="price" id="s2FlightBase">₹42,500</div>
+            </div>
+            <div class="item-row" style="margin-bottom:0;">
+              <div class="left">
+                <div class="icon-dot"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V9l7-6 7 6v12"/></svg></div>
+                <div><div class="t1" id="s2HotelDestLabel">Hotel: Armani Hotel Dubai</div><div class="t2" id="s2HotelRoomsLabel">3 Nights • Classic Room</div></div>
+              </div>
+              <div class="price" id="s2HotelBase">₹88,200</div>
+            </div>
+            <div class="divider-solid"></div>
+            <div class="line-item"><span>Base Fare</span><span id="s2BaseTotal">₹1,30,700</span></div>
+            <div class="line-item"><span>Taxes &amp; Fees</span><span id="s2Gst">₹12,450</span></div>
+            <div class="divider-solid"></div>
+            <div class="total-row"><span class="lab">Total Amount</span><span class="val" id="s2Total">₹1,11,780</span></div>
+          </div>
+        </div>
+        <div class="security-note">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><polyline points="9 12 11 14 15 10"/></svg>
+          <span>Your data is secured with AES-256 encryption. Our booking concierge is a licensed travel and government documentation provider.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3: ADDITIONAL DETAILS -->
+  <div class="step-panel hidden" data-step="3">
+    <div class="grid">
+      <div class="panel">
+        <div class="black-bar">
+          <div class="left">
+            <span class="icon-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 21.5 12 18 5.5 21.5 7 14.5 2 9.5 9 9"/></svg></span>
+            Booking Preferences
+          </div>
+        </div>
+        <div class="fields-block">
+          <div class="checkcard-grid">
+            <label class="checkcard checked" onclick="toggleCheckcard(this)">
+              <input type="checkbox" checked>
+              <div><div class="t1">Free Breakfast</div><div class="t2">Continental buffet included</div></div>
+            </label>
+            <label class="checkcard checked" onclick="toggleCheckcard(this)">
+              <input type="checkbox" checked>
+              <div><div class="t1">High-Speed WiFi</div><div class="t2">Premium 1Gbps connection</div></div>
+            </label>
+            <label class="checkcard" onclick="toggleCheckcard(this)">
+              <input type="checkbox">
+              <div><div class="t1">Refundable</div><div class="t2">Cancel up to 24h before</div></div>
+            </label>
+            <label class="checkcard" onclick="toggleCheckcard(this)">
+              <input type="checkbox">
+              <div><div class="t1">Near Center</div><div class="t2">Guaranteed central tower</div></div>
+            </label>
+          </div>
+
+          <div class="mini-two">
+            <div class="mini-block">
+              <div class="black-bar">
+                <div class="left"><span class="icon-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>Estimated Arrival</div>
+              </div>
+              <div class="mini-block-body">
+                <div class="field-input">
+                  <select><option>02:00 PM</option><option>12:00 PM</option><option>04:00 PM</option><option>06:00 PM</option></select>
+                </div>
+                <div class="arrival-hint">Check-in starts at 12:00 PM</div>
+              </div>
+            </div>
+            <div class="mini-block">
+              <div class="black-bar">
+                <div class="left"><span class="icon-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span>Delivery Method</div>
+              </div>
+              <div class="mini-block-body">
+                <div class="delivery-opt-row">
+                  <div class="delivery-opt selected" onclick="selectPill(this)">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+                    Email
+                  </div>
+                  <div class="delivery-opt" onclick="selectPill(this)">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-9 8.4 8.5 8.5 0 01-4-1L3 20l1.1-4A8.38 8.38 0 013 12.5 8.5 8.5 0 0111 4a8.38 8.38 0 018.4 8.5z"/></svg>
+                    WhatsApp
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="black-bar">
+            <div class="left">
+              <span class="icon-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 013 3L12 15l-4 1 1-4z"/></svg></span>
+              Special Requests
+            </div>
+          </div>
+          <div style="padding:18px 0 0 0;">
+            <div class="field-input"><textarea placeholder="e.g. Quiet room, anniversary setup, extra pillows..."></textarea></div>
+          </div>
+
+          <div class="agree-box">
+            <input type="checkbox">
+            <span>I agree to the <a href="#">Terms of Service</a> and <a href="#">Cancellation Policy</a>. I understand that some special requests may incur additional charges upon arrival.</span>
+          </div>
+        </div>
+
+        <div style="padding:0 22px 22px;">
+          <div class="actions-row">
+            <button class="btn btn-outline" onclick="goStep(2)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+              PREVIOUS
+            </button>
+            <button class="btn btn-primary" onclick="goStep(4)">Next
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:20px;">
+        <div class="summary-card">
+          <div class="summary-header">
+            <div class="h-title">Booking Summary</div>
+            <div class="h-ref">Ref: ITZ-98231-A</div>
+          </div>
+          <div class="summary-body">
+            <div class="item-row">
+              <div class="left">
+                <div class="icon-dot"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M2.5 19.5l19-7.5-19-7.5v6l12 1.5-12 1.5z"/></svg></div>
+                <div><div class="t1" id="s3FlightRouteLabel">Flight: Mumbai to Dubai</div><div class="t2">Emirates EK-501 • Economy</div></div>
+              </div>
+              <div class="price" id="s3FlightBase">₹42,500</div>
+            </div>
+            <div class="item-row" style="margin-bottom:0;">
+              <div class="left">
+                <div class="icon-dot"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V9l7-6 7 6v12"/></svg></div>
+                <div><div class="t1" id="s3HotelDestLabel">Hotel: Armani Hotel Dubai</div><div class="t2" id="s3HotelRoomsLabel">3 Nights • Classic Room</div></div>
+              </div>
+              <div class="price" id="s3HotelBase">₹88,200</div>
+            </div>
+            <div class="divider-solid"></div>
+            <div class="line-item"><span>Base Fare</span><span id="s3BaseTotal">₹1,30,700</span></div>
+            <div class="line-item"><span>Taxes &amp; Fees</span><span id="s3Gst">₹12,450</span></div>
+            <div class="divider-solid"></div>
+            <div class="total-row"><span class="lab">Total Amount</span><span class="val" id="s3Total">₹1,11,780</span></div>
+          </div>
+        </div>
+        <div class="security-note">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><polyline points="9 12 11 14 15 10"/></svg>
+          <span>Your data is secured with AES-256 encryption. Our booking concierge is a licensed travel and government documentation provider.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4: REVIEW BOOKING -->
+  <div class="step-panel hidden" data-step="4">
+    <div class="grid">
+      <div class="panel">
+        <div class="black-bar">
+          <div class="left"><span class="icon-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M2.5 19.5l19-7.5-19-7.5v6l12 1.5-12 1.5z"/></svg></span>FLIGHT DETAILS</div>
+          <div class="edit-link" onclick="goStep(1)">Edit</div>
+        </div>
+        <div class="review-flight">
+          <div><div class="code" id="s4FlightFromCode">BOM</div><div class="loc" id="s4FlightFromLoc">Mumbai, India</div></div>
+          <div class="mid">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M2.5 19.5l19-7.5-19-7.5v6l12 1.5-12 1.5z"/></svg>
+            <span class="tag">Direct Flight</span>
+          </div>
+          <div style="text-align:right;"><div class="code" id="s4FlightToCode">CDG</div><div class="loc" id="s4FlightToLoc">Paris, France</div></div>
+        </div>
+
+        <div class="black-bar">
+          <div class="left"><span class="icon-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V9l7-6 7 6v12"/></svg></span>HOTEL DETAILS</div>
+          <div class="edit-link" onclick="goStep(1)">Edit</div>
+        </div>
+        <div class="review-facts">
+          <div><div class="r-label">Destination</div><div class="r-value" id="s4HotelDest">Paris, Central District</div></div>
+          <div><div class="r-label">Duration</div><div class="r-value" id="s4HotelDuration">5 Nights, 6 Days</div></div>
+        </div>
+
+        <div class="black-bar">
+          <div class="left"><span class="icon-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>PASSENGER DETAILS</div>
+          <div class="edit-link" onclick="goStep(2)">Edit</div>
+        </div>
+        <div class="review-simple">
+          <div class="r-row"><span class="r-label">Primary Traveler</span><span class="r-value" id="s4GuestName">Rohan Malhotra</span></div>
+          <div class="r-row"><span class="r-label">Passport Number</span><span class="r-value" id="s4GuestPassport">L90****22</span></div>
+          <div class="r-row"><span class="r-label">Delivery Email</span><span class="r-value" id="s4GuestEmail">rohan.m@example.com</span></div>
+        </div>
+
+        <div class="black-bar">
+          <div class="left"><span class="icon-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg></span>DELIVERY FORMAT</div>
+        </div>
+        <div class="delivery-note">Digital PDF via Email &amp; WhatsApp</div>
+
+        <div style="padding:22px;">
+          <div class="actions-row">
+            <button class="btn btn-outline" onclick="goStep(3)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+              PREVIOUS
+            </button>
+            <button class="btn btn-primary" onclick="proceedToPayment()">PROCES PAYMENT
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-header"><div class="h-title">Payment Summary</div></div>
+        <div class="summary-body">
+          <div class="line-item"><span>Flight Itinerary</span><span id="s4FlightBase">₹24,000.00</span></div>
+          <div class="line-item"><span id="s4HotelRoomsLabel">Hotel Itinerary</span><span id="s4HotelBase">₹24,000.00</span></div>
+          <div class="line-item"><span>GST &amp; Convenience Fee</span><span id="s4Gst">₹4,320.00</span></div>
+          <div class="line-item"><span>Eco-Tourism Tax</span><span>₹450.00</span></div>
+          <div class="divider-solid"></div>
+          <div class="total-row"><span class="lab">Total Amount</span><span class="val" id="s4Total">₹28,770.00</span></div>
+          <div class="note-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>Free cancellation available until Oct 22, 2023. Post that, 1-night retention charges will apply.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5: PAYMENT -->
+  <div class="step-panel hidden" data-step="5">
+    <div class="pay-grid">
+      <div class="pay-main">
+        <div class="currency-row">
+          <span class="lab">CURRENCY</span>
+          <div class="currency-toggle"><button class="active">INR</button><button>USD</button></div>
+        </div>
+        <div class="pay-heading">
+          <h2>Select Payment Method</h2>
+          <p>Choose how you'd like to pay for your travel documents</p>
+        </div>
+
+        <div class="pay-option-wrap" data-pay="card">
+          <div class="pay-option" onclick="togglePayOption(this)">
+            <div class="pic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+            <div class="txt"><div class="t1">Debit / Credit Card</div><div class="t2">Visa, MasterCard, RuPay</div></div>
+            <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="acc-panel">
+            <div class="acc-panel-inner">
+              <div class="acc-field"><label>Card Number</label><input type="text" id="bCardNumber" placeholder="0000 0000 0000 0000" maxlength="19" inputmode="numeric"></div>
+              <div class="acc-field"><label>Card Holder Name</label><input type="text" placeholder="Enter name on card"></div>
+              <div class="acc-row2">
+                <div class="acc-field"><label>Expiry Date</label><input type="text" id="bExpiry" placeholder="MM / YY" maxlength="7" inputmode="numeric"></div>
+                <div class="acc-field"><label>CVV</label><input type="text" id="bCvv" placeholder="123" maxlength="3" inputmode="numeric"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pay-option-wrap" data-pay="netbanking">
+          <div class="pay-option" onclick="togglePayOption(this)">
+            <div class="pic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V9l7-6 7 6v12"/><path d="M9 21V13h6v8"/></svg></div>
+            <div class="txt"><div class="t1">Net Banking</div><div class="t2">All major banks supported</div></div>
+            <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="acc-panel">
+            <div class="acc-panel-inner">
+              <div class="acc-field"><label>Enter your Bank</label><select><option>Choose your bank</option><option>State Bank of India</option><option>HDFC Bank</option><option>ICICI Bank</option></select></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pay-option-wrap" data-pay="upi">
+          <div class="pay-option" onclick="togglePayOption(this)">
+            <div class="pic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><line x1="14" y1="14" x2="21" y2="14"/><line x1="14" y1="21" x2="21" y2="21"/><line x1="17.5" y1="14" x2="17.5" y2="21"/></svg></div>
+            <div class="txt"><div class="t1">UPI</div><div class="t2">Google Pay, PhonePe, Paytm</div></div>
+            <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="acc-panel">
+            <div class="acc-panel-inner">
+              <div class="acc-field"><label>Enter your UPI ID</label><input type="text" placeholder="example@upi"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="billing-block">
+          <label>Billing State (GST Compliance)</label>
+          <select><option>Select your state</option><option>Maharashtra</option><option>Rajasthan</option><option>Delhi</option></select>
+        </div>
+
+        <button class="btn btn-primary" style="width:100%;justify-content:center;padding:16px;font-size:14.5px;" onclick="goStep(6)">MAKE PAYMENT</button>
+      </div>
+
+      <div class="order-card-dark">
+        <h3>Order Details</h3>
+        <div class="order-item">
+          <span class="price" id="s5FlightPrice">₹24,450</span>
+          <div class="lab-red" id="s5FlightRoute">Flight: BOM → DXB</div>
+          <div class="name">IndiGo • 6E-1453</div>
+          <div class="sub" id="s5FlightSub">2 Adult(s) • Economy Saver</div>
+        </div>
+        <div class="divider-solid"></div>
+        <div class="order-item">
+          <span class="price" id="s5HotelPrice">₹48,200</span>
+          <div class="lab-red" id="s5HotelDest">Stay: JW Marriott Marquis</div>
+          <div class="name">Deluxe King Room</div>
+          <div class="sub" id="s5HotelSub">3 Nights • Complimentary Breakfast</div>
+        </div>
+        <div class="divider-solid"></div>
+        <div class="line-item"><span>Base Fare</span><span id="s5BaseTotal">₹72,650</span></div>
+        <div class="line-item"><span>Taxes &amp; Service Fees</span><span id="s5Gst">₹4,320</span></div>
+        <div class="line-item"><span>Itzeazy Concierge Fee</span><span>₹1,500</span></div>
+        <div class="line-item discount"><span>Discount (ITZNEW)</span><span>- ₹2,000</span></div>
+        <div class="divider-dash"></div>
+        <div class="total-row"><span class="lab">Total Amount</span><span class="val" id="s5Total">₹825.00</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 6: SUCCESS -->
+  <div class="step-panel hidden" data-step="6">
+    <div class="success-wrap">
+      <div class="success-icon">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h2>Hotel Reservation Booked Successfully</h2>
+      <p>Your embassy-ready hotel reservation has been generated successfully.</p>
+
+      <div class="booking-card">
+        <div class="decor-dot"></div>
+        <div class="content">
+          <div class="booking-row2">
+            <div><div class="r-label">Booking ID</div><div class="r-value" id="s6BookingId">#ITZ-H782-990</div></div>
+            <div><div class="r-label">Guest Name</div><div class="r-value" id="s6GuestName">Alexander Harrison</div></div>
+          </div>
+          <div class="booking-row2">
+            <div>
+              <div class="r-label">Destination</div>
+              <div class="r-value" id="s6Destination">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Paris, France
+              </div>
+            </div>
+            <div>
+              <div class="r-label">Dates</div>
+              <div class="r-value" id="s6Dates">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Oct 12 - Oct 18
+              </div>
+            </div>
+          </div>
+
+          <div class="hotel-status-lab">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="1"/><line x1="9" y1="6" x2="9" y2="6.01"/><line x1="15" y1="6" x2="15" y2="6.01"/></svg>
+            Hotel Status
+          </div>
+          <div class="hotel-status-box">
+            <div>
+              <div class="hname" id="s6HotelName">Hotel Plaza Athénée</div>
+              <div class="hsub" id="s6HotelSub">Deluxe King Room • Half Board</div>
+              <div class="hid">Booking ID: ITZ-PLZ-89</div>
+            </div>
+            <div class="stars">★★★★★</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="success-actions">
+        <button class="btn btn-primary" id="s6PdfBtn" onclick="window.location.href='both-reservation-pdf.html?flightBookingNo=%23ITZ-FLPY-8834&pnr=TK-2024-73901&passengerName=Alexander+Harrison&airline=Turkish+Airlines&departure=November+5%2C+2024&returnDate=November+12%2C+2024&route=New+Delhi+%E2%86%92+Istanbul&flightPax=2+Adults&seatClass=Business+Class&flightStatus=Confirmed&hotelBookingId=HTL-BKG-7621&confirmationNo=HC-2024-55901&guestName=Alexander+Harrison&checkIn=November+10%2C+2024&checkOut=November+14%2C+2024&hotelName=The+Ritz-Carlton+Istanbul&destination=Istanbul%2C+Turkey&hotelPax=2+Adults&roomType=Deluxe+Suite&mealPlan=Breakfast+Included&hotelStatus=Confirmed'">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download PDF
+        </button>
+        <button class="btn btn-dark" onclick="window.location.href='bookings-list.html'">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          My Booking
+        </button>
+        <button class="btn btn-plain" onclick="goStep(1)">Back Home</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // =====================================================================
+  // AUTH CHECK CONFIG
+  // =====================================================================
+  const AUTH_CONFIG = {
+    storageKey: 'itzeazy_logged_in',
+    loginUrl: 'login.html'
+  };
+
+  function isLoggedIn(){
+    return localStorage.getItem(AUTH_CONFIG.storageKey) === 'true';
+  }
+
+  // Runs when "PROCES PAYMENT" (Step 4 → Step 5) is clicked.
+  function proceedToPayment(){
+    if(!isLoggedIn()){
+      const currentPage = window.location.pathname.split('/').pop() || 'both-booking-flow.html';
+      const returnUrl = encodeURIComponent(currentPage + '?step=5');
+      window.location.href = AUTH_CONFIG.loginUrl + '?redirect=' + returnUrl;
+      return;
+    }
+    goStep(5);
+  }
+
+  (function resumeAfterLogin(){
+    const params = new URLSearchParams(window.location.search);
+    const resumeStep = params.get('step');
+    if(resumeStep && isLoggedIn()){
+      goStep(parseInt(resumeStep, 10));
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+  })();
+
+  (function devSimulateLogin(){
+    const p = new URLSearchParams(window.location.search);
+    if(p.get('simulateLogin') === '1') localStorage.setItem(AUTH_CONFIG.storageKey, 'true');
+    if(p.get('simulateLogin') === '0') localStorage.removeItem(AUTH_CONFIG.storageKey);
+  })();
+
+  // ─── Booking state ───────────────────────────────────────────────────────────
+  const bookingState = {
+    from: 'Mumbai', to: 'Paris', departure: '',
+    stayCity: 'Paris', checkIn: '', checkOut: '',
+    adults: 1, children: 0, rooms: 1,
+    phone: '', email: '',
+    title: 'Mr.', firstName: '', lastName: '', dob: '', nationality: 'Indian', passport: ''
+  };
+
+  function parseDate(dmy) {
+    if(!dmy) return null;
+    const [d,m,y] = dmy.split('-');
+    if(!y || !m || !d) return null;
+    return new Date(y, m-1, d);
+  }
+  function calcNights(d1, d2) {
+    const date1 = parseDate(d1);
+    const date2 = parseDate(d2);
+    if(date1 && date2 && date2 > date1) {
+      return Math.round((date2 - date1) / (1000*60*60*24));
+    }
+    return 1;
+  }
+
+  const FLIGHT_BASE_FARE = 699;
+  const HOTEL_RATE_PER_NIGHT = 499;
+  const GST_RATE = 0.18;
+
+  function calcPrices() {
+    const nights = calcNights(bookingState.checkIn, bookingState.checkOut) || 1;
+    const rooms = parseInt(bookingState.rooms) || 1;
+    const flightBase = FLIGHT_BASE_FARE;
+    const hotelBase = rooms * nights * HOTEL_RATE_PER_NIGHT;
+    const baseFare = flightBase + hotelBase;
+    const gst = Math.round(baseFare * GST_RATE);
+    const total = baseFare + gst;
+    return { flightBase, hotelBase, baseFare, gst, total, nights, rooms };
+  }
+
+  function fmt(n) { return '\u20b9' + n.toLocaleString('en-IN', {minimumFractionDigits:0, maximumFractionDigits:0}); }
+
+  function renderPrices() {
+    const p = calcPrices();
+    
+    // Summary panels (Step 1, Step 2, Step 3 have identical structures for prices)
+    for(let i=1; i<=3; i++) {
+      const fb = document.getElementById(`s${i}FlightBase`); if(fb) fb.textContent = fmt(p.flightBase);
+      const hb = document.getElementById(`s${i}HotelBase`); if(hb) hb.textContent = fmt(p.hotelBase);
+      const base = document.getElementById(`s${i}BaseTotal`); if(base) base.textContent = fmt(p.baseFare);
+      const gst = document.getElementById(`s${i}Gst`); if(gst) gst.textContent = fmt(p.gst);
+      const tot = document.getElementById(`s${i}Total`); if(tot) tot.textContent = fmt(p.total);
+
+      const fRoute = document.getElementById(`s${i}FlightRouteLabel`);
+      if(fRoute) fRoute.textContent = `Flight: ${bookingState.from} to ${bookingState.to}`;
+      
+      const hDest = document.getElementById(`s${i}HotelDestLabel`);
+      if(hDest) hDest.textContent = `Hotel: Premium Hotel ${bookingState.stayCity}`;
+      
+      const hRooms = document.getElementById(`s${i}HotelRoomsLabel`);
+      if(hRooms) hRooms.textContent = `${p.nights} Night${p.nights>1?'s':''} • Premium Room`;
+    }
+
+    // Step 4 Review Booking Payment Summary
+    const s4fb = document.getElementById('s4FlightBase'); if(s4fb) s4fb.textContent = fmt(p.flightBase) + '.00';
+    const s4hr = document.getElementById('s4HotelRoomsLabel'); if(s4hr) s4hr.textContent = `Hotel Itinerary (${p.nights} Night${p.nights>1?'s':''})`;
+    const s4hb = document.getElementById('s4HotelBase'); if(s4hb) s4hb.textContent = fmt(p.hotelBase) + '.00';
+    const s4g = document.getElementById('s4Gst'); if(s4g) s4g.textContent = fmt(p.gst) + '.00';
+    const s4t = document.getElementById('s4Total'); if(s4t) s4t.textContent = fmt(p.total) + '.00';
+
+    // Step 5 Order Details
+    const s5fp = document.getElementById('s5FlightPrice'); if(s5fp) s5fp.textContent = fmt(p.flightBase);
+    const s5fr = document.getElementById('s5FlightRoute'); if(s5fr) s5fr.textContent = `Flight: ${bookingState.from} → ${bookingState.to}`;
+    const s5fs = document.getElementById('s5FlightSub'); if(s5fs) s5fs.textContent = `${bookingState.adults} Adult(s) • Economy`;
+    
+    const s5hp = document.getElementById('s5HotelPrice'); if(s5hp) s5hp.textContent = fmt(p.hotelBase);
+    const s5hd = document.getElementById('s5HotelDest'); if(s5hd) s5hd.textContent = `Stay: Premium Hotel ${bookingState.stayCity}`;
+    const s5hs = document.getElementById('s5HotelSub'); if(s5hs) s5hs.textContent = `${p.nights} Night${p.nights>1?'s':''} • Premium Room`;
+    
+    const s5bt = document.getElementById('s5BaseTotal'); if(s5bt) s5bt.textContent = fmt(p.baseFare);
+    const s5g = document.getElementById('s5Gst'); if(s5g) s5g.textContent = fmt(p.gst);
+    const s5t = document.getElementById('s5Total'); if(s5t) s5t.textContent = fmt(p.total) + '.00';
+  }
+
+  // ─── Date picker wiring ──────────────────────────────────────────────────────
+  function wireDate(textId, pickerId) {
+    const picker = document.getElementById(pickerId);
+    const display = document.getElementById(textId);
+    if (!picker || !display) return;
+    picker.addEventListener('change', function() {
+      if (!this.value) return;
+      const [y, m, d] = this.value.split('-');
+      display.value = d + '-' + m + '-' + y;
+      if(['departureDate', 'checkInDate', 'checkOutDate'].includes(textId)) collectState();
+    });
+  }
+  wireDate('departureDate', 'departureDatePicker');
+  wireDate('checkInDate', 'checkInDatePicker');
+  wireDate('checkOutDate', 'checkOutDatePicker');
+
+  function collectState() {
+    const g = (id) => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
+    bookingState.from = g('fromCity') || 'Mumbai';
+    bookingState.to = g('toCity') || 'Paris';
+    bookingState.departure = g('departureDate');
+    
+    bookingState.stayCity = g('stayCity') || 'Paris';
+    bookingState.checkIn = g('checkInDate');
+    bookingState.checkOut = g('checkOutDate');
+    
+    bookingState.adults = parseInt(g('guestAdults')) || 1;
+    bookingState.children = parseInt(g('guestChildren')) || 0;
+    bookingState.rooms = parseInt(g('hotelRooms')) || 1;
+    
+    bookingState.phone = g('contactPhone');
+    bookingState.email = g('contactEmail');
+    
+    bookingState.title = g('guestTitle') || 'Mr.';
+    bookingState.firstName = g('guestFirst');
+    bookingState.lastName = g('guestLast');
+    bookingState.dob = g('guestDob');
+    bookingState.nationality = g('guestNationality');
+    bookingState.passport = g('guestPassport');
+
+    renderPrices();
+  }
+
+  function populateReview() {
+    collectState();
+    const p = calcPrices();
+    const fullName = [bookingState.title, bookingState.firstName, bookingState.lastName].filter(Boolean).join(' ');
+
+    // Step 4 Text
+    const s4ffc = document.getElementById('s4FlightFromCode'); if(s4ffc) s4ffc.textContent = bookingState.from.substring(0,3).toUpperCase();
+    const s4ffl = document.getElementById('s4FlightFromLoc'); if(s4ffl) s4ffl.textContent = bookingState.from;
+    const s4ftc = document.getElementById('s4FlightToCode'); if(s4ftc) s4ftc.textContent = bookingState.to.substring(0,3).toUpperCase();
+    const s4ftl = document.getElementById('s4FlightToLoc'); if(s4ftl) s4ftl.textContent = bookingState.to;
+    
+    const s4hd = document.getElementById('s4HotelDest'); if(s4hd) s4hd.textContent = bookingState.stayCity;
+    const s4hDur = document.getElementById('s4HotelDuration'); if(s4hDur) s4hDur.textContent = `${p.nights} Night${p.nights>1?'s':''}, ${p.nights+1} Day${p.nights+1>1?'s':''}`;
+
+    const s4gn = document.getElementById('s4GuestName'); if(s4gn) s4gn.textContent = fullName || 'Primary Traveler';
+    const s4gp = document.getElementById('s4GuestPassport'); if(s4gp) s4gp.textContent = bookingState.passport || '—';
+    const s4ge = document.getElementById('s4GuestEmail'); if(s4ge) s4ge.textContent = bookingState.email || '—';
+
+    // Step 6 Success Text
+    const bid = '#ITZ-B' + Math.floor(1000 + Math.random() * 9000);
+    const s6bid = document.getElementById('s6BookingId'); if(s6bid) s6bid.textContent = bid;
+    const s6gn = document.getElementById('s6GuestName'); if(s6gn) s6gn.textContent = fullName;
+    const s6dest = document.getElementById('s6Destination'); if(s6dest) s6dest.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg> ${bookingState.stayCity}`;
+    const s6dates = document.getElementById('s6Dates'); if(s6dates) s6dates.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg> ${bookingState.checkIn || '—'} to ${bookingState.checkOut || '—'}`;
+    const s6hn = document.getElementById('s6HotelName'); if(s6hn) s6hn.textContent = `Premium Hotel ${bookingState.stayCity}`;
+    const s6hs = document.getElementById('s6HotelSub'); if(s6hs) s6hs.textContent = `Premium Room • Breakfast Included`;
+
+    // PDF Wire
+    const pdfBtn = document.getElementById('s6PdfBtn');
+    if(pdfBtn) {
+      const q = new URLSearchParams({
+        flightBookingNo: bid + '-F',
+        pnr: 'TK-' + Math.floor(10000+Math.random()*90000),
+        passengerName: fullName,
+        airline: 'Premium Airlines',
+        departure: bookingState.departure,
+        returnDate: '—',
+        route: `${bookingState.from} → ${bookingState.to}`,
+        flightPax: `${bookingState.adults} Adult(s)`,
+        seatClass: 'Economy Class',
+        flightStatus: 'Confirmed',
+        hotelBookingId: bid + '-H',
+        confirmationNo: 'HC-' + Math.floor(10000+Math.random()*90000),
+        guestName: fullName,
+        checkIn: bookingState.checkIn,
+        checkOut: bookingState.checkOut,
+        hotelName: `Premium Hotel ${bookingState.stayCity}`,
+        destination: bookingState.stayCity,
+        hotelPax: `${bookingState.adults} Adult(s)`,
+        roomType: 'Premium Room',
+        mealPlan: 'Breakfast Included',
+        hotelStatus: 'Confirmed'
+      });
+      pdfBtn.setAttribute('onclick', `window.location.href='both-reservation-pdf.html?${q.toString()}'`);
+    }
+  }
+
+  const stepNames = ["ROUTE DETAILS","GUEST DETAILS","ADDITIONAL DETAILS","REVIEW BOOKING","PAYMENT"];
+  let currentStep = 1;
+
+  function renderStepper(){
+    const el = document.getElementById('stepper');
+    el.innerHTML = "";
+    stepNames.forEach((name, i)=>{
+      const num = i+1;
+      const div = document.createElement('div');
+      div.className = 'step' + (num < currentStep ? ' done' : '') + (num === currentStep ? ' active' : '');
+      div.innerHTML = `
+        <div class="step-line"></div>
+        <div class="circle">${ num <= currentStep ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' : num }</div>
+        <div class="step-label">${name}</div>
+      `;
+      el.appendChild(div);
+    });
+  }
+
+  function goStep(n){
+    if (n >= 2) populateReview();
+    currentStep = n;
+    document.querySelectorAll('.step-panel').forEach(p=>{
+      p.classList.toggle('hidden', parseInt(p.dataset.step) !== n);
+    });
+    const stepperEl = document.getElementById('stepper');
+    if(n > 5){ stepperEl.classList.add('hidden'); }
+    else { stepperEl.classList.remove('hidden'); renderStepper(); }
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function selectSegment(btn){
+    const row = btn.parentElement;
+    row.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function selectPill(pill){
+    const row = pill.parentElement;
+    row.querySelectorAll('.pref-pill, .delivery-opt').forEach(p=>p.classList.remove('selected'));
+    pill.classList.add('selected');
+  }
+
+  function toggleCheckcard(card){
+    const input = card.querySelector('input[type="checkbox"]');
+    input.checked = !input.checked;
+    card.classList.toggle('checked', input.checked);
+  }
+
+  function togglePayOption(headerEl){
+    const wrap = headerEl.closest('.pay-option-wrap');
+    const wasExpanded = wrap.classList.contains('expanded');
+    document.querySelectorAll('.pay-option-wrap').forEach(w=>w.classList.remove('expanded'));
+    if(!wasExpanded){ wrap.classList.add('expanded'); }
+  }
+
+  const cardNumberInput = document.getElementById('bCardNumber');
+  if(cardNumberInput){
+    cardNumberInput.addEventListener('input', (e)=>{
+      let digits = e.target.value.replace(/\D/g,'').slice(0,16);
+      e.target.value = digits.replace(/(.{4})/g,'$1 ').trim();
+    });
+  }
+  const expiryInput = document.getElementById('bExpiry');
+  if(expiryInput){
+    expiryInput.addEventListener('input', (e)=>{
+      let digits = e.target.value.replace(/\D/g,'').slice(0,4);
+      e.target.value = digits.length >= 3 ? digits.slice(0,2) + ' / ' + digits.slice(2) : digits;
+    });
+  }
+  const cvvInput = document.getElementById('bCvv');
+  if(cvvInput){
+    cvvInput.addEventListener('input', (e)=>{ e.target.value = e.target.value.replace(/\D/g,'').slice(0,3); });
+  }
+
+  document.querySelectorAll('.currency-toggle button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.currency-toggle button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // --- Prefill Step 1 from landing page handoff (type === 'both') ---
+  (function prefillFromLandingPage(){
+    const raw = sessionStorage.getItem('dummyTicketBooking');
+    if(!raw) return;
+    let data;
+    try{ data = JSON.parse(raw); } catch(e){ return; }
+    if(data.type !== 'both') return;
+
+    if(data.flight){
+      const f = document.getElementById('fromCity');
+      const t = document.getElementById('toCity');
+      const d = document.getElementById('departureDate');
+      if(f && data.flight.from) f.value = data.flight.from;
+      if(t && data.flight.to) t.value = data.flight.to;
+      if(d && data.flight.departure) d.value = data.flight.departure;
+    }
+    if(data.hotel){
+      const c = document.getElementById('stayCity');
+      const ci = document.getElementById('checkInDate');
+      const co = document.getElementById('checkOutDate');
+      if(c && data.hotel.city) c.value = data.hotel.city;
+      if(ci && data.hotel.checkIn) ci.value = data.hotel.checkIn;
+      if(co && data.hotel.checkOut) co.value = data.hotel.checkOut;
+    }
+    sessionStorage.removeItem('dummyTicketBooking');
+  })();
+
+  renderStepper();
+  collectState(); // This initializes state and triggers renderPrices()
+</script>
+
+</body>
+</html>
