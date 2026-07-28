@@ -1487,7 +1487,7 @@ let currentLanguage = localStorage.getItem("examLanguage") || "en";
 const languageModal = document.getElementById("languageModal");
 const languageListPopup = document.getElementById("languageListPopup");
 const languageSearchPopup = document.getElementById("languageSearchPopup");
-
+const continueBtn = document.getElementById("continueBtn");
 // Languages
 const languages = [
     { code: "en", name: "English" },
@@ -1607,8 +1607,6 @@ languageSearchPopup.addEventListener("input", e => {
     renderLanguages(e.target.value);
 
 });
-
-const continueBtn = document.getElementById("continueBtn");
 
 continueBtn.addEventListener("click",()=>{
 
