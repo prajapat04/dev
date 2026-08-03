@@ -544,7 +544,39 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
   <p class="mainHeading">Forgot Password</p>
   <p>Enter the email address or mobile number associated with your ItzEazy account.</p>
   <b>Email or Mobile Number</b>
-  <input type="text" name="emailPhon" id="emailPhon" class="inp" placeholder="Enter your email / mobile number">
+<!--changes start here-->
+
+ <div class="phone-input-wrap">
+  <div class="ccodenum country-select-wrap" id="forgotCountryWrap">
+    <img
+      src="https://flagcdn.com/w40/in.png"
+      alt="IN"
+      width="20">
+
+    <span class="country-dial">+91</span>
+
+    <span class="country-chevron">&#x25BE;</span>
+
+    <div class="country-dropdown">
+      <input
+        class="country-search"
+        type="text"
+        placeholder="Search country...">
+
+      <div class="country-list"></div>
+    </div>
+  </div>
+
+  <input
+    type="text"
+    name="emailPhon"
+    id="emailPhon"
+    class="inp phone-inp"
+    placeholder="Enter your email / mobile number">
+</div>
+
+
+<!--changes end here -->
   <div id="fgt1Btn" class="MainBtn nextverifi">
     Continue
    </div>
@@ -980,6 +1012,39 @@ function initCountrySelector(wrapEl) {
 // Init both selectors
 initCountrySelector(document.getElementById('countrySelectWrap'));
 initCountrySelector(document.getElementById('loginCountryWrap'));
+
+// change here 
+initCountrySelector(document.getElementById('forgotCountryWrap'));
+
+
+const forgotInput = document.getElementById('emailPhon');
+const forgotCountryWrap = document.getElementById('forgotCountryWrap');
+
+if (forgotInput && forgotCountryWrap) {
+
+  forgotCountryWrap.style.display = "none";
+
+  forgotInput.addEventListener("input", function () {
+
+    const val = this.value.trim();
+
+    if (/^\d/.test(val)) {
+      forgotCountryWrap.style.display = "flex";
+    } else {
+      forgotCountryWrap.style.display = "none";
+    }
+
+  });
+
+}
+
+
+
+//change end 
+
+
+
+
 
 // Close all dropdowns on outside click
 document.addEventListener('click', function() {
