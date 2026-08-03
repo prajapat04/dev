@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Docs — Digital Document Vault</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --dark: #12142a;
+      --dark2: #1b1e3a;
+      --red: #e8483c;
+      --red-dark: #d43a2f;
+      --red-light: #fdeceb;
+      --red-border: #f6c9c4;
+      --navy-btn: #171b33;
+      --navy-btn-hover: #232a4d;
+      --text-dark: #14161f;
+      --text-gray: #8b8f9b;
+      --text-gray-light: #b3b6c0;
+      --blue: #2f6fed;
+      --blue-light: #e8f0fe;
+      --green: #22a55e;
+      --green-light: #e6f7ee;
+      --purple: #8b5fbf;
+      --purple-light: #f2ecfa;
+      --orange: #f5943a;
+      --orange-light: #fef1e2;
+      --card-bg: linear-gradient(135deg, #ffffff 0%, #f3f3f6 100%);
+      --card-border: #f0d9d6;
+      --radius: 16px;
+      --shadow-sm: 0 2px 10px rgba(20, 22, 40, 0.05);
+      --shadow-md: 0 8px 24px rgba(20, 22, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-dark);
+      background: #ffffff;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1,
+    h2,
+    h3,
+    .display {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* ---------- HEADER ---------- */
+    header.app-header {
+      background: linear-gradient(180deg, var(--dark) 0%, var(--dark2) 100%);
+      color: #fff;
+      padding: 28px 24px 32px;
+      text-align: center;
+      position: relative;
+    }
+
+    .back-btn {
+      position: absolute;
+      left: 20px;
+      top: 26px;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 18px;
+      border-radius: 10px;
+      transition: background .15s ease;
+    }
+
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    header.app-header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    header.app-header p {
+      font-size: 13.5px;
+      color: #b7bacb;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.55;
+    }
+
+    /* ---------- LAYOUT ---------- */
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 32px 24px 80px;
+    }
+
+    .fade-in {
+      animation: fadeIn .35s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ---------- LANDING: VAULT CARDS ---------- */
+    .vault-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .vault-card {
+      position: relative;
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 26px 26px 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .vault-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .vault-card .watermark {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      font-size: 64px;
+      color: #000;
+      opacity: .05;
+    }
+
+    .icon-square {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 18px;
+    }
+
+    .icon-square.red {
+      color: var(--red);
+    }
+
+    .icon-square.blue {
+      color: var(--blue);
+    }
+
+    .icon-square.green {
+      color: var(--green);
+    }
+
+    .icon-square.purple {
+      color: var(--purple);
+    }
+
+    .icon-square.orange {
+      color: var(--orange);
+    }
+
+    .vault-card h3 {
+      font-size: 19px;
+      margin-bottom: 8px;
+    }
+
+    .vault-card p.desc {
+      font-size: 13.5px;
+      color: var(--text-gray);
+      line-height: 1.55;
+      margin-bottom: 22px;
+      max-width: 88%;
+    }
+
+    .btn-navy {
+      width: 100%;
+      background: var(--navy-btn);
+      color: #fff;
+      padding: 13px 18px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background .15s ease;
+    }
+
+    .btn-navy:hover {
+      background: var(--navy-btn-hover);
+    }
+
+    /* ---------- MEMBER GRID ---------- */
+    .member-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .member-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 28px 20px 24px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .member-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .avatar-circle {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin: 0 auto 14px;
+    }
+
+    .avatar-circle.red {
+      background: var(--red-light);
+      color: var(--red);
+    }
+
+    .avatar-circle.blue {
+      background: var(--blue-light);
+      color: var(--blue);
+    }
+
+    .avatar-circle.green {
+      background: var(--green-light);
+      color: var(--green);
+    }
+
+    .avatar-circle.purple {
+      background: var(--purple-light);
+      color: var(--purple);
+    }
+
+    .member-card h3 {
+      font-size: 17px;
+      margin-bottom: 6px;
+    }
+
+    .member-card .doc-count {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .03em;
+    }
+
+    .doc-count.red {
+      color: var(--red);
+    }
+
+    .doc-count.blue {
+      color: var(--blue);
+    }
+
+    .doc-count.green {
+      color: var(--green);
+    }
+
+    .doc-count.purple {
+      color: var(--purple);
+    }
+
+    /* ---------- CATEGORY ROW ---------- */
+    .category-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .category-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: 14px;
+      padding: 20px 18px;
+      width: 150px;
+      box-shadow: var(--shadow-sm);
+      transition: transform .18s ease, box-shadow .18s ease;
+      position: relative;
+      text-align: left;
+    }
+
+    .category-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .category-card .icon-square {
+      width: 44px;
+      height: 44px;
+      font-size: 17px;
+      margin-bottom: 14px;
+    }
+
+    .category-card h4 {
+      font-size: 14.5px;
+      font-weight: 600;
+    }
+
+    .category-card .chev {
+      position: absolute;
+      right: 14px;
+      bottom: 18px;
+      color: var(--text-gray-light);
+      font-size: 12px;
+    }
+
+    /* ---------- TABS ---------- */
+    .tab-bar {
+      display: flex;
+      gap: 26px;
+      border-bottom: 1.5px solid #ececef;
+      margin-bottom: 26px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .tab-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab-item {
+      padding: 0 2px 12px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-gray);
+      white-space: nowrap;
+      position: relative;
+      transition: color .15s ease;
+    }
+
+    .tab-item.active {
+      color: var(--red);
+      font-weight: 700;
+    }
+
+    .tab-item.active::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1.5px;
+      height: 2.5px;
+      background: var(--red);
+      border-radius: 2px;
+    }
+
+    .tab-bar-wrap {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-add {
+      background: var(--red);
+      color: #fff;
+      padding: 11px 18px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      transition: background .15s ease;
+      margin-top: -4px;
+    }
+
+    .btn-add:hover {
+      background: var(--red-dark);
+    }
+
+    /* ---------- DOCUMENT GRID ---------- */
+    .doc-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .doc-card {
+      position: relative;
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: 14px;
+      padding: 20px 16px 18px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .doc-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .doc-card .del-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-gray-light);
+      font-size: 11px;
+      opacity: 0;
+      transition: opacity .15s ease, color .15s ease, background .15s ease;
+    }
+
+    .doc-card:hover .del-btn {
+      opacity: 1;
+    }
+
+    .doc-card .del-btn:hover {
+      background: var(--red-light);
+      color: var(--red);
+    }
+
+    .doc-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      margin: 0 auto 12px;
+    }
+
+    .doc-card h4 {
+      font-size: 14.5px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .doc-card .updated {
+      font-size: 11px;
+      color: var(--text-gray-light);
+      margin-bottom: 14px;
+    }
+
+    .doc-card .updated.pending {
+      color: var(--red);
+    }
+
+    .doc-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-mini {
+      flex: 1;
+      padding: 9px 6px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background .15s ease, opacity .15s ease;
+    }
+
+    .btn-mini.view {
+      background: var(--navy-btn);
+      color: #fff;
+    }
+
+    .btn-mini.view:hover {
+      background: var(--navy-btn-hover);
+    }
+
+    .btn-mini.view.disabled {
+      background: #e7e8ee;
+      color: #a9acb8;
+      cursor: not-allowed;
+    }
+
+    .btn-mini.upload {
+      background: var(--red);
+      color: #fff;
+    }
+
+    .btn-mini.upload:hover {
+      background: var(--red-dark);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-gray);
+    }
+
+    .empty-state i {
+      font-size: 34px;
+      color: var(--text-gray-light);
+      margin-bottom: 14px;
+    }
+
+    .empty-state p {
+      font-size: 14px;
+    }
+
+    /* ---------- MODAL ---------- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 16, 30, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease;
+    }
+
+    .modal-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-box {
+      background: #fff;
+      border-radius: 18px;
+      width: 100%;
+      max-width: 420px;
+      padding: 28px;
+      transform: scale(.96);
+      transition: transform .2s ease;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    }
+
+    .modal-overlay.show .modal-box {
+      transform: scale(1);
+    }
+
+    .modal-box h3 {
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .modal-box .modal-sub {
+      font-size: 13px;
+      color: var(--text-gray);
+      margin-bottom: 18px;
+    }
+
+    .modal-preview {
+      width: 100%;
+      min-height: 180px;
+      border-radius: 12px;
+      background: #f5f5f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      overflow: hidden;
+    }
+
+    .modal-preview img {
+      max-height: 260px;
+      object-fit: contain;
+    }
+
+    .modal-preview i {
+      font-size: 38px;
+      color: var(--text-gray-light);
+    }
+
+    .modal-preview span {
+      font-size: 12.5px;
+      color: var(--text-gray);
+    }
+
+    .modal-box input[type=text] {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid #e6e7ec;
+      border-radius: 10px;
+      font-size: 14px;
+      margin-bottom: 18px;
+      outline: none;
+      transition: border-color .15s ease;
+    }
+
+    .modal-box input[type=text]:focus {
+      border-color: var(--red);
+    }
+
+    .modal-btn-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .modal-btn-row button {
+      flex: 1;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .btn-cancel {
+      background: #f1f2f5;
+      color: var(--text-dark);
+    }
+
+    .btn-cancel:hover {
+      background: #e6e7ec;
+    }
+
+    .btn-confirm {
+      background: var(--red);
+      color: #fff;
+    }
+
+    .btn-confirm:hover {
+      background: var(--red-dark);
+    }
+
+    /* ---------- TOAST ---------- */
+    #toast-wrap {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .toast {
+      background: var(--dark);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      animation: toastIn .25s ease;
+    }
+
+    .toast i {
+      color: var(--red);
+    }
+
+    @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width:900px) {
+      .doc-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width:720px) {
+      header.app-header {
+        padding: 22px 60px 26px;
+      }
+
+      header.app-header h1 {
+        font-size: 21px;
+      }
+
+      header.app-header p {
+        font-size: 12.5px;
+      }
+
+      .back-btn {
+        left: 14px;
+        top: 20px;
+        width: 34px;
+        height: 34px;
+        font-size: 16px;
+      }
+
+      main {
+        padding: 24px 16px 70px;
+      }
+
+      .vault-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .member-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .doc-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+
+      .category-card {
+        width: calc(50% - 8px);
+      }
+
+      .tab-bar-wrap {
+        flex-direction: column;
+      }
+
+      .btn-add {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width:420px) {
+      .member-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .doc-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .category-card {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="app-header">
+    <button class="back-btn" id="backBtn" onclick="goBack()"><i class="fa-solid fa-arrow-left"></i></button>
+    <h1 id="headerTitle">My Docs</h1>
+    <p id="headerSub">Securely manage all your personal and professional documents in one place. Your digital concierge
+      for a paperless lifestyle.</p>
+  </header>
+
+  <main id="app"></main>
+
+  <div id="toast-wrap"></div>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box" id="modalBox"></div>
+  </div>
+
+  <input type="file" id="fileInput" style="display:none">
+
+  <script>
+    /* ============ DATA MODEL ============ */
+    const CATEGORY_DEFS = {
+      personal: [
+        { id: 'identity', name: 'Identity', icon: 'fa-briefcase', color: 'red', sub: 'Manage your primary identification and legal documents securely.' },
+        { id: 'education', name: 'Education', icon: 'fa-graduation-cap', color: 'blue', sub: 'Manage your academic records and certificates securely.' },
+        { id: 'vehicle', name: 'Vehicle', icon: 'fa-car', color: 'green', sub: 'Manage your vehicle registration and related documents securely.' },
+        { id: 'insurance', name: 'Insurance', icon: 'fa-shield-halved', color: 'orange', sub: 'Manage your insurance policies and claim documents securely.' },
+        { id: 'household', name: 'Household', icon: 'fa-house', color: 'purple', sub: 'Manage your household and utility related documents securely.' },
+      ],
+      professional: [
+        { id: 'employment', name: 'Employment', icon: 'fa-briefcase', color: 'red', sub: 'Manage your employment contracts and offer letters securely.' },
+        { id: 'licenses', name: 'Licenses', icon: 'fa-certificate', color: 'blue', sub: 'Manage your business licenses and registrations securely.' },
+        { id: 'taxreturns', name: 'Tax Returns', icon: 'fa-file-invoice-dollar', color: 'green', sub: 'Manage your tax filings and returns securely.' },
+        { id: 'credentials', name: 'Credentials', icon: 'fa-shield-halved', color: 'orange', sub: 'Manage your corporate credentials and certifications securely.' },
+      ]
+    };
+
+    const MEMBERS = [
+      { id: 'self', name: 'Self', icon: 'fa-user', color: 'red' },
+      { id: 'spouse', name: 'Spouse', icon: 'fa-user', color: 'blue' },
+      { id: 'child1', name: 'Child 1', icon: 'fa-face-smile', color: 'green' },
+      { id: 'child2', name: 'Child 2', icon: 'fa-child-reaching', color: 'purple' },
+    ];
+
+    function iconForDoc(name) {
+      const map = [
+        [/photo/i, 'fa-camera'], [/aadhaar/i, 'fa-fingerprint'], [/voter/i, 'fa-lock'],
+        [/passport/i, 'fa-passport'], [/driving/i, 'fa-id-card'], [/pan card/i, 'fa-credit-card'],
+        [/passbook/i, 'fa-building-columns'], [/birth/i, 'fa-file-lines'],
+        [/marksheet|degree|report card/i, 'fa-graduation-cap'], [/school id/i, 'fa-id-card'],
+        [/\brc\b|vehicle/i, 'fa-car'], [/insurance/i, 'fa-shield-halved'],
+        [/rent|electricity|bill/i, 'fa-house'],
+        [/offer letter|contract|experience letter/i, 'fa-briefcase'],
+        [/license|gst/i, 'fa-certificate'], [/itr|form 16/i, 'fa-file-invoice-dollar'],
+        [/company id/i, 'fa-id-card'], [/signature/i, 'fa-shield-halved'],
+      ];
+      for (const [re, icon] of map) if (re.test(name)) return icon;
+      return 'fa-file';
+    }
+
+    function seedDoc(name, date) {
+      return { name, icon: iconForDoc(name), uploaded: true, updated: date, fileName: null, fileData: null, fileMime: null };
+    }
+
+    /* store: STORE[vaultType][ownerId][categoryId] = [doc,...] */
+    const STORE = {
+      personal: {
+        self: {
+          identity: ['Photo', 'Aadhaar Card', 'Voter ID', 'Passport', 'Driving Licence', 'PAN Card', 'Bank Passbook 1', 'Bank Passbook 2', 'Bank Passbook 3', 'Birth Certificate'].map(n => seedDoc(n, 'Oct 12, 2023')),
+          education: [seedDoc('Degree Certificate', 'Sep 2, 2023')],
+          vehicle: [seedDoc('Car RC', 'Aug 14, 2023')],
+          insurance: [], household: []
+        },
+        spouse: {
+          identity: ['Aadhaar Card', 'PAN Card', 'Passport', 'Voter ID', 'Driving Licence'].map(n => seedDoc(n, 'Oct 5, 2023')),
+          education: [seedDoc('Degree Certificate', 'Jul 18, 2023')],
+          vehicle: [seedDoc('Scooter RC', 'Jun 22, 2023')],
+          insurance: [seedDoc('Health Insurance', 'May 30, 2023')],
+          household: []
+        },
+        child1: {
+          identity: ['Birth Certificate', 'Aadhaar Card', 'Photo'].map(n => seedDoc(n, 'Apr 11, 2023')),
+          education: ['School ID Card', 'Report Card'].map(n => seedDoc(n, 'Mar 9, 2023')),
+          vehicle: [], insurance: [], household: []
+        },
+        child2: {
+          identity: ['Birth Certificate', 'Aadhaar Card', 'Photo'].map(n => seedDoc(n, 'Feb 20, 2023')),
+          education: [seedDoc('School ID Card', 'Jan 15, 2023')],
+          vehicle: [], insurance: [], household: []
+        }
+      },
+      professional: {
+        business: {
+          employment: ['Offer Letter', 'Employment Contract', 'Experience Letter'].map(n => seedDoc(n, 'Nov 3, 2023')),
+          licenses: ['Trade License', 'GST Certificate'].map(n => seedDoc(n, 'Oct 28, 2023')),
+          taxreturns: ['ITR 2023-24', 'ITR 2022-23', 'Form 16'].map(n => seedDoc(n, 'Sep 30, 2023')),
+          credentials: ['Company ID Card', 'Digital Signature Certificate'].map(n => seedDoc(n, 'Aug 8, 2023')),
+        }
+      }
+    };
+
+    function countDocs(vaultType, ownerId) {
+      const owner = STORE[vaultType][ownerId];
+      return Object.values(owner).reduce((sum, arr) => sum + arr.length, 0);
+    }
+
+    /* ============ NAV / STATE ============ */
+    let stack = [{ screen: 'landing' }];
+
+    function goTo(screen, params) {
+      stack.push({ screen, ...params });
+      render();
+    }
+    function replaceTop(params) {
+      stack[stack.length - 1] = { ...stack[stack.length - 1], ...params };
+      render();
+    }
+    function goBack() {
+      if (stack.length > 1) { stack.pop(); render(); }
+    }
+
+    function setHeader(title, sub) {
+      document.getElementById('headerTitle').textContent = title;
+      document.getElementById('headerSub').textContent = sub;
+      document.getElementById('backBtn').style.display = stack.length > 1 ? 'flex' : 'none';
+    }
+
+    function el(html) {
+      const t = document.createElement('template');
+      t.innerHTML = html.trim();
+      return t.content.firstElementChild;
+    }
+
+    /* ============ RENDERERS ============ */
+    function render() {
+      const app = document.getElementById('app');
+      app.innerHTML = '';
+      app.classList.remove('fade-in'); void app.offsetWidth; app.classList.add('fade-in');
+      const state = stack[stack.length - 1];
+
+      if (state.screen === 'landing') renderLanding(app);
+      else if (state.screen === 'members') renderMembers(app);
+      else if (state.screen === 'categories') renderCategories(app, state);
+      else if (state.screen === 'documents') renderDocuments(app, state);
+    }
+
+    function renderLanding(app) {
+      setHeader('My Docs', 'Securely manage all your personal and professional documents in one place. Your digital concierge for a paperless lifestyle.');
+      const grid = el(`<div class="vault-grid"></div>`);
+      grid.appendChild(el(`
+    <div class="vault-card">
+      <i class="fa-solid fa-user watermark"></i>
+      <div class="icon-square red"><i class="fa-solid fa-user"></i></div>
+      <h3>Personal Vault</h3>
+      <p class="desc">Manage family records, identification papers, health certificates, and personal achievements in a secure environment.</p>
+      <button class="btn-navy" onclick="goTo('members')">Enter Vault <i class="fa-solid fa-arrow-right"></i></button>
+    </div>`));
+      grid.appendChild(el(`
+    <div class="vault-card">
+      <i class="fa-solid fa-briefcase watermark"></i>
+      <div class="icon-square red"><i class="fa-solid fa-briefcase"></i></div>
+      <h3>Professional Vault</h3>
+      <p class="desc">Centralize employment contracts, business licenses, tax returns, and corporate credentials for easy access.</p>
+      <button class="btn-navy" onclick="goTo('categories',{vaultType:'professional', ownerId:'business', ownerName:'Professional'})">Enter Vault <i class="fa-solid fa-arrow-right"></i></button>
+    </div>`));
+      app.appendChild(grid);
+    }
+
+    function renderMembers(app) {
+      setHeader('Personal Documents', 'Select a family member to manage their verified documents, applications, and official certifications within your secure digital vault.');
+      const grid = el(`<div class="member-grid"></div>`);
+      MEMBERS.forEach(m => {
+        const count = countDocs('personal', m.id);
+        const card = el(`
+      <div class="member-card">
+        <div class="avatar-circle ${m.color}"><i class="fa-solid ${m.icon}"></i></div>
+        <h3>${m.name}</h3>
+        <div class="doc-count ${m.color}">${count} DOCUMENT${count === 1 ? '' : 'S'}</div>
+      </div>`);
+        card.addEventListener('click', () => goTo('categories', { vaultType: 'personal', ownerId: m.id, ownerName: m.name }));
+        grid.appendChild(card);
+      });
+      app.appendChild(grid);
+    }
+
+    function renderCategories(app, state) {
+      setHeader(state.ownerName, 'Select a category to manage your documents.');
+      const row = el(`<div class="category-row"></div>`);
+      CATEGORY_DEFS[state.vaultType].forEach(cat => {
+        const card = el(`
+      <div class="category-card">
+        <div class="icon-square ${cat.color}"><i class="fa-solid ${cat.icon}"></i></div>
+        <h4>${cat.name}</h4>
+        <i class="fa-solid fa-chevron-right chev"></i>
+      </div>`);
+        card.addEventListener('click', () => goTo('documents', { vaultType: state.vaultType, ownerId: state.ownerId, ownerName: state.ownerName, categoryId: cat.id }));
+        row.appendChild(card);
+      });
+      app.appendChild(row);
+    }
+
+    function renderDocuments(app, state) {
+      const cats = CATEGORY_DEFS[state.vaultType];
+      const cat = cats.find(c => c.id === state.categoryId);
+      setHeader(cat.name, cat.sub);
+
+      const wrap = el(`<div></div>`);
+
+      // tabs + add button
+      const tabWrap = el(`<div class="tab-bar-wrap"></div>`);
+      const tabBar = el(`<div class="tab-bar"></div>`);
+      cats.forEach(c => {
+        const tab = el(`<div class="tab-item ${c.id === cat.id ? 'active' : ''}">${c.name}</div>`);
+        tab.addEventListener('click', () => replaceTop({ categoryId: c.id }));
+        tabBar.appendChild(tab);
+      });
+      const addBtn = el(`<button class="btn-add"><i class="fa-solid fa-plus"></i> Add ${cat.name}</button>`);
+      addBtn.addEventListener('click', () => openAddModal(state.vaultType, state.ownerId, cat));
+      tabWrap.appendChild(tabBar);
+      tabWrap.appendChild(addBtn);
+      wrap.appendChild(tabWrap);
+      wrap.style.marginTop = '4px';
+
+      const docs = STORE[state.vaultType][state.ownerId][state.categoryId];
+      if (docs.length === 0) {
+        wrap.appendChild(el(`
+      <div class="empty-state">
+        <i class="fa-solid fa-folder-open"></i>
+        <p>No documents yet in ${cat.name}. Tap "Add ${cat.name}" to add your first one.</p>
+      </div>`));
+      } else {
+        const grid = el(`<div class="doc-grid"></div>`);
+        docs.forEach((doc, idx) => {
+          const card = el(`
+        <div class="doc-card">
+          <button class="del-btn"><i class="fa-solid fa-xmark"></i></button>
+          <div class="doc-icon" style="color:var(--${cat.color})"><i class="fa-solid ${doc.icon}"></i></div>
+          <h4>${doc.name}</h4>
+          <div class="updated ${doc.uploaded ? '' : 'pending'}">${doc.uploaded ? 'Last updated: ' + doc.updated : 'Not uploaded yet'}</div>
+          <div class="doc-actions">
+            <button class="btn-mini view ${doc.uploaded ? '' : 'disabled'}"><i class="fa-solid fa-eye"></i> View</button>
+            <button class="btn-mini upload"><i class="fa-solid fa-upload"></i> Upload</button>
+          </div>
+        </div>`);
+          card.querySelector('.del-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            openDeleteConfirm(state.vaultType, state.ownerId, state.categoryId, idx, doc.name);
+          });
+          card.querySelector('.view').addEventListener('click', () => {
+            if (doc.uploaded) openViewModal(doc, cat);
+            else showToast('Upload a document first to view it.', 'fa-circle-info');
+          });
+          card.querySelector('.upload').addEventListener('click', () => {
+            triggerUpload(state.vaultType, state.ownerId, state.categoryId, idx);
+          });
+          grid.appendChild(card);
+        });
+        wrap.appendChild(grid);
+      }
+      app.appendChild(wrap);
+    }
+
+    /* ============ MODALS ============ */
+    const overlay = document.getElementById('modalOverlay');
+    const modalBox = document.getElementById('modalBox');
+
+    function openModal(html) {
+      modalBox.innerHTML = html;
+      overlay.classList.add('show');
+    }
+    function closeModal() {
+      overlay.classList.remove('show');
+    }
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+
+    function openViewModal(doc, cat) {
+      let preview;
+      if (doc.fileData && doc.fileMime && doc.fileMime.startsWith('image/')) {
+        preview = `<img src="${doc.fileData}" alt="${doc.name}">`;
+      } else {
+        preview = `<i class="fa-solid ${doc.icon}"></i><span>${doc.fileName ? doc.fileName : doc.name + '.pdf'}</span>`;
+      }
+      openModal(`
+    <h3>${doc.name}</h3>
+    <div class="modal-sub">Last updated: ${doc.updated}</div>
+    <div class="modal-preview">${preview}</div>
+    <div class="modal-btn-row">
+      <button class="btn-cancel" onclick="closeModal()">Close</button>
+    </div>
+  `);
+    }
+
+    let pendingUploadTarget = null;
+    const fileInput = document.getElementById('fileInput');
+
+    function triggerUpload(vaultType, ownerId, categoryId, idx) {
+      pendingUploadTarget = { vaultType, ownerId, categoryId, idx };
+      fileInput.value = '';
+      fileInput.click();
+    }
+    fileInput.addEventListener('change', () => {
+      if (!fileInput.files.length || !pendingUploadTarget) return;
+      const file = fileInput.files[0];
+      const { vaultType, ownerId, categoryId, idx } = pendingUploadTarget;
+      const doc = STORE[vaultType][ownerId][categoryId][idx];
+      const finish = (dataUrl) => {
+        doc.uploaded = true;
+        doc.updated = formatToday();
+        doc.fileName = file.name;
+        doc.fileData = dataUrl || null;
+        doc.fileMime = file.type;
+        render();
+        showToast(`${doc.name} uploaded successfully`, 'fa-circle-check');
+      };
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = () => finish(reader.result);
+        reader.readAsDataURL(file);
+      } else {
+        finish(null);
+      }
+    });
+
+    function openAddModal(vaultType, ownerId, cat) {
+      openModal(`
+    <h3>Add ${cat.name} Document</h3>
+    <div class="modal-sub">Give your new document a name to add it to this vault.</div>
+    <input type="text" id="newDocName" placeholder="e.g. ${cat.name} Certificate" maxlength="40">
+    <div class="modal-btn-row">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-confirm" id="confirmAdd">Add Document</button>
+    </div>
+  `);
+      const input = document.getElementById('newDocName');
+      input.focus();
+      const confirm = () => {
+        const name = input.value.trim();
+        if (!name) { input.style.borderColor = 'var(--red)'; return; }
+        STORE[vaultType][ownerId][cat.id].push({
+          name, icon: 'fa-file', uploaded: false, updated: null, fileName: null, fileData: null, fileMime: null
+        });
+        closeModal();
+        render();
+        showToast(`${name} added to ${cat.name}`, 'fa-circle-check');
+      };
+      document.getElementById('confirmAdd').addEventListener('click', confirm);
+      input.addEventListener('keydown', (e) => { if (e.key === 'Enter') confirm(); });
+    }
+
+    function openDeleteConfirm(vaultType, ownerId, categoryId, idx, name) {
+      openModal(`
+    <h3>Remove document?</h3>
+    <div class="modal-sub">This will remove "${name}" from this vault. This can't be undone.</div>
+    <div class="modal-btn-row">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-confirm" id="confirmDelete">Remove</button>
+    </div>
+  `);
+      document.getElementById('confirmDelete').addEventListener('click', () => {
+        STORE[vaultType][ownerId][categoryId].splice(idx, 1);
+        closeModal();
+        render();
+        showToast(`${name} removed`, 'fa-trash');
+      });
+    }
+
+    /* ============ UTIL ============ */
+    function formatToday() {
+      const d = new Date();
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+    function showToast(msg, icon) {
+      const wrap = document.getElementById('toast-wrap');
+      const t = el(`<div class="toast"><i class="fa-solid ${icon || 'fa-circle-check'}"></i><span>${msg}</span></div>`);
+      wrap.appendChild(t);
+      setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity .3s ease'; setTimeout(() => t.remove(), 300); }, 2400);
+    }
+
+    /* ============ INIT ============ */
+    render();
+  </script>
+</body>
+
+</html>
