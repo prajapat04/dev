@@ -1,0 +1,2656 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Docs — Digital Document Vault</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/style.css">
+  
+  <style>
+    :root {
+      --dark: #12142a;
+      --dark2: #1b1e3a;
+      --red: #e8483c;
+      --red-dark: #d43a2f;
+      --red-light: #fdeceb;
+      --red-border: #f6c9c4;
+      --navy-btn: #171b33;
+      --navy-btn-hover: #232a4d;
+      --text-dark: #14161f;
+      --text-gray: #8b8f9b;
+      --text-gray-light: #b3b6c0;
+      --blue: #2f6fed;
+      --blue-light: #e8f0fe;
+      --green: #22a55e;
+      --green-light: #e6f7ee;
+      --purple: #8b5fbf;
+      --purple-light: #f2ecfa;
+      --orange: #f5943a;
+      --orange-light: #fef1e2;
+      --card-bg: linear-gradient(135deg, #ffffff 0%, #f3f3f6 100%);
+      --card-border: #f0d9d6;
+      --radius: 16px;
+      --shadow-sm: 0 2px 10px rgba(20, 22, 40, 0.05);
+      --shadow-md: 0 8px 24px rgba(20, 22, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-dark);
+      background: #ffffff;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1,
+    h2,
+    h3,
+    .display {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* ---------- HEADER ---------- */
+    header.app-header {
+      background: linear-gradient(180deg, var(--dark) 0%, var(--dark2) 100%);
+      color: #fff;
+      padding: 28px 24px 32px;
+      text-align: center;
+      position: relative;
+    }
+
+    .back-btn {
+      position: absolute;
+      left: 20px;
+      top: 26px;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 18px;
+      border-radius: 10px;
+      transition: background .15s ease;
+    }
+
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    header.app-header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    header.app-header p {
+      font-size: 13.5px;
+      color: #b7bacb;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.55;
+    }
+
+    /* ---------- LAYOUT ---------- */
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 32px 24px 80px;
+    }
+
+    .fade-in {
+      animation: fadeIn .35s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ---------- LANDING: VAULT CARDS ---------- */
+    .vault-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .vault-grid.vault-grid-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .vault-card {
+      position: relative;
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 26px 26px 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .vault-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .vault-card .watermark {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      font-size: 64px;
+      color: #000;
+      opacity: .05;
+    }
+
+    .icon-square {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 18px;
+    }
+
+    .icon-square.red {
+      color: var(--red);
+    }
+
+    .icon-square.blue {
+      color: var(--blue);
+    }
+
+    .icon-square.green {
+      color: var(--green);
+    }
+
+    .icon-square.purple {
+      color: var(--purple);
+    }
+
+    .icon-square.orange {
+      color: var(--orange);
+    }
+
+    .vault-card h3 {
+      font-size: 19px;
+      margin-bottom: 8px;
+    }
+
+    .vault-card p.desc {
+      font-size: 13.5px;
+      color: var(--text-gray);
+      line-height: 1.55;
+      margin-bottom: 22px;
+      max-width: 88%;
+    }
+
+    .btn-navy {
+      width: 100%;
+      background: var(--navy-btn);
+      color: #fff;
+      padding: 13px 18px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background .15s ease;
+    }
+
+    .btn-navy:hover {
+      background: var(--navy-btn-hover);
+    }
+
+    /* ---------- MEMBER GRID ---------- */
+    .member-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .member-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 28px 20px 24px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .member-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .avatar-circle {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin: 0 auto 14px;
+    }
+
+    .avatar-circle.red {
+      background: var(--red-light);
+      color: var(--red);
+    }
+
+    .avatar-circle.blue {
+      background: var(--blue-light);
+      color: var(--blue);
+    }
+
+    .avatar-circle.green {
+      background: var(--green-light);
+      color: var(--green);
+    }
+
+    .avatar-circle.purple {
+      background: var(--purple-light);
+      color: var(--purple);
+    }
+
+    .member-card h3 {
+      font-size: 17px;
+      margin-bottom: 6px;
+    }
+
+    .member-card .doc-count {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .03em;
+    }
+
+    .doc-count.red {
+      color: var(--red);
+    }
+
+    .doc-count.blue {
+      color: var(--blue);
+    }
+
+    .doc-count.green {
+      color: var(--green);
+    }
+
+    .doc-count.purple {
+      color: var(--purple);
+    }
+
+    /* ---------- CATEGORY ROW ---------- */
+    .category-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .category-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: 14px;
+      padding: 20px 18px;
+      width: 150px;
+      box-shadow: var(--shadow-sm);
+      transition: transform .18s ease, box-shadow .18s ease;
+      position: relative;
+      text-align: left;
+    }
+
+    .category-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .category-card .icon-square {
+      width: 44px;
+      height: 44px;
+      font-size: 17px;
+      margin-bottom: 14px;
+    }
+
+    .category-card h4 {
+      font-size: 14.5px;
+      font-weight: 600;
+    }
+
+    .category-card .chev {
+      position: absolute;
+      right: 14px;
+      bottom: 18px;
+      color: var(--text-gray-light);
+      font-size: 12px;
+    }
+
+    /* ---------- TABS ---------- */
+    .tab-bar {
+      display: flex;
+      gap: 26px;
+      border-bottom: 1.5px solid #ececef;
+      margin-bottom: 26px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .tab-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab-item {
+      padding: 0 2px 12px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-gray);
+      white-space: nowrap;
+      position: relative;
+      transition: color .15s ease;
+    }
+
+    .tab-item.active {
+      color: var(--red);
+      font-weight: 700;
+    }
+
+    .tab-item.active::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1.5px;
+      height: 2.5px;
+      background: var(--red);
+      border-radius: 2px;
+    }
+
+    .tab-bar-wrap {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-add {
+      background: var(--red);
+      color: #fff;
+      padding: 11px 18px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      transition: background .15s ease;
+      margin-top: -4px;
+    }
+
+    .btn-add:hover {
+      background: var(--red-dark);
+    }
+
+    /* ---------- SECTION HEADER (grouped categories e.g. Education) ---------- */
+    .section-header {
+      background: linear-gradient(180deg, var(--dark) 0%, var(--dark2) 100%);
+      border-radius: 9px;
+      padding: 11px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 28px 0 16px;
+      flex-wrap: wrap;
+    }
+
+    .section-header:first-of-type {
+      margin-top: 8px;
+    }
+
+    .section-header .label {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .01em;
+    }
+
+    .section-header .label .bar {
+      width: 4px;
+      height: 15px;
+      background: var(--red);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .system-toggle {
+      display: flex;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .system-toggle button {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #b7bacb;
+      transition: background .15s ease, color .15s ease;
+      white-space: nowrap;
+    }
+
+    .system-toggle button.active {
+      background: #fff;
+      color: var(--dark);
+    }
+
+    .system-toggle button:not(.active):hover {
+      color: #fff;
+    }
+
+    /* ---------- ITR STATS + ACCORDION ---------- */
+    .itr-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 8px 0 26px;
+    }
+
+    .itr-stat-card {
+      background: #f7f7f9;
+      border-radius: 12px;
+      padding: 16px 18px;
+    }
+
+    .itr-stat-card .stat-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      margin-bottom: 12px;
+      background: var(--red-light);
+      color: var(--red);
+    }
+
+    .itr-stat-card .stat-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--text-gray);
+      letter-spacing: .04em;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+
+    .itr-stat-card .stat-value {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .itr-year {
+      background: #f7f7f9;
+      border: 1px solid #eee;
+      border-radius: 14px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+
+    .itr-year-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 18px;
+      cursor: pointer;
+      gap: 12px;
+    }
+
+    .itr-year-header .left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .itr-year-header .cal-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: var(--red-light);
+      color: var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .itr-year-header h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .itr-year-header .updated-on {
+      font-size: 11px;
+      color: var(--text-gray);
+    }
+
+    .itr-year-header .chev-toggle {
+      color: var(--text-gray-light);
+      font-size: 13px;
+      transition: transform .2s ease;
+    }
+
+    .itr-year.expanded .chev-toggle {
+      transform: rotate(180deg);
+    }
+
+    .itr-year-body {
+      padding: 0 18px 18px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .itr-doc-row {
+      background: #fff;
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    }
+
+    .itr-doc-row .itr-doc-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: var(--red-light);
+      color: var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .itr-doc-row .itr-doc-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .itr-doc-row .itr-doc-info h5 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 2px;
+    }
+
+    .itr-doc-row .itr-doc-info span {
+      font-size: 11px;
+      color: var(--text-gray);
+    }
+
+    .itr-doc-row .btn-mini.view {
+      flex: none;
+      padding: 8px 14px;
+      background: var(--red);
+    }
+
+    .itr-doc-row .btn-mini.view:hover {
+      background: var(--red-dark);
+    }
+
+    .itr-empty-years {
+      text-align: center;
+      padding: 30px 20px;
+      color: var(--text-gray);
+      font-size: 13px;
+    }
+
+    /* ---------- MODAL PAGE / ZOOM BAR ---------- */
+    .modal-page-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: -6px 0 16px;
+    }
+
+    .page-indicator {
+      background: #f1f2f5;
+      color: var(--text-dark);
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 7px 13px;
+      border-radius: 8px;
+    }
+
+    .page-indicator:hover {
+      background: #e6e7ec;
+    }
+
+    .zoom-controls {
+      display: flex;
+      gap: 6px;
+    }
+
+    .zoom-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: #f1f2f5;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+    }
+
+    .zoom-btn:hover {
+      background: #e6e7ec;
+    }
+
+
+    /* ---------- DOCUMENT GRID ---------- */
+    .doc-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .doc-card {
+      position: relative;
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: 14px;
+      padding: 20px 16px 18px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .doc-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .doc-card .del-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-gray-light);
+      font-size: 11px;
+      opacity: 0;
+      transition: opacity .15s ease, color .15s ease, background .15s ease;
+    }
+
+    .doc-card:hover .del-btn {
+      opacity: 1;
+    }
+
+    .doc-card .del-btn:hover {
+      background: var(--red-light);
+      color: var(--red);
+    }
+
+    .doc-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      margin: 0 auto 12px;
+      color: var(--red);
+    }
+
+    .doc-card h4 {
+      font-size: 14.5px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .doc-card .updated {
+      font-size: 11px;
+      color: var(--text-gray-light);
+      margin-bottom: 14px;
+    }
+
+    .doc-card .doc-subtitle {
+      font-size: 11px;
+      color: var(--text-gray);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .doc-card .doc-info-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f5f5f8;
+      border-radius: 8px;
+      padding: 8px 10px;
+      margin-bottom: 14px;
+      font-size: 11px;
+    }
+
+    .doc-card .doc-info-row span {
+      color: var(--text-gray);
+    }
+
+    .doc-card .doc-info-row strong {
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+
+    .doc-card .updated.pending {
+      color: var(--red);
+    }
+
+    .doc-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-mini {
+      flex: 1;
+      padding: 9px 6px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background .15s ease, opacity .15s ease;
+    }
+
+    .btn-mini.view {
+      background: var(--navy-btn);
+      color: #fff;
+    }
+
+    .btn-mini.view:hover {
+      background: var(--navy-btn-hover);
+    }
+
+    .btn-mini.view.disabled {
+      background: #e7e8ee;
+      color: #a9acb8;
+      cursor: not-allowed;
+    }
+
+    .btn-mini.upload {
+      background: var(--red);
+      color: #fff;
+    }
+
+    .btn-mini.upload:hover {
+      background: var(--red-dark);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-gray);
+    }
+
+    .empty-state i {
+      font-size: 34px;
+      color: var(--text-gray-light);
+      margin-bottom: 14px;
+    }
+
+    .empty-state p {
+      font-size: 14px;
+    }
+
+    /* ---------- MODAL ---------- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 16, 30, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease;
+    }
+
+    .modal-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-box {
+      background: #fff;
+      border-radius: 18px;
+      width: 100%;
+      max-width: 420px;
+      padding: 28px;
+      transform: scale(.96);
+      transition: transform .2s ease;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    }
+
+    .modal-overlay.show .modal-box {
+      transform: scale(1);
+    }
+
+    .modal-box.modal-box-lg {
+      max-width: 460px;
+    }
+
+    .modal-box h3 {
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .modal-box .modal-sub {
+      font-size: 13px;
+      color: var(--text-gray);
+      margin-bottom: 18px;
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .modal-head h3 {
+      margin-bottom: 0;
+      font-size: 17px;
+    }
+
+    .modal-close {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #f1f2f5;
+      color: var(--text-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12.5px;
+      flex-shrink: 0;
+      transition: background .15s ease, color .15s ease;
+    }
+
+    .modal-close:hover {
+      background: #e6e7ec;
+      color: var(--text-dark);
+    }
+
+    .modal-box-add {
+      border: 3px solid #3b82f6;
+    }
+
+    .add-modal-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 0;
+    }
+
+    .add-modal-divider {
+      height: 1px;
+      background: #ececef;
+      margin: 16px 0 20px;
+    }
+
+    .add-field-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .add-input {
+      width: 100%;
+      padding: 12px 14px;
+      background: #f5f5f8;
+      border: 1px solid #ececef;
+      border-radius: 10px;
+      font-size: 14px;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color .15s ease;
+    }
+
+    .add-input::placeholder {
+      color: #b3b6c0;
+    }
+
+    .add-input:focus {
+      border-color: var(--red);
+    }
+
+    select.add-input {
+      appearance: none;
+      cursor: pointer;
+    }
+
+    .add-dropzone {
+      background: #f8f8fa;
+      border: 1.5px dashed #d8d9e0;
+      border-radius: 12px;
+      padding: 26px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: background .15s ease, border-color .15s ease;
+    }
+
+    .add-dropzone.dragover {
+      background: var(--red-light);
+      border-color: var(--red);
+    }
+
+    .add-dropzone .icon-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #ececf1;
+      color: #6b6f7d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      margin: 0 auto 12px;
+    }
+
+    .add-dropzone h5 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+
+    .add-dropzone p {
+      font-size: 11.5px;
+      color: var(--text-gray-light);
+    }
+
+    .add-modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .btn-cancel-outline {
+      padding: 11px 22px;
+      border-radius: 9px;
+      font-size: 13.5px;
+      font-weight: 600;
+      background: #fff;
+      border: 1.5px solid #e3e4ea;
+      color: var(--text-dark);
+      transition: background .15s ease;
+    }
+
+    .btn-cancel-outline:hover {
+      background: #f7f7f9;
+    }
+
+    .btn-add-confirm {
+      padding: 11px 26px;
+      border-radius: 9px;
+      font-size: 13.5px;
+      font-weight: 700;
+      background: var(--red);
+      color: #fff;
+      transition: background .15s ease;
+    }
+
+    .btn-add-confirm:hover {
+      background: var(--red-dark);
+    }
+
+    .modal-preview {
+      width: 100%;
+      min-height: 190px;
+      border-radius: 14px;
+      background: #f5f5f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      position: relative;
+      padding: 16px;
+    }
+
+    .modal-preview img {
+      max-width: 100%;
+      max-height: 240px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .modal-preview i {
+      font-size: 38px;
+      color: var(--text-gray-light);
+    }
+
+    .modal-preview span {
+      font-size: 12.5px;
+      color: var(--text-gray);
+    }
+
+    .preview-expand-btn {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-dark);
+      font-size: 12px;
+    }
+
+    .preview-expand-btn:hover {
+      color: var(--red);
+    }
+
+    .modal-meta {
+      margin-bottom: 16px;
+    }
+
+    .modal-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f0f3;
+      font-size: 13px;
+    }
+
+    .modal-meta-row:last-child {
+      border-bottom: none;
+    }
+
+    .modal-meta-row span {
+      color: var(--text-gray);
+    }
+
+    .modal-meta-row strong {
+      color: var(--text-dark);
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .modal-btn-download {
+      width: 100%;
+      background: var(--red);
+      color: #fff;
+      padding: 13px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      margin-bottom: 10px;
+      transition: background .15s ease;
+    }
+
+    .modal-btn-download:hover {
+      background: var(--red-dark);
+    }
+
+    .modal-btn-row-2 {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .btn-soft {
+      flex: 1;
+      background: #f1f2f5;
+      color: var(--text-dark);
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background .15s ease;
+    }
+
+    .btn-soft:hover {
+      background: #e6e7ec;
+    }
+
+    .modal-delete-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      width: 100%;
+      padding: 6px;
+      color: var(--red);
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: opacity .15s ease;
+    }
+
+    .modal-delete-link:hover {
+      opacity: .75;
+    }
+
+    /* ---------- UPLOAD MODAL ---------- */
+    .upload-dropzone {
+      border: 2px dashed var(--card-border);
+      border-radius: 14px;
+      padding: 34px 20px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 9px;
+      text-align: center;
+      cursor: pointer;
+      transition: background .15s ease, border-color .15s ease;
+      margin-bottom: 16px;
+    }
+
+    .upload-dropzone.dragover {
+      background: var(--red-light);
+      border-color: var(--red);
+    }
+
+    .upload-dropzone .cloud-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--red-light);
+      color: var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 21px;
+      margin-bottom: 2px;
+    }
+
+    .upload-dropzone h4 {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .upload-dropzone .or-text {
+      font-size: 12px;
+      color: var(--text-gray-light);
+    }
+
+    .browse-btn {
+      background: var(--red);
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: background .15s ease;
+    }
+
+    .browse-btn:hover {
+      background: var(--red-dark);
+    }
+
+    .upload-format-note {
+      text-align: center;
+      font-size: 11.5px;
+      color: var(--text-gray-light);
+      margin-bottom: 18px;
+    }
+
+    .upload-selected {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      background: var(--red-light);
+      border-radius: 10px;
+      padding: 11px 14px;
+    }
+
+    .upload-selected i.fa-file {
+      color: var(--red);
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .upload-selected .name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dark);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex: 1;
+      text-align: left;
+    }
+
+    .upload-selected .remove-file {
+      color: var(--text-gray-light);
+      font-size: 13px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .upload-selected .remove-file:hover {
+      color: var(--red);
+    }
+
+    .btn-upload-submit {
+      width: 100%;
+      background: var(--red);
+      color: #fff;
+      padding: 13px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      transition: background .15s ease;
+    }
+
+    .btn-upload-submit:hover {
+      background: var(--red-dark);
+    }
+
+    .modal-box input[type=text] {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid #e6e7ec;
+      border-radius: 10px;
+      font-size: 14px;
+      margin-bottom: 18px;
+      outline: none;
+      transition: border-color .15s ease;
+    }
+
+    .modal-box input[type=text]:focus {
+      border-color: var(--red);
+    }
+
+    .modal-btn-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .modal-btn-row button {
+      flex: 1;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .btn-cancel {
+      background: #f1f2f5;
+      color: var(--text-dark);
+    }
+
+    .btn-cancel:hover {
+      background: #e6e7ec;
+    }
+
+    .btn-confirm {
+      background: var(--red);
+      color: #fff;
+    }
+
+    .btn-confirm:hover {
+      background: var(--red-dark);
+    }
+
+    /* ---------- TOAST ---------- */
+    #toast-wrap {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .toast {
+      background: var(--dark);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      animation: toastIn .25s ease;
+    }
+
+    .toast i {
+      color: var(--red);
+    }
+
+    @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width:900px) {
+      .doc-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width:720px) {
+      header.app-header {
+        padding: 22px 60px 26px;
+      }
+
+      header.app-header h1 {
+        font-size: 21px;
+      }
+
+      header.app-header p {
+        font-size: 12.5px;
+      }
+
+      .back-btn {
+        left: 14px;
+        top: 20px;
+        width: 34px;
+        height: 34px;
+        font-size: 16px;
+      }
+
+      main {
+        padding: 24px 16px 70px;
+      }
+
+      .vault-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .vault-card h3 {
+        font-size: 13px;
+      }
+
+      .vault-card p.desc {
+        font-size: 10px;
+        max-width: 98%;
+      }
+
+      .btn-navy {
+        font-size: 10px;
+        padding: 13px 14px;
+      }
+
+      .vault-card {
+        padding: 20px 11px 20px;
+      }
+
+      .vault-grid.vault-grid-3 {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .member-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .doc-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+
+      .category-card {
+        width: calc(50% - 8px);
+      }
+
+      .tab-bar-wrap {
+        flex-direction: column;
+      }
+
+      .btn-add {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .system-toggle {
+        width: 100%;
+      }
+
+      .system-toggle button {
+        flex: 1;
+      }
+
+      .itr-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .itr-year-body {
+        grid-template-columns: 1fr;
+      }
+
+      .itr-year-header {
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width:420px) {
+      .member-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .doc-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .category-card {
+        width: calc(50% - 8px);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="app-header">
+    <button class="back-btn" id="backBtn" onclick="goBack()"><i class="fa-solid fa-arrow-left"></i></button>
+    <h1 id="headerTitle">My Docs</h1>
+    <p id="headerSub">Securely manage all your personal and professional documents in one place. Your digital concierge
+      for a paperless lifestyle.</p>
+  </header>
+
+  <main id="app"></main>
+
+  <div id="toast-wrap"></div>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box" id="modalBox"></div>
+  </div>
+
+  <input type="file" id="fileInput" style="display:none">
+
+
+
+     <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-main">
+
+      <!-- Col 1: Logo -->
+      <div class="footer-brand">
+        <a href="#" class="footer-logo">
+          <img src="/assets/footer-logo.png" alt="">
+        </a>
+      </div>
+
+      <div class="footer-cols">
+        <!-- Col 2: Services -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Services provided</h4>
+          <ul class="footer-links">
+            <li><a href="#">Citizen services <span class="arrow">›</span></a></li>
+            <li><a href="#">Driving Liecens <span class="arrow">›</span></a></li>
+            <li><a href="#">Campus (coming soon)</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Contact -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Contact us</h4>
+          <ul class="footer-contact">
+            <li>
+              <span class="contact-icon"><i data-lucide="map-pin"></i></span>
+              <span>Headquarters<br>22-A Lajpat Nagar -IV,<br>Ring Road, New Delhi- 110024</span>
+            </li>
+            <li>
+              <span class="contact-icon"><i data-lucide="phone"></i></span>
+              <span>9020978686</span>
+            </li>
+            <li>
+              <span class="contact-icon"><i data-lucide="mail"></i></span>
+              <span>drive@itzeazy.com</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Links -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Links</h4>
+          <ul class="footer-links">
+            <li><a href="https://itzeazy.in/">Home</a></li>
+            <li><a href="https://itzeazy.in/driving-school/ll-test-questions">Question Banks</a></li>
+            <li><a href="https://itzeazy.in/driving-school/rto-exam">mock Test</a></li>
+            <li><a href="https://itzeazy.in/blog/">Blog</a></li>
+            <li><a href="https://itzeazy.in/contact-us/">Contact Us</a></li>
+            <li><a href="https://itzeazy.in/driving-school/business">List Your Business</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 5: App + Social -->
+        <div class="footer-col">
+          <h4 class="footer-heading" >Follow us</h4>
+          <div class="social-icons">
+            <a href="https://www.facebook.com/Itzeazycom/" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/itzeazyindia" class="social-btn"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/company/itzeazy-com/" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://x.com/Itzeazyindia" class="social-btn"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://www.youtube.com/@itzeazyindia/shorts" class="social-btn"><i class="fab fa-youtube"></i></a>
+          </div>
+          <h4 class="footer-heading" style="margin-top: 28px;">App<br><span class="footer-subheading"> Banzo – "An ItzEazy App"</span></h4>
+         <div class="store-buttons">
+  <a href="http://play.google.com/store/apps/details?id=com.itzeazy.itzeazyapp" class="google-play">
+    <img
+      src="/assets/play-store.png"
+      alt="Get it on Google Play"
+    />
+  </a>
+
+  <a href="#" class="app-store">
+    <img
+      src="/assets/app-store.png"
+      alt="Download on the App Store"
+    />
+  </a>
+</div>
+          
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+      <p>© 2024 Itzeazy GovTech Services. All rights reserved.</p>
+      <p class="gst">GST NO : 07AAKFI4533J1Z7</p>
+      <div class="footer-bottom-links">
+        <a href="#">Terms of use</a>
+        <a href="#">Privacy</a>
+        <a href="#">Security</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    /* ============ DATA MODEL ============ */
+    const CATEGORY_DEFS = {
+      personal: [
+        { id: 'identity', name: 'Identity', icon: 'fa-briefcase', color: 'red', sub: 'Manage your primary identification and legal documents securely.' },
+        { id: 'education', name: 'Education', icon: 'fa-graduation-cap', color: 'blue', sub: 'Manage your academic records and certificates securely.' },
+        { id: 'vehicle', name: 'Vehicle', icon: 'fa-car', color: 'green', sub: 'Manage your vehicle registration and related documents securely.' },
+        { id: 'insurance', name: 'Insurance', icon: 'fa-shield-halved', color: 'orange', sub: 'Manage your insurance policies and claim documents securely.' },
+        { id: 'household', name: 'Household', icon: 'fa-house', color: 'purple', sub: 'Secure digital vault for your property records, appliance warranties, and maintenance logs. Everything verified and easily accessible.', headerTitle: 'Households Documents', addLabel: 'Add Appliance' },
+      ],
+      professional: [
+        { id: 'job', name: 'Job', icon: 'fa-briefcase', color: 'red', sub: 'Manage employment history, experience certificates, relieving letters, salary slips, and career records.', headerTitle: 'Job Documents', addLabel: 'Add Document' },
+        { id: 'business', name: 'Business', icon: 'fa-building', color: 'blue', sub: 'Manage your corporate identity and tax compliance records in one secure vault.', headerTitle: 'Business Documents', addLabel: 'Add Business doc' },
+        { id: 'itr', name: 'ITR Returns', icon: 'fa-file-invoice-dollar', color: 'green', sub: 'Secure storage for your Income Tax Returns and supporting financial statements. All documents are encrypted and verified.', headerTitle: 'Tax Documents (ITR)', addLabel: 'Add ITR' },
+      ]
+    };
+
+    const PRO_LANDING_CARDS = [
+      { id: 'job', title: 'Job', icon: 'fa-briefcase', desc: 'Manage employment history, experience letters, and salary records with effortless organization.', cta: 'Access Employment Vault' },
+      { id: 'business', title: 'Business', icon: 'fa-table-cells', desc: 'Manage company registration, GST documents, and official business licenses in one secure hub.', cta: 'Access Entity Records' },
+      { id: 'itr', title: 'ITR Returns', icon: 'fa-file-lines', desc: 'Manage financial year tax filings, Form 16, and audit reports with bank-grade security and ease.', cta: 'Access Tax Portfolio' },
+    ];
+
+    const MEMBERS = [
+      { id: 'self', name: 'Self', icon: 'fa-user', color: 'red' },
+      { id: 'spouse', name: 'Spouse', icon: 'fa-user', color: 'blue' },
+      { id: 'child1', name: 'Child 1', icon: 'fa-face-smile', color: 'green' },
+      { id: 'child2', name: 'Child 2', icon: 'fa-child-reaching', color: 'purple' },
+    ];
+
+    function iconForDoc(name) {
+      const map = [
+        [/photo/i, 'fa-camera'], [/aadhaar/i, 'fa-fingerprint'], [/voter/i, 'fa-lock'],
+        [/passport/i, 'fa-passport'], [/driving/i, 'fa-id-card'], [/pan card/i, 'fa-credit-card'],
+        [/passbook/i, 'fa-building-columns'], [/birth/i, 'fa-file-lines'],
+        [/marksheet|degree|report card/i, 'fa-graduation-cap'], [/school id/i, 'fa-id-card'],
+        [/\brc\b|vehicle/i, 'fa-car'], [/insurance/i, 'fa-shield-halved'],
+        [/rent|electricity|bill/i, 'fa-house'],
+        [/offer letter|contract|experience letter/i, 'fa-briefcase'],
+        [/license|gst/i, 'fa-certificate'], [/itr|form 16/i, 'fa-file-invoice-dollar'],
+        [/company id/i, 'fa-id-card'], [/signature/i, 'fa-shield-halved'],
+      ];
+      for (const [re, icon] of map) if (re.test(name)) return icon;
+      return 'fa-file';
+    }
+
+    function seedDoc(name, date) {
+      return { name, icon: iconForDoc(name), uploaded: true, updatedLabel: 'Uploaded ' + date, fileName: null, fileData: null, fileMime: null, meta: null, subtitle: null, info: null, pages: null };
+    }
+    function doc(name, uploaded, label, icon, meta, subtitle, info, pages) {
+      return { name, icon: icon || iconForDoc(name), uploaded, updatedLabel: label, fileName: null, fileData: null, fileMime: null, meta: meta || null, subtitle: subtitle || null, info: info || null, pages: pages || null };
+    }
+    function ordinal(n) {
+      const s = ['th', 'st', 'nd', 'rd'], v = n % 100;
+      return n + (s[(v - 20) % 10] || s[v] || s[0]);
+    }
+
+    /* store: STORE[vaultType][ownerId][categoryId] = [doc,...]
+       education is special-cased as a grouped object: {school:[], gradSemester:[], gradYear:[], certificate:[]}
+       professional.company.itr is special-cased as {years:[{year, updatedOn, docs:[...]}]} */
+    const STORE = {
+      personal: {
+        self: {
+          identity: ['Photo', 'Aadhaar Card', 'Voter ID', 'Passport', 'Driving Licence', 'PAN Card', 'Bank Passbook 1', 'Bank Passbook 2', 'Bank Passbook 3', 'Birth Certificate'].map(n => seedDoc(n, 'Oct 12, 2023')),
+          education: {
+            school: [
+              doc('10th Marksheet', true, 'Uploaded 12 Mar 2024'),
+              doc('10th Certificate', true, 'Uploaded 12 Mar 2024'),
+              doc('12th Marksheet', true, 'Uploaded 12 Mar 2024'),
+              doc('12th Certificate', false, null),
+            ],
+            gradSemester: Array.from({ length: 8 }, (_, i) => doc(`${ordinal(i + 1)} Semester Marksheet`, true, i < 6 ? 'Uploaded 12 Mar 2024' : 'Updated 2 days ago')),
+            gradYear: Array.from({ length: 4 }, (_, i) => doc(`${ordinal(i + 1)} Year Marksheet`, true, i < 2 ? 'Uploaded 12 Mar 2024' : 'Updated 2 days ago')),
+            certificate: [doc('Graduation Certificate', true, 'Updated 2 days ago', 'fa-graduation-cap')]
+          },
+          vehicle: [doc('Car RC', true, 'Uploaded Aug 14, 2023', undefined, [{ label: 'Vehicle', value: 'Maruti Swift' }])],
+          insurance: [doc('Life Insurance Document', true, 'Uploaded May 2, 2023')],
+          household: [
+            doc('TV Warranty Card', true, 'Uploaded 12 Mar 2024', 'fa-tv', null, 'Sony Bravia 65" 4K OLED', { label: 'Expiring in', value: '14 Months' }),
+            doc('Refrigerator Warranty', true, 'Updated 2 days ago', 'fa-kitchen-set', [{ label: 'Product', value: 'Samsung Bespoke 4-Door' }, { label: 'Warranty Valid Till', value: 'Oct 2032' }], 'Samsung Bespoke 4-Door', { label: 'Expiring in', value: '8 Years (Compressor)' }),
+            doc('Washing Machine Warranty', true, 'Uploaded 12 Mar 2024', 'fa-shirt', null, 'Samsung Bespoke 4-Door', { label: 'Expiring in', value: '8 Years (Compressor)' }),
+            doc('Microwave Warranty', true, 'Uploaded Oct 12, 2023', 'fa-bowl-food', null, 'Panasonic Inverter Series', { label: 'Purchase Date', value: 'Oct 2023' }),
+            doc('AC Warranty', true, 'Uploaded 12 Mar 2024', 'fa-wind', null, 'Daikin 1.5 Ton 5-Star Inverter', { label: 'Next Service', value: 'Dec 15, 2024' }),
+          ]
+        },
+        spouse: {
+          identity: ['Aadhaar Card', 'PAN Card', 'Passport', 'Voter ID', 'Driving Licence'].map(n => seedDoc(n, 'Oct 5, 2023')),
+          education: {
+            school: [],
+            gradSemester: [], gradYear: [],
+            certificate: [doc('Degree Certificate', true, 'Uploaded Jul 18, 2023')]
+          },
+          vehicle: [doc('Scooter RC', true, 'Uploaded Jun 22, 2023', undefined, [{ label: 'Vehicle', value: 'Honda Activa' }])],
+          insurance: [seedDoc('Health Insurance', 'May 30, 2023')],
+          household: []
+        },
+        child1: {
+          identity: ['Birth Certificate', 'Aadhaar Card', 'Photo'].map(n => seedDoc(n, 'Apr 11, 2023')),
+          education: {
+            school: [doc('School ID Card', true, 'Uploaded Mar 9, 2023'), doc('Report Card', true, 'Uploaded Mar 9, 2023')],
+            gradSemester: [], gradYear: [], certificate: []
+          },
+          vehicle: [], insurance: [], household: []
+        },
+        child2: {
+          identity: ['Birth Certificate', 'Aadhaar Card', 'Photo'].map(n => seedDoc(n, 'Feb 20, 2023')),
+          education: {
+            school: [doc('School ID Card', true, 'Uploaded Jan 15, 2023')],
+            gradSemester: [], gradYear: [], certificate: []
+          },
+          vehicle: [], insurance: [], household: []
+        }
+      },
+      professional: {
+        company: {
+          job: [
+            doc('Experience Certificate', true, 'Uploaded 12 Oct 2023', 'fa-briefcase', null, 'Issued upon completion of 5 years.', { label: 'Last Updated', value: '12 Oct 2023' }),
+            doc('Relieving Letter', true, 'Uploaded 15 Jan 2024', 'fa-file-circle-check', null, 'Final clearance and exit formalities.', { label: 'Last Updated', value: '15 Jan 2024' }),
+            doc('Salary Slip 1', true, 'Uploaded 01 Jan 2024', 'fa-money-check-dollar', null, 'Month: December 2023', { label: 'Last Updated', value: '01 Jan 2024' }),
+            doc('Salary Slip 2', true, 'Uploaded 01 Dec 2023', 'fa-money-check-dollar', null, 'Month: November 2023', { label: 'Last Updated', value: '01 Dec 2023' }),
+            doc('Salary Slip 3', true, 'Uploaded 01 Nov 2023', 'fa-money-check-dollar', null, 'Month: October 2023', { label: 'Last Updated', value: '01 Nov 2023' }),
+            doc('Increment Letter 1', true, 'Uploaded 01 Apr 2022', 'fa-file-lines', null, 'Annual salary revision document.', { label: 'Last Updated', value: '01 Apr 2022' }),
+            doc('Increment Letter 2', true, 'Uploaded 01 Apr 2023', 'fa-file-lines', null, 'Annual salary revision document.', { label: 'Last Updated', value: '01 Apr 2023' }),
+            doc('Promotion Letter', true, 'Uploaded 15 Jul 2023', 'fa-star', null, 'Promotion & designation change.', { label: 'Last Updated', value: '15 Jul 2023' }),
+          ],
+          business: [
+            doc('Registration Certificate', true, 'Uploaded 12 Oct 2023', 'fa-file-contract'),
+            doc('PAN Card', true, 'Uploaded 05 Jan 2024', 'fa-credit-card'),
+            doc('TAN Number', true, 'Uploaded 20 Feb 2024', 'fa-file-lines'),
+            doc('GST Certificate', true, 'Uploaded 15 Mar 2024', 'fa-file-invoice'),
+          ],
+          itr: {
+            years: [
+              {
+                year: '2020-21', updatedOn: 'Oct 12, 2021', docs: [
+                  { name: 'Form 16', icon: 'fa-file-lines', fileType: 'PDF', size: '1.2 MB', pages: 3, uploaded: true, fileData: null, fileMime: null, fileName: null, meta: null, subtitle: 'Financial Year 2020-21', updatedLabel: 'Uploaded Oct 12, 2021' },
+                  { name: 'ITR Acknowledgement', icon: 'fa-file-circle-check', fileType: 'PDF', size: '840 KB', pages: 1, uploaded: true, fileData: null, fileMime: null, fileName: null, meta: null, subtitle: 'Financial Year 2020-21', updatedLabel: 'Uploaded Oct 12, 2021' },
+                ]
+              },
+              {
+                year: '2019-20', updatedOn: 'Sep 22, 2020', docs: [
+                  { name: 'Form 16', icon: 'fa-file-lines', fileType: 'PDF', size: '1.1 MB', pages: 3, uploaded: true, fileData: null, fileMime: null, fileName: null, meta: null, subtitle: 'Financial Year 2019-20', updatedLabel: 'Uploaded Sep 22, 2020' },
+                  { name: 'ITR Acknowledgement', icon: 'fa-file-circle-check', fileType: 'PDF', size: '790 KB', pages: 1, uploaded: true, fileData: null, fileMime: null, fileName: null, meta: null, subtitle: 'Financial Year 2019-20', updatedLabel: 'Uploaded Sep 22, 2020' },
+                ]
+              },
+              {
+                year: '2018-19', updatedOn: 'Aug 15, 2019', docs: [
+                  { name: 'Form 16', icon: 'fa-file-lines', fileType: 'PDF', size: '1.0 MB', pages: 2, uploaded: true, fileData: null, fileMime: null, fileName: null, meta: null, subtitle: 'Financial Year 2018-19', updatedLabel: 'Uploaded Aug 15, 2019' },
+                  { name: 'ITR Acknowledgement', icon: 'fa-file-circle-check', fileType: 'PDF', size: '760 KB', pages: 1, uploaded: true, fileData: null, fileMime: null, fileName: null, meta: null, subtitle: 'Financial Year 2018-19', updatedLabel: 'Uploaded Aug 15, 2019' },
+                ]
+              },
+            ]
+          }
+        }
+      }
+    };
+
+    let itrExpanded = new Set(['2020-21']);
+    let itrLastSync = '2 Days Ago';
+
+
+
+    function countDocs(vaultType, ownerId) {
+      const owner = STORE[vaultType][ownerId];
+      let total = 0;
+      Object.values(owner).forEach(val => {
+        if (Array.isArray(val)) total += val.length;
+        else if (val && typeof val === 'object') {
+          total += (val.school ? val.school.length : 0) + (val.gradSemester ? val.gradSemester.length : 0) + (val.certificate ? val.certificate.length : 0);
+        }
+      });
+      return total;
+    }
+
+    /* Generic accessor: for education category, `group` selects which sub-array; for all
+       other categories, group is ignored and the categoryId array itself is used. */
+    function getDocArray(vaultType, ownerId, categoryId, group) {
+      if (categoryId === 'education') return STORE[vaultType][ownerId].education[group];
+      return STORE[vaultType][ownerId][categoryId];
+    }
+
+    /* ============ NAV / STATE ============ */
+    let stack = [{ screen: 'landing' }];
+
+    function goTo(screen, params) {
+      stack.push({ screen, ...params });
+      render();
+    }
+    function replaceTop(params) {
+      stack[stack.length - 1] = { ...stack[stack.length - 1], ...params };
+      render();
+    }
+    function goBack() {
+      if (stack.length > 1) { stack.pop(); render(); }
+    }
+
+    function setHeader(title, sub) {
+      document.getElementById('headerTitle').textContent = title;
+      document.getElementById('headerSub').textContent = sub;
+      document.getElementById('backBtn').style.display = stack.length > 1 ? 'flex' : 'none';
+    }
+
+    function el(html) {
+      const t = document.createElement('template');
+      t.innerHTML = html.trim();
+      return t.content.firstElementChild;
+    }
+
+    /* ============ RENDERERS ============ */
+    function render() {
+      const app = document.getElementById('app');
+      app.innerHTML = '';
+      app.classList.remove('fade-in'); void app.offsetWidth; app.classList.add('fade-in');
+      const state = stack[stack.length - 1];
+
+      if (state.screen === 'landing') renderLanding(app);
+      else if (state.screen === 'members') renderMembers(app);
+      else if (state.screen === 'categories') renderCategories(app, state);
+      else if (state.screen === 'proLanding') renderProLanding(app);
+      else if (state.screen === 'documents') renderDocuments(app, state);
+    }
+
+    function renderLanding(app) {
+      setHeader('My Docs', 'Securely manage all your personal and professional documents in one place. Your digital concierge for a paperless lifestyle.');
+      const grid = el(`<div class="vault-grid"></div>`);
+      grid.appendChild(el(`
+    <div class="vault-card">
+      <i class="fa-solid fa-user watermark"></i>
+      <div class="icon-square red"><i class="fa-solid fa-user"></i></div>
+      <h3>Personal Vault</h3>
+      <p class="desc">Family records, ID papers, health certificates & personal achievements.</p>
+      <button class="btn-navy" onclick="goTo('members')">Enter Vault <i class="fa-solid fa-arrow-right"></i></button>
+    </div>`));
+      grid.appendChild(el(`
+    <div class="vault-card">
+      <i class="fa-solid fa-briefcase watermark"></i>
+      <div class="icon-square red"><i class="fa-solid fa-briefcase"></i></div>
+      <h3>Professional Vault</h3>
+      <p class="desc">Contracts, business licenses, tax returns & corporate credentials.</p>
+      <button class="btn-navy" onclick="goTo('proLanding')">Enter Vault <i class="fa-solid fa-arrow-right"></i></button>
+    </div>`));
+      app.appendChild(grid);
+    }
+
+    function renderProLanding(app) {
+      setHeader('Professional Documents', 'Securely manage your professional legacy and financial compliance with our high-end concierge vault.');
+      const grid = el(`<div class="vault-grid vault-grid-3"></div>`);
+      PRO_LANDING_CARDS.forEach(c => {
+        const card = el(`
+      <div class="vault-card">
+        <i class="fa-solid ${c.icon} watermark"></i>
+        <div class="icon-square red"><i class="fa-solid ${c.icon}"></i></div>
+        <h3>${c.title}</h3>
+        <p class="desc">${c.desc}</p>
+        <button class="btn-navy">${c.cta}</button>
+      </div>`);
+        card.querySelector('.btn-navy').addEventListener('click', () => {
+          goTo('documents', { vaultType: 'professional', ownerId: 'company', ownerName: c.title, categoryId: c.id });
+        });
+        grid.appendChild(card);
+      });
+      app.appendChild(grid);
+    }
+
+
+
+    function renderMembers(app) {
+      setHeader('Personal Documents', 'Select a family member to manage their verified documents, applications, and official certifications within your secure digital vault.');
+      const grid = el(`<div class="member-grid"></div>`);
+      MEMBERS.forEach(m => {
+        const count = countDocs('personal', m.id);
+        const card = el(`
+      <div class="member-card">
+        <div class="avatar-circle ${m.color}"><i class="fa-solid ${m.icon}"></i></div>
+        <h3>${m.name}</h3>
+        <div class="doc-count ${m.color}">${count} DOCUMENT${count === 1 ? '' : 'S'}</div>
+      </div>`);
+        card.addEventListener('click', () => goTo('categories', { vaultType: 'personal', ownerId: m.id, ownerName: m.name }));
+        grid.appendChild(card);
+      });
+      app.appendChild(grid);
+    }
+
+    function renderCategories(app, state) {
+      setHeader(state.ownerName, 'Select a category to manage your documents.');
+      const row = el(`<div class="category-row"></div>`);
+      CATEGORY_DEFS[state.vaultType].forEach(cat => {
+        const card = el(`
+      <div class="category-card">
+        <div class="icon-square ${cat.color}"><i class="fa-solid ${cat.icon}"></i></div>
+        <h4>${cat.name}</h4>
+        <i class="fa-solid fa-chevron-right chev"></i>
+      </div>`);
+        card.addEventListener('click', () => goTo('documents', { vaultType: state.vaultType, ownerId: state.ownerId, ownerName: state.ownerName, categoryId: cat.id }));
+        row.appendChild(card);
+      });
+      app.appendChild(row);
+    }
+
+    function buildTabBar(state, cat, cats, onAdd) {
+      const tabWrap = el(`<div class="tab-bar-wrap"></div>`);
+      const tabBar = el(`<div class="tab-bar"></div>`);
+      cats.forEach(c => {
+        const tab = el(`<div class="tab-item ${c.id === cat.id ? 'active' : ''}">${c.name}</div>`);
+        tab.addEventListener('click', () => replaceTop({ categoryId: c.id, eduSystem: undefined }));
+        tabBar.appendChild(tab);
+      });
+      const addBtn = el(`<button class="btn-add"><i class="fa-solid fa-plus"></i> ${cat.addLabel || ('Add ' + cat.name)}</button>`);
+      addBtn.addEventListener('click', onAdd);
+      tabWrap.appendChild(tabBar);
+      tabWrap.appendChild(addBtn);
+      return tabWrap;
+    }
+
+    function buildDocCard(vaultType, ownerId, categoryId, group, idx, doc) {
+      const subtitleHtml = doc.subtitle ? `<div class="doc-subtitle">${doc.subtitle}</div>` : '';
+      const infoHtml = doc.uploaded
+        ? `<div class="doc-info-row"><span>${doc.info?.label || 'Last Updated'}</span><strong>${doc.info?.value || dateOnly(doc.updatedLabel)}</strong></div>`
+        : `<div class="updated pending">Not uploaded yet</div>`;
+      const card = el(`
+    <div class="doc-card">
+      <button class="del-btn"><i class="fa-solid fa-xmark"></i></button>
+      <div class="doc-icon"><i class="fa-solid ${doc.icon}"></i></div>
+      <h4>${doc.name}</h4>
+      ${subtitleHtml}
+      ${infoHtml}
+      <div class="doc-actions">
+        <button class="btn-mini view ${doc.uploaded ? '' : 'disabled'}"><i class="fa-solid fa-eye"></i> View</button>
+        <button class="btn-mini upload"><i class="fa-solid fa-upload"></i> Upload</button>
+      </div>
+    </div>`);
+      card.querySelector('.del-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        openDeleteConfirm(doc.name, () => getDocArray(vaultType, ownerId, categoryId, group).splice(idx, 1));
+      });
+      card.querySelector('.view').addEventListener('click', () => {
+        if (doc.uploaded) openViewModal(doc, vaultType, ownerId, categoryId, group, idx);
+        else showToast('Upload a document first to view it.', 'fa-circle-info');
+      });
+      card.querySelector('.upload').addEventListener('click', () => {
+        openUploadModal((file) => finishUpload(vaultType, ownerId, categoryId, group, idx, file));
+      });
+      return card;
+    }
+
+    function buildDocGrid(vaultType, ownerId, categoryId, group, docs) {
+      const grid = el(`<div class="doc-grid"></div>`);
+      docs.forEach((d, i) => grid.appendChild(buildDocCard(vaultType, ownerId, categoryId, group, i, d)));
+      return grid;
+    }
+
+    function renderDocuments(app, state) {
+      const cats = CATEGORY_DEFS[state.vaultType];
+      const cat = cats.find(c => c.id === state.categoryId);
+      setHeader(cat.headerTitle || cat.name, cat.sub);
+
+      if (state.categoryId === 'education') { renderEducationCategory(app, state, cat, cats); return; }
+      if (state.categoryId === 'itr') { renderItrCategory(app, state, cat, cats); return; }
+
+      const wrap = el(`<div></div>`);
+      wrap.appendChild(buildTabBar(state, cat, cats, () => openAddModal(state.vaultType, state.ownerId, cat)));
+      wrap.style.marginTop = '4px';
+
+      const docs = getDocArray(state.vaultType, state.ownerId, state.categoryId);
+      if (docs.length === 0) {
+        wrap.appendChild(el(`
+      <div class="empty-state">
+        <i class="fa-solid fa-folder-open"></i>
+        <p>No documents yet in ${cat.name}. Tap "${cat.addLabel || ('Add ' + cat.name)}" to add your first one.</p>
+      </div>`));
+      } else {
+        wrap.appendChild(buildDocGrid(state.vaultType, state.ownerId, state.categoryId, state.categoryId, docs));
+      }
+      app.appendChild(wrap);
+    }
+
+    function renderEducationCategory(app, state, cat, cats) {
+      const eduStore = STORE[state.vaultType][state.ownerId].education;
+      const eduSystem = state.eduSystem || 'semester';
+
+      const wrap = el(`<div></div>`);
+      wrap.appendChild(buildTabBar(state, cat, cats, () => openAddModal(state.vaultType, state.ownerId, cat, eduSystem)));
+      wrap.style.marginTop = '4px';
+
+      let sectionsRendered = 0;
+
+      if (eduStore.school.length) {
+        sectionsRendered++;
+        wrap.appendChild(el(`<div class="section-header"><div class="label"><span class="bar"></span>School Education</div></div>`));
+        wrap.appendChild(buildDocGrid(state.vaultType, state.ownerId, 'education', 'school', eduStore.school));
+      }
+
+      const gradGroup = eduSystem === 'year' ? 'gradYear' : 'gradSemester';
+      const gradList = eduStore[gradGroup];
+      const showToggle = eduStore.gradSemester.length > 0 && eduStore.gradYear.length > 0;
+      const hasGradContent = gradList.length > 0 || eduStore.certificate.length > 0;
+
+      if (hasGradContent) {
+        sectionsRendered++;
+        const header = el(`<div class="section-header"><div class="label"><span class="bar"></span>Graduation</div></div>`);
+        if (showToggle) {
+          const toggle = el(`
+        <div class="system-toggle">
+          <button data-sys="year" class="${eduSystem === 'year' ? 'active' : ''}">Year System</button>
+          <button data-sys="semester" class="${eduSystem === 'semester' ? 'active' : ''}">Semester System</button>
+        </div>`);
+          toggle.querySelectorAll('button').forEach(b => {
+            b.addEventListener('click', () => replaceTop({ eduSystem: b.dataset.sys }));
+          });
+          header.appendChild(toggle);
+        }
+        wrap.appendChild(header);
+
+        const grid = el(`<div class="doc-grid"></div>`);
+        gradList.forEach((d, i) => grid.appendChild(buildDocCard(state.vaultType, state.ownerId, 'education', gradGroup, i, d)));
+        eduStore.certificate.forEach((d, i) => grid.appendChild(buildDocCard(state.vaultType, state.ownerId, 'education', 'certificate', i, d)));
+        wrap.appendChild(grid);
+      }
+
+      if (sectionsRendered === 0) {
+        wrap.appendChild(el(`
+      <div class="empty-state">
+        <i class="fa-solid fa-folder-open"></i>
+        <p>No documents yet in Education. Tap "Add Education" to add your first one.</p>
+      </div>`));
+      }
+
+      app.appendChild(wrap);
+    }
+
+    function renderItrCategory(app, state, cat, cats) {
+      const itrStore = STORE.professional.company.itr;
+      const totalDocs = itrStore.years.reduce((sum, y) => sum + y.docs.length, 0);
+      const allUploaded = itrStore.years.every(y => y.docs.every(d => d.uploaded));
+
+      const wrap = el(`<div></div>`);
+      wrap.appendChild(buildTabBar(state, cat, cats, () => openAddFinancialYearModal()));
+      wrap.style.marginTop = '4px';
+
+      const stats = el(`<div class="itr-stats"></div>`);
+      stats.appendChild(el(`
+    <div class="itr-stat-card">
+      <div class="stat-icon"><i class="fa-solid ${allUploaded ? 'fa-circle-check' : 'fa-triangle-exclamation'}"></i></div>
+      <div class="stat-label">Status</div>
+      <div class="stat-value">${allUploaded ? 'Up to Date' : 'Pending Uploads'}</div>
+    </div>`));
+      stats.appendChild(el(`
+    <div class="itr-stat-card">
+      <div class="stat-icon"><i class="fa-solid fa-folder-open"></i></div>
+      <div class="stat-label">Vault Usage</div>
+      <div class="stat-value">${totalDocs} Documents</div>
+    </div>`));
+      stats.appendChild(el(`
+    <div class="itr-stat-card">
+      <div class="stat-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+      <div class="stat-label">Last Sync</div>
+      <div class="stat-value">${itrLastSync}</div>
+    </div>`));
+      wrap.appendChild(stats);
+
+      if (itrStore.years.length === 0) {
+        wrap.appendChild(el(`
+      <div class="empty-state">
+        <i class="fa-solid fa-folder-open"></i>
+        <p>No financial years added yet. Tap "Add ITR" to add your first one.</p>
+      </div>`));
+      } else {
+        itrStore.years.forEach(yearEntry => {
+          const expanded = itrExpanded.has(yearEntry.year);
+          const yearBox = el(`
+        <div class="itr-year ${expanded ? 'expanded' : ''}">
+          <div class="itr-year-header">
+            <div class="left">
+              <div class="cal-icon"><i class="fa-solid fa-calendar-days"></i></div>
+              <div>
+                <h4>Financial Year ${yearEntry.year}</h4>
+                <div class="updated-on">Updated on ${yearEntry.updatedOn}</div>
+              </div>
+            </div>
+            <i class="fa-solid fa-chevron-down chev-toggle"></i>
+          </div>
+        </div>`);
+          yearBox.querySelector('.itr-year-header').addEventListener('click', () => {
+            if (itrExpanded.has(yearEntry.year)) itrExpanded.delete(yearEntry.year);
+            else itrExpanded.add(yearEntry.year);
+            render();
+          });
+          if (expanded) {
+            const body = el(`<div class="itr-year-body"></div>`);
+            yearEntry.docs.forEach(d => {
+              const row = el(`
+            <div class="itr-doc-row">
+              <div class="itr-doc-icon"><i class="fa-solid ${d.icon}"></i></div>
+              <div class="itr-doc-info">
+                <h5>${d.name}</h5>
+                <span>${d.fileType} &bull; ${d.size}</span>
+              </div>
+              <button class="btn-mini view"><i class="fa-solid fa-eye"></i> View</button>
+            </div>`);
+              row.querySelector('.view').addEventListener('click', () => openViewModal(d, null, null, null, null, null, { year: yearEntry.year, docIdx: yearEntry.docs.indexOf(d) }));
+              body.appendChild(row);
+            });
+            yearBox.appendChild(body);
+          }
+          wrap.appendChild(yearBox);
+        });
+      }
+
+      app.appendChild(wrap);
+    }
+
+
+    const overlay = document.getElementById('modalOverlay');
+    const modalBox = document.getElementById('modalBox');
+
+    function openModal(html, extraClass) {
+      modalBox.className = 'modal-box' + (extraClass ? ' ' + extraClass : '');
+      modalBox.innerHTML = html;
+      overlay.classList.add('show');
+    }
+    function closeModal() {
+      overlay.classList.remove('show');
+    }
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+
+    function openViewModal(doc, vaultType, ownerId, categoryId, group, idx, itrRef) {
+      let currentPage = 1;
+      let zoom = 100;
+      const totalPages = doc.pages || 1;
+
+      function previewInnerHtml() {
+        if (doc.fileData && doc.fileMime && doc.fileMime.startsWith('image/')) {
+          return `<img id="previewImg" src="${doc.fileData}" alt="${doc.name}" style="transform:scale(${zoom / 100}); transition:transform .15s ease;">`;
+        }
+        return `<i class="fa-solid ${doc.icon}"></i><span>${doc.fileName ? doc.fileName : doc.name}</span>`;
+      }
+
+      const subtitleHtml = doc.subtitle ? `<div class="modal-sub">${doc.subtitle}</div>` : '';
+      const metaHtml = (doc.meta && doc.meta.length) ? `
+    <div class="modal-meta">
+      ${doc.meta.map(m => `<div class="modal-meta-row"><span>${m.label}</span><strong>${m.value}</strong></div>`).join('')}
+    </div>` : '';
+      const pageBarHtml = totalPages > 1 ? `
+    <div class="modal-page-bar">
+      <button class="page-indicator" id="pageIndicatorBtn">${currentPage} of ${totalPages}</button>
+      <div class="zoom-controls">
+        <button class="zoom-btn" id="zoomOutBtn"><i class="fa-solid fa-minus"></i></button>
+        <button class="zoom-btn" id="zoomInBtn"><i class="fa-solid fa-plus"></i></button>
+      </div>
+    </div>` : '';
+
+      openModal(`
+    <div class="modal-head">
+      <h3>${doc.name}</h3>
+      <button class="modal-close" id="modalCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    ${subtitleHtml}
+    <div class="modal-preview" id="modalPreviewBox">
+      ${previewInnerHtml()}
+      <button class="preview-expand-btn" id="expandBtn"><i class="fa-solid fa-expand"></i></button>
+    </div>
+    ${pageBarHtml}
+    ${metaHtml}
+    <button class="modal-btn-download" id="downloadBtn"><i class="fa-solid fa-download"></i> Download Document</button>
+    <div class="modal-btn-row-2">
+      <button class="btn-soft" id="shareBtn"><i class="fa-solid fa-share-nodes"></i> Share</button>
+      <button class="btn-soft" id="replaceBtn"><i class="fa-solid fa-rotate"></i> Replace</button>
+    </div>
+    <button class="modal-delete-link" id="deleteLinkBtn"><i class="fa-solid fa-trash"></i> Delete Document</button>
+  `, 'modal-box-lg');
+
+      document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+      document.getElementById('expandBtn').addEventListener('click', () => {
+        if (doc.fileData) window.open(doc.fileData, '_blank');
+        else showToast('No expanded preview available for this demo document.', 'fa-circle-info');
+      });
+      document.getElementById('downloadBtn').addEventListener('click', () => {
+        if (doc.fileData) {
+          const a = document.createElement('a');
+          a.href = doc.fileData;
+          a.download = doc.fileName || (doc.name + '.png');
+          document.body.appendChild(a); a.click(); a.remove();
+          showToast(`Downloading ${doc.name}`, 'fa-circle-check');
+        } else {
+          showToast('This demo document has no file to download yet.', 'fa-circle-info');
+        }
+      });
+      document.getElementById('shareBtn').addEventListener('click', () => {
+        showToast(`Share link copied for ${doc.name}`, 'fa-circle-check');
+      });
+
+      if (totalPages > 1) {
+        document.getElementById('pageIndicatorBtn').addEventListener('click', () => {
+          currentPage = currentPage >= totalPages ? 1 : currentPage + 1;
+          document.getElementById('pageIndicatorBtn').textContent = `${currentPage} of ${totalPages}`;
+        });
+        const applyZoom = () => {
+          const img = document.getElementById('previewImg');
+          if (img) img.style.transform = `scale(${zoom / 100})`;
+          else showToast(`Zoom: ${zoom}%`, 'fa-magnifying-glass');
+        };
+        document.getElementById('zoomOutBtn').addEventListener('click', () => { zoom = Math.max(50, zoom - 10); applyZoom(); });
+        document.getElementById('zoomInBtn').addEventListener('click', () => { zoom = Math.min(200, zoom + 10); applyZoom(); });
+      }
+
+      document.getElementById('replaceBtn').addEventListener('click', () => {
+        if (itrRef) {
+          openUploadModal((file) => finishUploadItr(itrRef.year, itrRef.docIdx, file));
+        } else {
+          openUploadModal((file) => finishUpload(vaultType, ownerId, categoryId, group, idx, file));
+        }
+      });
+      document.getElementById('deleteLinkBtn').addEventListener('click', () => {
+        if (itrRef) {
+          openDeleteConfirm(doc.name, () => {
+            const yearEntry = STORE.professional.company.itr.years.find(y => y.year === itrRef.year);
+            yearEntry.docs.splice(itrRef.docIdx, 1);
+          });
+        } else {
+          openDeleteConfirm(doc.name, () => getDocArray(vaultType, ownerId, categoryId, group).splice(idx, 1));
+        }
+      });
+    }
+
+    const fileInput = document.getElementById('fileInput');
+
+    function finishUpload(vaultType, ownerId, categoryId, group, idx, file) {
+      const doc = getDocArray(vaultType, ownerId, categoryId, group)[idx];
+      const finish = (dataUrl) => {
+        doc.uploaded = true;
+        doc.updatedLabel = 'Uploaded ' + formatToday();
+        doc.fileName = file.name;
+        doc.fileData = dataUrl || null;
+        doc.fileMime = file.type;
+        render();
+        showToast(`${doc.name} uploaded successfully`, 'fa-circle-check');
+      };
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = () => finish(reader.result);
+        reader.readAsDataURL(file);
+      } else {
+        finish(null);
+      }
+    }
+
+    function finishUploadItr(year, docIdx, file) {
+      const yearEntry = STORE.professional.company.itr.years.find(y => y.year === year);
+      const d = yearEntry.docs[docIdx];
+      const finish = (dataUrl) => {
+        d.uploaded = true;
+        d.updatedLabel = 'Uploaded ' + formatToday();
+        d.fileName = file.name;
+        d.fileData = dataUrl || null;
+        d.fileMime = file.type;
+        itrLastSync = 'Just now';
+        render();
+        showToast(`${d.name} uploaded successfully`, 'fa-circle-check');
+      };
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = () => finish(reader.result);
+        reader.readAsDataURL(file);
+      } else {
+        finish(null);
+      }
+    }
+
+    function openUploadModal(onConfirm) {
+      let selectedFile = null;
+
+      openModal(`
+    <div class="modal-head">
+      <h3>Upload Document</h3>
+      <button class="modal-close" id="modalCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="upload-dropzone" id="dropzone">
+      <div class="cloud-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+      <h4>Drag &amp; drop your file here</h4>
+      <span class="or-text">or</span>
+      <button class="browse-btn" id="browseBtn" type="button">Browse Files</button>
+    </div>
+    <div class="upload-format-note">Supported Formats: PDF, JPG, PNG (Max 5MB)</div>
+    <button class="btn-upload-submit" id="uploadSubmitBtn">Upload</button>
+  `, 'modal-box-lg');
+
+      document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+      const dropzone = document.getElementById('dropzone');
+
+      function bindBrowse() {
+        const btn = document.getElementById('browseBtn');
+        if (btn) btn.addEventListener('click', (e) => { e.stopPropagation(); fileInput.click(); });
+      }
+      bindBrowse();
+
+      function renderSelected(file) {
+        selectedFile = file;
+        dropzone.classList.remove('dragover');
+        dropzone.innerHTML = `
+      <div class="upload-selected">
+        <i class="fa-solid fa-file"></i>
+        <span class="name">${file.name}</span>
+        <i class="fa-solid fa-xmark remove-file" id="removeFileBtn"></i>
+      </div>`;
+        document.getElementById('removeFileBtn').addEventListener('click', (e) => {
+          e.stopPropagation();
+          resetDropzone();
+        });
+      }
+      function resetDropzone() {
+        selectedFile = null;
+        dropzone.innerHTML = `
+      <div class="cloud-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+      <h4>Drag &amp; drop your file here</h4>
+      <span class="or-text">or</span>
+      <button class="browse-btn" id="browseBtn" type="button">Browse Files</button>`;
+        bindBrowse();
+      }
+
+      dropzone.addEventListener('click', () => { if (!selectedFile) fileInput.click(); });
+      dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+      dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+      dropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropzone.classList.remove('dragover');
+        if (e.dataTransfer.files.length) renderSelected(e.dataTransfer.files[0]);
+      });
+
+      fileInput.value = '';
+      fileInput.onchange = () => {
+        if (fileInput.files.length) renderSelected(fileInput.files[0]);
+      };
+
+      document.getElementById('uploadSubmitBtn').addEventListener('click', () => {
+        if (!selectedFile) { showToast('Please choose a file to upload.', 'fa-circle-info'); return; }
+        onConfirm(selectedFile);
+        closeModal();
+      });
+    }
+
+
+    function exampleName(cat) {
+      const map = {
+        identity: 'Passport', education: 'Marksheet', vehicle: 'RC Book', insurance: 'Policy Document', household: 'Warranty Card',
+        employment: 'Offer Letter', licenses: 'Trade License', taxreturns: 'Form 16', credentials: 'Company ID Card'
+      };
+      return map[cat.id] || 'Document';
+    }
+
+    function openAddModal(vaultType, ownerId, cat, eduSystem) {
+      const isEdu = cat.id === 'education';
+      let selectedFile = null;
+
+      const groupOptions = isEdu ? `
+    <div class="add-field-label">Section</div>
+    <select id="newDocGroup" class="add-input">
+      <option value="school">School Education</option>
+      <option value="grad">Graduation</option>
+    </select>` : '';
+
+      openModal(`
+    <div class="modal-head" style="margin-bottom:0;">
+      <h3 class="add-modal-title">Add ${cat.name} Doc</h3>
+      <button class="modal-close" id="modalCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="add-modal-divider"></div>
+    <div class="add-field-label">Name</div>
+    <input type="text" id="newDocName" class="add-input" placeholder="e.g. ${exampleName(cat)}" maxlength="40">
+    ${groupOptions}
+    <div class="add-field-label">Upload ${cat.name} Document</div>
+    <div class="add-dropzone" id="addDropzone">
+      <div class="icon-circle"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
+      <h5>Drag &amp; drop or click to upload</h5>
+      <p>Supports PDF, PNG, JPG up to 10MB</p>
+    </div>
+    <div class="add-modal-footer">
+      <button class="btn-cancel-outline" id="cancelAdd">Cancel</button>
+      <button class="btn-add-confirm" id="confirmAdd">Add Doc</button>
+    </div>
+  `, 'modal-box-lg modal-box-add');
+
+      const input = document.getElementById('newDocName');
+      input.focus();
+      document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+      document.getElementById('cancelAdd').addEventListener('click', closeModal);
+
+      const dropzone = document.getElementById('addDropzone');
+      function renderSelected(file) {
+        selectedFile = file;
+        dropzone.classList.remove('dragover');
+        dropzone.innerHTML = `
+      <div class="upload-selected" style="background:var(--red-light);">
+        <i class="fa-solid fa-file"></i>
+        <span class="name">${file.name}</span>
+        <i class="fa-solid fa-xmark remove-file" id="removeAddFileBtn"></i>
+      </div>`;
+        document.getElementById('removeAddFileBtn').addEventListener('click', (e) => {
+          e.stopPropagation();
+          resetDropzone();
+        });
+      }
+      function resetDropzone() {
+        selectedFile = null;
+        dropzone.innerHTML = `
+      <div class="icon-circle"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
+      <h5>Drag &amp; drop or click to upload</h5>
+      <p>Supports PDF, PNG, JPG up to 10MB</p>`;
+      }
+      dropzone.addEventListener('click', () => { if (!selectedFile) fileInput.click(); });
+      dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+      dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+      dropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropzone.classList.remove('dragover');
+        if (e.dataTransfer.files.length) renderSelected(e.dataTransfer.files[0]);
+      });
+      fileInput.value = '';
+      fileInput.onchange = () => {
+        if (fileInput.files.length) renderSelected(fileInput.files[0]);
+      };
+
+      const confirm = () => {
+        const name = input.value.trim();
+        if (!name) { input.style.borderColor = 'var(--red)'; return; }
+        const newDoc = { name, icon: iconForDoc(name), uploaded: false, updatedLabel: null, fileName: null, fileData: null, fileMime: null, meta: null };
+
+        const finalizeAdd = () => {
+          if (isEdu) {
+            const groupSel = document.getElementById('newDocGroup').value;
+            const eduStore = STORE[vaultType][ownerId].education;
+            if (groupSel === 'school') eduStore.school.push(newDoc);
+            else eduStore[(eduSystem === 'year') ? 'gradYear' : 'gradSemester'].push(newDoc);
+          } else {
+            STORE[vaultType][ownerId][cat.id].push(newDoc);
+          }
+          closeModal();
+          render();
+          showToast(`${name} added to ${cat.name}`, 'fa-circle-check');
+        };
+
+        if (selectedFile) {
+          newDoc.uploaded = true;
+          newDoc.updatedLabel = 'Uploaded ' + formatToday();
+          newDoc.fileName = selectedFile.name;
+          newDoc.fileMime = selectedFile.type;
+          if (selectedFile.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = () => { newDoc.fileData = reader.result; finalizeAdd(); };
+            reader.readAsDataURL(selectedFile);
+          } else {
+            finalizeAdd();
+          }
+        } else {
+          finalizeAdd();
+        }
+      };
+      document.getElementById('confirmAdd').addEventListener('click', confirm);
+      input.addEventListener('keydown', (e) => { if (e.key === 'Enter') confirm(); });
+    }
+
+    function openAddFinancialYearModal() {
+      const existingYears = STORE.professional.company.itr.years.map(y => y.year);
+      const allCandidates = ['2025-26', '2024-25', '2023-24', '2022-23', '2021-22'];
+      const candidateYears = allCandidates.filter(y => !existingYears.includes(y));
+      if (candidateYears.length === 0) candidateYears.push('2026-27');
+
+      let form16File = null;
+      let ackFile = null;
+
+      openModal(`
+    <div class="modal-head">
+      <h3 class="add-modal-title" style="font-size:19px;">Add Financial Year</h3>
+      <button class="modal-close" id="modalCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="add-field-label" style="margin-top:16px;">Select Financial Year</div>
+    <select id="fySelect" class="add-input" style="border-color:var(--red-border); margin-bottom:20px;">
+      ${candidateYears.map(y => `<option value="${y}">${y}</option>`).join('')}
+    </select>
+    <div class="add-field-label">Upload Form 16</div>
+    <div class="add-dropzone" id="form16Zone" style="border-color:var(--red-border); margin-bottom:16px;">
+      <div class="icon-circle"><i class="fa-solid fa-file-arrow-up"></i></div>
+      <h5>Click to upload or drag &amp; drop</h5>
+      <p>PDF, JPEG or PNG (Max 5MB)</p>
+    </div>
+    <div class="add-field-label">Upload ITR Acknowledgement</div>
+    <div class="add-dropzone" id="ackZone" style="border-color:var(--red-border); margin-bottom:20px;">
+      <div class="icon-circle"><i class="fa-solid fa-file-lines"></i></div>
+      <h5>Click to upload or drag &amp; drop</h5>
+      <p>PDF, JPEG or PNG (Max 5MB)</p>
+    </div>
+    <button class="btn-upload-submit" id="saveAddBtn">Save &amp; Add</button>
+    <button class="modal-delete-link" id="cancelFyBtn" style="color:var(--text-gray); margin-top:12px;">Cancel</button>
+  `, 'modal-box-lg modal-box-add');
+
+      document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+      document.getElementById('cancelFyBtn').addEventListener('click', closeModal);
+
+      function wireZone(zoneId, iconClass, onPicked) {
+        const zone = document.getElementById(zoneId);
+        function reset() {
+          zone.innerHTML = `
+        <div class="icon-circle"><i class="fa-solid ${iconClass}"></i></div>
+        <h5>Click to upload or drag &amp; drop</h5>
+        <p>PDF, JPEG or PNG (Max 5MB)</p>`;
+        }
+        function selected(file) {
+          onPicked(file);
+          zone.classList.remove('dragover');
+          zone.innerHTML = `
+        <div class="upload-selected">
+          <i class="fa-solid fa-file"></i>
+          <span class="name">${file.name}</span>
+          <i class="fa-solid fa-xmark remove-file" id="${zoneId}Remove"></i>
+        </div>`;
+          document.getElementById(zoneId + 'Remove').addEventListener('click', (e) => { e.stopPropagation(); onPicked(null); reset(); });
+        }
+        zone.addEventListener('click', () => {
+          fileInput.value = '';
+          fileInput.onchange = () => { if (fileInput.files.length) selected(fileInput.files[0]); };
+          fileInput.click();
+        });
+        zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('dragover'); });
+        zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+        zone.addEventListener('drop', (e) => {
+          e.preventDefault(); zone.classList.remove('dragover');
+          if (e.dataTransfer.files.length) selected(e.dataTransfer.files[0]);
+        });
+      }
+      wireZone('form16Zone', 'fa-file-arrow-up', (f) => form16File = f);
+      wireZone('ackZone', 'fa-file-lines', (f) => ackFile = f);
+
+      document.getElementById('saveAddBtn').addEventListener('click', () => {
+        const year = document.getElementById('fySelect').value;
+        const newYear = {
+          year, updatedOn: formatToday(),
+          docs: [
+            { name: 'Form 16', icon: 'fa-file-lines', fileType: 'PDF', size: form16File ? formatSize(form16File.size) : '—', pages: 1, uploaded: !!form16File, fileData: null, fileMime: form16File ? form16File.type : null, fileName: form16File ? form16File.name : null, meta: null, subtitle: `Financial Year ${year}`, updatedLabel: form16File ? ('Uploaded ' + formatToday()) : null },
+            { name: 'ITR Acknowledgement', icon: 'fa-file-circle-check', fileType: 'PDF', size: ackFile ? formatSize(ackFile.size) : '—', pages: 1, uploaded: !!ackFile, fileData: null, fileMime: ackFile ? ackFile.type : null, fileName: ackFile ? ackFile.name : null, meta: null, subtitle: `Financial Year ${year}`, updatedLabel: ackFile ? ('Uploaded ' + formatToday()) : null },
+          ]
+        };
+        STORE.professional.company.itr.years.unshift(newYear);
+        itrExpanded.add(year);
+        itrLastSync = 'Just now';
+        closeModal();
+        render();
+        showToast(`Financial Year ${year} added`, 'fa-circle-check');
+      });
+    }
+
+    function openDeleteConfirm(name, onConfirm) {
+      openModal(`
+    <h3>Remove document?</h3>
+    <div class="modal-sub">This will remove "${name}" from this vault. This can't be undone.</div>
+    <div class="modal-btn-row">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-confirm" id="confirmDelete">Remove</button>
+    </div>
+  `);
+      document.getElementById('confirmDelete').addEventListener('click', () => {
+        onConfirm();
+        closeModal();
+        render();
+        showToast(`${name} removed`, 'fa-trash');
+      });
+    }
+
+    /* ============ UTIL ============ */
+    function formatToday() {
+      const d = new Date();
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+    function dateOnly(label) {
+      if (!label) return '';
+      return label.replace(/^Uploaded /, '').replace(/^Updated /, '');
+    }
+    function formatSize(bytes) {
+      if (bytes < 1024) return bytes + ' B';
+      const kb = bytes / 1024;
+      if (kb < 1024) return kb.toFixed(0) + ' KB';
+      return (kb / 1024).toFixed(1) + ' MB';
+    }
+    function showToast(msg, icon) {
+      const wrap = document.getElementById('toast-wrap');
+      const t = el(`<div class="toast"><i class="fa-solid ${icon || 'fa-circle-check'}"></i><span>${msg}</span></div>`);
+      wrap.appendChild(t);
+      setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity .3s ease'; setTimeout(() => t.remove(), 300); }, 2400);
+    }
+
+    /* ============ INIT ============ */
+    render();
+  </script>
+</body>
+
+</html>
