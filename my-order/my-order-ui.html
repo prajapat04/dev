@@ -6,7 +6,6 @@
 <title>Contact Matrix</title>
 <style>
   :root{
-    --black:#1a1a1a;
     --dark-header:#1c1c1c;
     --red:#e8342a;
     --gray-section:#dcdcdc;
@@ -230,94 +229,63 @@
           <th>Contact No.</th>
         </tr>
       </thead>
-      <tbody id="matrix-body">
+      <tbody>
+
+        <tr class="section-row">
+          <td colspan="3">Relation Manager</td>
+        </tr>
+        <tr class="data-row">
+          <td class="placeholder">Yet to be assigned</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr class="data-row">
+          <td class="name-cell">Tamanna</td>
+          <td><a href="mailto:tamanna@itzeazy.com">tamanna@itzeazy.com</a></td>
+          <td>99999999</td>
+        </tr>
+
+        <tr class="section-row">
+          <td colspan="3">Operations</td>
+        </tr>
+        <tr class="data-row">
+          <td class="placeholder">Yet to be assigned</td>
+          <td></td>
+          <td></td>
+        </tr>
+
+        <tr class="section-row">
+          <td colspan="3">Pickup</td>
+        </tr>
+        <tr class="data-row">
+          <td class="placeholder">Yet to be assigned</td>
+          <td></td>
+          <td></td>
+        </tr>
+
+        <tr class="section-row">
+          <td colspan="3">Dispatch</td>
+        </tr>
+        <tr class="data-row">
+          <td class="placeholder">Yet to be assigned</td>
+          <td></td>
+          <td></td>
+        </tr>
+
+        <tr class="section-row">
+          <td colspan="3">Escalation</td>
+        </tr>
+        <tr class="data-row">
+          <td class="placeholder">Yet to be assigned</td>
+          <td></td>
+          <td></td>
+        </tr>
+
       </tbody>
     </table>
   </section>
 
 </div>
-
-<script>
-  const sections = [
-    {
-      name: "Relation Manager",
-      rows: [
-        { name: "Yet to be assigned", email: "", phone: "" },
-        { name: "Tamanna", email: "tamanna@itzeazy.com", phone: "99999999" }
-      ]
-    },
-    {
-      name: "Operations",
-      rows: [
-        { name: "Yet to be assigned", email: "", phone: "" }
-      ]
-    },
-    {
-      name: "Pickup",
-      rows: [
-        { name: "Yet to be assigned", email: "", phone: "" }
-      ]
-    },
-    {
-      name: "Dispatch",
-      rows: [
-        { name: "Yet to be assigned", email: "", phone: "" }
-      ]
-    },
-    {
-      name: "Escalation",
-      rows: [
-        { name: "Yet to be assigned", email: "", phone: "" }
-      ]
-    }
-  ];
-
-  function escapeHtml(str){
-    return str
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
-  }
-
-  function renderMatrix(data){
-    const tbody = document.getElementById("matrix-body");
-    tbody.innerHTML = "";
-
-    data.forEach(section => {
-      const sectionTr = document.createElement("tr");
-      sectionTr.className = "section-row";
-      sectionTr.innerHTML = '<td colspan="3">' + escapeHtml(section.name) + '</td>';
-      tbody.appendChild(sectionTr);
-
-      section.rows.forEach(row => {
-        const tr = document.createElement("tr");
-        tr.className = "data-row";
-
-        const nameClass = row.name === "Yet to be assigned" ? "placeholder" : "name-cell";
-        const emailCell = row.email
-          ? '<a href="mailto:' + escapeHtml(row.email) + '">' + escapeHtml(row.email) + '</a>'
-          : "";
-        const phoneCell = row.phone ? escapeHtml(row.phone) : "";
-
-        tr.innerHTML =
-          '<td class="' + nameClass + '">' + escapeHtml(row.name) + '</td>' +
-          '<td>' + emailCell + '</td>' +
-          '<td>' + phoneCell + '</td>';
-        tbody.appendChild(tr);
-      });
-    });
-  }
-
-  renderMatrix(sections);
-
-  document.querySelector(".back-arrow").addEventListener("click", () => {
-    console.log("Back navigation triggered");
-  });
-
-  document.querySelector(".book-service-btn").addEventListener("click", () => {
-    console.log("Book Service clicked");
-  });
-</script>
 
 </body>
 </html>

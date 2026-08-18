@@ -1,0 +1,2372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply for Original Degree Certificate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    :root {
+      --dark: #15161c;
+      --red: #e8483c;
+      --red-dark: #d43a2f;
+      --red-light: #fdeceb;
+      --red-border: #f6c9c4;
+      --navy: #171b33;
+      --text-dark: #14161f;
+      --text-gray: #6b6f7d;
+      --text-gray-light: #9a9da8;
+      --border: #e5e6eb;
+      --green: #22a55e;
+      --green-light: #e6f7ee;
+      --radius: 14px;
+      --shadow-md: 0 10px 34px rgba(15, 16, 30, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-dark);
+      background: #f3f3f6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1,
+    h2,
+    h3,
+    .display {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    input,
+    select {
+      font-family: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      position: relative;
+      background:
+        radial-gradient(ellipse 900px 500px at 15% -10%, rgba(232, 72, 60, 0.18), transparent 60%),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.035) 0 2px, transparent 2px 64px),
+        linear-gradient(180deg, #1c1d24 0%, #0e0f13 100%);
+      color: #fff;
+      padding: 38px 24px 120px;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 120%, rgba(255, 255, 255, 0.05), transparent 40%),
+        repeating-radial-gradient(circle at 50% 180%, transparent 0 38px, rgba(255, 255, 255, 0.025) 38px 40px);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 640px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero .eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .hero h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .hero p {
+      font-size: 13.5px;
+      color: #c3c4cc;
+      line-height: 1.6;
+      max-width: 520px;
+    }
+
+    .page-wrap {
+      max-width: 900px;
+      margin: -88px auto 60px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ---------- WIZARD CARD ---------- */
+    .wizard-card {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: var(--shadow-md);
+      padding: 34px 40px 40px;
+    }
+
+    /* ---------- STEPPER ---------- */
+    .stepper {
+      display: flex;
+      margin-bottom: 34px;
+    }
+
+    .step-item {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .step-item:not(:first-child)::before {
+      content: '';
+      position: absolute;
+      top: 14px;
+      left: -50%;
+      width: 100%;
+      height: 2px;
+      background: var(--border);
+      z-index: 0;
+    }
+
+    .step-item.line-done:not(:first-child)::before {
+      background: var(--red);
+    }
+
+    .step-circle {
+      width: 29px;
+      height: 29px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2px solid var(--border);
+      color: var(--text-gray-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11.5px;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-circle.done {
+      background: var(--red);
+      border-color: var(--red);
+      color: #fff;
+    }
+
+    .step-label {
+      margin-top: 7px;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: .05em;
+      color: var(--text-gray-light);
+      text-transform: uppercase;
+    }
+
+    .step-label.done {
+      color: var(--red);
+    }
+
+    .step-label.active {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    /* ---------- SECTION TITLE ---------- */
+    .section-title {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 30px;
+      position: relative;
+      display: table;
+      margin-left: auto;
+      margin-right: auto;
+      padding-bottom: 8px;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 2px;
+      background: var(--red);
+    }
+
+    /* ---------- FORM ---------- */
+    .step-panel {
+      display: none;
+    }
+
+    .step-panel.active {
+      display: block;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px 28px;
+      margin-bottom: 26px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .field label .req {
+      color: var(--red);
+      margin-left: 2px;
+    }
+
+    .field-input-wrap {
+      position: relative;
+    }
+
+    .field input[type=text],
+    .field input[type=email],
+    .field input[type=tel],
+    .field input[type=number],
+    .field select {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      font-size: 13.5px;
+      color: var(--text-dark);
+      outline: none;
+      background: #fff;
+      transition: border-color .15s ease;
+      appearance: none;
+    }
+
+    .field select {
+      cursor: pointer;
+      padding-right: 34px;
+    }
+
+    /* ---------- CUSTOM DROPDOWN ---------- */
+    .cs-wrap {
+      position: relative;
+      width: 100%;
+    }
+
+    .cs-trigger {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px 18px;
+      background: #eef0f3;
+      border: 1.5px solid transparent;
+      border-radius: 24px;
+      font-size: 13.5px;
+      color: #9a9da8;
+      text-align: left;
+      transition: background .15s ease, border-radius .15s ease, border-color .15s ease;
+    }
+
+    .cs-trigger .cs-value {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .cs-trigger.has-value {
+      color: var(--text-dark);
+      font-weight: 500;
+    }
+
+    .cs-trigger .cs-chev {
+      flex-shrink: 0;
+      color: #9a9da8;
+      font-size: 12px;
+      transition: transform .2s ease;
+    }
+
+    .cs-wrap.open .cs-trigger {
+      border-radius: 16px 16px 0 0;
+      background: #eef0f3;
+    }
+
+    .cs-wrap.open .cs-trigger .cs-chev {
+      transform: rotate(180deg);
+    }
+
+    .cs-wrap.invalid .cs-trigger {
+      background: var(--red-light);
+      border-color: var(--red-border);
+    }
+
+    .cs-panel {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-radius: 0 0 16px 16px;
+      box-shadow: 0 16px 34px rgba(15, 16, 30, 0.14);
+      max-height: 230px;
+      overflow-y: auto;
+      display: none;
+      z-index: 60;
+    }
+
+    .cs-wrap.open .cs-panel {
+      display: block;
+    }
+
+    .cs-option {
+      padding: 13px 18px;
+      font-size: 13.5px;
+      color: var(--text-gray);
+      cursor: pointer;
+      border-top: 1px solid #f0f0f3;
+      transition: background .12s ease, color .12s ease;
+    }
+
+    .cs-option:hover {
+      background: #f7f7f9;
+      color: var(--text-dark);
+    }
+
+    .cs-option.selected {
+      color: var(--red);
+      font-weight: 600;
+      background: var(--red-light);
+    }
+
+    .cs-empty {
+      padding: 14px 18px;
+      font-size: 12.5px;
+      color: var(--text-gray-light);
+      text-align: center;
+    }
+
+    .field-input-wrap .select-chev {
+      display: none;
+    }
+
+    .field-input-wrap select {
+      display: none;
+    }
+
+    .field .select-chev {
+      position: absolute;
+      right: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-gray-light);
+      font-size: 11px;
+      pointer-events: none;
+    }
+
+    .field .cal-icon {
+      position: absolute;
+      right: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-gray-light);
+      font-size: 13px;
+      pointer-events: none;
+    }
+
+    .field input::placeholder {
+      color: #b3b6c0;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: var(--red);
+    }
+
+    .field input.invalid,
+    .field select.invalid {
+      border-color: var(--red);
+      background: var(--red-light);
+    }
+
+    .auto-format-badge {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      color: var(--text-gray-light);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      text-transform: uppercase;
+      cursor: help;
+    }
+
+    .auto-format-badge i {
+      color: var(--red);
+      font-size: 11px;
+    }
+
+    .upload-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+
+    .upload-row .u-label {
+      width: 180px;
+      flex-shrink: 0;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .upload-row .u-label .req {
+      color: var(--red);
+      margin-left: 2px;
+    }
+
+    .upload-field {
+      flex: 1;
+      min-width: 220px;
+      display: flex;
+      align-items: stretch;
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      overflow: hidden;
+    }
+
+    .upload-field.invalid {
+      border-color: var(--red);
+    }
+
+    .upload-field .u-display {
+      flex: 1;
+      padding: 11px 14px;
+      font-size: 13px;
+      color: #b3b6c0;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow: hidden;
+    }
+
+    .upload-field .u-display.filled {
+      color: var(--text-dark);
+      font-weight: 600;
+    }
+
+    .upload-field .u-display i {
+      color: var(--green);
+      flex-shrink: 0;
+    }
+
+    .upload-field .browse-btn {
+      padding: 0 20px;
+      background: #eceef2;
+      color: var(--text-dark);
+      font-size: 13px;
+      font-weight: 600;
+      flex-shrink: 0;
+      transition: background .15s ease;
+    }
+
+    .upload-field .browse-btn:hover {
+      background: #e0e2e8;
+    }
+
+    .upload-note {
+      font-size: 11px;
+      color: var(--text-gray-light);
+      flex-shrink: 0;
+      max-width: 220px;
+      line-height: 1.5;
+    }
+
+    .step-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+
+    .btn-prev {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-gray);
+    }
+
+    .btn-prev:hover {
+      color: var(--text-dark);
+    }
+
+    .btn-continue {
+      background: var(--red);
+      color: #fff;
+      padding: 13px 26px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      transition: background .15s ease;
+    }
+
+    .btn-continue:hover {
+      background: var(--red-dark);
+    }
+
+    .btn-continue:disabled {
+      opacity: .65;
+      cursor: not-allowed;
+    }
+
+    /* ---------- REVIEW STEP ---------- */
+    .review-title {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .review-card {
+      background: #f7f7f9;
+      border-radius: 14px;
+      padding: 20px 22px;
+      margin-bottom: 16px;
+    }
+
+    .review-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .review-card-head .rh-left {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .review-card-head .rh-left i {
+      color: var(--red);
+    }
+
+    .review-card-head .edit-link {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--red);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .review-card-head .edit-link:hover {
+      opacity: .75;
+    }
+
+    .review-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 24px;
+    }
+
+    .review-grid .rg-item span {
+      display: block;
+      font-size: 10.5px;
+      color: var(--text-gray-light);
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      margin-bottom: 4px;
+    }
+
+    .review-grid .rg-item strong {
+      font-size: 13.5px;
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+
+    .review-docs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .review-doc-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 9px 12px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .review-doc-chip i.file-i {
+      color: var(--text-gray);
+    }
+
+    .review-doc-chip i.ok-i {
+      color: var(--green);
+    }
+
+    .pay-summary-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .pay-summary-left .ps-label {
+      font-size: 10.5px;
+      color: var(--text-gray-light);
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      margin-bottom: 6px;
+    }
+
+    .pay-summary-left .ps-rows div {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      font-size: 12.5px;
+      color: var(--text-gray);
+      margin-bottom: 4px;
+    }
+
+    .pay-summary-right {
+      text-align: right;
+    }
+
+    .pay-summary-right .ps-total-label {
+      font-size: 10.5px;
+      color: var(--text-gray-light);
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      margin-bottom: 4px;
+    }
+
+    .pay-summary-right .ps-total {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--red);
+      margin-bottom: 10px;
+    }
+
+    .pay-summary-right .ps-secure {
+      font-size: 10.5px;
+      color: var(--text-gray-light);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      justify-content: flex-end;
+    }
+
+    /* ---------- MODAL ---------- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 16, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease;
+    }
+
+    .modal-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-box {
+      background: #fff;
+      border-radius: 18px;
+      width: 100%;
+      max-width: 480px;
+      padding: 26px 28px 28px;
+      max-height: 88vh;
+      overflow-y: auto;
+      transform: scale(.96);
+      transition: transform .2s ease;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-overlay.show .modal-box {
+      transform: scale(1);
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .modal-head .mh-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .modal-head .mh-title i {
+      color: var(--red);
+      background: var(--red-light);
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .modal-close {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #f1f2f5;
+      color: var(--text-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12.5px;
+    }
+
+    .modal-close:hover {
+      background: #e6e7ec;
+      color: var(--text-dark);
+    }
+
+    .pm-option {
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .pm-option.selected {
+      border-color: var(--red);
+    }
+
+    .pm-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      cursor: pointer;
+    }
+
+    .pm-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: #f1f2f5;
+      color: var(--text-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .pm-option.selected .pm-icon {
+      background: var(--red-light);
+      color: var(--red);
+    }
+
+    .pm-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .pm-sub {
+      font-size: 11px;
+      color: var(--text-gray-light);
+    }
+
+    .pm-chev {
+      margin-left: auto;
+      color: var(--text-gray-light);
+      font-size: 11px;
+      transition: transform .2s ease;
+    }
+
+    .pm-option.selected .pm-chev {
+      transform: rotate(180deg);
+    }
+
+    .pm-body {
+      padding: 0 16px 16px;
+      display: none;
+    }
+
+    .pm-option.selected .pm-body {
+      display: block;
+    }
+
+    .pm-body input,
+    .pm-body select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 10px;
+      outline: none;
+    }
+
+    .pm-body input:focus,
+    .pm-body select:focus {
+      border-color: var(--red);
+    }
+
+    .pm-body .pm-row2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .order-summary {
+      background: #f7f7f9;
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin: 6px 0 20px;
+    }
+
+    .order-summary .os-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .order-summary .os-head i {
+      color: var(--red);
+    }
+
+    .order-summary .os-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 20px;
+      margin-bottom: 12px;
+    }
+
+    .order-summary .os-grid span {
+      display: block;
+      font-size: 10px;
+      color: var(--text-gray-light);
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    .order-summary .os-grid strong {
+      font-size: 12.5px;
+      color: var(--text-dark);
+    }
+
+    .order-summary hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 10px 0;
+    }
+
+    .os-fee-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12.5px;
+      color: var(--text-gray);
+      margin-bottom: 6px;
+    }
+
+    .os-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      background: #fff;
+      border-radius: 9px;
+      padding: 12px 14px;
+      margin-top: 8px;
+    }
+
+    .os-total-row .lbl {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .os-total-row .lbl small {
+      display: block;
+      font-size: 9.5px;
+      color: var(--text-gray-light);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .os-total-row .val {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--red);
+    }
+
+    .btn-pay {
+      width: 100%;
+      background: var(--red);
+      color: #fff;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 14.5px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      transition: background .15s ease;
+    }
+
+    .btn-pay:hover {
+      background: var(--red-dark);
+    }
+
+    .btn-pay:disabled {
+      opacity: .7;
+      cursor: not-allowed;
+    }
+
+    .pay-secure-note {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-gray-light);
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .pay-secure-note i {
+      color: var(--green);
+    }
+
+    /* ---------- SUCCESS SCREEN ---------- */
+    .success-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+    }
+
+    .success-top {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      padding: 32px 30px;
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .success-check {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2.5px solid var(--green);
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      margin: 0 auto 16px;
+    }
+
+    .success-top h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .success-top p {
+      font-size: 13.5px;
+      color: var(--text-gray);
+      max-width: 460px;
+      margin: 0 auto 22px;
+    }
+
+    .success-meta {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+
+    .success-meta .sm-item span {
+      display: block;
+      font-size: 10px;
+      color: var(--text-gray-light);
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: 5px;
+    }
+
+    .success-meta .sm-item strong {
+      font-size: 13.5px;
+      color: var(--text-dark);
+    }
+
+    .success-btn-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .sbtn {
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sbtn.primary {
+      background: var(--red);
+      color: #fff;
+    }
+
+    .sbtn.primary:hover {
+      background: var(--red-dark);
+    }
+
+    .sbtn.outline {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      color: var(--text-dark);
+    }
+
+    .sbtn.outline:hover {
+      background: #f7f7f9;
+    }
+
+    .view-details-link {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-dark);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .success-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .summary-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      padding: 22px 24px;
+    }
+
+    .summary-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .summary-card-head .sh-title {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .summary-card-head .sh-title i {
+      color: var(--red);
+    }
+
+    .badge-submitted {
+      background: var(--green-light);
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-submitted::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    .app-summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .as-item {
+      display: flex;
+      gap: 11px;
+    }
+
+    .as-item .as-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: #f5f5f8;
+      color: var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .as-item .as-text span {
+      display: block;
+      font-size: 9.5px;
+      color: var(--text-gray-light);
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      margin-bottom: 3px;
+    }
+
+    .as-item .as-text strong {
+      font-size: 12.5px;
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+
+    .breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12.5px;
+      color: var(--text-gray);
+      margin-bottom: 10px;
+    }
+
+    .breakdown-row.label-only span:first-child {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      color: var(--text-gray-light);
+    }
+
+    .breakdown-hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 14px 0;
+    }
+
+    .breakdown-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .breakdown-total .bt-label {
+      font-size: 10px;
+      color: var(--text-gray-light);
+      text-transform: uppercase;
+      letter-spacing: .03em;
+    }
+
+    .breakdown-total .bt-label small {
+      display: block;
+      font-size: 10.5px;
+      color: var(--text-gray);
+      text-transform: none;
+      margin-top: 3px;
+    }
+
+    .breakdown-total .bt-val {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--red);
+    }
+
+    .help-box {
+      background: var(--dark);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-top: 20px;
+    }
+
+    .help-box h4 {
+      color: #fff;
+      font-size: 13.5px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .help-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .help-btn {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      transition: background .15s ease;
+    }
+
+    .help-btn:hover {
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .help-btn i {
+      color: var(--red);
+      font-size: 15px;
+    }
+
+    /* ---------- TOAST ---------- */
+    #toast-wrap {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 300;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .toast {
+      background: var(--dark);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      animation: toastIn .25s ease;
+    }
+
+    .toast i {
+      color: var(--red);
+    }
+
+    @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width:760px) {
+      .hero {
+        padding: 28px 18px 100px;
+      }
+
+      .hero h1 {
+        font-size: 22px;
+      }
+
+      .page-wrap {
+        margin-top: -76px;
+        padding: 0 14px;
+      }
+
+      .wizard-card {
+        padding: 24px 18px 28px;
+        border-radius: 16px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .step-label {
+        display: none;
+      }
+
+      .step-circle {
+        width: 24px;
+        height: 24px;
+        font-size: 10px;
+      }
+
+      .step-item:not(:first-child)::before {
+        top: 11px;
+      }
+
+      .upload-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .upload-row .u-label {
+        width: auto;
+      }
+
+      .upload-field {
+        width: 100%;
+      }
+
+      .upload-note {
+        max-width: none;
+      }
+
+      .review-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pay-summary-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+      }
+
+      .pay-summary-right {
+        text-align: left;
+      }
+
+      .pay-summary-right .ps-secure {
+        justify-content: flex-start;
+      }
+
+      .success-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .app-summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .success-meta {
+        gap: 26px;
+        justify-content: flex-start;
+      }
+
+      .success-btn-row {
+        flex-direction: column;
+      }
+
+      .sbtn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .help-row {
+        flex-direction: column;
+      }
+
+      .os-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pm-body .pm-row2 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <div class="hero" id="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">Application Process</div>
+      <h1 id="heroTitle">Degree Details</h1>
+      <p id="heroSub">Please provide the official details exactly as they appear on your records to ensure seamless
+        verification.</p>
+    </div>
+  </div>
+
+  <div class="page-wrap" id="wizardWrap">
+    <div class="wizard-card">
+      <div class="stepper" id="stepper"></div>
+
+      <!-- STEP 1: BASIC INFO -->
+      <div class="step-panel active" data-step="1">
+        <div class="section-title">Application For Original Degree Certificate</div>
+        <div class="form-grid">
+          <div class="field">
+            <label>Full Name<span class="req">*</span></label>
+            <input type="text" id="fullName" placeholder="Enter your full name">
+          </div>
+          <div class="field">
+            <label>Type of Document<span class="req">*</span></label>
+            <div class="field-input-wrap">
+              <select id="docType">
+                <option value="">Enter type of document</option>
+                <option>Original Degree Certificate</option>
+                <option>Duplicate Degree Certificate</option>
+                <option>Provisional Certificate</option>
+                <option>Migration Certificate</option>
+                <option>Consolidated Marksheet</option>
+              </select>
+              <i class="fa-solid fa-chevron-down select-chev"></i>
+            </div>
+          </div>
+          <div class="field">
+            <label>University/College Name<span class="req">*</span></label>
+            <input type="text" id="uniName" placeholder="Enter your university name">
+          </div>
+          <div class="field">
+            <label>Registration Number<span class="req">*</span></label>
+            <input type="text" id="regNumber" placeholder="Enter your registration number">
+          </div>
+          <div class="field">
+            <label>Course<span class="req">*</span></label>
+            <div class="field-input-wrap">
+              <select id="course">
+                <option value="">Select specialization</option>
+                <option>BCA</option>
+                <option>BBA</option>
+                <option>B.Tech</option>
+                <option>B.Com</option>
+                <option>B.Sc</option>
+                <option>B.A.</option>
+                <option>MCA</option>
+                <option>M.Com</option>
+                <option>M.Sc</option>
+              </select>
+              <i class="fa-solid fa-chevron-down select-chev"></i>
+            </div>
+          </div>
+          <div class="field">
+            <label>Year of Passing<span class="req">*</span></label>
+            <div class="field-input-wrap">
+              <input type="text" id="yearPassing" placeholder="YYYY" maxlength="4" inputmode="numeric">
+              <i class="fa-regular fa-calendar cal-icon"></i>
+            </div>
+          </div>
+          <div class="field full">
+            <label>Enrollment / Roll Number<span class="req">*</span></label>
+            <div class="field-input-wrap">
+              <input type="text" id="enrollNumber" placeholder="Ex: ABC-12345-2021">
+              <span class="auto-format-badge" title="We'll auto-format this as ABC-12345-2021">AUTO-FORMAT <i
+                  class="fa-solid fa-circle-info"></i></span>
+            </div>
+          </div>
+        </div>
+        <div class="step-actions" style="justify-content:flex-end;">
+          <button class="btn-continue" id="step1Continue">Continue <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- STEP 2: ADDRESS DETAILS -->
+      <div class="step-panel" data-step="2">
+        <div class="section-title">Address For Corresponding</div>
+        <div class="form-grid">
+          <div class="field">
+            <label>Adress Line 1<span class="req">*</span></label>
+            <input type="text" id="addr1" placeholder="Enter Your Resdential Address">
+          </div>
+          <div class="field">
+            <label>Adress Line 2</label>
+            <input type="text" id="addr2" placeholder="Enter Your Resdential Address">
+          </div>
+          <div class="field">
+            <label>Country<span class="req">*</span></label>
+            <div class="field-input-wrap">
+              <select id="country">
+                <option value="">Select</option>
+                <option>India</option>
+              </select>
+              <i class="fa-solid fa-chevron-down select-chev"></i>
+            </div>
+          </div>
+          <div class="field">
+            <label>State<span class="req">*</span></label>
+            <div class="field-input-wrap">
+              <select id="state">
+                <option value="">Select</option>
+              </select>
+              <i class="fa-solid fa-chevron-down select-chev"></i>
+            </div>
+          </div>
+          <div class="field">
+            <label>City<span class="req">*</span></label>
+            <div class="field-input-wrap">
+              <select id="city">
+                <option value="">Select</option>
+              </select>
+              <i class="fa-solid fa-chevron-down select-chev"></i>
+            </div>
+          </div>
+          <div class="field">
+            <label>Pincode<span class="req">*</span></label>
+            <input type="text" id="pincode" placeholder="Pincode" maxlength="6" inputmode="numeric">
+          </div>
+          <div class="field">
+            <label>Email<span class="req">*</span></label>
+            <input type="email" id="email" placeholder="Enter your email">
+          </div>
+          <div class="field">
+            <label>Mobile<span class="req">*</span></label>
+            <input type="tel" id="mobile" placeholder="Enter your mobile number" maxlength="10" inputmode="numeric">
+          </div>
+        </div>
+        <div class="step-actions">
+          <button class="btn-prev" data-goto="1">Previous</button>
+          <button class="btn-continue" id="step2Continue">Continue <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- STEP 3: UPLOAD DOCS -->
+      <div class="step-panel" data-step="3">
+        <div class="section-title">Upload Documents</div>
+
+        <div class="upload-row">
+          <div class="u-label">Upload Your Photo<span class="req">*</span></div>
+          <div class="upload-field" id="photoField">
+            <div class="u-display" id="photoDisplay">Upload your Photo</div>
+            <button class="browse-btn" data-target="photoInput">Browse</button>
+          </div>
+          <div class="upload-note">Max Upload Size is 50kb. Supported formats are png, jpg and jpeg.</div>
+        </div>
+        <div class="upload-row">
+          <div class="u-label">Upload Your Signature<span class="req">*</span></div>
+          <div class="upload-field" id="signatureField">
+            <div class="u-display" id="signatureDisplay">Upload Signature</div>
+            <button class="browse-btn" data-target="signatureInput">Browse</button>
+          </div>
+          <div class="upload-note">Max Upload Size is 50kb. Supported formats are png, jpg and jpeg.</div>
+        </div>
+        <div class="upload-row">
+          <div class="u-label">Upload Your Marksheet<span class="req">*</span></div>
+          <div class="upload-field" id="marksheetField">
+            <div class="u-display" id="marksheetDisplay">Upload Marksheet</div>
+            <button class="browse-btn" data-target="marksheetInput">Browse</button>
+          </div>
+          <div class="upload-note">Max Upload Size is 50kb. Supported formats are png, jpg and jpeg.</div>
+        </div>
+
+        <input type="file" id="photoInput" accept=".png,.jpg,.jpeg" style="display:none">
+        <input type="file" id="signatureInput" accept=".png,.jpg,.jpeg" style="display:none">
+        <input type="file" id="marksheetInput" accept=".png,.jpg,.jpeg,.pdf" style="display:none">
+
+        <div class="step-actions" style="margin-top:8px;">
+          <button class="btn-prev" data-goto="2">Previous</button>
+          <button class="btn-continue" id="step3Continue">Continue <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- STEP 4: REVIEW & PAY -->
+      <div class="step-panel" data-step="4">
+        <div class="review-title">Review Your Application</div>
+
+        <div class="review-card">
+          <div class="review-card-head">
+            <div class="rh-left"><i class="fa-solid fa-graduation-cap"></i> Personal &amp; Academic Details</div>
+            <button class="edit-link" data-goto="1"><i class="fa-solid fa-pen"></i> Edit Details</button>
+          </div>
+          <div class="review-grid" id="reviewBasicGrid"></div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-head">
+            <div class="rh-left"><i class="fa-solid fa-location-dot"></i> Address For Corresponding</div>
+            <button class="edit-link" data-goto="2"><i class="fa-solid fa-pen"></i> Edit Details</button>
+          </div>
+          <div class="review-grid" id="reviewAddressGrid"></div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-head">
+            <div class="rh-left"><i class="fa-solid fa-file-lines"></i> Uploaded Documents</div>
+            <button class="edit-link" data-goto="3"><i class="fa-solid fa-pen"></i> Edit Details</button>
+          </div>
+          <div class="review-docs" id="reviewDocsRow"></div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-head">
+            <div class="rh-left"><i class="fa-solid fa-receipt"></i> Payment Summary</div>
+          </div>
+          <div class="pay-summary-row">
+            <div class="pay-summary-left">
+              <div class="ps-label">Total Amount</div>
+              <div class="ps-rows">
+                <div><span>Service</span><span>Degree Certificate</span></div>
+                <div><span>Application Type</span><span>First Issue</span></div>
+                <div><span>Service Fee</span><span>&#8377;499</span></div>
+                <div><span>Convenience Fee</span><span>&#8377;49</span></div>
+              </div>
+            </div>
+            <div class="pay-summary-right">
+              <div class="ps-total-label">Total Amount</div>
+              <div class="ps-total">&#8377;548</div>
+              <div class="ps-secure"><i class="fa-solid fa-lock"></i> Secure payment &bull; Your data is safe</div>
+              <button class="btn-continue" id="proceedToPayBtn">Proceed to Pay &#8377;548 <i
+                  class="fa-solid fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-actions" style="justify-content:flex-start; margin-top:4px;">
+          <button class="btn-prev" data-goto="3">Previous</button>
+        </div>
+      </div>
+
+      <!-- STEP 5: PAYMENT -->
+      <div class="step-panel" data-step="5">
+        <div class="review-title">Select Payment Method</div>
+
+        <div class="pm-option" data-method="upi">
+          <div class="pm-header">
+            <div class="pm-icon"><i class="fa-solid fa-qrcode"></i></div>
+            <div>
+              <div class="pm-title">UPI</div>
+              <div class="pm-sub">Google Pay, PhonePe, Paytm</div>
+            </div>
+            <i class="fa-solid fa-chevron-down pm-chev"></i>
+          </div>
+          <div class="pm-body">
+            <input type="text" id="upiId" placeholder="yourname@upi">
+          </div>
+        </div>
+
+        <div class="pm-option" data-method="card">
+          <div class="pm-header">
+            <div class="pm-icon"><i class="fa-solid fa-credit-card"></i></div>
+            <div>
+              <div class="pm-title">Debit / Credit Card</div>
+              <div class="pm-sub">Visa, MasterCard, RuPay</div>
+            </div>
+            <i class="fa-solid fa-chevron-down pm-chev"></i>
+          </div>
+          <div class="pm-body">
+            <input type="text" id="cardNumber" placeholder="Card Number">
+            <div class="pm-row2">
+              <input type="text" id="cardExpiry" placeholder="MM/YY">
+              <input type="text" id="cardCvv" placeholder="CVV">
+            </div>
+            <input type="text" id="cardName" placeholder="Name on Card">
+          </div>
+        </div>
+
+        <div class="pm-option" data-method="netbanking">
+          <div class="pm-header">
+            <div class="pm-icon"><i class="fa-solid fa-building-columns"></i></div>
+            <div>
+              <div class="pm-title">Net Banking</div>
+              <div class="pm-sub">All major banks supported</div>
+            </div>
+            <i class="fa-solid fa-chevron-down pm-chev"></i>
+          </div>
+          <div class="pm-body">
+            <div class="field-input-wrap">
+              <select id="bankSelect">
+                <option value="">Select your bank</option>
+                <option>State Bank of India</option>
+                <option>HDFC Bank</option>
+                <option>ICICI Bank</option>
+                <option>Axis Bank</option>
+                <option>Kotak Mahindra Bank</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="order-summary">
+          <div class="os-head"><i class="fa-solid fa-receipt"></i> Order Summary</div>
+          <div class="os-grid">
+            <div><span>Service</span><strong>Degree Certificate</strong></div>
+            <div><span>Order ID</span><strong id="pmOrderId">—</strong></div>
+            <div><span>Processing Time</span><strong>7-10 working days</strong></div>
+          </div>
+          <hr>
+          <div class="os-fee-row"><span>Service Fee</span><span>&#8377;499</span></div>
+          <div class="os-fee-row"><span>Convenience Fee</span><span>&#8377;49</span></div>
+          <div class="os-total-row">
+            <div class="lbl">Total Amount<small>Inclusive of all taxes</small></div>
+            <div class="val">&#8377;548</div>
+          </div>
+        </div>
+
+        <button class="btn-pay" id="payNowBtn">Proceed to Pay &#8377;548 <i
+            class="fa-solid fa-arrow-right"></i></button>
+        <div class="pay-secure-note"><i class="fa-solid fa-shield-halved"></i> Secure payment &bull; 100% safe &amp;
+          encrypted</div>
+
+        <div class="step-actions" style="justify-content:flex-start; margin-top:18px;">
+          <button class="btn-prev" data-goto="4">Previous</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS SCREEN -->
+  <div class="success-wrap" id="successScreen" style="display:none;">
+    <div class="success-top">
+      <div class="success-check"><i class="fa-solid fa-check"></i></div>
+      <h2>Payment Successful!</h2>
+      <p>Your application has been successfully submitted and payment has been received.</p>
+      <div class="success-meta">
+        <div class="sm-item"><span>Order ID</span><strong id="sOrderId">—</strong></div>
+        <div class="sm-item"><span>Transaction ID</span><strong id="sTxnId">—</strong></div>
+        <div class="sm-item"><span>Date &amp; Time</span><strong id="sDateTime">—</strong></div>
+      </div>
+      <div class="success-btn-row">
+        <button class="sbtn primary" id="trackAppBtn"><i class="fa-solid fa-location-crosshairs"></i> Track
+          Application</button>
+        <button class="sbtn outline" id="downloadReceiptBtn"><i class="fa-solid fa-download"></i> Download
+          Receipt</button>
+        <button class="sbtn outline" id="backHomeBtn"><i class="fa-solid fa-house"></i> Back to home</button>
+      </div>
+      <a class="view-details-link" id="viewDetailsLink">View Complete Application Details</a>
+    </div>
+
+    <div class="success-grid">
+      <div class="summary-card">
+        <div class="summary-card-head">
+          <div class="sh-title">Application Summary</div>
+          <div class="badge-submitted">Submitted</div>
+        </div>
+        <div class="app-summary-grid">
+          <div class="as-item">
+            <div class="as-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div class="as-text"><span>Service</span><strong>Degree Certificate</strong></div>
+          </div>
+          <div class="as-item">
+            <div class="as-icon"><i class="fa-solid fa-clock"></i></div>
+            <div class="as-text"><span>Processing Time</span><strong>7-10 Working Days</strong></div>
+          </div>
+          <div class="as-item">
+            <div class="as-icon"><i class="fa-solid fa-wallet"></i></div>
+            <div class="as-text"><span>Amount Paid</span><strong>&#8377;548.00</strong></div>
+          </div>
+          <div class="as-item">
+            <div class="as-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <div class="as-text"><span>Current Status</span><strong>Document Verification</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-card-head">
+          <div class="sh-title"><i class="fa-solid fa-file-invoice" style="color:var(--red);"></i> Detailed Breakdown
+          </div>
+        </div>
+        <div class="breakdown-row"><span>Order Subtotal</span><span>&#8377;498.00</span></div>
+        <div class="breakdown-row"><span>Conveniency Fee</span><span>&#8377;30.00</span></div>
+        <div class="breakdown-row"><span>Service Tax (GST)</span><span>&#8377;20.00</span></div>
+        <hr class="breakdown-hr">
+        <div class="breakdown-total">
+          <div class="bt-label">Total Paid<small id="sPayMethod">via UPI</small></div>
+          <div class="bt-val">&#8377;548</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="help-box">
+      <h4>Need Immediate Help?</h4>
+      <div class="help-row">
+        <button class="help-btn" id="expertCallBtn"><i class="fa-solid fa-headset"></i> Expert Call</button>
+        <button class="help-btn" id="liveChatBtn"><i class="fa-solid fa-comment-dots"></i> Live Chat</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLICATION DETAILS MODAL (read-only, from success screen) -->
+  <div class="modal-overlay" id="detailsModalOverlay">
+    <div class="modal-box" style="max-width:560px;">
+      <div class="modal-head">
+        <div class="mh-title"><i class="fa-solid fa-file-lines"></i> Application Details</div>
+        <button class="modal-close" id="detailsCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="review-card">
+        <div class="review-card-head">
+          <div class="rh-left"><i class="fa-solid fa-graduation-cap"></i> Personal &amp; Academic Details</div>
+        </div>
+        <div class="review-grid" id="detailsBasicGrid"></div>
+      </div>
+      <div class="review-card">
+        <div class="review-card-head">
+          <div class="rh-left"><i class="fa-solid fa-location-dot"></i> Address For Corresponding</div>
+        </div>
+        <div class="review-grid" id="detailsAddressGrid"></div>
+      </div>
+      <div class="review-card" style="margin-bottom:0;">
+        <div class="review-card-head">
+          <div class="rh-left"><i class="fa-solid fa-file-lines"></i> Uploaded Documents</div>
+        </div>
+        <div class="review-docs" id="detailsDocsRow"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-wrap"></div>
+
+  <script>
+    /* ============ STATIC DATA ============ */
+    const STEPS = [
+      { label: 'Basic Info', title: 'Degree Details', sub: 'Please provide the official details exactly as they appear on your records to ensure seamless verification.' },
+      { label: 'Address Details', title: 'Address Details', sub: 'Provide your communication and delivery address details carefully for document processing and updates.' },
+      { label: 'Upload Docs', title: 'Upload Documents', sub: 'Upload clear and valid documents for quick verification and smooth application processing' },
+      { label: 'Review & Pay', title: 'Review & Payment', sub: 'Please verify your details before proceeding to payment.' },
+      { label: 'Payment', title: 'Select Payment Method', sub: 'Choose your preferred payment option to complete your request. Our transactions are secured with industry-standard encryption.' },
+      { label: 'Success', title: '', sub: '', flag: true },
+    ];
+
+    const CITIES_BY_STATE = {
+      'Maharashtra': ['Pune', 'Mumbai', 'Nagpur'],
+      'Karnataka': ['Bengaluru', 'Mysuru'],
+      'Delhi': ['New Delhi'],
+      'Gujarat': ['Ahmedabad', 'Surat'],
+      'Tamil Nadu': ['Chennai', 'Coimbatore'],
+    };
+
+    let currentStep = 1;
+    let orderId = null;
+
+    /* ============ UTIL ============ */
+    function el(html) { const t = document.createElement('template'); t.innerHTML = html.trim(); return t.content.firstElementChild; }
+    function $(sel) { return document.querySelector(sel); }
+    function $all(sel) { return [...document.querySelectorAll(sel)]; }
+    function showToast(msg, icon) {
+      const wrap = document.getElementById('toast-wrap');
+      const t = el(`<div class="toast"><i class="fa-solid ${icon || 'fa-circle-check'}"></i><span>${msg}</span></div>`);
+      wrap.appendChild(t);
+      setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity .3s ease'; setTimeout(() => t.remove(), 300); }, 2600);
+    }
+    function genOrderId() { return 'ITZ' + Math.floor(100000 + Math.random() * 900000); }
+    function genTxnId() { return 'TXN' + Math.floor(10000000 + Math.random() * 90000000); }
+    function formatNow() {
+      const d = new Date();
+      const day = String(d.getDate()).padStart(2, '0');
+      const month = d.toLocaleString('en-US', { month: 'short' });
+      const year = d.getFullYear();
+      const hh = String(d.getHours()).padStart(2, '0');
+      const mm = String(d.getMinutes()).padStart(2, '0');
+      return `${day} ${month} ${year}, ${hh}:${mm}`;
+    }
+
+    /* ============ STEPPER ============ */
+    function renderStepper() {
+      const wrap = document.getElementById('stepper');
+      wrap.innerHTML = '';
+      STEPS.forEach((s, i) => {
+        const n = i + 1;
+        const done = n <= currentStep;
+        const active = n === currentStep;
+        const item = el(`
+      <div class="step-item ${done ? 'line-done' : ''}">
+        <div class="step-circle ${done ? 'done' : ''}">${s.flag ? '<i class="fa-solid fa-flag"></i>' : n}</div>
+        <div class="step-label ${done ? 'done' : ''} ${active ? 'active' : ''}">${s.label}</div>
+      </div>`);
+        wrap.appendChild(item);
+      });
+    }
+
+    /* ============ NAVIGATION ============ */
+    function goToStep(n) {
+      currentStep = n;
+      document.getElementById('successScreen').style.display = 'none';
+      document.getElementById('hero').style.display = '';
+      document.getElementById('wizardWrap').style.display = '';
+      $all('.step-panel').forEach(p => p.classList.toggle('active', +p.dataset.step === n));
+      document.getElementById('heroTitle').textContent = STEPS[n - 1].title;
+      document.getElementById('heroSub').textContent = STEPS[n - 1].sub;
+      renderStepper();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    $all('[data-goto]').forEach(btn => {
+      btn.addEventListener('click', () => goToStep(+btn.dataset.goto));
+    });
+
+    /* ============ VALIDATION ============ */
+    function markField(input, invalid) {
+      input.classList.toggle('invalid', invalid);
+      if (input._csWrap) input._csWrap.classList.toggle('invalid', invalid);
+    }
+    function validateRequired(ids) {
+      let ok = true;
+      ids.forEach(id => {
+        const field = document.getElementById(id);
+        const empty = !field.value || !field.value.trim();
+        markField(field, empty);
+        if (empty) ok = false;
+      });
+      return ok;
+    }
+
+    document.getElementById('step1Continue').addEventListener('click', () => {
+      const ok = validateRequired(['fullName', 'docType', 'uniName', 'regNumber', 'course', 'yearPassing', 'enrollNumber']);
+      if (!ok) { showToast('Please fill all required fields.', 'fa-triangle-exclamation'); return; }
+      const yp = document.getElementById('yearPassing');
+      if (yp.value && !/^\d{4}$/.test(yp.value.trim())) {
+        markField(yp, true);
+        showToast('Year of Passing should be a 4-digit year.', 'fa-triangle-exclamation');
+        return;
+      }
+      goToStep(2);
+    });
+
+    document.getElementById('step2Continue').addEventListener('click', () => {
+      const ok = validateRequired(['addr1', 'country', 'state', 'city', 'pincode', 'email', 'mobile']);
+      if (!ok) { showToast('Please fill all required fields.', 'fa-triangle-exclamation'); return; }
+      const email = document.getElementById('email');
+      if (email.value && !/^\S+@\S+\.\S+$/.test(email.value.trim())) {
+        markField(email, true);
+        showToast('Please enter a valid email address.', 'fa-triangle-exclamation');
+        return;
+      }
+      const mobile = document.getElementById('mobile');
+      if (mobile.value && !/^\d{10}$/.test(mobile.value.trim())) {
+        markField(mobile, true);
+        showToast('Mobile number should be 10 digits.', 'fa-triangle-exclamation');
+        return;
+      }
+      goToStep(3);
+    });
+
+    document.getElementById('step3Continue').addEventListener('click', () => {
+      let ok = true;
+      [['photoField', uploadedFiles.photo], ['signatureField', uploadedFiles.signature], ['marksheetField', uploadedFiles.marksheet]].forEach(([fieldId, file]) => {
+        const invalid = !file;
+        document.getElementById(fieldId).classList.toggle('invalid', invalid);
+        if (invalid) ok = false;
+      });
+      if (!ok) { showToast('Please upload all required documents.', 'fa-triangle-exclamation'); return; }
+      orderId = orderId || genOrderId();
+      buildReview();
+      goToStep(4);
+    });
+
+    /* ============ CUSTOM DROPDOWN COMPONENT ============ */
+    function closeAllCustomSelects(except) {
+      $all('.cs-wrap.open').forEach(w => { if (w !== except) w.classList.remove('open'); });
+    }
+    document.addEventListener('click', () => closeAllCustomSelects(null));
+
+    function buildCustomSelect(selectEl) {
+      const wrap = el(`<div class="cs-wrap"></div>`);
+      const trigger = el(`<button type="button" class="cs-trigger"><span class="cs-value"></span><i class="fa-solid fa-chevron-down cs-chev"></i></button>`);
+      const panel = el(`<div class="cs-panel"></div>`);
+      wrap.appendChild(trigger);
+      wrap.appendChild(panel);
+      selectEl.parentNode.insertBefore(wrap, selectEl);
+
+      function updateTrigger(placeholderText) {
+        const valSpan = trigger.querySelector('.cs-value');
+        if (selectEl.value) {
+          const opt = [...selectEl.options].find(o => o.value === selectEl.value);
+          valSpan.textContent = opt ? opt.textContent : selectEl.value;
+          trigger.classList.add('has-value');
+        } else {
+          valSpan.textContent = placeholderText;
+          trigger.classList.remove('has-value');
+        }
+      }
+
+      function refresh() {
+        const options = [...selectEl.options];
+        const placeholderOpt = options.find(o => o.value === '');
+        const placeholderText = placeholderOpt ? placeholderOpt.textContent : 'Select';
+        const realOptions = options.filter(o => o.value !== '');
+        panel.innerHTML = '';
+        if (realOptions.length === 0) {
+          panel.appendChild(el(`<div class="cs-empty">No options available</div>`));
+        } else {
+          realOptions.forEach(o => {
+            const optEl = el(`<div class="cs-option ${o.value === selectEl.value ? 'selected' : ''}">${o.textContent}</div>`);
+            optEl.addEventListener('click', () => {
+              selectEl.value = o.value;
+              selectEl.dispatchEvent(new Event('change', { bubbles: true }));
+              updateTrigger(placeholderText);
+              wrap.classList.remove('open');
+              [...panel.children].forEach(c => c.classList.toggle('selected', c === optEl));
+            });
+            panel.appendChild(optEl);
+          });
+        }
+        updateTrigger(placeholderText);
+      }
+
+      trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const willOpen = !wrap.classList.contains('open');
+        closeAllCustomSelects(wrap);
+        wrap.classList.toggle('open', willOpen);
+      });
+
+      selectEl._csRefresh = refresh;
+      selectEl._csWrap = wrap;
+      refresh();
+    }
+
+    ['docType', 'course', 'country', 'state', 'city', 'bankSelect'].forEach(id => {
+      const s = document.getElementById(id);
+      if (s) buildCustomSelect(s);
+    });
+
+    /* Country -> State -> City cascade */
+    const countrySel = document.getElementById('country');
+    const stateSel = document.getElementById('state');
+    const citySel = document.getElementById('city');
+    countrySel.addEventListener('change', () => {
+      stateSel.innerHTML = '<option value="">Select</option>';
+      citySel.innerHTML = '<option value="">Select</option>';
+      if (countrySel.value === 'India') {
+        Object.keys(CITIES_BY_STATE).forEach(s => stateSel.appendChild(el(`<option>${s}</option>`)));
+      }
+      stateSel._csRefresh();
+      citySel._csRefresh();
+    });
+    stateSel.addEventListener('change', () => {
+      citySel.innerHTML = '<option value="">Select</option>';
+      (CITIES_BY_STATE[stateSel.value] || []).forEach(c => citySel.appendChild(el(`<option>${c}</option>`)));
+      citySel._csRefresh();
+    });
+
+    /* ============ FILE UPLOADS ============ */
+    const uploadedFiles = { photo: null, signature: null, marksheet: null };
+    function wireUpload(key, inputId, displayId, fieldId) {
+      const input = document.getElementById(inputId);
+      const display = document.getElementById(displayId);
+      const field = document.getElementById(fieldId);
+      document.querySelector(`.browse-btn[data-target="${inputId}"]`).addEventListener('click', () => input.click());
+      input.addEventListener('change', () => {
+        if (!input.files.length) return;
+        const file = input.files[0];
+        uploadedFiles[key] = file;
+        display.textContent = file.name;
+        display.classList.add('filled');
+        display.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${file.name}`;
+        field.classList.remove('invalid');
+      });
+    }
+    wireUpload('photo', 'photoInput', 'photoDisplay', 'photoField');
+    wireUpload('signature', 'signatureInput', 'signatureDisplay', 'signatureField');
+    wireUpload('marksheet', 'marksheetInput', 'marksheetDisplay', 'marksheetField');
+
+    /* ============ REVIEW BUILD ============ */
+    function fieldPair(label, value) {
+      return `<div class="rg-item"><span>${label}</span><strong>${value || '—'}</strong></div>`;
+    }
+    function docChip(icon, name) {
+      return `<div class="review-doc-chip"><i class="fa-solid ${icon} file-i"></i> ${name} <i class="fa-solid fa-circle-check ok-i"></i></div>`;
+    }
+    function buildReview() {
+      const basicHtml =
+        fieldPair('Full Name', document.getElementById('fullName').value) +
+        fieldPair('University / College Name', document.getElementById('uniName').value) +
+        fieldPair('Type of Document', document.getElementById('docType').value) +
+        fieldPair('Registration Number', document.getElementById('regNumber').value) +
+        fieldPair('Course', document.getElementById('course').value) +
+        fieldPair('Year of Passing', document.getElementById('yearPassing').value) +
+        fieldPair('Enrollment / Roll Number', document.getElementById('enrollNumber').value);
+      document.getElementById('reviewBasicGrid').innerHTML = basicHtml;
+      document.getElementById('detailsBasicGrid').innerHTML = basicHtml;
+
+      const addressHtml =
+        fieldPair('Address Line 1', document.getElementById('addr1').value) +
+        fieldPair('Address Line 2', document.getElementById('addr2').value) +
+        fieldPair('Country', document.getElementById('country').value) +
+        fieldPair('State', document.getElementById('state').value) +
+        fieldPair('City', document.getElementById('city').value) +
+        fieldPair('Pincode', document.getElementById('pincode').value) +
+        fieldPair('Email', document.getElementById('email').value) +
+        fieldPair('Mobile', document.getElementById('mobile').value);
+      document.getElementById('reviewAddressGrid').innerHTML = addressHtml;
+      document.getElementById('detailsAddressGrid').innerHTML = addressHtml;
+
+      const docsHtml =
+        docChip('fa-image', uploadedFiles.photo ? uploadedFiles.photo.name : 'Photo.jpg') +
+        docChip('fa-signature', uploadedFiles.signature ? uploadedFiles.signature.name : 'Signature.png') +
+        docChip('fa-file-lines', uploadedFiles.marksheet ? uploadedFiles.marksheet.name : 'Marksheet.pdf');
+      document.getElementById('reviewDocsRow').innerHTML = docsHtml;
+      document.getElementById('detailsDocsRow').innerHTML = docsHtml;
+    }
+
+    /* ============ PAYMENT PAGE ============ */
+    let selectedPaymentMethod = null;
+
+    document.getElementById('proceedToPayBtn').addEventListener('click', () => {
+      document.getElementById('pmOrderId').textContent = orderId || genOrderId();
+      goToStep(5);
+    });
+
+    $all('.pm-option').forEach(opt => {
+      opt.querySelector('.pm-header').addEventListener('click', () => {
+        const wasSelected = opt.classList.contains('selected');
+        $all('.pm-option').forEach(o => o.classList.remove('selected'));
+        if (!wasSelected) {
+          opt.classList.add('selected');
+          selectedPaymentMethod = opt.dataset.method;
+        } else {
+          selectedPaymentMethod = null;
+        }
+      });
+    });
+
+    document.getElementById('payNowBtn').addEventListener('click', () => {
+      if (!selectedPaymentMethod) { showToast('Please select a payment method.', 'fa-triangle-exclamation'); return; }
+      const btn = document.getElementById('payNowBtn');
+      const originalHtml = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing Payment...';
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = originalHtml;
+        completePayment();
+      }, 1000);
+    });
+
+    function methodLabel(m) {
+      if (m === 'upi') return 'UPI';
+      if (m === 'card') return 'Card';
+      if (m === 'netbanking') return 'Net Banking';
+      return 'UPI';
+    }
+
+    function completePayment() {
+      const txnId = genTxnId();
+      document.getElementById('sOrderId').textContent = orderId;
+      document.getElementById('sTxnId').textContent = txnId;
+      document.getElementById('sDateTime').textContent = formatNow();
+      document.getElementById('sPayMethod').textContent = 'via ' + methodLabel(selectedPaymentMethod);
+
+      currentStep = 6;
+      document.getElementById('hero').style.display = 'none';
+      document.getElementById('wizardWrap').style.display = 'none';
+      document.getElementById('successScreen').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      showToast('Payment successful! Application submitted.', 'fa-circle-check');
+    }
+
+    /* ============ SUCCESS ACTIONS ============ */
+    document.getElementById('trackAppBtn').addEventListener('click', () => {
+      showToast('Tracking activated — you will get SMS & email updates on your application status.', 'fa-location-crosshairs');
+    });
+    document.getElementById('downloadReceiptBtn').addEventListener('click', () => {
+      if (!window.jspdf) { showToast('PDF library failed to load. Check your connection.', 'fa-triangle-exclamation'); return; }
+      const orderIdTxt = document.getElementById('sOrderId').textContent;
+      const txnTxt = document.getElementById('sTxnId').textContent;
+      const dateTxt = document.getElementById('sDateTime').textContent;
+      const nameTxt = document.getElementById('fullName').value || '—';
+      const uniTxt = document.getElementById('uniName').value || '—';
+      const payMethodTxt = methodLabel(selectedPaymentMethod);
+
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF({ unit: 'pt', format: 'a4' });
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const RED = [232, 72, 60], DARK = [20, 22, 31], GRAY = [107, 111, 125], LGRAY = [230, 230, 235];
+
+      pdf.setFillColor(RED[0], RED[1], RED[2]);
+      pdf.rect(0, 0, pageWidth, 72, 'F');
+      pdf.setTextColor(255, 255, 255);
+      pdf.setFont('helvetica', 'bold');
+      pdf.setFontSize(20);
+      pdf.text('Payment Receipt', 40, 36);
+      pdf.setFont('helvetica', 'normal');
+      pdf.setFontSize(10.5);
+      pdf.text('Degree Certificate Application', 40, 54);
+
+      let y = 104;
+      pdf.setTextColor(DARK[0], DARK[1], DARK[2]);
+      pdf.setFont('helvetica', 'bold');
+      pdf.setFontSize(12);
+      pdf.text('Order Details', 40, y);
+      y += 10;
+      pdf.setDrawColor(LGRAY[0], LGRAY[1], LGRAY[2]);
+      pdf.line(40, y, pageWidth - 40, y);
+      y += 24;
+
+      function infoRow(label, value) {
+        pdf.setFont('helvetica', 'normal');
+        pdf.setFontSize(8.5);
+        pdf.setTextColor(GRAY[0], GRAY[1], GRAY[2]);
+        pdf.text(label.toUpperCase(), 40, y);
+        pdf.setFont('helvetica', 'bold');
+        pdf.setFontSize(11);
+        pdf.setTextColor(DARK[0], DARK[1], DARK[2]);
+        pdf.text(String(value), 40, y + 15);
+        y += 38;
+      }
+      infoRow('Order ID', orderIdTxt);
+      infoRow('Transaction ID', txnTxt);
+      infoRow('Date & Time', dateTxt);
+      infoRow('Applicant Name', nameTxt);
+      infoRow('University / College', uniTxt);
+      infoRow('Service', 'Degree Certificate (First Issue)');
+      infoRow('Payment Method', payMethodTxt);
+
+      y += 6;
+      pdf.setFont('helvetica', 'bold');
+      pdf.setFontSize(12);
+      pdf.setTextColor(DARK[0], DARK[1], DARK[2]);
+      pdf.text('Fee Breakdown', 40, y);
+      y += 10;
+      pdf.line(40, y, pageWidth - 40, y);
+      y += 26;
+
+      function feeRow(label, value, isTotal) {
+        pdf.setFont('helvetica', isTotal ? 'bold' : 'normal');
+        pdf.setFontSize(isTotal ? 13 : 10.5);
+        if (isTotal) pdf.setTextColor(RED[0], RED[1], RED[2]); else pdf.setTextColor(GRAY[0], GRAY[1], GRAY[2]);
+        pdf.text(label, 40, y);
+        pdf.text(value, pageWidth - 40, y, { align: 'right' });
+        y += isTotal ? 24 : 20;
+      }
+      feeRow('Order Subtotal', 'Rs. 498.00');
+      feeRow('Conveniency Fee', 'Rs. 30.00');
+      feeRow('Service Tax (GST)', 'Rs. 20.00');
+      pdf.setDrawColor(LGRAY[0], LGRAY[1], LGRAY[2]);
+      pdf.line(40, y - 6, pageWidth - 40, y - 6);
+      y += 8;
+      feeRow('TOTAL PAID', 'Rs. 548.00', true);
+
+      y += 24;
+      pdf.setFont('helvetica', 'normal');
+      pdf.setFontSize(9.5);
+      pdf.setTextColor(GRAY[0], GRAY[1], GRAY[2]);
+      pdf.text('Thank you for your application. Processing time: 7-10 working days.', 40, y);
+      y += 14;
+      pdf.text('This is a system-generated receipt and does not require a signature.', 40, y);
+
+      pdf.save(`receipt-${orderIdTxt}.pdf`);
+      showToast('Receipt PDF downloaded.', 'fa-download');
+    });
+    document.getElementById('backHomeBtn').addEventListener('click', () => {
+      resetApplication();
+    });
+    document.getElementById('viewDetailsLink').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('detailsModalOverlay').classList.add('show');
+    });
+    document.getElementById('detailsCloseBtn').addEventListener('click', () => {
+      document.getElementById('detailsModalOverlay').classList.remove('show');
+    });
+    document.getElementById('detailsModalOverlay').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('detailsModalOverlay')) e.currentTarget.classList.remove('show');
+    });
+    document.getElementById('expertCallBtn').addEventListener('click', () => showToast('Connecting you to an expert agent...', 'fa-headset'));
+    document.getElementById('liveChatBtn').addEventListener('click', () => showToast('Opening live chat...', 'fa-comment-dots'));
+
+    function resetApplication() {
+      $all('.step-panel input, .step-panel select').forEach(f => { f.value = ''; f.classList.remove('invalid'); });
+      stateSel.innerHTML = '<option value="">Select</option>';
+      citySel.innerHTML = '<option value="">Select</option>';
+      ['docType', 'course', 'country', 'state', 'city', 'bankSelect'].forEach(id => {
+        const s = document.getElementById(id);
+        if (s && s._csRefresh) { s._csRefresh(); s._csWrap.classList.remove('invalid'); }
+      });
+      uploadedFiles.photo = uploadedFiles.signature = uploadedFiles.marksheet = null;
+      ['photoDisplay', 'signatureDisplay', 'marksheetDisplay'].forEach((id, i) => {
+        const labels = ['Upload your Photo', 'Upload Signature', 'Upload Marksheet'];
+        const d = document.getElementById(id);
+        d.textContent = labels[i];
+        d.classList.remove('filled');
+      });
+      orderId = null;
+      selectedPaymentMethod = null;
+      $all('.pm-option').forEach(o => o.classList.remove('selected'));
+      goToStep(1);
+    }
+
+    /* ============ INIT ============ */
+    renderStepper();
+  </script>
+</body>
+
+</html>

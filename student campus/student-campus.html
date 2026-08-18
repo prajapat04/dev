@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Academic Services</title>
+<style>
+  :root{
+    --red:#e21e1e;
+    --red-dark:#c01818;
+    --ink:#1a1a1a;
+    --gray-600:#5c5c5c;
+    --gray-500:#7a7a7a;
+    --gray-100:#f2f2f2;
+    --gray-200:#e9e9e9;
+    --line:#eadada;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    background:#fff;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    background:
+      linear-gradient(rgba(10,8,8,.72),rgba(10,8,8,.78)),
+      url("https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1600&auto=format&fit=crop") center/cover no-repeat;
+    padding:56px 20px 90px;
+    text-align:center;
+    color:#fff;
+  }
+  .hero h1{
+    font-size:2.4rem;
+    font-weight:700;
+    letter-spacing:-0.5px;
+    margin-bottom:16px;
+  }
+  .hero p{
+    max-width:560px;
+    margin:0 auto;
+    color:#d9d9d9;
+    font-size:1rem;
+    line-height:1.55;
+  }
+
+  .search-card{
+    max-width:900px;
+    margin:36px auto 0;
+    background:#fff;
+    border-radius:16px;
+    padding:22px;
+    box-shadow:0 20px 45px rgba(0,0,0,.35);
+    display:flex;
+    flex-wrap:wrap;
+    gap:16px;
+    align-items:end;
+    text-align:left;
+  }
+  .field{
+    flex:1 1 200px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .field label{
+    font-size:.7rem;
+    font-weight:700;
+    letter-spacing:.08em;
+    color:#555;
+    text-transform:uppercase;
+  }
+  .select-wrap{
+    position:relative;
+  }
+  .dd{
+    width:100%;
+    padding:13px 40px 13px 14px;
+    background:var(--gray-100);
+    border:1.5px solid var(--gray-200);
+    border-radius:10px;
+    font-size:.95rem;
+    font-weight:500;
+    color:var(--ink);
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    transition:border-color .18s ease, background .18s ease, box-shadow .18s ease;
+    user-select:none;
+  }
+  .dd span{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .dd:hover{
+    border-color:#e8b3b3;
+    background:#fdf5f5;
+  }
+  .select-wrap.open .dd{
+    border-color:var(--red);
+    background:#fdf5f5;
+    color:black;
+    box-shadow:0 0 0 3px rgba(226,30,30,.18);
+  }
+  .dd::after{
+    content:"";
+    flex:0 0 auto;
+    width:8px;
+    height:8px;
+    border-right:2px solid var(--red);
+    border-bottom:2px solid var(--red);
+    transform:translateY(-2px) rotate(45deg);
+    transition:transform .18s ease, border-color .18s ease;
+  }
+  .select-wrap.open .dd::after{
+    transform:translateY(2px) rotate(-135deg);
+    border-color:#fff;
+  }
+
+  .dd-menu{
+    position:absolute;
+    top:calc(100% + 10px);
+    left:0;
+    right:0;
+    background:#1c1414;
+    border:1px solid #3a2626;
+    border-radius:14px;
+    box-shadow:0 20px 40px rgba(0,0,0,.45);
+    padding:8px;
+    z-index:20;
+    max-height:240px;
+    overflow-y:auto;
+    opacity:0;
+    transform:translateY(-8px) scale(.97);
+    pointer-events:none;
+    transition:opacity .18s ease, transform .18s ease;
+  }
+  .dd-menu::before{
+    content:"";
+    position:absolute;
+    top:-6px;
+    left:24px;
+    width:12px;
+    height:12px;
+    background:#1c1414;
+    border-left:1px solid #3a2626;
+    border-top:1px solid #3a2626;
+    transform:rotate(45deg);
+  }
+  .select-wrap.open .dd-menu{
+    opacity:1;
+    transform:translateY(0) scale(1);
+    pointer-events:auto;
+  }
+  .dd-menu::-webkit-scrollbar{width:6px;}
+  .dd-menu::-webkit-scrollbar-thumb{background:#3a2626;border-radius:6px;}
+  .dd-option{
+    padding:12px 14px;
+    border-radius:9px;
+    font-size:.92rem;
+    color:#d9d0d0;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    transition:background .14s ease, color .14s ease;
+  }
+  .dd-option:hover{
+    background:rgba(226,30,30,.14);
+    color:#fff;
+  }
+  .dd-option.selected{
+    background:var(--red);
+    color:#fff;
+    font-weight:600;
+  }
+  .dd-option .check{
+    width:14px;
+    height:14px;
+    color:#fff;
+    flex:0 0 auto;
+    opacity:0;
+  }
+  .dd-option.selected .check{opacity:1;}
+  .dd-option .check svg{width:100%;height:100%;}
+  .search-btn{
+    flex:0 0 auto;
+    background:var(--red);
+    color:#fff;
+    border:none;
+    border-radius:10px;
+    padding:15px 34px;
+    font-weight:700;
+    font-size:.85rem;
+    letter-spacing:.05em;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:background .2s ease;
+  }
+  .search-btn:hover{background:var(--red-dark);}
+
+  /* ---------- HOW IT WORKS ---------- */
+  .how{
+    padding:80px 20px 90px;
+    text-align:center;
+  }
+  .how h2{
+    font-size:2.2rem;
+    font-weight:800;
+    margin-bottom:16px;
+  }
+  .how > p{
+    max-width:560px;
+    margin:0 auto 64px;
+    color:var(--gray-500);
+    line-height:1.6;
+  }
+
+  .steps{
+    max-width:1000px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:32px;
+    position:relative;
+  }
+  .step{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+  }
+  .step-icon{
+    width:64px;
+    height:64px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--gray-100);
+    color:var(--red);
+    margin-bottom:20px;
+    position:relative;
+    z-index:2;
+  }
+  .step:first-child .step-icon{
+    background:var(--red);
+    color:#fff;
+  }
+  .step-icon svg{width:26px;height:26px;}
+
+  /* connecting line */
+  .steps::before{
+    content:"";
+    position:absolute;
+    top:32px;
+    left:calc(12.5% + 32px);
+    right:calc(12.5% + 32px);
+    height:1px;
+    background:linear-gradient(to right, var(--red) 0%, var(--line) 25%, var(--line) 100%);
+    z-index:1;
+  }
+
+  .step h3{
+    font-size:1.05rem;
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  .step p{
+    font-size:.85rem;
+    color:var(--gray-500);
+    line-height:1.55;
+    max-width:210px;
+  }
+
+  /* ---------- WHY CHOOSE (dark features) ---------- */
+  .why{
+    background:#141212;
+    padding:70px 20px 76px;
+    text-align:center;
+  }
+  .why h2{
+    color:#fff;
+    font-size:2.1rem;
+    font-weight:800;
+    margin-bottom:16px;
+  }
+  .why-underline{
+    width:56px;
+    height:3px;
+    background:var(--red);
+    margin:0 auto 48px;
+    border-radius:2px;
+  }
+  .why-grid{
+    max-width:1080px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+  }
+  .why-card{
+    background:#1c1a1a;
+    border:1px solid #2a2727;
+    border-radius:12px;
+    padding:24px 22px 26px;
+    text-align:left;
+  }
+  .why-icon{
+    width:38px;
+    height:38px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--red);
+    margin-bottom:22px;
+  }
+  .why-icon svg{width:26px;height:26px;}
+  .why-card h3{
+    color:#fff;
+    font-size:1.02rem;
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  .why-card p{
+    color:#9c9797;
+    font-size:.82rem;
+    line-height:1.6;
+  }
+
+  /* ---------- CTA / CONSULTATION ---------- */
+  .cta{
+    padding:80px 20px 90px;
+    max-width:1180px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:center;
+  }
+  .cta-copy h2{
+    font-size:2.3rem;
+    font-weight:800;
+    line-height:1.2;
+    color:var(--ink);
+    margin-bottom:22px;
+  }
+  .cta-copy h2 .accent{color:var(--red);}
+  .cta-claim{
+    color:var(--red);
+    font-weight:700;
+    font-size:1.15rem;
+    margin-bottom:14px;
+  }
+  .cta-contact{
+    font-size:.85rem;
+    font-weight:600;
+    letter-spacing:.02em;
+    color:var(--ink);
+    line-height:1.7;
+  }
+
+  .cta-form{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+  }
+  .cta-form input,
+  .cta-form textarea{
+    width:100%;
+    padding:14px 16px;
+    border:1.5px solid var(--gray-200);
+    border-radius:10px;
+    font-size:.9rem;
+    font-family:inherit;
+    color:var(--ink);
+    background:#fff;
+    transition:border-color .18s ease, box-shadow .18s ease;
+  }
+  .cta-form input::placeholder,
+  .cta-form textarea::placeholder{color:#9a9a9a;}
+  .cta-form input:focus,
+  .cta-form textarea:focus{
+    outline:none;
+    border-color:var(--red);
+    box-shadow:0 0 0 3px rgba(226,30,30,.1);
+  }
+  .field-icon{position:relative;}
+  .field-icon svg{
+    position:absolute;
+    right:14px;
+    top:50%;
+    transform:translateY(-50%);
+    width:16px;
+    height:16px;
+    color:#9a9a9a;
+    pointer-events:none;
+  }
+  .cta-form textarea{
+    resize:vertical;
+    min-height:96px;
+  }
+  .cta-submit{
+    background:var(--red);
+    color:#fff;
+    border:none;
+    border-radius:10px;
+    padding:16px;
+    font-weight:700;
+    font-size:.95rem;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    transition:background .2s ease, transform .15s ease;
+  }
+  .cta-submit:hover{background:var(--red-dark);}
+  .cta-submit svg{width:16px;height:16px;}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:900px){
+    .steps{grid-template-columns:repeat(2,1fr);row-gap:56px;}
+    .steps::before{display:none;}
+    .why-grid{grid-template-columns:repeat(2,1fr);}
+    .cta{grid-template-columns:1fr;gap:48px;}
+  }
+
+  @media (max-width:640px){
+    .hero{padding:44px 16px 70px;}
+    .hero h1{font-size:1.7rem;}
+    .hero p{font-size:.92rem;}
+    .search-card{
+      flex-direction:column;
+      align-items:stretch;
+      margin-top:28px;
+      padding:18px;
+      border-radius:14px;
+    }
+    .search-btn{width:100%;padding:14px;}
+    .how{padding:64px 16px 64px;}
+    .how h2{font-size:1.7rem;}
+    .how > p{margin-bottom:44px;font-size:.92rem;}
+    .steps{grid-template-columns:1fr;gap:40px;}
+
+    .why{padding:56px 16px 60px;}
+    .why h2{font-size:1.6rem;}
+    .why-underline{margin-bottom:36px;}
+    .why-grid{grid-template-columns:1fr;gap:16px;}
+
+    .cta{padding:56px 16px 64px;gap:40px;}
+    .cta-copy h2{font-size:1.7rem;}
+    .cta-claim{font-size:1rem;}
+    .form-row{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <h1>Academic Services</h1>
+  <p>Streamlining your educational journey with professional document management and concierge support.</p>
+
+  <div class="search-card">
+    <div class="field">
+      <label>Select State</label>
+      <div class="select-wrap" id="state-dd">
+        <div class="dd" data-toggle><span data-label>Delhi NCR</span></div>
+        <div class="dd-menu">
+          <div class="dd-option selected" data-value="Delhi NCR">Delhi NCR<span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+          <div class="dd-option" data-value="Maharashtra">Maharashtra<span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+          <div class="dd-option" data-value="Karnataka">Karnataka<span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+          <div class="dd-option" data-value="Tamil Nadu">Tamil Nadu<span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Select University</label>
+      <div class="select-wrap" id="uni-dd">
+        <div class="dd" data-toggle><span data-label>University of Delhi (South Campus)</span></div>
+        <div class="dd-menu">
+          <div class="dd-option selected" data-value="University of Delhi (South Campus)">University of Delhi (South Campus)<span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+          <div class="dd-option" data-value="University of Delhi (North Campus)">University of Delhi (North Campus)<span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+          <div class="dd-option" data-value="Jawaharlal Nehru University">Jawaharlal Nehru University<span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+          <div class="dd-option" data-value="Jamia Millia Islamia">Jamia Millia Islamia<span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+        </div>
+      </div>
+    </div>
+    <button class="search-btn">SEARCH</button>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('.select-wrap').forEach(function(wrap){
+    var toggle = wrap.querySelector('[data-toggle]');
+    var label = wrap.querySelector('[data-label]');
+    var options = wrap.querySelectorAll('.dd-option');
+
+    toggle.addEventListener('click', function(e){
+      e.stopPropagation();
+      var isOpen = wrap.classList.contains('open');
+      document.querySelectorAll('.select-wrap.open').forEach(function(w){ w.classList.remove('open'); });
+      if(!isOpen) wrap.classList.add('open');
+    });
+
+    options.forEach(function(opt){
+      opt.addEventListener('click', function(){
+        options.forEach(function(o){ o.classList.remove('selected'); });
+        opt.classList.add('selected');
+        label.textContent = opt.dataset.value;
+        wrap.classList.remove('open');
+      });
+    });
+  });
+
+  document.addEventListener('click', function(){
+    document.querySelectorAll('.select-wrap.open').forEach(function(w){ w.classList.remove('open'); });
+  });
+</script>
+
+<section class="how">
+  <h2>How It Works</h2>
+  <p>Your seamless journey through university documentation, simplified into four expert-guided steps.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V9l7-5 7 5v12"/><path d="M9 21v-6h6v6"/><path d="M9 9h.01M12 9h.01M15 9h.01"/></svg>
+      </div>
+      <h3>Select University</h3>
+      <p>Choose your educational institution from our comprehensive verified database.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 13v8"/><path d="m8 17 4-4 4 4"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+      </div>
+      <h3>Upload Documents</h3>
+      <p>Securely upload high-quality scanned copies of your academic records.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+      </div>
+      <h3>Expert Verification</h3>
+      <p>Our specialists coordinate directly with university registrars for authentication.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><path d="m16 15 2 2 4-4"/></svg>
+      </div>
+      <h3>Direct Delivery</h3>
+      <p>Authenticated documents delivered securely to your international or domestic address.</p>
+    </div>
+  </div>
+</section>
+
+<section class="why">
+  <h2>Why Choose Itzeazy</h2>
+  <div class="why-underline"></div>
+
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+      </div>
+      <h3>Genuine Processing</h3>
+      <p>Direct coordination with university registrars for authentic, verified certification every time.</p>
+    </div>
+
+    <div class="why-card">
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V6H2v11h3"/><path d="M14 9h4l4 4v4h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+      </div>
+      <h3>Global Logistics</h3>
+      <p>Premium global logistics partners ensure your documents reach you safely anywhere in the world.</p>
+    </div>
+
+    <div class="why-card">
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/><path d="M12 12 16 8"/><path d="M12 2v2"/></svg>
+      </div>
+      <h3>Expert Assistance</h3>
+      <p>A dedicated team of experts with deep institutional knowledge of document requirements.</p>
+    </div>
+
+    <div class="why-card">
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>
+      </div>
+      <h3>Secure Tracking</h3>
+      <p>Real-time digital status updates throughout the entire application and delivery lifecycle.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="cta-copy">
+    <h2>Hassle free <span class="accent">Door-step</span><br>Citizen services</h2>
+    <p class="cta-claim">Claim Your Free Consultation</p>
+    <p class="cta-contact">Call Us Now At +91 9020978686 Or Email At<br>Info@Itzeazy.Com</p>
+  </div>
+
+  <form class="cta-form">
+    <div class="form-row">
+      <input type="text" placeholder="Name*" required>
+      <input type="email" placeholder="Email*" required>
+    </div>
+    <div class="form-row">
+      <input type="tel" placeholder="Phone*" required>
+      <input type="text" placeholder="City*" required>
+    </div>
+    <div class="field-icon">
+      <input type="text" placeholder="Preferred Time*" required>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+    </div>
+    <textarea placeholder="Message*" required></textarea>
+    <button type="submit" class="cta-submit">
+      Request call back
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+  </form>
+</section>
+
+</body>
+</html>
