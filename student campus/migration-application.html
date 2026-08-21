@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apply for Original Degree Certificate</title>
+  <title>Apply for Migration Certificate</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
@@ -72,8 +72,8 @@
       text-decoration: none;
     }
 
-    /* ---------- HERO-deg ---------- */
-    .hero-deg {
+    /* ---------- HERO-mig ---------- */
+    .hero-mig {
       position: relative;
       background:
         radial-gradient(ellipse 900px 500px at 15% -10%, rgba(232, 72, 60, 0.18), transparent 60%),
@@ -84,7 +84,7 @@
       overflow: hidden;
     }
 
-    .hero-deg::before {
+    .hero-mig::before {
       content: '';
       position: absolute;
       inset: 0;
@@ -94,13 +94,13 @@
       pointer-events: none;
     }
 
-    .hero-deg-inner {
+    .hero-mig-inner {
       max-width: 640px;
       position: relative;
       z-index: 1;
     }
 
-    .hero-deg .eyebrow {
+    .hero-mig .eyebrow {
       font-size: 11px;
       font-weight: 700;
       letter-spacing: .08em;
@@ -109,14 +109,14 @@
       margin-bottom: 6px;
     }
 
-    .hero-deg h1 {
+    .hero-mig h1 {
       font-size: 28px;
       font-weight: 700;
       margin-bottom: 10px;
       letter-spacing: -0.01em;
     }
 
-    .hero-deg p {
+    .hero-mig p {
       font-size: 13.5px;
       color: #c3c4cc;
       line-height: 1.6;
@@ -1355,11 +1355,11 @@
 
     /* ---------- RESPONSIVE ---------- */
     @media (max-width:760px) {
-      .hero-deg {
+      .hero-mig {
         padding: 28px 18px 100px;
       }
 
-      .hero-deg h1 {
+      .hero-mig h1 {
         font-size: 22px;
       }
 
@@ -1467,12 +1467,12 @@
 
 <body>
 
-  <!-- HERO-deg -->
-  <div class="hero-deg" id="hero-deg">
-    <div class="hero-deg-inner">
+  <!-- HERO-mig -->
+  <div class="hero-mig" id="hero-mig">
+    <div class="hero-mig-inner">
       <div class="eyebrow">Application Process</div>
-      <h1 id="hero-degTitle">Degree Details</h1>
-      <p id="hero-degSub">Please provide the official details exactly as they appear on your records to ensure seamless
+      <h1 id="hero-migTitle">Migration Details</h1>
+      <p id="hero-migSub">Please provide the official details exactly as they appear on your records to ensure seamless
         verification.</p>
     </div>
   </div>
@@ -1483,7 +1483,7 @@
 
       <!-- STEP 1: BASIC INFO -->
       <div class="step-panel active" data-step="1">
-        <div class="section-title">Application For Original Degree Certificate</div>
+        <div class="section-title">Application For Original Migration Certificate</div>
         <div class="form-grid">
           <div class="field">
             <label>Full Name<span class="req">*</span></label>
@@ -1494,11 +1494,10 @@
             <div class="field-input-wrap">
               <select id="docType">
                 <option value="">Enter type of document</option>
-                <option>Original Degree Certificate</option>
-                <option>Duplicate Degree Certificate</option>
-                <option>Provisional Certificate</option>
-                <option>Migration Certificate</option>
-                <option>Consolidated Marksheet</option>
+                <option>Original Migration Certificate</option>
+                <option>Duplicate Migration Certificate</option>
+                <option>Provisional Migration Certificate</option>
+                <option>Transfer Certificate</option>
               </select>
               <i class="fa-solid fa-chevron-down select-chev"></i>
             </div>
@@ -1550,8 +1549,47 @@
         </div>
       </div>
 
-      <!-- STEP 2: ADDRESS DETAILS -->
+      <!-- STEP 2: MIGRATION DETAILS -->
       <div class="step-panel" data-step="2">
+        <div class="section-title">Migration Details</div>
+        <div class="form-grid">
+          <div class="field">
+            <label>Current University<span class="req">*</span></label>
+            <input type="text" id="currentUniversity" placeholder="Enter your current university / college name">
+          </div>
+          <div class="field">
+            <label>New University / Institution<span class="req">*</span></label>
+            <input type="text" id="newUniversity" placeholder="Enter new university / institution name">
+          </div>
+          <div class="field">
+            <label>Reason for Migration<span class="req">*</span></label>
+            <div class="field-input-wrap">
+              <select id="reasonMigration">
+                <option value="">Select or enter reason (e.g. Higher Studies, Transfer)</option>
+                <option>Higher Studies</option>
+                <option>Transfer</option>
+                <option>Job Relocation</option>
+                <option>Other</option>
+              </select>
+              <i class="fa-solid fa-chevron-down select-chev"></i>
+            </div>
+          </div>
+          <div class="field">
+            <label>Date of Leaving / Last Exam (optional)</label>
+            <div class="field-input-wrap">
+              <input type="text" id="lastExamDate" placeholder="Select last exam date or leaving date">
+              <i class="fa-regular fa-calendar cal-icon"></i>
+            </div>
+          </div>
+        </div>
+        <div class="step-actions">
+          <button class="btn-prev" data-goto="1">Previous</button>
+          <button class="btn-continue" id="step2Continue">Continue <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- STEP 3: ADDRESS DETAILS -->
+      <div class="step-panel" data-step="3">
         <div class="section-title">Address For Corresponding</div>
         <div class="form-grid">
           <div class="field">
@@ -1604,33 +1642,25 @@
           </div>
         </div>
         <div class="step-actions">
-          <button class="btn-prev" data-goto="1">Previous</button>
-          <button class="btn-continue" id="step2Continue">Continue <i class="fa-solid fa-arrow-right"></i></button>
+          <button class="btn-prev" data-goto="2">Previous</button>
+          <button class="btn-continue" id="step3Continue">Continue <i class="fa-solid fa-arrow-right"></i></button>
         </div>
       </div>
 
-      <!-- STEP 3: UPLOAD DOCS -->
-      <div class="step-panel" data-step="3">
-        <div class="section-title">Upload Documents</div>
+      <!-- STEP 4: UPLOAD DOCS -->
+      <div class="step-panel" data-step="4">
+        <div class="section-title">Documents Details</div>
 
         <div class="upload-row">
-          <div class="u-label">Upload Your Photo<span class="req">*</span></div>
-          <div class="upload-field" id="photoField">
-            <div class="u-display" id="photoDisplay">Upload your Photo</div>
-            <button class="browse-btn" data-target="photoInput">Browse</button>
+          <div class="u-label">Upload ID Proof<span class="req">*</span></div>
+          <div class="upload-field" id="idProofField">
+            <div class="u-display" id="idProofDisplay">Upload ID proof</div>
+            <button class="browse-btn" data-target="idProofInput">Browse</button>
           </div>
           <div class="upload-note">Max Upload Size is 50kb. Supported formats are png, jpg and jpeg.</div>
         </div>
         <div class="upload-row">
-          <div class="u-label">Upload Your Signature<span class="req">*</span></div>
-          <div class="upload-field" id="signatureField">
-            <div class="u-display" id="signatureDisplay">Upload Signature</div>
-            <button class="browse-btn" data-target="signatureInput">Browse</button>
-          </div>
-          <div class="upload-note">Max Upload Size is 50kb. Supported formats are png, jpg and jpeg.</div>
-        </div>
-        <div class="upload-row">
-          <div class="u-label">Upload Your Marksheet<span class="req">*</span></div>
+          <div class="u-label">Upload Your Final Year Marksheet<span class="req">*</span></div>
           <div class="upload-field" id="marksheetField">
             <div class="u-display" id="marksheetDisplay">Upload Marksheet</div>
             <button class="browse-btn" data-target="marksheetInput">Browse</button>
@@ -1638,18 +1668,17 @@
           <div class="upload-note">Max Upload Size is 50kb. Supported formats are png, jpg and jpeg.</div>
         </div>
 
-        <input type="file" id="photoInput" accept=".png,.jpg,.jpeg" style="display:none">
-        <input type="file" id="signatureInput" accept=".png,.jpg,.jpeg" style="display:none">
+        <input type="file" id="idProofInput" accept=".png,.jpg,.jpeg" style="display:none">
         <input type="file" id="marksheetInput" accept=".png,.jpg,.jpeg,.pdf" style="display:none">
 
         <div class="step-actions" style="margin-top:8px;">
-          <button class="btn-prev" data-goto="2">Previous</button>
-          <button class="btn-continue" id="step3Continue">Continue <i class="fa-solid fa-arrow-right"></i></button>
+          <button class="btn-prev" data-goto="3">Previous</button>
+          <button class="btn-continue" id="step4Continue">Continue <i class="fa-solid fa-arrow-right"></i></button>
         </div>
       </div>
 
-      <!-- STEP 4: REVIEW & PAY -->
-      <div class="step-panel" data-step="4">
+      <!-- STEP 5: REVIEW & PAY -->
+      <div class="step-panel" data-step="5">
         <div class="review-title">Review Your Application</div>
 
         <div class="review-card">
@@ -1662,8 +1691,16 @@
 
         <div class="review-card">
           <div class="review-card-head">
-            <div class="rh-left"><i class="fa-solid fa-location-dot"></i> Address For Corresponding</div>
+            <div class="rh-left"><i class="fa-solid fa-right-left"></i> Migration Details</div>
             <button class="edit-link" data-goto="2"><i class="fa-solid fa-pen"></i> Edit Details</button>
+          </div>
+          <div class="review-grid" id="reviewMigrationGrid"></div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-head">
+            <div class="rh-left"><i class="fa-solid fa-location-dot"></i> Address For Corresponding</div>
+            <button class="edit-link" data-goto="3"><i class="fa-solid fa-pen"></i> Edit Details</button>
           </div>
           <div class="review-grid" id="reviewAddressGrid"></div>
         </div>
@@ -1671,7 +1708,7 @@
         <div class="review-card">
           <div class="review-card-head">
             <div class="rh-left"><i class="fa-solid fa-file-lines"></i> Uploaded Documents</div>
-            <button class="edit-link" data-goto="3"><i class="fa-solid fa-pen"></i> Edit Details</button>
+            <button class="edit-link" data-goto="4"><i class="fa-solid fa-pen"></i> Edit Details</button>
           </div>
           <div class="review-docs" id="reviewDocsRow"></div>
         </div>
@@ -1684,7 +1721,7 @@
             <div class="pay-summary-left">
               <div class="ps-label">Total Amount</div>
               <div class="ps-rows">
-                <div><span>Service</span><span>Degree Certificate</span></div>
+                <div><span>Service</span><span>Migration Certificate</span></div>
                 <div><span>Application Type</span><span>First Issue</span></div>
                 <div><span>Service Fee</span><span>&#8377;499</span></div>
                 <div><span>Convenience Fee</span><span>&#8377;49</span></div>
@@ -1701,12 +1738,12 @@
         </div>
 
         <div class="step-actions" style="justify-content:flex-start; margin-top:4px;">
-          <button class="btn-prev" data-goto="3">Previous</button>
+          <button class="btn-prev" data-goto="4">Previous</button>
         </div>
       </div>
 
-      <!-- STEP 5: PAYMENT -->
-      <div class="step-panel" data-step="5">
+      <!-- STEP 6: PAYMENT -->
+      <div class="step-panel" data-step="6">
         <div class="review-title">Select Payment Method</div>
 
         <div class="pm-option" data-method="upi">
@@ -1768,7 +1805,7 @@
         <div class="order-summary">
           <div class="os-head"><i class="fa-solid fa-receipt"></i> Order Summary</div>
           <div class="os-grid">
-            <div><span>Service</span><strong>Degree Certificate</strong></div>
+            <div><span>Service</span><strong>Migration Certificate</strong></div>
             <div><span>Order ID</span><strong id="pmOrderId">—</strong></div>
             <div><span>Processing Time</span><strong>7-10 working days</strong></div>
           </div>
@@ -1787,7 +1824,7 @@
           encrypted</div>
 
         <div class="step-actions" style="justify-content:flex-start; margin-top:18px;">
-          <button class="btn-prev" data-goto="4">Previous</button>
+          <button class="btn-prev" data-goto="5">Previous</button>
         </div>
       </div>
     </div>
@@ -1822,8 +1859,8 @@
         </div>
         <div class="app-summary-grid">
           <div class="as-item">
-            <div class="as-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-            <div class="as-text"><span>Service</span><strong>Degree Certificate</strong></div>
+            <div class="as-icon"><i class="fa-solid fa-right-left"></i></div>
+            <div class="as-text"><span>Service</span><strong>Migration Certificate</strong></div>
           </div>
           <div class="as-item">
             <div class="as-icon"><i class="fa-solid fa-clock"></i></div>
@@ -1880,6 +1917,12 @@
       </div>
       <div class="review-card">
         <div class="review-card-head">
+          <div class="rh-left"><i class="fa-solid fa-right-left"></i> Migration Details</div>
+        </div>
+        <div class="review-grid" id="detailsMigrationGrid"></div>
+      </div>
+      <div class="review-card">
+        <div class="review-card-head">
           <div class="rh-left"><i class="fa-solid fa-location-dot"></i> Address For Corresponding</div>
         </div>
         <div class="review-grid" id="detailsAddressGrid"></div>
@@ -1898,9 +1941,10 @@
   <script>
     /* ============ STATIC DATA ============ */
     const STEPS = [
-      { label: 'Basic Info', title: 'Degree Details', sub: 'Please provide the official details exactly as they appear on your records to ensure seamless verification.' },
+      { label: 'Basic Info', title: 'Migration Details', sub: 'Please provide the official details exactly as they appear on your records to ensure seamless verification.' },
+      { label: 'Migration Details', title: 'Migration Details', sub: 'Please provide the official details exactly as they appear on your records to ensure seamless verification.' },
       { label: 'Address Details', title: 'Address Details', sub: 'Provide your communication and delivery address details carefully for document processing and updates.' },
-      { label: 'Upload Docs', title: 'Upload Documents', sub: 'Upload clear and valid documents for quick verification and smooth application processing' },
+      { label: 'Upload Docs', title: 'Upload Documents', sub: 'Please provide the official details exactly as they appear on your records to ensure seamless verification.' },
       { label: 'Review & Pay', title: 'Review & Payment', sub: 'Please verify your details before proceeding to payment.' },
       { label: 'Payment', title: 'Select Payment Method', sub: 'Choose your preferred payment option to complete your request. Our transactions are secured with industry-standard encryption.' },
       { label: 'Success', title: '', sub: '', flag: true },
@@ -1960,11 +2004,11 @@
     function goToStep(n) {
       currentStep = n;
       document.getElementById('successScreen').style.display = 'none';
-      document.getElementById('hero-deg').style.display = '';
+      document.getElementById('hero-mig').style.display = '';
       document.getElementById('wizardWrap').style.display = '';
       $all('.step-panel').forEach(p => p.classList.toggle('active', +p.dataset.step === n));
-      document.getElementById('hero-degTitle').textContent = STEPS[n - 1].title;
-      document.getElementById('hero-degSub').textContent = STEPS[n - 1].sub;
+      document.getElementById('hero-migTitle').textContent = STEPS[n - 1].title;
+      document.getElementById('hero-migSub').textContent = STEPS[n - 1].sub;
       renderStepper();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -2002,6 +2046,12 @@
     });
 
     document.getElementById('step2Continue').addEventListener('click', () => {
+      const ok = validateRequired(['currentUniversity', 'newUniversity', 'reasonMigration']);
+      if (!ok) { showToast('Please fill all required fields.', 'fa-triangle-exclamation'); return; }
+      goToStep(3);
+    });
+
+    document.getElementById('step3Continue').addEventListener('click', () => {
       const ok = validateRequired(['addr1', 'country', 'state', 'city', 'pincode', 'email', 'mobile']);
       if (!ok) { showToast('Please fill all required fields.', 'fa-triangle-exclamation'); return; }
       const email = document.getElementById('email');
@@ -2016,12 +2066,12 @@
         showToast('Mobile number should be 10 digits.', 'fa-triangle-exclamation');
         return;
       }
-      goToStep(3);
+      goToStep(4);
     });
 
-    document.getElementById('step3Continue').addEventListener('click', () => {
+    document.getElementById('step4Continue').addEventListener('click', () => {
       let ok = true;
-      [['photoField', uploadedFiles.photo], ['signatureField', uploadedFiles.signature], ['marksheetField', uploadedFiles.marksheet]].forEach(([fieldId, file]) => {
+      [['idProofField', uploadedFiles.idProof], ['marksheetField', uploadedFiles.marksheet]].forEach(([fieldId, file]) => {
         const invalid = !file;
         document.getElementById(fieldId).classList.toggle('invalid', invalid);
         if (invalid) ok = false;
@@ -2029,7 +2079,7 @@
       if (!ok) { showToast('Please upload all required documents.', 'fa-triangle-exclamation'); return; }
       orderId = orderId || genOrderId();
       buildReview();
-      goToStep(4);
+      goToStep(5);
     });
 
     /* ============ CUSTOM DROPDOWN COMPONENT ============ */
@@ -2094,7 +2144,7 @@
       refresh();
     }
 
-    ['docType', 'course', 'country', 'state', 'city', 'bankSelect'].forEach(id => {
+    ['docType', 'course', 'reasonMigration', 'country', 'state', 'city', 'bankSelect'].forEach(id => {
       const s = document.getElementById(id);
       if (s) buildCustomSelect(s);
     });
@@ -2119,7 +2169,7 @@
     });
 
     /* ============ FILE UPLOADS ============ */
-    const uploadedFiles = { photo: null, signature: null, marksheet: null };
+    const uploadedFiles = { idProof: null, marksheet: null };
     function wireUpload(key, inputId, displayId, fieldId) {
       const input = document.getElementById(inputId);
       const display = document.getElementById(displayId);
@@ -2135,8 +2185,7 @@
         field.classList.remove('invalid');
       });
     }
-    wireUpload('photo', 'photoInput', 'photoDisplay', 'photoField');
-    wireUpload('signature', 'signatureInput', 'signatureDisplay', 'signatureField');
+    wireUpload('idProof', 'idProofInput', 'idProofDisplay', 'idProofField');
     wireUpload('marksheet', 'marksheetInput', 'marksheetDisplay', 'marksheetField');
 
     /* ============ REVIEW BUILD ============ */
@@ -2158,6 +2207,14 @@
       document.getElementById('reviewBasicGrid').innerHTML = basicHtml;
       document.getElementById('detailsBasicGrid').innerHTML = basicHtml;
 
+      const migrationHtml =
+        fieldPair('Current University', document.getElementById('currentUniversity').value) +
+        fieldPair('New University / Institution', document.getElementById('newUniversity').value) +
+        fieldPair('Reason for Migration', document.getElementById('reasonMigration').value) +
+        fieldPair('Date of Leaving / Last Exam', document.getElementById('lastExamDate').value);
+      document.getElementById('reviewMigrationGrid').innerHTML = migrationHtml;
+      document.getElementById('detailsMigrationGrid').innerHTML = migrationHtml;
+
       const addressHtml =
         fieldPair('Address Line 1', document.getElementById('addr1').value) +
         fieldPair('Address Line 2', document.getElementById('addr2').value) +
@@ -2171,8 +2228,7 @@
       document.getElementById('detailsAddressGrid').innerHTML = addressHtml;
 
       const docsHtml =
-        docChip('fa-image', uploadedFiles.photo ? uploadedFiles.photo.name : 'Photo.jpg') +
-        docChip('fa-signature', uploadedFiles.signature ? uploadedFiles.signature.name : 'Signature.png') +
+        docChip('fa-id-card', uploadedFiles.idProof ? uploadedFiles.idProof.name : 'IDProof.jpg') +
         docChip('fa-file-lines', uploadedFiles.marksheet ? uploadedFiles.marksheet.name : 'Marksheet.pdf');
       document.getElementById('reviewDocsRow').innerHTML = docsHtml;
       document.getElementById('detailsDocsRow').innerHTML = docsHtml;
@@ -2183,7 +2239,7 @@
 
     document.getElementById('proceedToPayBtn').addEventListener('click', () => {
       document.getElementById('pmOrderId').textContent = orderId || genOrderId();
-      goToStep(5);
+      goToStep(6);
     });
 
     $all('.pm-option').forEach(opt => {
@@ -2226,8 +2282,8 @@
       document.getElementById('sDateTime').textContent = formatNow();
       document.getElementById('sPayMethod').textContent = 'via ' + methodLabel(selectedPaymentMethod);
 
-      currentStep = 6;
-      document.getElementById('hero-deg').style.display = 'none';
+      currentStep = 7;
+      document.getElementById('hero-mig').style.display = 'none';
       document.getElementById('wizardWrap').style.display = 'none';
       document.getElementById('successScreen').style.display = 'block';
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2245,6 +2301,7 @@
       const dateTxt = document.getElementById('sDateTime').textContent;
       const nameTxt = document.getElementById('fullName').value || '—';
       const uniTxt = document.getElementById('uniName').value || '—';
+      const newUniTxt = document.getElementById('newUniversity').value || '—';
       const payMethodTxt = methodLabel(selectedPaymentMethod);
 
       const { jsPDF } = window.jspdf;
@@ -2260,7 +2317,7 @@
       pdf.text('Payment Receipt', 40, 36);
       pdf.setFont('helvetica', 'normal');
       pdf.setFontSize(10.5);
-      pdf.text('Degree Certificate Application', 40, 54);
+      pdf.text('Migration Certificate Application', 40, 54);
 
       let y = 104;
       pdf.setTextColor(DARK[0], DARK[1], DARK[2]);
@@ -2287,8 +2344,9 @@
       infoRow('Transaction ID', txnTxt);
       infoRow('Date & Time', dateTxt);
       infoRow('Applicant Name', nameTxt);
-      infoRow('University / College', uniTxt);
-      infoRow('Service', 'Degree Certificate (First Issue)');
+      infoRow('Current University', uniTxt);
+      infoRow('New University / Institution', newUniTxt);
+      infoRow('Service', 'Migration Certificate (First Issue)');
       infoRow('Payment Method', payMethodTxt);
 
       y += 6;
@@ -2347,13 +2405,13 @@
       $all('.step-panel input, .step-panel select').forEach(f => { f.value = ''; f.classList.remove('invalid'); });
       stateSel.innerHTML = '<option value="">Select</option>';
       citySel.innerHTML = '<option value="">Select</option>';
-      ['docType', 'course', 'country', 'state', 'city', 'bankSelect'].forEach(id => {
+      ['docType', 'course', 'reasonMigration', 'country', 'state', 'city', 'bankSelect'].forEach(id => {
         const s = document.getElementById(id);
         if (s && s._csRefresh) { s._csRefresh(); s._csWrap.classList.remove('invalid'); }
       });
-      uploadedFiles.photo = uploadedFiles.signature = uploadedFiles.marksheet = null;
-      ['photoDisplay', 'signatureDisplay', 'marksheetDisplay'].forEach((id, i) => {
-        const labels = ['Upload your Photo', 'Upload Signature', 'Upload Marksheet'];
+      uploadedFiles.idProof = uploadedFiles.marksheet = null;
+      ['idProofDisplay', 'marksheetDisplay'].forEach((id, i) => {
+        const labels = ['Upload ID proof', 'Upload Marksheet'];
         const d = document.getElementById(id);
         d.textContent = labels[i];
         d.classList.remove('filled');
