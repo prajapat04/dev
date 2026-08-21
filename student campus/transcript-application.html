@@ -4,13 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apply for Original Degree Certificate</title>
+  <title>Apply for Academic Transcript</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="/style.css">
   <style>
     :root {
       --dark: #15161c;
@@ -72,8 +73,8 @@
       text-decoration: none;
     }
 
-    /* ---------- HERO-deg ---------- */
-    .hero-deg {
+    /* ---------- hero-trans ---------- */
+    .hero-trans {
       position: relative;
       background:
         radial-gradient(ellipse 900px 500px at 15% -10%, rgba(232, 72, 60, 0.18), transparent 60%),
@@ -84,7 +85,7 @@
       overflow: hidden;
     }
 
-    .hero-deg::before {
+    .hero-trans::before {
       content: '';
       position: absolute;
       inset: 0;
@@ -94,13 +95,13 @@
       pointer-events: none;
     }
 
-    .hero-deg-inner {
+    .hero-trans-inner {
       max-width: 640px;
       position: relative;
       z-index: 1;
     }
 
-    .hero-deg .eyebrow {
+    .hero-trans .eyebrow {
       font-size: 11px;
       font-weight: 700;
       letter-spacing: .08em;
@@ -109,14 +110,14 @@
       margin-bottom: 6px;
     }
 
-    .hero-deg h1 {
+    .hero-trans h1 {
       font-size: 28px;
       font-weight: 700;
       margin-bottom: 10px;
       letter-spacing: -0.01em;
     }
 
-    .hero-deg p {
+    .hero-trans p {
       font-size: 13.5px;
       color: #c3c4cc;
       line-height: 1.6;
@@ -930,7 +931,7 @@
     }
 
     .order-summary .os-grid strong {
-      font-size: 12.5px;
+      font-size: 12.5px;                                            
       color: var(--text-dark);
     }
 
@@ -1123,6 +1124,7 @@
     .view-details-link {
       font-size: 12.5px;
       font-weight: 600;
+      cursor: pointer;
       color: var(--text-dark);
       text-decoration: underline;
       text-underline-offset: 3px;
@@ -1355,11 +1357,11 @@
 
     /* ---------- RESPONSIVE ---------- */
     @media (max-width:760px) {
-      .hero-deg {
+      .hero-trans {
         padding: 28px 18px 100px;
       }
 
-      .hero-deg h1 {
+      .hero-trans h1 {
         font-size: 22px;
       }
 
@@ -1467,12 +1469,54 @@
 
 <body>
 
-  <!-- HERO-deg -->
-  <div class="hero-deg" id="hero-deg">
-    <div class="hero-deg-inner">
+   <!-- NAVBAR -->
+    <nav>
+  <a href="#" class="logo">
+    <img src="/assets/logo.png" alt="ItzeEazy">
+  </a>
+
+  <div class="links" id="navLinks">
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#">About us</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Pricing</a></li>
+      <li class="has-dropdown">
+        <a href="#">How to <i class="fa-solid fa-chevron-down"></i></a>
+        <ul class="dropdown">
+          <li><a href="#">How to check challan</a></li>
+          <li><a href="#">How to pay challan</a></li>
+          <li><a href="#">How to apply DL</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">Tools <i class="fa-solid fa-chevron-down"></i></a>
+        <ul class="dropdown">
+          <li><a href="#">EMI Calculator</a></li>
+          <li><a href="#">RTO Finder</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    
+  </div>
+
+  <div class="nav-right">
+    <a href="#" class="btn-login">Login</a>
+    <button class="btn-sign">Sign Up</button>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+  <!-- hero-trans -->
+  <div class="hero-trans" id="hero-trans">
+    <div class="hero-trans-inner">
       <div class="eyebrow">Application Process</div>
-      <h1 id="hero-degTitle">Degree Details</h1>
-      <p id="hero-degSub">Please provide the official details exactly as they appear on your records to ensure seamless
+      <h1 id="hero-transTitle">Transcript Details</h1>
+      <p id="hero-transSub">Please provide the official details exactly as they appear on your records to ensure seamless
         verification.</p>
     </div>
   </div>
@@ -1483,7 +1527,7 @@
 
       <!-- STEP 1: BASIC INFO -->
       <div class="step-panel active" data-step="1">
-        <div class="section-title">Application For Original Degree Certificate</div>
+        <div class="section-title">Application For Original Academic Transcript</div>
         <div class="form-grid">
           <div class="field">
             <label>Full Name<span class="req">*</span></label>
@@ -1494,11 +1538,10 @@
             <div class="field-input-wrap">
               <select id="docType">
                 <option value="">Enter type of document</option>
-                <option>Original Degree Certificate</option>
-                <option>Duplicate Degree Certificate</option>
-                <option>Provisional Certificate</option>
-                <option>Migration Certificate</option>
-                <option>Consolidated Marksheet</option>
+                <option>Original Academic Transcript</option>
+                <option>Duplicate Academic Transcript</option>
+                <option>Provisional Transcript</option>
+                <option>Consolidated Transcript</option>
               </select>
               <i class="fa-solid fa-chevron-down select-chev"></i>
             </div>
@@ -1550,8 +1593,31 @@
         </div>
       </div>
 
-      <!-- STEP 2: ADDRESS DETAILS -->
+      <!-- STEP 2: TRANSCRIPT DETAILS -->
       <div class="step-panel" data-step="2">
+        <div class="section-title">Transcript Details</div>
+        <div class="form-grid">
+          <div class="field">
+            <label>Number of Semesters<span class="req">*</span></label>
+            <input type="text" id="numSemesters" placeholder="Enter total semesters (e.g. 6 / 8)">
+          </div>
+          <div class="field">
+            <label>Number of Copies Required<span class="req">*</span></label>
+            <input type="text" id="copies" placeholder="Enter number of copies" inputmode="numeric">
+          </div>
+          <div class="field">
+            <label>Mode of Delivery<span class="req">*</span></label>
+            <input type="text" id="deliveryMode" placeholder="Digital Copy, Hard Copy, Both">
+          </div>
+        </div>
+        <div class="step-actions">
+          <button class="btn-prev" data-goto="1">Previous</button>
+          <button class="btn-continue" id="step2Continue">Continue <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- STEP 3: ADDRESS DETAILS -->
+      <div class="step-panel" data-step="3">
         <div class="section-title">Address For Corresponding</div>
         <div class="form-grid">
           <div class="field">
@@ -1604,33 +1670,25 @@
           </div>
         </div>
         <div class="step-actions">
-          <button class="btn-prev" data-goto="1">Previous</button>
-          <button class="btn-continue" id="step2Continue">Continue <i class="fa-solid fa-arrow-right"></i></button>
+          <button class="btn-prev" data-goto="2">Previous</button>
+          <button class="btn-continue" id="step3Continue">Continue <i class="fa-solid fa-arrow-right"></i></button>
         </div>
       </div>
 
-      <!-- STEP 3: UPLOAD DOCS -->
-      <div class="step-panel" data-step="3">
-        <div class="section-title">Upload Documents</div>
+      <!-- STEP 4: UPLOAD DOCS -->
+      <div class="step-panel" data-step="4">
+        <div class="section-title">Documents Details</div>
 
         <div class="upload-row">
-          <div class="u-label">Upload Your Photo<span class="req">*</span></div>
-          <div class="upload-field" id="photoField">
-            <div class="u-display" id="photoDisplay">Upload your Photo</div>
-            <button class="browse-btn" data-target="photoInput">Browse</button>
+          <div class="u-label">Upload ID Proof<span class="req">*</span></div>
+          <div class="upload-field" id="idProofField">
+            <div class="u-display" id="idProofDisplay">Upload ID proof</div>
+            <button class="browse-btn" data-target="idProofInput">Browse</button>
           </div>
           <div class="upload-note">Max Upload Size is 50kb. Supported formats are png, jpg and jpeg.</div>
         </div>
         <div class="upload-row">
-          <div class="u-label">Upload Your Signature<span class="req">*</span></div>
-          <div class="upload-field" id="signatureField">
-            <div class="u-display" id="signatureDisplay">Upload Signature</div>
-            <button class="browse-btn" data-target="signatureInput">Browse</button>
-          </div>
-          <div class="upload-note">Max Upload Size is 50kb. Supported formats are png, jpg and jpeg.</div>
-        </div>
-        <div class="upload-row">
-          <div class="u-label">Upload Your Marksheet<span class="req">*</span></div>
+          <div class="u-label">Upload All Semester Marksheets<span class="req">*</span></div>
           <div class="upload-field" id="marksheetField">
             <div class="u-display" id="marksheetDisplay">Upload Marksheet</div>
             <button class="browse-btn" data-target="marksheetInput">Browse</button>
@@ -1638,18 +1696,17 @@
           <div class="upload-note">Max Upload Size is 50kb. Supported formats are png, jpg and jpeg.</div>
         </div>
 
-        <input type="file" id="photoInput" accept=".png,.jpg,.jpeg" style="display:none">
-        <input type="file" id="signatureInput" accept=".png,.jpg,.jpeg" style="display:none">
+        <input type="file" id="idProofInput" accept=".png,.jpg,.jpeg" style="display:none">
         <input type="file" id="marksheetInput" accept=".png,.jpg,.jpeg,.pdf" style="display:none">
 
         <div class="step-actions" style="margin-top:8px;">
-          <button class="btn-prev" data-goto="2">Previous</button>
-          <button class="btn-continue" id="step3Continue">Continue <i class="fa-solid fa-arrow-right"></i></button>
+          <button class="btn-prev" data-goto="3">Previous</button>
+          <button class="btn-continue" id="step4Continue">Continue <i class="fa-solid fa-arrow-right"></i></button>
         </div>
       </div>
 
-      <!-- STEP 4: REVIEW & PAY -->
-      <div class="step-panel" data-step="4">
+      <!-- STEP 5: REVIEW & PAY -->
+      <div class="step-panel" data-step="5">
         <div class="review-title">Review Your Application</div>
 
         <div class="review-card">
@@ -1662,8 +1719,16 @@
 
         <div class="review-card">
           <div class="review-card-head">
-            <div class="rh-left"><i class="fa-solid fa-location-dot"></i> Address For Corresponding</div>
+            <div class="rh-left"><i class="fa-solid fa-file-contract"></i> Transcript Details</div>
             <button class="edit-link" data-goto="2"><i class="fa-solid fa-pen"></i> Edit Details</button>
+          </div>
+          <div class="review-grid" id="reviewTranscriptGrid"></div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-head">
+            <div class="rh-left"><i class="fa-solid fa-location-dot"></i> Address For Corresponding</div>
+            <button class="edit-link" data-goto="3"><i class="fa-solid fa-pen"></i> Edit Details</button>
           </div>
           <div class="review-grid" id="reviewAddressGrid"></div>
         </div>
@@ -1671,7 +1736,7 @@
         <div class="review-card">
           <div class="review-card-head">
             <div class="rh-left"><i class="fa-solid fa-file-lines"></i> Uploaded Documents</div>
-            <button class="edit-link" data-goto="3"><i class="fa-solid fa-pen"></i> Edit Details</button>
+            <button class="edit-link" data-goto="4"><i class="fa-solid fa-pen"></i> Edit Details</button>
           </div>
           <div class="review-docs" id="reviewDocsRow"></div>
         </div>
@@ -1684,29 +1749,29 @@
             <div class="pay-summary-left">
               <div class="ps-label">Total Amount</div>
               <div class="ps-rows">
-                <div><span>Service</span><span>Degree Certificate</span></div>
+                <div><span>Service</span><span>Academic Transcript</span></div>
                 <div><span>Application Type</span><span>First Issue</span></div>
-                <div><span>Service Fee</span><span>&#8377;499</span></div>
+                <div><span>Service Fee</span><span>&#8377;649</span></div>
                 <div><span>Convenience Fee</span><span>&#8377;49</span></div>
               </div>
             </div>
             <div class="pay-summary-right">
               <div class="ps-total-label">Total Amount</div>
-              <div class="ps-total">&#8377;548</div>
+              <div class="ps-total">&#8377;698</div>
               <div class="ps-secure"><i class="fa-solid fa-lock"></i> Secure payment &bull; Your data is safe</div>
-              <button class="btn-continue" id="proceedToPayBtn">Proceed to Pay &#8377;548 <i
+              <button class="btn-continue" id="proceedToPayBtn">Proceed to Pay &#8377;698 <i
                   class="fa-solid fa-arrow-right"></i></button>
             </div>
           </div>
         </div>
 
         <div class="step-actions" style="justify-content:flex-start; margin-top:4px;">
-          <button class="btn-prev" data-goto="3">Previous</button>
+          <button class="btn-prev" data-goto="4">Previous</button>
         </div>
       </div>
 
-      <!-- STEP 5: PAYMENT -->
-      <div class="step-panel" data-step="5">
+      <!-- STEP 6: PAYMENT -->
+      <div class="step-panel" data-step="6">
         <div class="review-title">Select Payment Method</div>
 
         <div class="pm-option" data-method="upi">
@@ -1768,26 +1833,26 @@
         <div class="order-summary">
           <div class="os-head"><i class="fa-solid fa-receipt"></i> Order Summary</div>
           <div class="os-grid">
-            <div><span>Service</span><strong>Degree Certificate</strong></div>
+            <div><span>Service</span><strong>Academic Transcript</strong></div>
             <div><span>Order ID</span><strong id="pmOrderId">—</strong></div>
-            <div><span>Processing Time</span><strong>7-10 working days</strong></div>
+            <div><span>Processing Time</span><strong>10-12 working days</strong></div>
           </div>
           <hr>
-          <div class="os-fee-row"><span>Service Fee</span><span>&#8377;499</span></div>
+          <div class="os-fee-row"><span>Service Fee</span><span>&#8377;649</span></div>
           <div class="os-fee-row"><span>Convenience Fee</span><span>&#8377;49</span></div>
           <div class="os-total-row">
             <div class="lbl">Total Amount<small>Inclusive of all taxes</small></div>
-            <div class="val">&#8377;548</div>
+            <div class="val">&#8377;698</div>
           </div>
         </div>
 
-        <button class="btn-pay" id="payNowBtn">Proceed to Pay &#8377;548 <i
+        <button class="btn-pay" id="payNowBtn">Proceed to Pay &#8377;698 <i
             class="fa-solid fa-arrow-right"></i></button>
         <div class="pay-secure-note"><i class="fa-solid fa-shield-halved"></i> Secure payment &bull; 100% safe &amp;
           encrypted</div>
 
         <div class="step-actions" style="justify-content:flex-start; margin-top:18px;">
-          <button class="btn-prev" data-goto="4">Previous</button>
+          <button class="btn-prev" data-goto="5">Previous</button>
         </div>
       </div>
     </div>
@@ -1822,16 +1887,16 @@
         </div>
         <div class="app-summary-grid">
           <div class="as-item">
-            <div class="as-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-            <div class="as-text"><span>Service</span><strong>Degree Certificate</strong></div>
+            <div class="as-icon"><i class="fa-solid fa-file-contract"></i></div>
+            <div class="as-text"><span>Service</span><strong>Academic Transcript</strong></div>
           </div>
           <div class="as-item">
             <div class="as-icon"><i class="fa-solid fa-clock"></i></div>
-            <div class="as-text"><span>Processing Time</span><strong>7-10 Working Days</strong></div>
+            <div class="as-text"><span>Processing Time</span><strong>10-12 Working Days</strong></div>
           </div>
           <div class="as-item">
             <div class="as-icon"><i class="fa-solid fa-wallet"></i></div>
-            <div class="as-text"><span>Amount Paid</span><strong>&#8377;548.00</strong></div>
+            <div class="as-text"><span>Amount Paid</span><strong>&#8377;698.00</strong></div>
           </div>
           <div class="as-item">
             <div class="as-icon"><i class="fa-solid fa-shield-halved"></i></div>
@@ -1845,13 +1910,13 @@
           <div class="sh-title"><i class="fa-solid fa-file-invoice" style="color:var(--red);"></i> Detailed Breakdown
           </div>
         </div>
-        <div class="breakdown-row"><span>Order Subtotal</span><span>&#8377;498.00</span></div>
+        <div class="breakdown-row"><span>Order Subtotal</span><span>&#8377;648.00</span></div>
         <div class="breakdown-row"><span>Conveniency Fee</span><span>&#8377;30.00</span></div>
         <div class="breakdown-row"><span>Service Tax (GST)</span><span>&#8377;20.00</span></div>
         <hr class="breakdown-hr">
         <div class="breakdown-total">
           <div class="bt-label">Total Paid<small id="sPayMethod">via UPI</small></div>
-          <div class="bt-val">&#8377;548</div>
+          <div class="bt-val">&#8377;698</div>
         </div>
       </div>
     </div>
@@ -1880,6 +1945,12 @@
       </div>
       <div class="review-card">
         <div class="review-card-head">
+          <div class="rh-left"><i class="fa-solid fa-file-contract"></i> Transcript Details</div>
+        </div>
+        <div class="review-grid" id="detailsTranscriptGrid"></div>
+      </div>
+      <div class="review-card">
+        <div class="review-card-head">
           <div class="rh-left"><i class="fa-solid fa-location-dot"></i> Address For Corresponding</div>
         </div>
         <div class="review-grid" id="detailsAddressGrid"></div>
@@ -1898,9 +1969,10 @@
   <script>
     /* ============ STATIC DATA ============ */
     const STEPS = [
-      { label: 'Basic Info', title: 'Degree Details', sub: 'Please provide the official details exactly as they appear on your records to ensure seamless verification.' },
+      { label: 'Basic Info', title: 'Transcript Details', sub: 'Please provide the official details exactly as they appear on your records to ensure seamless verification.' },
+      { label: 'Transcript Details', title: 'Transcript Details', sub: 'Please provide the official details exactly as they appear on your records to ensure seamless verification.' },
       { label: 'Address Details', title: 'Address Details', sub: 'Provide your communication and delivery address details carefully for document processing and updates.' },
-      { label: 'Upload Docs', title: 'Upload Documents', sub: 'Upload clear and valid documents for quick verification and smooth application processing' },
+      { label: 'Upload Docs', title: 'Upload Documents', sub: 'Please provide the official details exactly as they appear on your records to ensure seamless verification.' },
       { label: 'Review & Pay', title: 'Review & Payment', sub: 'Please verify your details before proceeding to payment.' },
       { label: 'Payment', title: 'Select Payment Method', sub: 'Choose your preferred payment option to complete your request. Our transactions are secured with industry-standard encryption.' },
       { label: 'Success', title: '', sub: '', flag: true },
@@ -1960,11 +2032,11 @@
     function goToStep(n) {
       currentStep = n;
       document.getElementById('successScreen').style.display = 'none';
-      document.getElementById('hero-deg').style.display = '';
+      document.getElementById('hero-trans').style.display = '';
       document.getElementById('wizardWrap').style.display = '';
       $all('.step-panel').forEach(p => p.classList.toggle('active', +p.dataset.step === n));
-      document.getElementById('hero-degTitle').textContent = STEPS[n - 1].title;
-      document.getElementById('hero-degSub').textContent = STEPS[n - 1].sub;
+      document.getElementById('hero-transTitle').textContent = STEPS[n - 1].title;
+      document.getElementById('hero-transSub').textContent = STEPS[n - 1].sub;
       renderStepper();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -2002,6 +2074,12 @@
     });
 
     document.getElementById('step2Continue').addEventListener('click', () => {
+      const ok = validateRequired(['numSemesters', 'copies', 'deliveryMode']);
+      if (!ok) { showToast('Please fill all required fields.', 'fa-triangle-exclamation'); return; }
+      goToStep(3);
+    });
+
+    document.getElementById('step3Continue').addEventListener('click', () => {
       const ok = validateRequired(['addr1', 'country', 'state', 'city', 'pincode', 'email', 'mobile']);
       if (!ok) { showToast('Please fill all required fields.', 'fa-triangle-exclamation'); return; }
       const email = document.getElementById('email');
@@ -2016,12 +2094,12 @@
         showToast('Mobile number should be 10 digits.', 'fa-triangle-exclamation');
         return;
       }
-      goToStep(3);
+      goToStep(4);
     });
 
-    document.getElementById('step3Continue').addEventListener('click', () => {
+    document.getElementById('step4Continue').addEventListener('click', () => {
       let ok = true;
-      [['photoField', uploadedFiles.photo], ['signatureField', uploadedFiles.signature], ['marksheetField', uploadedFiles.marksheet]].forEach(([fieldId, file]) => {
+      [['idProofField', uploadedFiles.idProof], ['marksheetField', uploadedFiles.marksheet]].forEach(([fieldId, file]) => {
         const invalid = !file;
         document.getElementById(fieldId).classList.toggle('invalid', invalid);
         if (invalid) ok = false;
@@ -2029,7 +2107,7 @@
       if (!ok) { showToast('Please upload all required documents.', 'fa-triangle-exclamation'); return; }
       orderId = orderId || genOrderId();
       buildReview();
-      goToStep(4);
+      goToStep(5);
     });
 
     /* ============ CUSTOM DROPDOWN COMPONENT ============ */
@@ -2119,7 +2197,7 @@
     });
 
     /* ============ FILE UPLOADS ============ */
-    const uploadedFiles = { photo: null, signature: null, marksheet: null };
+    const uploadedFiles = { idProof: null, marksheet: null };
     function wireUpload(key, inputId, displayId, fieldId) {
       const input = document.getElementById(inputId);
       const display = document.getElementById(displayId);
@@ -2135,8 +2213,7 @@
         field.classList.remove('invalid');
       });
     }
-    wireUpload('photo', 'photoInput', 'photoDisplay', 'photoField');
-    wireUpload('signature', 'signatureInput', 'signatureDisplay', 'signatureField');
+    wireUpload('idProof', 'idProofInput', 'idProofDisplay', 'idProofField');
     wireUpload('marksheet', 'marksheetInput', 'marksheetDisplay', 'marksheetField');
 
     /* ============ REVIEW BUILD ============ */
@@ -2158,6 +2235,13 @@
       document.getElementById('reviewBasicGrid').innerHTML = basicHtml;
       document.getElementById('detailsBasicGrid').innerHTML = basicHtml;
 
+      const transcriptHtml =
+        fieldPair('Number of Semesters', document.getElementById('numSemesters').value) +
+        fieldPair('Number of Copies Required', document.getElementById('copies').value) +
+        fieldPair('Mode of Delivery', document.getElementById('deliveryMode').value);
+      document.getElementById('reviewTranscriptGrid').innerHTML = transcriptHtml;
+      document.getElementById('detailsTranscriptGrid').innerHTML = transcriptHtml;
+
       const addressHtml =
         fieldPair('Address Line 1', document.getElementById('addr1').value) +
         fieldPair('Address Line 2', document.getElementById('addr2').value) +
@@ -2171,8 +2255,7 @@
       document.getElementById('detailsAddressGrid').innerHTML = addressHtml;
 
       const docsHtml =
-        docChip('fa-image', uploadedFiles.photo ? uploadedFiles.photo.name : 'Photo.jpg') +
-        docChip('fa-signature', uploadedFiles.signature ? uploadedFiles.signature.name : 'Signature.png') +
+        docChip('fa-id-card', uploadedFiles.idProof ? uploadedFiles.idProof.name : 'IDProof.jpg') +
         docChip('fa-file-lines', uploadedFiles.marksheet ? uploadedFiles.marksheet.name : 'Marksheet.pdf');
       document.getElementById('reviewDocsRow').innerHTML = docsHtml;
       document.getElementById('detailsDocsRow').innerHTML = docsHtml;
@@ -2183,7 +2266,7 @@
 
     document.getElementById('proceedToPayBtn').addEventListener('click', () => {
       document.getElementById('pmOrderId').textContent = orderId || genOrderId();
-      goToStep(5);
+      goToStep(6);
     });
 
     $all('.pm-option').forEach(opt => {
@@ -2226,8 +2309,8 @@
       document.getElementById('sDateTime').textContent = formatNow();
       document.getElementById('sPayMethod').textContent = 'via ' + methodLabel(selectedPaymentMethod);
 
-      currentStep = 6;
-      document.getElementById('hero-deg').style.display = 'none';
+      currentStep = 7;
+      document.getElementById('hero-trans').style.display = 'none';
       document.getElementById('wizardWrap').style.display = 'none';
       document.getElementById('successScreen').style.display = 'block';
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2260,7 +2343,7 @@
       pdf.text('Payment Receipt', 40, 36);
       pdf.setFont('helvetica', 'normal');
       pdf.setFontSize(10.5);
-      pdf.text('Degree Certificate Application', 40, 54);
+      pdf.text('Academic Transcript Application', 40, 54);
 
       let y = 104;
       pdf.setTextColor(DARK[0], DARK[1], DARK[2]);
@@ -2288,7 +2371,7 @@
       infoRow('Date & Time', dateTxt);
       infoRow('Applicant Name', nameTxt);
       infoRow('University / College', uniTxt);
-      infoRow('Service', 'Degree Certificate (First Issue)');
+      infoRow('Service', 'Academic Transcript (First Issue)');
       infoRow('Payment Method', payMethodTxt);
 
       y += 6;
@@ -2308,19 +2391,19 @@
         pdf.text(value, pageWidth - 40, y, { align: 'right' });
         y += isTotal ? 24 : 20;
       }
-      feeRow('Order Subtotal', 'Rs. 498.00');
+      feeRow('Order Subtotal', 'Rs. 648.00');
       feeRow('Conveniency Fee', 'Rs. 30.00');
       feeRow('Service Tax (GST)', 'Rs. 20.00');
       pdf.setDrawColor(LGRAY[0], LGRAY[1], LGRAY[2]);
       pdf.line(40, y - 6, pageWidth - 40, y - 6);
       y += 8;
-      feeRow('TOTAL PAID', 'Rs. 548.00', true);
+      feeRow('TOTAL PAID', 'Rs. 698.00', true);
 
       y += 24;
       pdf.setFont('helvetica', 'normal');
       pdf.setFontSize(9.5);
       pdf.setTextColor(GRAY[0], GRAY[1], GRAY[2]);
-      pdf.text('Thank you for your application. Processing time: 7-10 working days.', 40, y);
+      pdf.text('Thank you for your application. Processing time: 10-12 working days.', 40, y);
       y += 14;
       pdf.text('This is a system-generated receipt and does not require a signature.', 40, y);
 
@@ -2351,9 +2434,9 @@
         const s = document.getElementById(id);
         if (s && s._csRefresh) { s._csRefresh(); s._csWrap.classList.remove('invalid'); }
       });
-      uploadedFiles.photo = uploadedFiles.signature = uploadedFiles.marksheet = null;
-      ['photoDisplay', 'signatureDisplay', 'marksheetDisplay'].forEach((id, i) => {
-        const labels = ['Upload your Photo', 'Upload Signature', 'Upload Marksheet'];
+      uploadedFiles.idProof = uploadedFiles.marksheet = null;
+      ['idProofDisplay', 'marksheetDisplay'].forEach((id, i) => {
+        const labels = ['Upload ID proof', 'Upload Marksheet'];
         const d = document.getElementById(id);
         d.textContent = labels[i];
         d.classList.remove('filled');
@@ -2367,6 +2450,7 @@
     /* ============ INIT ============ */
     renderStepper();
   </script>
+   <script src="/script.js"></script>
 </body>
 
 </html>
