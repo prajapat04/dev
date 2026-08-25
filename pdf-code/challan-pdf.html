@@ -1,649 +1,1520 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Traffic Challan - Haryana Police</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0;  font-family:'Noto Sans Devanagari', sans-serif !important;}
+  <title>Traffic Challan - Haryana Police</title>
 
-  :root {
-    --navy: #ffffff;
-    --blue: #1e4080;
-    --accent: #c8102e;
-    --light-blue: hsl(0, 0%, 100%);
-    --border: #2c4a7a;
-    --text: #111;
-    --muted: #555;
-    --bg: #f4f6fb;
-    --white: #fff;
-    --gold: #b8860b;
-  }
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  body {
-    font-family: 'IBM Plex Sans', 'Noto Sans Devanagari', sans-serif;
-    background: var(--bg);
-    min-height: 100vh;
-    padding: 20px;
-    color: var(--text);
-  }
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
 
-  /* ── TOP BAR ── */
-  .top-bar {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 16px;
-  }
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  #downloadBtn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--blue);
-    color: #fff;
-    border: none;
-    padding: 10px 22px;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    letter-spacing: 0.3px;
-    box-shadow: 0 3px 10px rgba(30,64,128,0.25);
-    transition: background 0.2s, box-shadow 0.2s;
-  }
-  #downloadBtn:hover { background: var(--navy); box-shadow: 0 5px 16px rgba(30,64,128,0.35); }
-  #downloadBtn svg { width: 16px; height: 16px; }
+    :root {
+      --navy: #ffffff;
+      --blue: #1e4080;
+      --accent: #c8102e;
+      --light-blue: #ffffff;
+      --border: #2c4a7a;
+      --text: #111111;
+      --muted: #555555;
+      --bg: #f4f6fb;
+      --white: #ffffff;
+      --gold: #b8860b;
+    }
 
-  /* ── CHALLAN CARD ── */
-  #challanCard {
-    background: var(--white);
-    max-width: 790px;
-    min-height:1123px;
-    margin: 0 auto;
-    border-radius: 4px;
-    overflow: hidden;
-    padding: 0 20px;
-    border: 1px solid #d0daf0;
-   
-  }
+    body {
+      font-family: "IBM Plex Sans", "Noto Sans Devanagari", sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      padding: 20px;
+      color: var(--text);
+    }
 
-  /* ── HEADER ── */
-  .header {
-    background: var(--navy);
-    color: #fff;
-    text-align: center;
-    padding: 8px 15px 6px;
-    border-bottom: 3px solid var(--accent);
-  }
-  .header .title-hi {
-    font-family: 'Noto Sans Devanagari', sans-serif !important;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    color: #000000;
-  }
-  .header .title-en {
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: #000000;
-    margin: 2px 0;
-  }
-  .header .subtitle {
-    font-size: 9px;
-    color: #000000;
-    line-height: 1.3;
-  }
-  .header .office-line {
-    margin-top: 6px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #000000;
-    letter-spacing: 0.5px;
-  }
+    /* =========================
+       TOP BAR
+    ========================= */
 
-  /* ── PHOTO ROW ── */
-  .photo-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 6px 10px;
-    background: var(--light-blue);
-    border-bottom: 1px solid var(--border);
-    flex-wrap: wrap;
-  }
-  .qr-box, .photo-box {
-    width: 90px; height: 80px;
-    border: 2px solid var(--border);
-    border-radius: 4px;
-    background: #ffffff;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    overflow: hidden;
-  }
-  .qr-box img, .photo-box img { width: 100%; height: 100%; object-fit: contain; }
-  .no-image-box {
-    width: 70px; height: 60px;
-    border: 2px dashed var(--border);
-    border-radius: 4px;
-    background: #ffffff;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    gap: 2px;
-  }
-  .no-image-box span:first-child { font-size: 22px; opacity: 0.4; }
-  .no-image-box .no-img-label { font-size: 9px; color: var(--muted); text-align: center; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .top-bar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 16px;
+    }
 
-  /* ── CHALLAN DATE BANNER ── */
-  .date-banner {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 14px;
-    background: #fff;
-    color: black;
-    font-size: 13px;
-    font-weight: 600;
-  }
-  .date-banner .label { color: #000000; }
-  .date-banner .value { color: #000000; font-size: 14px; letter-spacing: 0.5px; }
+    #downloadBtn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--blue);
+      color: #ffffff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      box-shadow: 0 3px 10px rgba(30, 64, 128, 0.25);
+      transition: 0.2s;
+    }
 
-  /* ── INFO TABLE ── */
-  .info-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 12.5px;
-  }
-  .info-table td {
-    padding: 3px 6px;
-    border: 1px solid #b8c8e0;
-    vertical-align: top;
-    font-size: 10px;
-    line-height: 1.2;
-  }
-  .info-table td.lbl {
-    background: #fff;
-    color: black;
-    font-weight: 600;
-    white-space: nowrap;
-    width: 28%;
-  }
-  .info-table td.lbl-hi { font-family: 'Noto Sans Devanagari', sans-serif; font-size: 11px; color: var(--muted); display: block; font-weight: 400; }
-  .info-table td.val { color: var(--text); font-weight: 500; }
-  .info-table td.val strong { color: #000; font-weight: 700; }
+    #downloadBtn:hover {
+      background: #163263;
+      box-shadow: 0 5px 16px rgba(30, 64, 128, 0.35);
+    }
 
-  /* ── SECTION TITLE ── */
-  .section-title {
-    background: #fff;
-    color: #000;
-    font-size: 12px;
-    font-weight: 700;
-    padding: 5px 12px;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-  }
+    #downloadBtn svg {
+      width: 16px;
+      height: 16px;
+    }
 
-  /* ── OFFENCES TABLE ── */
-  .offences-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 12px;
-  }
-  .offences-table th {
-    background: #fff;
-    color: #000000;
-    padding: 3px 5px;
-    text-align: left;
-    font-weight: 600;
-    font-size: 9px;
-    letter-spacing: 0.3px;
-    border: 1px solid var(--border);
-  }
-  .offences-table td {
-    padding: 3px 5px;
-    border: 1px solid #b8c8e0;
-    vertical-align: middle;
-    font-size: 9px;
-  }
-  .offences-table tr:nth-child(even) td { background: #ffffff; }
-  .badge-normal {
-    background: #ffffff;
-    color: black;
-    border: 1px solid #b0c4e8;
-    border-radius: 12px;
-    padding: 2px 10px;
-    font-size: 11px;
-    font-weight: 600;
-    white-space: nowrap;
-  }
-  .penalty-amount {
-    font-weight: 700;
-    color: var(--accent);
-    font-size: 14px;
-  }
+    /* =========================
+       CHALLAN CARD
+    ========================= */
 
-  /* ── PENALTY SUMMARY ── */
-  .penalty-summary {
-    background: #ffffff;
-    border-top: 2px solid var(--gold);
-    border-bottom: 2px solid var(--gold);
-    padding: 5px 10px;
-    font-size: 10px;
-  }
-  .penalty-summary .row { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
-  .penalty-summary .label { color: var(--muted); }
-  .penalty-summary .amount { font-size: 20px; font-weight: 700; color: var(--accent); }
-  .penalty-summary .words { font-weight: 600; color: var(--navy); }
+    #challanCard {
+      background: var(--white);
+      max-width: 790px;
+      min-height: 1123px;
+      margin: 0 auto;
+      border-radius: 4px;
+      overflow: hidden;
+      padding: 0 20px;
+      border: 1px solid #d0daf0;
+    }
 
-  /* ── REMARKS / PAYMENT ── */
-  .remarks-row {
-    padding: 5px 10px;
-    font-size: 9px;
-    color: var(--muted);
-    border-bottom: 1px solid #d0daf0;
-    line-height: 1.3;
-  }
-  .remarks-row .hi { font-family: 'Noto Sans Devanagari', sans-serif; }
-  .payment-link {
-    color: var(--blue);
-    font-weight: 600;
-    word-break: break-all;
-    text-decoration: underline;
-  }
+    /* =========================
+       HEADER
+    ========================= */
 
-  /* ── BOND SECTION ── */
-  .bond-section {
-    padding: 10px 14px;
-    border-bottom: 1px solid #d0daf0;
-    font-size: 11.5px;
-    color: var(--text);
-    line-height: 1.7;
-  }
-  .bond-section .bond-title {
-    font-weight: 700;
-    color: var(--navy);
-    font-size: 12px;
-    margin-bottom: 4px;
-    text-align: center;
-  }
-  .bond-section .bond-title .hi { font-family: 'Noto Sans Devanagari', sans-serif; }
+    .header {
+      position: relative;
+      background: var(--navy);
+      color: #ffffff;
+      text-align: center;
+      padding: 8px 15px 6px;
+      border-bottom: 3px solid var(--accent);
+    }
 
-  /* ── SIGNATURE ROW ── */
-  .sig-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 6px 10px;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  .sig-block { font-size: 9px; line-height: 1.7; }
-  .sig-block .sig-line {
-    border-bottom: 1px dotted var(--border);
-    min-width: 200px;
-    height: 18px;
-    margin-bottom: 4px;
-  }
-  .sig-block .sig-label {  font-size: 11px; }
-  .sig-block .officer-info { font-weight: 600; font-size: 12px; }
+    .header .itzeazy-logo {
+      position: absolute;
+      top: 8px;
+      left: 15px;
+      width: 130px;
+      height: auto;
+      object-fit: contain;
+    }
 
-  /* ── IMPOUND / DOC ── */
-  .impound-row {
-    
-    border-top: 2px solid var(--accent);
-    padding: 8px 14px;
-    font-size: 11.5px;
-  }
-  .impound-row strong { color: black; }
+    .header .title-en {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #000000;
+      margin-top: 50px;
+    }
 
-  /* ── FOOTER ── */
-  .challan-footer {
-    
-    
-    text-align: center;
-    font-size: 8px;
-    padding: 4px;
-    letter-spacing: 0.3px;
-  }
+    .header .subtitle {
+      font-size: 9px;
+      color: #000000;
+      line-height: 1.3;
+    }
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 600px) {
-    body { padding: 10px 6px; }
-    .info-table td { font-size: 11px; padding: 5px 7px; }
-    .info-table td.lbl { width: 35%; }
-    .header .title-en { font-size: 17px; }
-    .photo-row { gap: 6px; }
-    .qr-box, .photo-box, .no-image-box { width: 70px; height: 64px; }
-    .sig-row { flex-direction: column; }
-    .offences-table th, .offences-table td { font-size: 10.5px; padding: 5px 7px; }
-  }
+    .header .office-line {
+      margin-top: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #000000;
+      letter-spacing: 0.5px;
+    }
 
-  /* ── PDF-ONLY TWEAKS ── */
-  @media print {
-    body { padding: 0; background: #fff; }
-    .top-bar { display: none; }
-    #challanCard { box-shadow: none; border-radius: 0; }
-  }
-</style>
+    /* =========================
+       DATE BANNER
+    ========================= */
+
+    .date-banner {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: #ffffff;
+      color: #000000;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .date-banner .label {
+      color: #000000;
+    }
+
+    .date-banner .value {
+      color: #000000;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    /* =========================
+       INFO TABLE
+    ========================= */
+
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+
+    .info-table td {
+      padding: 3px 6px;
+      border: 1px solid #b8c8e0;
+      vertical-align: top;
+      font-size: 10px;
+      line-height: 1.2;
+    }
+
+    .info-table td.lbl {
+      background: #ffffff;
+      color: #000000;
+      font-weight: 600;
+      white-space: nowrap;
+      width: 28%;
+    }
+
+    .info-table td.val {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .info-table td.val strong {
+      color: #000000;
+      font-weight: 700;
+    }
+
+    /* =========================
+       SECTION TITLE
+    ========================= */
+
+    .section-title {
+      background: #ffffff;
+      color: #000000;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 12px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* =========================
+       PENALTY SUMMARY
+    ========================= */
+
+    .penalty-summary {
+      background: #ffffff;
+      border-top: 2px solid var(--gold);
+      border-bottom: 2px solid var(--gold);
+      padding: 5px 10px;
+      font-size: 10px;
+    }
+
+    .penalty-summary .row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .penalty-summary .label {
+      color: var(--muted);
+    }
+
+    .penalty-summary .amount {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .penalty-summary .words {
+      font-weight: 600;
+      color: #111111;
+    }
+
+    /* =========================
+       REMARKS
+    ========================= */
+
+    .remarks-row {
+      padding: 5px 10px;
+      font-size: 9px;
+      color: var(--muted);
+      border-bottom: 1px solid #d0daf0;
+      line-height: 1.3;
+    }
+
+    .payment-link {
+      color: var(--blue);
+      font-weight: 600;
+      word-break: break-all;
+      text-decoration: underline;
+    }
+
+    /* =========================
+       BOND
+    ========================= */
+
+    .bond-section {
+      padding: 10px 14px;
+      border-bottom: 1px solid #d0daf0;
+      font-size: 11.5px;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    .bond-section .bond-title {
+      font-weight: 700;
+      color: #111111;
+      font-size: 12px;
+      margin-bottom: 4px;
+      text-align: center;
+    }
+
+    /* =========================
+       SIGNATURE
+    ========================= */
+
+    .sig-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 6px 10px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .sig-block {
+      font-size: 9px;
+      line-height: 1.7;
+    }
+
+    .sig-block .sig-line {
+      border-bottom: 1px dotted var(--border);
+      min-width: 200px;
+      height: 18px;
+      margin-bottom: 4px;
+    }
+
+    .sig-block .sig-label {
+      font-size: 11px;
+    }
+
+    .sig-block .officer-info {
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    /* =========================
+       IMPOUND
+    ========================= */
+
+    .impound-row {
+      border-top: 2px solid var(--accent);
+      padding: 8px 14px;
+      font-size: 11.5px;
+    }
+
+    .impound-row strong {
+      color: #000000;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    .challan-footer {
+      text-align: center;
+      font-size: 8px;
+      padding: 4px;
+      letter-spacing: 0.3px;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 600px) {
+
+      body {
+        padding: 10px 6px;
+      }
+
+      #challanCard {
+        padding: 0 10px;
+      }
+
+      .info-table td {
+        font-size: 10px;
+        padding: 4px 5px;
+      }
+
+      .info-table td.lbl {
+        width: 30%;
+      }
+
+      .header .title-en {
+        font-size: 17px;
+      }
+
+      .sig-row {
+        flex-direction: column;
+      }
+
+      .sig-block {
+        width: 100%;
+      }
+    }
+
+    /* =========================
+       PRINT
+    ========================= */
+
+    @media print {
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      body {
+        padding: 0;
+        background: #ffffff;
+      }
+
+      .top-bar {
+        display: none !important;
+      }
+
+      #challanCard {
+        max-width: none;
+        width: 100%;
+        min-height: auto;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        margin: 0;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- ══════════════════════════════════
-     API INTEGRATION POINT:
-     Replace `challanData` below with
-     your API response object.
-     All fields are dynamically rendered.
-════════════════════════════════════ -->
-<script>
-const challanData = {
-  challanNo:      "HR4342240716000353",
-  challanDate:    "16-07-2024 00:03:53",
-  officeName:     "Gurgaon",
+  <!-- =========================
+       DOWNLOAD BUTTON
+  ========================= -->
 
-  vehicleClass:   "M-Cycle/Scooter (2WN)",
-  vehicleNo:      "MH02EG7515",
-  chassisNo:      "MD2A55FZ0GCA*****",
-  engineNo:       "JLZCGA*****",
-  bookNo:         ".........",
-  formNo:         ".........",
-  lgdCode:        "62",
+  <div class="top-bar">
+    <button id="downloadBtn" type="button" onclick="downloadPDF()">
 
-  ownerName:      "F*****N K****I",
-  ownerContact:   "*******388",
-  ownerAddress:   "A****, R*****N T****, S**. R****, S*****R S*****, J*********, W**T M******, -*****2",
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+        <polyline points="7 10 12 15 17 10"></polyline>
+        <line x1="12" y1="15" x2="12" y2="3"></line>
+      </svg>
 
-  driverName:     "K*******T S****H",
-  fatherName:     "P******T S***H",
-  age:            ".........",
-  dlNo:           "************350",
-  dlValidity:     ".........",
-
-  placeOfIncident:"Raghvendra Marg, Golf Link Apartments, Sector 54, Gurugram, Haryana. Pin-122011 (India)",
-
-  impoundedDoc:   "Driving Licence - Digitally Impounded",
-
-  offences: [
-    {
-      srNo:       "1.",
-      offence:    "70. Number Plate pattern/Without High Security Registration Number Plate",
-      mvAct:      "NA",
-      fee:        "500",
-      type:       "Normal Penalty"
-    }
-  ],
-
-  totalPenalty:   "500",
-  penaltyWords:   "Five Hundred Rupees only",
-  remarks:        "........",
-
-  paymentUrl:     "https://echallan.parivahan.gov.in/index/accused-challan",
-
-  officerName:    "INSP SATENDER SHO SEC 53",
-  officerEmail:   "ggm@shosec53.in",
-  officerRank:    "Insp.",
-
-  violatorSig:    "F*****N K****I / K*******T S****H"
-};
-</script>
-
-<!-- Download Button -->
-<div class="top-bar">
-  <button id="downloadBtn" onclick="downloadPDF()">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
-    </svg>
-    Download PDF
-  </button>
-</div>
-
-<!-- ══ CHALLAN CARD ══ -->
-<div id="challanCard">
-
-  <!-- HEADER -->
-  <div class="header">
-    <div class="title-hi">यातायात पुलिस हरियाणा</div>
-    <div class="title-en">Traffic Police Haryana</div>
-    <div class="subtitle">
-      (मोटर यान अधिनियम, 1988 व इसके अधीन बने नियमों को भंग करने की सूचना)<br/>
-      (Infringement report under Motor Vehicles Act, 1988 and Rules made thereunder)
-    </div>
-    <div class="office-line">Office Name: <span id="officeName"></span></div>
+      Download PDF
+    </button>
   </div>
 
-  <!-- PHOTO ROW -->
-  <div class="photo-row">
-    <div class="no-image-box">
-      <span>⬛</span>
-      <span class="no-img-label">QR Code</span>
-    </div>
-    <div class="no-image-box">
-      <span>🏍️</span>
-      <span class="no-img-label">Vehicle Photo</span>
-    </div>
-    <div class="no-image-box">
-      <span>🚫</span>
-      <span class="no-img-label">No Image Available</span>
-    </div>
-    <div class="no-image-box">
-      <span>🚫</span>
-      <span class="no-img-label">No Image Available</span>
-    </div>
-  </div>
 
-  <!-- DATE BANNER -->
-  <div class="date-banner">
-    <span class="label">चालान दिनांक / Challan Date:</span>
-    <span class="value" id="challanDate"></span>
-  </div>
+  <!-- =========================
+       CHALLAN CARD
+  ========================= -->
 
-  <!-- VEHICLE / CHALLAN INFO TABLE -->
-  <table class="info-table">
-    <tr>
-      <td class="lbl"><span class="lbl-hi">वाहन श्रेणी</span>Vehicle Class</td>
-      <td class="val" id="vehicleClass"></td>
-      <td class="lbl"><span class="lbl-hi">चालान संख्या</span>Challan No.</td>
-      <td class="val"><strong id="challanNo"></strong></td>
-    </tr>
-    <tr>
-      <td class="lbl"><span class="lbl-hi">वाहन संख्या</span>Vehicle No.</td>
-      <td class="val"><strong id="vehicleNo"></strong></td>
-      <td class="lbl"><span class="lbl-hi">चेसिस नं०</span>Chassis No.</td>
-      <td class="val" id="chassisNo"></td>
-    </tr>
-    <tr>
-      <td class="lbl"><span class="lbl-hi">पुस्तक संख्या</span>Book No.</td>
-      <td class="val" id="bookNo"></td>
-      <td class="lbl"><span class="lbl-hi">इंजन नं०</span>Engine No.</td>
-      <td class="val" id="engineNo"></td>
-    </tr>
-    <tr>
-      <td class="lbl"><span class="lbl-hi">वाहनस्वामी का नाम</span>Owner's Name</td>
-      <td class="val" id="ownerName"></td>
-      <td class="lbl"><span class="lbl-hi">फॉर्म संख्या</span>Form No.</td>
-      <td class="val" id="formNo"></td>
-    </tr>
-    <tr>
-      <td class="lbl"><span class="lbl-hi">Violator Contact No.</span></td>
-      <td class="val" id="ownerContact"></td>
-      <td class="lbl">LGD Code</td>
-      <td class="val" id="lgdCode"></td>
-    </tr>
-    <tr>
-      <td class="lbl"><span class="lbl-hi">वाहनस्वामी का पता</span>Owner's Address</td>
-      <td class="val" colspan="3" id="ownerAddress"></td>
-    </tr>
-    <tr>
-      <td class="lbl"><span class="lbl-hi">चालक का नाम</span>Driver's Name</td>
-      <td class="val" id="driverName"></td>
-      <td class="lbl"><span class="lbl-hi">पिता का नाम</span>Father's Name</td>
-      <td class="val" id="fatherName"></td>
-    </tr>
-    <tr>
-      <td class="lbl"><span class="lbl-hi">आयु</span>Age</td>
-      <td class="val" id="age"></td>
-      <td class="lbl"><span class="lbl-hi">ड्राइविंग लाइसेंस नं०</span>DL No.</td>
-      <td class="val" id="dlNo"></td>
-    </tr>
-    <tr>
-      <td class="lbl"><span class="lbl-hi">वैधता</span>Validity</td>
-      <td class="val" id="dlValidity"></td>
-      <td></td><td></td>
-    </tr>
-    <tr>
-      <td class="lbl"><span class="lbl-hi">घटनास्थल</span>Place of Incident</td>
-      <td class="val" colspan="3" id="placeOfIncident"></td>
-    </tr>
-  </table>
+  <div id="challanCard">
 
-  <!-- IMPOUNDED DOC -->
-  <div class="impound-row">
-    <strong>अभिगृहीत दस्तावेज / Document Impounded:</strong>
-    <span id="impoundedDoc"></span>
-  </div>
+    <!-- HEADER -->
 
-  <!-- OFFENCES -->
-  <div class="section-title">आरोपित अपराध / Offences Charged With</div>
-  <table class="offences-table">
-    <thead>
+    <div class="header">
+
+      <img
+        src="/assets/logo.png"
+        alt="ITzeazy Logo"
+        class="itzeazy-logo"
+      />
+
+      <div class="title-en">
+        Traffic Police Haryana
+      </div>
+
+      <div class="subtitle">
+        (Infringement report under Motor Vehicles Act, 1988 and Rules made thereunder)
+      </div>
+
+      <div class="office-line">
+        Office Name:
+        <span id="officeName"></span>
+      </div>
+
+    </div>
+
+
+    <!-- DATE -->
+
+    <div class="date-banner">
+
+      <span class="label">
+        Challan Date:
+      </span>
+
+      <span
+        class="value"
+        id="challanDate"
+      ></span>
+
+    </div>
+
+
+    <!-- VEHICLE / CHALLAN INFO -->
+
+    <table class="info-table">
+
       <tr>
-        <th style="width:6%">Sr. No.<br/><span style="font-family:'Noto Sans Devanagari',sans-serif;font-weight:400">क्र०</span></th>
-        <th>Offences Charged / आरोपित अपराध</th>
-        <th style="width:18%">M.V. Act 1988<br/>मोटरयान अधिनियम 1988</th>
-        <th style="width:18%">Compounding Fee (₹)<br/>प्रशमन शुल्क</th>
-        <th style="width:14%">Offence Type</th>
+        <td class="lbl">Vehicle Class</td>
+        <td class="val" id="vehicleClass"></td>
+
+        <td class="lbl">Challan No.</td>
+        <td class="val">
+          <strong id="challanNo"></strong>
+        </td>
       </tr>
-    </thead>
-    <tbody id="offencesBody"></tbody>
-  </table>
 
-  <!-- PENALTY SUMMARY -->
-  <div class="penalty-summary">
-    <div class="row">
-      <span class="label">उक्त आरोपित अपराध के प्रति विनिर्दिष्ट जुर्माने की राशि / Penalty specified (in numerals and words):</span>
-      <span class="amount">₹<span id="totalPenalty"></span>/-</span>
-    </div>
-    <div class="row" style="margin-top:3px;">
-      <span class="label">Rupees:</span>
-      <span class="words" id="penaltyWords"></span>
-    </div>
-  </div>
-
-  <!-- REMARKS -->
-  <div class="remarks-row">
-    <span class="hi">टिप्पणी / </span><strong>Remarks:</strong> <span id="remarks"></span>
-    <br/>
-    <span class="hi">अभिगृहीत दस्तावेज का अस्थायी अधिकारपत्र दिनांक ......................... तक अथवा मूल दस्तावेज की वैधता तिथि तक, जो पूर्व में हो, वैध होगा।</span><br/>
-    The temporary authorization of impounded document shall be valid till (date)...................... or till the validity of the original document, whichever is earlier.<br/><br/>
-    <strong>For Online Payment:</strong>
-    <a class="payment-link" id="paymentLink" target="_blank"></a>
-  </div>
-
-  <!-- BOND -->
-  <div class="bond-section">
-    <div class="bond-title">
-      <span class="hi">मोटरयान अधिनियम,1988 की धारा 213(5)(ई) के अन्तर्गत बंधपत्र</span><br/>
-      (Bond under sec 213(5)(e) of Motor Vehicles Act, 1988)
-    </div>
-    <p>
-      <span class="hi">मैं वचन देता/देती हूँ कि उक्त आरोपित अपराध/अपराधों के सम्बन्ध में उत्तर देने के लिए दिनांक ................. को ......................... बजे ................... (स्थान) उपस्थित होऊंगा तथा उपस्थित होने में चूक करने पर प्रदेश सरकार के लिए रु 500 देने का उत्तरदायी होऊंगा।</span><br/>
-      I solemnly affirm that I shall be present at .............(place) on the specified date .............. and time ........ and, in case of failure to do so, shall be responsible to pay Rs 500 in favour of Government of State.
-    </p>
-  </div>
-
-  <!-- SIGNATURE ROW -->
-  <div class="sig-row">
-    <div class="sig-block">
-      <div class="sig-line"></div>
-      <div class="sig-label">ड्राईवर / वाहन स्वामी का नाम एवं हस्ताक्षर<br/>Name and signature of Violator (Driver/Owner)</div>
-      <div style="margin-top:4px;font-size:11.5px;" id="violatorSig"></div>
-    </div>
-    <div class="sig-block" style="text-align:right;">
-      <div class="sig-line"></div>
-      <div class="sig-label">हस्ताक्षर / Signature<br/>प्रवर्तन अधिकारी का नाम व पदनाम<br/>Name and signature of Officer</div>
-      <div class="officer-info" id="officerName"></div>
-      <div style="font-size:11px;color:var(--muted);" id="officerEmail"></div>
-      <div style="font-size:11px;font-weight:600;color:var(--blue);" id="officerRank"></div>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <div class="challan-footer">
-    यातायात पुलिस हरियाणा • Traffic Police Haryana &nbsp;|&nbsp; मोटरयान अधिनियम, 1988 &nbsp;|&nbsp; National Informatics Centre © 2024
-  </div>
-
-</div><!-- /challanCard -->
-
-<script>
-// ══════════════════════════════════════
-// DATA BINDING — populate all fields from challanData
-// API INTEGRATION: Replace challanData above with your
-// API response. This function will auto-populate everything.
-// ══════════════════════════════════════
-function populateChallan(data) {
-  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val || ''; };
-
-  set('officeName',      data.officeName);
-  set('challanDate',     data.challanDate);
-  set('challanNo',       data.challanNo);
-  set('vehicleClass',    data.vehicleClass);
-  set('vehicleNo',       data.vehicleNo);
-  set('chassisNo',       data.chassisNo);
-  set('engineNo',        data.engineNo);
-  set('bookNo',          data.bookNo);
-  set('formNo',          data.formNo);
-  set('lgdCode',         data.lgdCode);
-  set('ownerName',       data.ownerName);
-  set('ownerContact',    data.ownerContact);
-  set('ownerAddress',    data.ownerAddress);
-  set('driverName',      data.driverName);
-  set('fatherName',      data.fatherName);
-  set('age',             data.age);
-  set('dlNo',            data.dlNo);
-  set('dlValidity',      data.dlValidity);
-  set('placeOfIncident', data.placeOfIncident);
-  set('impoundedDoc',    data.impoundedDoc);
-  set('totalPenalty',    data.totalPenalty);
-  set('penaltyWords',    data.penaltyWords);
-  set('remarks',         data.remarks);
-  set('violatorSig',     data.violatorSig);
-  set('officerName',     data.officerName);
-  set('officerEmail',    data.officerEmail);
-  set('officerRank',     data.officerRank);
-
-  // Payment link
-  const pl = document.getElementById('paymentLink');
-  if (pl) { pl.href = data.paymentUrl; pl.textContent = data.paymentUrl; }
-
-  // Offences table
-  const tbody = document.getElementById('offencesBody');
-  if (tbody && data.offences) {
-    tbody.innerHTML = data.offences.map(o => `
       <tr>
-        <td style="text-align:center">${o.srNo}</td>
-        <td>${o.offence}</td>
-        <td style="text-align:center">${o.mvAct}</td>
-        <td style="text-align:center"><span class="penalty-amount">₹${o.fee}</span></td>
-        <td style="text-align:center"><span class="badge-normal">${o.type}</span></td>
-      </tr>`).join('');
-  }
-}
+        <td class="lbl">Vehicle No.</td>
+        <td class="val">
+          <strong id="vehicleNo"></strong>
+        </td>
 
-// Run on load
-populateChallan(challanData);
+        <td class="lbl">Chassis No.</td>
+        <td class="val" id="chassisNo"></td>
+      </tr>
 
-// ══════════════════════════════════════
-// PDF DOWNLOAD
-// ══════════════════════════════════════
-async function downloadPDF() {
+      <tr>
+        <td class="lbl">Book No.</td>
+        <td class="val" id="bookNo"></td>
 
-  window.print();
-}
-</script>
+        <td class="lbl">Engine No.</td>
+        <td class="val" id="engineNo"></td>
+      </tr>
+
+      <tr>
+        <td class="lbl">Owner's Name</td>
+        <td class="val" id="ownerName"></td>
+
+        <td class="lbl">Form No.</td>
+        <td class="val" id="formNo"></td>
+      </tr>
+
+      <tr>
+        <td class="lbl">Violator Contact No.</td>
+        <td class="val" id="ownerContact"></td>
+
+        <td class="lbl">LGD Code</td>
+        <td class="val" id="lgdCode"></td>
+      </tr>
+
+      <tr>
+        <td class="lbl">Owner's Address</td>
+        <td class="val" colspan="3" id="ownerAddress"></td>
+      </tr>
+
+      <tr>
+        <td class="lbl">Driver's Name</td>
+        <td class="val" id="driverName"></td>
+
+        <td class="lbl">Father's Name</td>
+        <td class="val" id="fatherName"></td>
+      </tr>
+
+      <tr>
+        <td class="lbl">Age</td>
+        <td class="val" id="age"></td>
+
+        <td class="lbl">DL No.</td>
+        <td class="val" id="dlNo"></td>
+      </tr>
+
+      <tr>
+        <td class="lbl">Validity</td>
+        <td class="val" id="dlValidity"></td>
+
+        <td></td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td class="lbl">Place of Incident</td>
+        <td class="val" colspan="3" id="placeOfIncident"></td>
+      </tr>
+
+    </table>
+
+
+    <!-- IMPOUNDED DOCUMENT -->
+
+    <div class="impound-row">
+
+      <strong>
+        Document Impounded:
+      </strong>
+
+      <span id="impoundedDoc"></span>
+
+    </div>
+
+
+    <!-- CHALLAN DETAILS -->
+
+    <div class="section-title">
+      Challan Details
+    </div>
+
+
+    <table class="info-table">
+
+      <tr>
+        <td class="lbl">Challan No.</td>
+        <td class="val" id="detailChallanNo"></td>
+
+        <td class="lbl">Challan Date &amp; Time</td>
+        <td class="val" id="detailChallanDate"></td>
+      </tr>
+
+      <tr>
+        <td class="lbl">Challan Place</td>
+        <td class="val" id="challanPlace"></td>
+
+        <td class="lbl">Challan Status</td>
+        <td class="val" id="challanStatus"></td>
+      </tr>
+
+      <tr>
+        <td class="lbl">Sent to Court</td>
+        <td class="val" id="sentToCourt"></td>
+
+        <td class="lbl">Fine Imposed</td>
+        <td class="val" id="fineImposed"></td>
+      </tr>
+
+      <tr>
+        <td class="lbl">State Code</td>
+        <td class="val" id="stateCode"></td>
+
+        <td class="lbl">Amount of Fine</td>
+        <td class="val" id="amountOfFine"></td>
+      </tr>
+
+      <tr>
+        <td class="lbl">Name</td>
+        <td class="val" id="offenceName"></td>
+
+        <td class="lbl">Act</td>
+        <td class="val" id="offenceAct"></td>
+      </tr>
+
+      <tr>
+        <td class="lbl">Date of Proceeding</td>
+        <td class="val" id="dateOfProceeding"></td>
+
+        <td class="lbl">Sent to Virtual Court</td>
+        <td class="val" id="sentToVirtualCourt"></td>
+      </tr>
+
+      <tr>
+        <td class="lbl">Court Name</td>
+        <td class="val" id="courtName"></td>
+
+        <td class="lbl">RTO District</td>
+        <td class="val" id="rtoDistrict"></td>
+      </tr>
+
+      <tr>
+        <td class="lbl">Court Address</td>
+        <td
+          class="val"
+          colspan="3"
+          id="courtAddress"
+        ></td>
+      </tr>
+
+    </table>
+
+
+    <!-- OFFENCE TABLE -->
+
+    <div class="section-title">
+      Offence Details
+    </div>
+
+    <table
+      class="info-table"
+      id="offencesTable"
+    >
+
+      <thead>
+        <tr>
+          <th style="width: 8%;">Sr. No.</th>
+          <th>Offence</th>
+          <th style="width: 15%;">MV Act</th>
+          <th style="width: 15%;">Fee</th>
+          <th style="width: 20%;">Type</th>
+        </tr>
+      </thead>
+
+      <tbody id="offencesBody"></tbody>
+
+    </table>
+
+
+    <!-- PENALTY SUMMARY -->
+
+    <div class="penalty-summary">
+
+      <div class="row">
+
+        <span class="label">
+          Penalty specified (in numerals and words):
+        </span>
+
+        <span class="amount">
+          ₹<span id="totalPenalty"></span>/-
+        </span>
+
+      </div>
+
+      <div
+        class="row"
+        style="margin-top: 3px;"
+      >
+
+        <span class="label">
+          Rupees:
+        </span>
+
+        <span
+          class="words"
+          id="penaltyWords"
+        ></span>
+
+      </div>
+
+    </div>
+
+
+    <!-- REMARKS -->
+
+    <div class="remarks-row">
+
+      <strong>
+        Remarks:
+      </strong>
+
+      <span id="remarks"></span>
+
+      <br />
+
+      The temporary authorization of impounded document shall be valid till
+      (date)...................... or till the validity of the original document,
+      whichever is earlier.
+
+      <br />
+      <br />
+
+      <strong>
+        For Online Payment:
+      </strong>
+
+      <a
+        class="payment-link"
+        id="paymentLink"
+        href="#"
+        target="_blank"
+        rel="noopener noreferrer"
+      ></a>
+
+    </div>
+
+
+    <!-- BOND -->
+
+    <div class="bond-section">
+
+      <div class="bond-title">
+        (Bond under sec 213(5)(e) of Motor Vehicles Act, 1988)
+      </div>
+
+      <p>
+        I solemnly affirm that I shall be present at .............(place)
+        on the specified date .............. and time ........ and,
+        in case of failure to do so, shall be responsible to pay Rs 500
+        in favour of Government of State.
+      </p>
+
+    </div>
+
+
+    <!-- SIGNATURE -->
+
+    <div class="sig-row">
+
+      <div class="sig-block">
+
+        <div class="sig-line"></div>
+
+        <div class="sig-label">
+          Name and signature of Violator (Driver/Owner)
+        </div>
+
+        <div
+          style="margin-top:4px;font-size:11.5px;"
+          id="violatorSig"
+        ></div>
+
+      </div>
+
+
+      <div
+        class="sig-block"
+        style="text-align:right;"
+      >
+
+        <div class="sig-line"></div>
+
+        <div class="sig-label">
+          Signature<br />
+          Name and signature of Officer
+        </div>
+
+        <div
+          class="officer-info"
+          id="officerName"
+        ></div>
+
+        <div
+          style="font-size:11px;color:var(--muted);"
+          id="officerEmail"
+        ></div>
+
+        <div
+          style="font-size:11px;font-weight:600;color:var(--blue);"
+          id="officerRank"
+        ></div>
+
+      </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <div class="challan-footer">
+      |&nbsp; National Informatics Centre © 2024
+    </div>
+
+  </div>
+
+
+  <script>
+    /* =====================================================
+       API RESPONSE
+    ===================================================== */
+
+    const apiResponse = {
+      response: [
+        {
+          response: {
+            data: {
+              Pending_data: [],
+
+              Disposed_data: [
+                {
+                  challan_no: "HR46416230906123769",
+                  challan_date_time: "26-08-2023 17:37:00",
+                  challan_place:
+                    "Service Rd, Panchgaon, Binola, Haryana 122413, India",
+                  challan_status: "Disposed",
+                  sent_to_reg_court: "No",
+                  remark: "NA",
+                  fine_imposed: "500",
+                  dl_no: null,
+                  driver_name: null,
+                  owner_name: "N****H K***R",
+                  name_of_violator: "N****H K***R",
+                  receipt_no: "HRRTE23110010784",
+                  received_amount: 500,
+                  department: "Traffic",
+                  state_code: "HR",
+                  document_impounded: "",
+
+                  offence_details: [
+                    {
+                      act: "NA",
+                      name: "49. Wrong parking"
+                    }
+                  ],
+
+                  amount_of_fine_imposed: null,
+                  court_address: null,
+                  court_name: null,
+                  date_of_proceeding: null,
+                  sent_to_court_on: null,
+                  sent_to_virtual_court: "No"
+                }
+              ]
+            },
+
+            status: "200",
+            message: "Record finds successfully"
+          },
+
+          responseStatus: "SUCCESS",
+          message: null
+        }
+      ]
+    };
+
+
+    /* =====================================================
+       GET FIRST DISPOSED CHALLAN
+    ===================================================== */
+
+    const challan =
+      apiResponse?.response?.[0]?.response?.data?.Disposed_data?.[0] || {};
+
+
+    /* =====================================================
+       CONVERT API RESPONSE TO UI DATA
+    ===================================================== */
+
+    const challanData = {
+
+      /* BASIC */
+
+      officeName: challan.department || "",
+      challanNo: challan.challan_no || "",
+      challanDate: challan.challan_date_time || "",
+      challanPlace: challan.challan_place || "",
+
+
+      /* STATUS */
+
+      challanStatus: challan.challan_status || "",
+      sentToCourt: challan.sent_to_reg_court || "",
+      sentToVirtualCourt: challan.sent_to_virtual_court || "",
+      stateCode: challan.state_code || "",
+
+
+      /* OWNER / DRIVER */
+
+      ownerName: challan.owner_name || "",
+      driverName: challan.driver_name || "",
+      dlNo: challan.dl_no || "",
+
+
+      /* DOCUMENT */
+
+      impoundedDoc: challan.document_impounded || "",
+
+
+      /* FINE */
+
+      fineImposed: challan.fine_imposed || "",
+      amountOfFine:
+        challan.amount_of_fine_imposed ??
+        challan.received_amount ??
+        "",
+
+
+      /* OFFENCE */
+
+      offenceName:
+        challan.offence_details?.[0]?.name || "",
+
+      offenceAct:
+        challan.offence_details?.[0]?.act || "",
+
+
+      /* COURT */
+
+      dateOfProceeding:
+        challan.date_of_proceeding || "",
+
+      courtName:
+        challan.court_name || "",
+
+      courtAddress:
+        challan.court_address || "",
+
+      rtoDistrict: "",
+
+
+      /* OTHER */
+
+      remarks:
+        challan.remark || "",
+
+
+      /* FIELDS NOT AVAILABLE IN API */
+
+      vehicleClass: "",
+      vehicleNo: "",
+      chassisNo: "",
+      engineNo: "",
+      bookNo: "",
+      formNo: "",
+      lgdCode: "",
+      ownerContact: "",
+      ownerAddress: "",
+      fatherName: "",
+      age: "",
+      dlValidity: "",
+      placeOfIncident: "",
+
+
+      /* PAYMENT */
+
+      paymentUrl:
+        "https://echallan.parivahan.gov.in/index/accused-challan",
+
+
+      /* OFFICER */
+
+      officerName: "",
+      officerEmail: "",
+      officerRank: "",
+
+      violatorSig: "",
+
+
+      /* OFFENCE ARRAY */
+
+      offences:
+        Array.isArray(challan.offence_details)
+          ? challan.offence_details.map((item, index) => ({
+              srNo: `${index + 1}.`,
+              offence: item?.name || "",
+              mvAct: item?.act || "",
+              fee: challan.fine_imposed || "",
+              type: "Normal Penalty"
+            }))
+          : [],
+
+
+      /* TOTAL PENALTY */
+
+      totalPenalty:
+        challan.fine_imposed ||
+        challan.received_amount ||
+        "",
+
+      penaltyWords: ""
+    };
+
+
+    /* =====================================================
+       NUMBER TO WORDS
+    ===================================================== */
+
+    function numberToWords(num) {
+
+      const ones = [
+        "",
+        "One",
+        "Two",
+        "Three",
+        "Four",
+        "Five",
+        "Six",
+        "Seven",
+        "Eight",
+        "Nine",
+        "Ten",
+        "Eleven",
+        "Twelve",
+        "Thirteen",
+        "Fourteen",
+        "Fifteen",
+        "Sixteen",
+        "Seventeen",
+        "Eighteen",
+        "Nineteen"
+      ];
+
+      const tens = [
+        "",
+        "",
+        "Twenty",
+        "Thirty",
+        "Forty",
+        "Fifty",
+        "Sixty",
+        "Seventy",
+        "Eighty",
+        "Ninety"
+      ];
+
+
+      num = Number(num);
+
+
+      if (!Number.isFinite(num) || num < 0) {
+        return "";
+      }
+
+
+      num = Math.floor(num);
+
+
+      if (num < 20) {
+        return ones[num];
+      }
+
+
+      if (num < 100) {
+
+        return (
+          tens[Math.floor(num / 10)] +
+          (num % 10
+            ? " " + ones[num % 10]
+            : "")
+        );
+
+      }
+
+
+      if (num < 1000) {
+
+        return (
+          ones[Math.floor(num / 100)] +
+          " Hundred" +
+          (num % 100
+            ? " " + numberToWords(num % 100)
+            : "")
+        );
+
+      }
+
+
+      if (num < 100000) {
+
+        return (
+          numberToWords(Math.floor(num / 1000)) +
+          " Thousand" +
+          (num % 1000
+            ? " " + numberToWords(num % 1000)
+            : "")
+        );
+
+      }
+
+
+      if (num < 10000000) {
+
+        return (
+          numberToWords(Math.floor(num / 100000)) +
+          " Lakh" +
+          (num % 100000
+            ? " " + numberToWords(num % 100000)
+            : "")
+        );
+
+      }
+
+
+      return (
+        numberToWords(Math.floor(num / 10000000)) +
+        " Crore" +
+        (num % 10000000
+          ? " " + numberToWords(num % 10000000)
+          : "")
+      );
+    }
+
+
+    /* =====================================================
+       PENALTY WORDS
+    ===================================================== */
+
+    if (challanData.totalPenalty !== "") {
+
+      challanData.penaltyWords =
+        numberToWords(challanData.totalPenalty) +
+        " Rupees only";
+
+    }
+
+
+    /* =====================================================
+       SAFE TEXT SETTER
+    ===================================================== */
+
+    function setValue(id, value) {
+
+      const element =
+        document.getElementById(id);
+
+      if (!element) {
+        return;
+      }
+
+      element.textContent =
+        value !== null &&
+        value !== undefined &&
+        value !== ""
+          ? value
+          : "";
+    }
+
+
+    /* =====================================================
+       POPULATE CHALLAN
+    ===================================================== */
+
+    function populateChallan(data) {
+
+      /* BASIC */
+
+      setValue("officeName", data.officeName);
+      setValue("challanDate", data.challanDate);
+      setValue("challanNo", data.challanNo);
+
+
+      /* VEHICLE */
+
+      setValue("vehicleClass", data.vehicleClass);
+      setValue("vehicleNo", data.vehicleNo);
+      setValue("chassisNo", data.chassisNo);
+      setValue("engineNo", data.engineNo);
+      setValue("bookNo", data.bookNo);
+      setValue("formNo", data.formNo);
+      setValue("lgdCode", data.lgdCode);
+
+
+      /* OWNER / DRIVER */
+
+      setValue("ownerName", data.ownerName);
+      setValue("ownerContact", data.ownerContact);
+      setValue("ownerAddress", data.ownerAddress);
+
+      setValue("driverName", data.driverName);
+      setValue("fatherName", data.fatherName);
+      setValue("age", data.age);
+      setValue("dlNo", data.dlNo);
+      setValue("dlValidity", data.dlValidity);
+
+      setValue("placeOfIncident", data.placeOfIncident);
+
+
+      /* DOCUMENT */
+
+      setValue(
+        "impoundedDoc",
+        data.impoundedDoc
+      );
+
+
+      /* CHALLAN DETAILS */
+
+      setValue(
+        "detailChallanNo",
+        data.challanNo
+      );
+
+      setValue(
+        "detailChallanDate",
+        data.challanDate
+      );
+
+      setValue(
+        "challanPlace",
+        data.challanPlace
+      );
+
+      setValue(
+        "challanStatus",
+        data.challanStatus
+      );
+
+      setValue(
+        "sentToCourt",
+        data.sentToCourt
+      );
+
+      setValue(
+        "stateCode",
+        data.stateCode
+      );
+
+      setValue(
+        "fineImposed",
+        data.fineImposed
+      );
+
+      setValue(
+        "amountOfFine",
+        data.amountOfFine
+      );
+
+      setValue(
+        "offenceName",
+        data.offenceName
+      );
+
+      setValue(
+        "offenceAct",
+        data.offenceAct
+      );
+
+      setValue(
+        "dateOfProceeding",
+        data.dateOfProceeding
+      );
+
+      setValue(
+        "sentToVirtualCourt",
+        data.sentToVirtualCourt
+      );
+
+      setValue(
+        "courtName",
+        data.courtName
+      );
+
+      setValue(
+        "courtAddress",
+        data.courtAddress
+      );
+
+      setValue(
+        "rtoDistrict",
+        data.rtoDistrict
+      );
+
+
+      /* PENALTY */
+
+      setValue(
+        "totalPenalty",
+        data.totalPenalty
+      );
+
+      setValue(
+        "penaltyWords",
+        data.penaltyWords
+      );
+
+
+      /* REMARKS */
+
+      setValue(
+        "remarks",
+        data.remarks
+      );
+
+
+      /* SIGNATURE */
+
+      setValue(
+        "violatorSig",
+        data.violatorSig
+      );
+
+      setValue(
+        "officerName",
+        data.officerName
+      );
+
+      setValue(
+        "officerEmail",
+        data.officerEmail
+      );
+
+      setValue(
+        "officerRank",
+        data.officerRank
+      );
+
+
+      /* PAYMENT LINK */
+
+      const paymentLink =
+        document.getElementById("paymentLink");
+
+      if (paymentLink) {
+
+        const url =
+          data.paymentUrl || "#";
+
+        paymentLink.href = url;
+
+        paymentLink.textContent =
+          data.paymentUrl || "";
+
+      }
+
+
+      /* OFFENCE TABLE */
+
+      const tbody =
+        document.getElementById("offencesBody");
+
+      if (!tbody) {
+        return;
+      }
+
+
+      tbody.innerHTML = "";
+
+
+      if (
+        !Array.isArray(data.offences) ||
+        data.offences.length === 0
+      ) {
+
+        const tr =
+          document.createElement("tr");
+
+        tr.innerHTML = `
+          <td
+            colspan="5"
+            style="text-align:center;padding:8px;"
+          >
+            No offence details available
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+
+        return;
+      }
+
+
+      data.offences.forEach(function (offence) {
+
+        const tr =
+          document.createElement("tr");
+
+
+        const sr =
+          document.createElement("td");
+
+        sr.style.textAlign = "center";
+        sr.textContent =
+          offence.srNo || "";
+
+
+        const name =
+          document.createElement("td");
+
+        name.textContent =
+          offence.offence || "";
+
+
+        const act =
+          document.createElement("td");
+
+        act.style.textAlign = "center";
+        act.textContent =
+          offence.mvAct || "";
+
+
+        const fee =
+          document.createElement("td");
+
+        fee.style.textAlign = "center";
+
+        fee.innerHTML = `
+          <span
+            style="
+              font-weight:700;
+              color:#c8102e;
+              font-size:14px;
+            "
+          >
+            ₹${offence.fee || ""}
+          </span>
+        `;
+
+
+        const type =
+          document.createElement("td");
+
+        type.style.textAlign = "center";
+
+        type.innerHTML = `
+          <span
+            style="
+              background:#ffffff;
+              color:#000000;
+              border:1px solid #b0c4e8;
+              border-radius:12px;
+              padding:2px 10px;
+              font-size:11px;
+              font-weight:600;
+              white-space:nowrap;
+            "
+          >
+            ${offence.type || ""}
+          </span>
+        `;
+
+
+        tr.appendChild(sr);
+        tr.appendChild(name);
+        tr.appendChild(act);
+        tr.appendChild(fee);
+        tr.appendChild(type);
+
+
+        tbody.appendChild(tr);
+
+      });
+    }
+
+
+    /* =====================================================
+       RUN DATA BINDING
+    ===================================================== */
+
+    populateChallan(challanData);
+
+
+    /* =====================================================
+       PRINT / PDF
+    ===================================================== */
+
+    function downloadPDF() {
+
+      window.print();
+
+    }
+
+  </script>
+
 </body>
 </html>
