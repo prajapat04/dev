@@ -1,0 +1,1994 @@
+@media (max-width:1350px){
+    #main-container .main-box .top-section{
+        width: 90%;
+        left: unset;
+    }
+    #main-container .main-box .document-collection .main-doc-div div form > div {
+        position: relative;
+        width: 19vw;
+    }
+    #main-container .main-box .middle-section {
+        position: absolute;
+        top: 110px;
+        left: unset;
+        height: 240px;
+        width: 90%;
+    }
+    #main-container .main-box .main-subbox-2 form {
+        width: 34%;
+    }
+    #main-container .main-box .document-collection .main-doc-div {
+        margin-top: 40px;
+        min-height: 600px;
+        width: 76vw;
+    }
+    #main-container .main-box .middle-first-section {
+        position: absolute;
+        left: unset;
+        height: 250px;
+        width: 90%;
+    }
+    #main-container .main-box .middle-first-section .slide-box{
+        width: 100%;
+    }
+    #main-container .main-box .main-subbox-1 {
+        position: absolute;
+        top: 110px;
+        left: unset;
+        height: 1400px;
+        width: 90%;
+    }
+    #main-container .main-box .main-subbox-1 .order-now {
+        position: absolute;
+        width: 34%;
+    }
+    #main-container .main-box .main-subbox-1 {
+        height: 1450px;
+    }
+
+    #main-container .main-box .main-subbox-2 {
+        position: absolute;
+        width: 90%;
+    }
+    #main-container .main-box .main-subbox-2 {
+        position: absolute;
+        top: 110px;
+        left: unset;
+    }
+    #main-container .main-box .main-subbox-2 .box-a {
+        position: relative;
+        width: 64%;
+    }
+    #main-container .main-box .main-subbox-2 .target-messg {
+        position: absolute;
+        top: 475px;
+        height: 25px;
+        width: 64%;
+    }
+    #main-container .main-box .main-subbox-1 .order-now {
+        position: absolute;
+        width: 34%;
+        font-size: 27px;
+    }
+    #main-container .main-box .main-subbox-1 .box-a {
+        position: relative;
+        width: 100%;
+    }
+    #main-container .main-box .main-subbox-2 .box-b {
+        position: relative;
+        width: 100%;
+    }
+    #main-container .main-box .main-subbox-2 .box-a-2 {
+        position: absolute;
+        width: 64%;
+    }
+    #main-container .main-box .main-subbox-2 .order-now{
+        position: absolute;
+        width: 34%;
+        font-size: 27px;
+    }
+    #main-container .main-box .grid-order-option .main-sub-box {
+        width: 68%;
+    }
+    #main-container .main-box .payment-section {
+        left: unset;
+        height: 1450px;
+        width: 90%;
+    }
+    #main-container .main-box .payment-section .box-b {
+        position: relative;
+        padding: 20px;
+        width: 34%;
+    }
+    #main-container .main-box .payment-section .pay-now {
+        font-size: 27px;
+    }
+    #main-container .main-box .support-section {
+        position: absolute;
+        left: unset;
+        width: 90%;
+        height: 1450px;
+    }
+    #main-container .main-box .support-section .box-b {
+        height: 600px;
+        border-radius: 16px;
+        width: 34%;
+    }
+    #main-container .main-box .support-section .submit-issue {
+        position: absolute;
+        width: 34%;
+    }
+    #main-container .main-box .support-section-2 {
+        left: unset;
+        width: 90%;
+    }
+    #main-container .main-box .support-section-2 .box-b-2 {
+        border-radius: 16px;
+        width: 34%;
+    }
+    #main-container .main-box .support-section-2 .issue-now {
+        width: 34%;
+    }
+    #main-container .main-box .payment-section .box-b .sub-part{
+        position: absolute;
+        bottom: 0px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    #main-container .main-box .support-section .box-b {
+        position: relative;
+        padding: 20px;
+        width: 34%;
+        height: 500px;
+    }
+    #main-container .main-box .support-section .box-a {
+        position: relative;
+        width: 64%;
+    }
+    #main-container .main-box .support-section-2 .box-a-2 {
+        position: relative;
+        width: 64%;
+    }   
+}
+
+
+@media (max-width:1295px){
+    #main-container .main-box .grid-order-option .main-sub-box > div:not(.opt-div-5) {
+        margin: 0 10px;
+    }
+    #main-container .main-box .grid-order-option .main-sub-box > div:not(.opt-div-5) {
+        height: 160px;
+        width: 25vw;
+    }
+}
+@media (max-width:1157px){
+    #main-container .main-box .support-section .box-a .form-area .form-box .inp_fld_2 h3 {
+        margin-top: 15px;
+        margin-right: 15px;
+    }
+    #main-container .main-box .document-collection .main-doc-div {
+        margin-top: 40px;
+        min-height: 600px;
+        width: 78vw;
+    }
+    #main-container .main-box .support-section .box-a .form-area .form-box .inp_fld_1 h3{
+        margin-right: 70px;
+    }
+    #main-container .main-box .main-subbox-1 .box-a .form-area .btn-box div img {
+        position: absolute;
+        right: 10px;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box > div:first-child {
+        padding: 0;
+    }
+}
+@media (max-width:1057px){
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box {
+        width: 100%;
+    }
+    #main-container .main-box .document-collection .main-doc-div div form > div .file-boxs {
+        position: absolute;
+        top: 40px;
+        left: 54%;
+    }
+    #main-container .main-box .document-collection .main-doc-div div form > div {
+        position: relative;
+        width: 17vw;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box {
+        height: 100%;
+        width: 205%;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box > div:first-child .divv {
+        position: relative;
+        height: 100%;
+        width: 68vw;}
+
+}
+@media (max-width:1046px){
+    #main-container .main-box .middle-first-section .slide-box .main-slide-box > div {
+        height: 100%;
+        width: 340px;
+        margin-right: 40px;
+    }
+    #main-container .main-box .middle-first-section .slide-box .main-slide-box > div:nth-child(2) {
+        position: relative;
+    }
+    #main-container .main-box .middle-first-section .slide-box .main-slide-box > div:nth-child(2) .choice {
+        position: absolute;
+        left: 50%;
+        bottom: 5px;
+        transform: translateX(-50%);
+    }
+    #main-container .main-box .middle-first-section .slide-box .main-slide-box > div:nth-child(2) h3:first-child {
+        margin-top: -20px;
+    }
+}
+
+
+@media (max-width:1000px){
+    #main-container .main-box .form-1 {
+        position: absolute;
+        top: 110px;
+    }
+    #main-container .main-box .document-collection .main-doc-div {
+        margin-top: 40px;
+        min-height: 600px;
+        width: 95vw;
+    }
+    #main-container .main-box .document-collection .main-doc-div div form > div {
+        position: relative;
+        width: 170px;
+    }
+    #main-container .main-box .main-subbox-1 .box-a .form-area .btn-box div img {
+        position: absolute;
+        top: 50%;
+        right: 20px;
+    }
+    #main-container .main-box .form-1 .box-a {
+        position: relative;
+        top: 40px;
+    }
+    #main-container .main-box .orderTimeLine .parentBox {
+        position: absolute;
+        width: 90%;
+    }
+    #main-container .main-box .form-3-b .box-a {
+        width: 90%;
+    }
+    #main-container .main-box .form-1 .box-a {
+        width: 90%;
+    }
+    #main-container .side-box{
+        position: absolute;
+        left: -270px;
+        height: 100%;
+        width: 250px;
+        background: #fff;
+        z-index: 10;
+        box-shadow: 0px 0px 5px #999;
+        transition: 0.3s ease-in-out;
+    }
+    #main-container .main-box .grid-order-option .main-sub-box > div:not(.opt-div-5) {
+        height: 160px;
+        width: 41vw;
+    }
+    #main-container .main-box .grid-order-option .main-sub-box {
+        width: 90%;
+    }
+    #main-container .main-box .form-3-a .box-a {
+        width: 90%;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box > div:first-child .divv {
+        position: relative;
+        height: 100%;
+        width: 700px;
+    }
+    #main-container .side-box .logo_ {
+        position: absolute;
+        top: 25px;
+        left: 25px;
+        height: 34px;
+        display: none;
+    }
+    #main-container .main-box .top-section .notify{
+        position: relative;
+        right: 40px;
+        height: unset;
+        width: 50px;
+        display: block;
+    }
+    #main-container .main-box .top-section .notify > img {
+        height: 30px;
+        width: 90px;
+    }
+    #main-container .main-box .top-section .searchbox .path-menu {
+        justify-content: center;
+    }
+    #main-container .main-box .top-section {
+        top: 10px;
+        left: unset;
+        width: 100%;
+    }
+    #main-container .main-box .top-section .ham-burger{
+        display: block;
+        position: fixed;
+        left: 15px;
+        z-index: 11;
+        height: 30px;
+        width: 30px;
+    }
+    #main-container .main-box .top-section .ham-burger img{
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background-size: contain;
+        transition: 0.3s cubic-bezier(0.91, 0.12, 0, 0.21);
+    }
+    #main-container .main-box .main-subbox-1 .required-docs .docs {
+        justify-content: flex-start;
+    }
+    #main-container .main-box .main-subbox-1 .required-docs .docs .document{
+        margin: 5px 6px;
+    }
+    #main-container .main-box .support-section-2 .box-b-2 {
+        height: 500px;
+    }
+    #main-container .main-box .order-status {
+        width: 90%;
+    }
+    #main-container .main-box .support-section-2 .issue-now {
+        position: absolute;
+        top: 510px;
+    }
+    #main-container .main-box .support-section-2 .box-a-2 {
+        position: relative;
+        top: 10px;
+    }
+    #main-container .main-box .support-section-2 .box-b-2 {
+        top: 10px;
+    }
+    #main-container .side-box .nav-bar li:not(.active) {
+        border-bottom: 1px solid #c6c5c5;
+    }
+    #main-container .main-box .support-section-2 .issue-now {
+        position: absolute;
+        top: 520px;
+    }
+    #main-container .main-box .main-subbox-1 .box-a .form-area .form-area-box .area-box{
+        width: calc(90vw - 37vw);
+        display: flex;
+    }
+}
+
+@media (max-width:850px){
+    #main-container .main-box .top-section .notify {
+        position: relative;
+        right: 50%;
+    }
+    #main-container .main-box .orderTimeLine {
+        position: absolute;
+        background: #fff
+    }
+    #main-container .main-box .document-collection .main-doc-div {
+        position: relative;
+        width: 95vw;
+    }
+    #main-container .main-box .document-collection {
+        position: absolute;
+        background: #fff;
+    }
+    #main-container .main-box .uploadDocs {
+        position: absolute;
+        width: 100%;
+        background-color: #fff;
+    }
+    #main-container .main-box .uploadDocs form {
+        position: relative;
+        border: 1px solid #000
+    }
+    #main-container .main-box .uploadDocs form > div .file-boxs{
+        overflow: hidden;
+    }
+    #main-container .main-box .uploadDocs form > div .file-boxs label {
+        background-color: #ffebeb;
+    }
+    #main-container .main-box .form-3-b {
+        position: absolute;
+        background: #fff
+    }
+    #main-container .main-box .main-subbox-1 .box-a .form-area .sorder {
+        background: #fff;
+    }
+    #main-container .main-box .form-3-b .box-a .form-area {
+        background-color: #ffebeb;
+    }
+    #main-container .main-box .form-1 .box-a .form-area {
+        background-color: #ffebeb;
+    }
+    #main-container .main-box .orderTimeLine .parentBox {
+        background-color: #ffebeb;
+    }
+    #main-container .main-box .orderTimeLine {
+        position: absolute;
+        top: 80px;
+    }
+    #main-container .main-box .form-3-a {
+        background: #fff;
+    }
+    #main-container .main-box .form-1 {
+        position: absolute;
+        top: 110px;
+        background: #fff;
+    }
+    #main-container .main-box .order-status {
+        position: absolute;
+        top: 75px;
+    }
+    #main-container .main-box .order-status {
+        position: absolute;
+        top: 40px;
+    }
+    #main-container .main-box .m-sum-box {
+        position: absolute;
+        top: 70px;
+    }
+    #main-container .main-box .m-sum-box {
+        background-color: #fff;
+    }
+    #main-container .main-box .order-status .slide-box div:nth-child(1){
+        background-color: #ffebeb;
+    }
+    #main-container .main-box .grid-order-option {
+        position: absolute;
+        top: 110px;
+        left: 0;
+        height: 650px;
+        width: 100%;
+        background: #fff;
+    }
+    #main-container .main-box .form-3-a .box-a .form-area {
+        background-color: #ffebeb;
+    }
+    #main-container .main-box .grid-order-option .main-sub-box > div {
+        background-color: #ffebeb;
+        box-shadow: unset; 
+    }
+    #main-container .main-box .top-section .ham-burger{
+        display: block;
+        position: fixed;
+        top: 10px;
+        left: 15px;
+        z-index: 11;
+    }
+    #main-container .main-box .top-section .searchbox .path-menu {
+        top: 60px;
+        justify-content: center;
+        position: absolute;
+    }
+    #main-container .main-box .middle-section {
+        position: absolute;
+        top: 130px;
+    }
+    #main-container .main-box .middle-first-section .slide-box .main-slide-box div {
+        height: 100%;
+        width: 300px;
+    }
+    #main-container .main-box .main-subbox-1 .box-a {
+        top: 10px;
+        background-color: #ffebeb;
+    }
+    #main-container .main-box .main-subbox-2 {
+        background-color: #fff;
+    }
+    #main-container .main-box .main-subbox-2 .box-a {
+        top: 10px;
+        background-color: #ffebeb;
+    }
+    #main-container .main-box .main-subbox-2 .box-b {
+        top: 10px;
+        background-color: #ffebeb;
+    }
+    #main-container .main-box .main-subbox-2 .box-a-2 {
+        top: 10px;
+        background-color: #ffebeb;
+    }
+    #main-container .main-box .payment-section{
+        background-color: #fff;
+    }
+    #main-container .main-box .payment-section .box-a {
+        top: 40px;
+    }
+    #main-container .main-box .payment-section .box-a-2 {
+        top: 70px;
+        background-color: #ffebeb;
+    }
+    #main-container .main-box .support-section{
+        background-color: #fff;
+    }
+    #main-container .main-box .support-section .box-a {
+        top: 10px;
+        background-color: #ffebeb;
+    }
+    #main-container .main-box .support-section .box-a .form-area .form-box .inp_fld_1 input{
+        background-color: #fff;
+    }
+    #main-container .main-box .support-section .box-a .form-area .form-box .inp_fld_2 textarea{
+        background-color: #fff;
+    }
+    #main-container .main-box .support-section .box-b {
+        top: 10px;
+        background-color: #ffebeb;
+    }
+    #main-container .main-box {
+        position: relative;
+        background-color: #fff;
+    }
+
+    #main-container .main-box .middle-section {
+        background-color: #ffebeb;
+    }
+    #main-container .main-box .middle-first-section .slide-box .main-slide-box div {
+        background-color: #ffebeb;
+    }
+
+    #main-container .main-box .support-section-2 {
+        background: #fff;
+    }
+    #main-container .main-box .support-section-2 .box-a-2 .section-area{
+        background-color: #ffebeb;
+        height: 475px;
+    }
+    #main-container .main-box .support-section-2 .box-b-2{
+        background-color: #ffebeb;
+        height: 475px;
+    }
+    #main-container .main-box .support-section-2 .issue-now {
+        position: absolute;
+        top: 490px;
+    }
+    #main-container .side-box .service{
+        display: none;
+    }
+    #main-container .main-box .main-subbox-1 {
+        height: 1450px;
+        background: #fff;
+    }
+    #main-container .main-box .main-subbox-1 .order-now {
+        font-size: 25px;
+    }
+    #main-container .main-box .main-subbox-2 .order-now {
+        font-size: 26px;
+    }
+    #main-container .main-box .payment-section .pay-now {
+        font-size: 26px;
+    }
+    #main-container .main-box .support-section .submit-issue {
+        font-size: 26px;
+    }
+    #main-container .main-box .support-section-2 .issue-now {
+        font-size: 26px;
+    }
+    #main-container .main-box .top-section .searchbox .path-menu {
+        top: 60px;
+        left: 25px;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box{
+        background-color: #ffebeb;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box > div:first-child li span {
+        background: #fff;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:first-child li {
+        background-color: transparent;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box > div:last-child li {
+        background-color: #fff;
+    }
+    #main-container .main-box .main-subbox-2 .more-info-box_2 {
+        background-color: #ffebeb;
+    }
+    #main-container .main-box .main-subbox-2 .more-info-box_2 .sub-info-box-2 .sub-slider-box-2 .part-b .matr-4 div li{
+        background-color: #fff;
+    }
+    #main-container .main-box .main-subbox-2 .target-messg {
+        position: absolute;
+        top: 485px;
+    }
+    #main-container .main-box .main-subbox-2 .order-now {
+        font-size: 26px;
+        top: 520px;
+    }
+    #main-container .main-box .payment-section .pay-now {
+        font-size: 26px;
+        top: 520px;
+    }
+    #main-container .main-box .support-section .submit-issue {
+        position: absolute;
+        width: 34%;
+        top: 520px;
+    }
+    #main-container .main-box .main-subbox-2 .box-a-2 .forms {
+        background-color: #ffebeb;
+        margin-left: -5px;
+    }
+    #main-container .main-box .payment-section .box-a-2 .info-box {
+        position: relative;
+    }
+    #main-container .main-box .payment-section .box-a-2 .info-area {
+        border-bottom: 10px solid #fff;
+    }
+}
+
+@media (max-width:827px){   
+    #media-dashbord{
+        z-index: -1;
+    } 
+    #main-container .main-box .main-subbox-1 .more-info-box {
+        height: 300px;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box > div:first-child .divv {
+        width: 88vw;
+    }
+    #main-container .main-box .document-collection .main-doc-div div h2{
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    #main-container .main-box .document-collection .main-doc-div div form {
+        left: 50%;
+        transform: translateX(-50%);
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box > div:last-child {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        height: 245px;
+    }
+    #main-container .main-box .document-collection .main-doc-div div form > div {
+        position: relative;
+        width: 90vw;
+        height: 75px;
+        left: -7%;
+    }
+    #main-container .main-box .document-collection .main-doc-div div h2 {
+        position: absolute;
+        top: 10px;
+        height: 25px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        text-align: unset;
+        margin: 0;
+    }
+    #main-container .main-box .document-collection .main-doc-div div form > div {
+        position: relative;
+        width: 85vw;
+        margin-top: 5px;
+    }
+    #main-container .main-box .document-collection .main-doc-div > div {
+        position: relative;
+        left: -1%;
+        overflow: hidden;
+    }
+    #main-container .main-box .document-collection .main-doc-div > div .pBox {
+        position: relative;
+        height: 270px;
+    }
+    #main-container .main-box .document-collection .main-doc-div div form > div {
+        position: relative;
+        top: -40px;
+    }
+    #main-container .main-box .document-collection .main-doc-div div form .buttonToUpload {
+        position: absolute;
+        top: unset;
+        bottom: 10px;
+        right: unset;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    #main-container .main-box .document-collection .main-doc-div div form > div {
+        position: relative;
+        top: unset;
+        left: 0;
+    }
+    #main-container .main-box .document-collection .main-doc-div div form > div .file-boxs {
+        position: absolute;
+        top: -0px;
+        left: 59%;
+        transform: translateX(-60%);
+    }
+}
+
+@media (max-width:768px){
+    #main-container .main-box .main-subbox-1 {
+        height: 2000px;
+        display: block;
+    }
+    #main-container .main-box .uploadDocs .close_bOx {
+        position: absolute;
+        z-index: 90;
+    }
+    #main-container .main-box .main-subbox-1 .box-a .form-area .btn-box div img {
+        height: 15px;
+        width: 15px;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box {
+        position: absolute;
+        top: 500px;
+    }
+    #main-container .main-box .order-status {
+        position: absolute;
+        top: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 500px;
+        width: 90%;
+        border-radius: 16px;
+    }
+    #main-container .main-box .grid-order-option .main-sub-box {
+        width: 90%;
+    }
+    #main-container .main-box .grid-order-option .main-sub-box > div:not(.opt-div-5) {
+        height: 160px;
+        width: 41vw;
+    }
+    #main-container .main-box .main-subbox-1 .box-a .form-area .form-area-box .area-box {
+        height: 50px;
+    }
+    #main-container .main-box .main-subbox-1 .box-a {
+        position: relative;
+        height: 450px;
+        width: 100%;
+    }
+    #main-container .main-box .main-subbox-1 .box-a .form-area .form-area-box .area-box > div {
+        line-height: 50px;
+    }
+    #main-container .main-box .main-subbox-1 .box-a .form-area .update > div {
+        padding: 5px 10px;
+    }
+    #main-container .main-box .main-subbox-1 .order-now {
+        font-size: 25px;
+        width: 90%;
+        right: unset;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 850px;
+    }
+    #main-container .main-box .main-subbox-2 .box-a .form-area {
+        height: 450px;
+        width: 100%;
+        border-radius: 16px;
+        padding: 20px;
+    }
+    #main-container .main-box .main-subbox-2 {
+        display: block;
+        height: 2000px;
+    }
+    #main-container .main-box .main-subbox-2 .box-b {
+        top: 25px;
+        height: 365px;
+        width: 100%;
+        background-color: #ffebeb;
+    }
+    #main-container .main-box .main-subbox-2 .box-a-2 {
+        position: absolute;
+        height: 450px;
+        width: 100%;
+    }
+    #main-container .main-box .imgBoox > img {
+        height: 500px;
+        width: 600px;
+        transform: translate(-50%,-50%) scale(0.8);
+    }
+    #main-container .main-box .main-subbox-2 .box-a {
+        position: relative;
+        height: 450px;
+        width: 100%;
+    }
+    #main-container .main-box .main-subbox-2 .order-now {
+        font-size: 25px;
+        width: 90%;
+        right: unset;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 850px;
+    }
+    #main-container .main-box .payment-section {
+        background-color: #fff;
+        display: block;
+    }
+    #main-container .main-box .payment-section .box-b {
+        height: 365px;
+        top: 25px;
+        width: 100%;
+        background-color: #ffebeb;
+    }
+    #main-container .main-box .payment-section .box-a-2 .info-box {
+        position: relative;
+        width: 100%;
+    }
+    #main-container .main-box .payment-section .box-a-2 .info-box .pay-info-box {
+        width: 100%;
+        display: flex;
+    }
+    #main-container .main-box .payment-section .pay-now {
+        font-size: 25px;
+        width: 90%;
+        right: unset;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 875px;
+    }
+
+    #main-container .main-box .support-section {
+        background-color: #fff;
+        display: block;
+    }
+    #main-container .main-box .support-section .box-a {
+        top: 10px;
+        width: 100%;
+        height: 510px;
+        background-color: #ffebeb;
+    }
+    #main-container .main-box .support-section .box-b {
+        top:40px;
+        width: 100%;
+        background-color: #ffebeb;
+        height: 450px;
+    }
+    #main-container .main-box .support-section .submit-issue{
+        font-size: 25px;
+        width: 90%;
+        right: unset;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 955px;
+    }
+    #main-container .main-box .support-section .box-a .form-area {
+        position: relative;
+        height: 510px;
+    }
+    #main-container .main-box .support-section .box-a .form-area .form-box > h3 {
+        position: absolute;
+        top: 20px;
+    }
+    #main-container .main-box .support-section .box-a .form-area .form-box .inp_fld_1 {
+        position: absolute;
+        top: 80px;
+    }
+    #main-container .main-box .support-section .box-a .form-area .form-box .inp_fld_2 {
+        position: absolute;
+        top: 150px;
+    }
+    #main-container .main-box .support-section-2 {
+        background: #fff;
+        display: block;
+    }
+    #main-container .main-box .support-section-2 .box-a-2 {
+        width: 100%;
+    }
+    #main-container .main-box .support-section-2 .box-b-2{
+        display: none;
+    }
+    #main-container .main-box .support-section-2 .issue-now{
+        font-size: 25px;
+        width: 90%;
+        right: unset;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 595px;
+    }
+    #main-container .main-box .main-subbox-2 .box-b {
+        top: 750px;
+    }
+    #main-container .main-box .main-subbox-2 .target-messg {
+        position: absolute;
+        top: 435px;
+        width: 100%;
+    }
+    #main-container .main-box .main-subbox-2 .order-now {
+        top: 1230px;
+        font-size: 25px;
+        width: 90%;
+        right: unset;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    #main-container .main-box .main-subbox-2 {
+        display: block;
+        height: 2000px;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div {
+        height: 100%;
+        width: 100%;
+        padding: 0 15px;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:first-child li span:nth-child(1):after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:last-child li {
+        font-weight: 600;
+    }
+    #main-container .main-box .main-subbox-1 .box-a .form-area .form-area-box .area-box {
+        width: calc(90vw - 7vw);
+        display: flex;
+    }
+    #main-container .main-box .main-subbox-2 .box-a-2 .forms {
+        position: absolute;
+        height: 400px;
+    }    
+    #main-container .main-box .main-subbox-2 .more-info-box_2 {
+        position: absolute;
+        top: 500px;
+    }
+    #main-container .main-box .main-subbox-2 .box-b {
+        top: 390px;
+    }
+    #main-container .main-box .main-subbox-2 .more-info-box_2 .sub-info-box-2 .sub-slider-box-2 .part-b .matr-4 div li {
+        height: 35px;
+        min-width: 46%;
+    }
+    #main-container .main-box .payment-section .box-a{
+        width: 90vw;
+    }
+    #main-container .main-box .payment-section .box-a-2 {
+        position: absolute;
+        width: 90vw;
+    }
+    #main-container .main-box .main-subbox-2 form {
+        width: 100%;
+    }
+}
+
+@media (max-width: 744px){
+    #main-container .main-box .main-subbox-1 .box-a .form-area .btn-box div button {
+        text-align: left;
+        padding-left: 10px;
+    }
+    #main-container .main-box .main-subbox-2 .more-info-box_2 .sub-info-box-2 .sub-slider-box-2 .part-b button {
+        height: 35px;
+        line-height: 35px;
+    }
+}
+
+@media (max-width:715px){
+    #main-container .main-box .middle-section .matter h1 {
+        font-size: 4.4vw;
+        margin-bottom: 20px;
+    }
+    #main-container .main-box .middle-first-section > h2 {
+        font-size: 4.4vw;
+    }
+    #main-container .main-box .middle-section .matter p {
+        font-size: 2.5vw;
+    }
+    #main-container .main-box .main-subbox-2 .more-info-box_2 {
+        position: absolute;
+        /* top: 575px; */
+        height: 400px;
+    }
+    #main-container .main-box .main-subbox-2 .box-b {
+        top: 845px;
+    }
+    #main-container .main-box .main-subbox-2 .more-info-box_2 .sub-info-box-2 .sub-slider-box-2 .part-b button {
+        position: absolute;
+        bottom: 5px;
+    }
+    #main-container .main-box .main-subbox-2 .more-info-box_2 .sub-info-box-2 .sub-slider-box-2 .part-b .matr-4 > div {
+        height: 140px;
+    }
+    #main-container .main-box .main-subbox-2 .more-info-box_2 .sub-info-box-2 {
+        height: 350px;
+    }
+    #main-container .main-box .main-subbox-2 {
+        display: block;
+        height: 2200px;
+    }
+    #main-container .main-box .main-subbox-2 {
+        display: block;
+        height: 2100px;
+    }
+    #main-container .main-box .main-subbox-2 .order-now {
+        top: 1320px;
+    }
+    #main-container .main-box .main-subbox-2 .box-b {
+        top: 490px;
+    }
+    #main-container .main-box .main-subbox-2 .more-info-box_2 .sub-info-box-2 .sub-slider-box-2 .part-b .matr-4 div li {
+        height: 35px;
+        min-width: 95%;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box {
+        height: 100%;
+        width: 202%;
+    }
+    #main-container .main-box .document-collection .main-doc-div div form > div {
+        position: relative;
+        width: 85vw;
+    }
+}
+
+
+@media (max-width: 692px){
+    #main-container .main-box .payment-section {
+        height: 1700px;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .top-opt {
+        position: relative;
+        height: 45px;
+        margin-bottom: 5px;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box {
+        height: 600px;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:first-child li:nth-child(1) span:nth-child(1):after,
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:first-child li:nth-child(2) span:nth-child(1):after,
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:first-child li:nth-child(3) span:nth-child(1):after,
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:first-child li:nth-child(4) span:nth-child(1):after,
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:first-child li:nth-child(5) span:nth-child(1):after,
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:first-child li:nth-child(6) span:nth-child(1):after,
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:first-child li:nth-child(7) span:nth-child(1):after{
+        content: '';
+        position: absolute;
+        top: 135%;
+        left: 50%;
+        transform: translate(-50%,-50%) rotateZ(90deg);
+        height: 25px;
+        width: 25px;
+        background: url(../../assets/Images/arrow-left.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        overflow: hidden;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:last-child li {
+        font-weight: 600;
+        width: 100%;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:last-child li {
+        font-size: 16px;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:last-child li {
+        color: #5f5f5f;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:first-child li span {
+        color: #5f5f5f;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:last-child li:nth-child(1){
+        margin-top: 5px;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box > div:first-child li span {
+        background: #fff;
+        width: 90%;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:first-child li {
+        margin: 30px 0;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:last-child li:nth-child(8){
+        margin-bottom: 5px;
+    }
+    #main-container .main-box .support-section {
+        height: 1700px;
+    }
+    #main-container .main-box::-webkit-scrollbar-thumb{
+        background-color: transparent;
+        border-radius: 10px;
+    }
+    #main-container .main-box::-webkit-scrollbar {
+        width: 0px;
+    }
+    #main-container .main-box .main-subbox-2 .more-info-box_2 .sub-info-box-2 .sub-slider-box-2 .part-b button {
+        position: absolute;
+        bottom: 5px;
+        width: 90%;
+    }
+    #main-container .main-box .main-subbox-2 .more-info-box_2 .sub-info-box-2 .sub-slider-box-2 .part-c button {
+        width: 90%;
+    }
+    #main-container .main-box .main-subbox-2 .more-info-box_2 .sub-info-box-2 .sub-slider-box-2 .part-b .matr-4 div li {
+        height: 35px;
+        min-width: 95%;
+        max-width: unset;
+    }
+}
+
+
+@media (max-width:657px){
+    #main-container .main-box .top-section .searchbox .path-menu li:not(.li-last) {
+        margin-right: 35px;
+    }
+    #main-container .main-box .main-subbox-1 .box-a .form-area .btn-box div img {
+        position: absolute;
+        right: 30px;
+    }
+    #main-container .main-box .top-section .searchbox .path-menu li:not(.li-last)::before {
+        right: -25px;
+    }
+    #main-container .main-box .top-section .searchbox .path-menu {
+        top: 60px;
+        left: 25px;
+        width: 100%;
+    }
+    #main-container .main-box .grid-order-option .main-sub-box > div span {
+        font-size: 3.5vw;
+    }
+    #main-container .main-box .top-section .searchbox .path-menu li{
+        font-size: 2.4vw;
+    }
+    #main-container .main-box .middle-section .matter {
+        height: 100%;
+        width: 60%;
+        border-radius: 16px;
+        padding: 35px 15px;
+    }
+    #main-container .main-box .middle-section .matter h1 {
+        font-size: 5vw;
+        margin-bottom: 20px;
+    }
+    #main-container .main-box .middle-section .matter p {
+        font-size: 3vw;
+    }
+    #main-container .main-box .middle-section .img-box {
+        position: relative;
+        right: -10px;
+    }
+    #main-container .main-box .middle-first-section > h2 {
+        font-size: 5vw;
+    }
+    #main-container .main-box .form-3-a .box-a {
+        position: relative;
+        top: -85px;
+        height: 445px;
+    }
+    #main-container .main-box .main-subbox-1 .box-a .form-area .btn-box {
+        flex-direction: column;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }   
+    #main-container .main-box .main-subbox-1 .box-a .form-area .btn-box div {
+        position: relative;
+        height: 100%;
+        width: 100%;
+    }
+    #main-container .main-box .main-subbox-1 .box-a .form-area .btn-box {
+        position: relative;
+        height: 110px;
+    }
+    #main-container .main-box .main-subbox-1 .box-a .form-area .sorder {
+        position: relative;
+        height: 400px;
+    } 
+}
+
+@media (max-width:550px){
+    #main-container .main-box .payment-section .box-a-2 .info-box .pay-info-box:nth-child(2) div:nth-child(1), #main-container .main-box .payment-section .box-a-2 .info-box .pay-info-box:nth-child(4) div:nth-child(1), #main-container .main-box .payment-section .box-a-2 .info-box .pay-info-box:nth-child(5) div:nth-child(1) {
+        font-weight: bold;
+        font-size:14px;
+    }
+
+}
+
+@media (max-width:526px){
+    #main-container .main-box .form-1 {
+        position: absolute;
+        height: 850px;
+    }
+    #main-container .main-box .imgBoox > img {
+        height: 500px;
+        width: 600px;
+        transform: translate(-50%,-50%) scale(0.6);
+    }
+    #main-container .main-box .uploadDocs form {
+        position: relative;
+        width: 90vw;
+    }
+    #main-container .main-box .uploadDocs form h2 {
+        position: absolute;
+        font-size: 24px;
+    }
+    #main-container .main-box .main-subbox-1 .box-a .form-area .btn-box div button {
+        text-align: start;
+        padding-left: 35px;
+    }
+    #main-container .main-box .grid-order-option .main-sub-box{
+        display: unset;
+        display: flex;
+    }
+    #main-container .main-box .grid-order-option .main-sub-box h2{
+        display: none;
+    }
+    #main-container .main-box .grid-order-option {
+        position: fixed;
+        top: unset;
+        bottom:0px;
+        left: 0;
+        height: 80px;
+        z-index: 9;
+    }    
+    #main-container .main-box .grid-order-option .main-sub-box {
+        position: absolute;
+        top: 0px;
+        height: 100%;
+        width: 100%;
+        background-color: #ffebeb;
+        overflow: hidden;
+    }
+    #main-container .main-box .grid-order-option .main-sub-box > div a span {
+        font-size: 10px;
+        text-align: center;
+        order: 1;
+    }
+    #main-container .main-box .grid-order-option .main-sub-box > div:nth-child(6) img{
+        order: unset;
+    
+    }
+    #main-container .main-box .grid-order-option .main-sub-box > div:not(.opt-div-5) {
+        height: 100%;
+        width: 100%;
+        border-radius: unset;
+        overflow: hidden;
+    }
+    #main-container .main-box .grid-order-option .main-sub-box > div img {
+        height: 35px;
+        width: 35px;
+    }
+    #main-container .main-box .grid-order-option .main-sub-box > div {
+        text-align: center;
+    }
+    #main-container .main-box .grid-order-option .main-sub-box .opt-div-2 img {
+        margin-bottom: 18px;
+    }
+    #main-container .main-box .grid-order-option .main-sub-box .opt-div-4 img {
+        margin-bottom: 22px;
+    }
+    #main-container .main-box .grid-order-option .main-sub-box .opt-div-5 img {
+        margin-bottom: 14px;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box > div:last-child {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        height: 100%;
+    }
+    #main-container .main-box .grid-order-option .main-sub-box .opt-div-5 {
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        justify-content: space-around;
+        align-items: center;
+        border-radius: unset;
+        grid-area: unset;
+    }
+    #main-container .main-box .grid-order-option .main-sub-box .opt-div-5 img {
+        height: 20px;
+        width: 20px;
+        margin-left: unset;
+        margin-top: 5px;
+    }
+    #main-container .main-box .form-1 .box-a .form-area .form-box {
+        width: 100%;
+    }
+    #main-container .main-box .form-1 .box-a .form-area .form-box > div {
+        height: 65px;
+    }
+    #main-container .main-box .form-1 .box-a .form-area .form-box > div {
+        flex-direction: column;
+        margin: 5px  0;
+    }
+    #main-container .main-box .form-1 .box-a .form-area .form-box > div:nth-child(6) span {
+        margin-top: 6px;
+        align-self: center;
+    }
+    #main-container .main-box .form-1 .box-a {
+        height: 750px;
+    }
+    #main-container .main-box .form-3-b .box-a .form-area .form-box > div input, textarea, select {
+        height: 35px;
+        width: 100%;
+    }
+    #main-container .main-box .form-1 .box-a .form-area .form-box > div input, textarea, select {
+        height: 40px;
+        width: 100%;
+    }
+    #main-container .main-box .form-1 .box-a .form-area .form-box > input {
+        position: absolute;
+        bottom: -15px;
+    }
+    #main-container .main-box .form-1 .box-a .form-area .form-box > div span {
+        align-self: flex-start !important;
+    }
+    #main-container .main-box .form-1 .box-a .form-area .form-box > h3 {
+        position: absolute;
+        top: 5px;
+    }
+    #main-container .main-box .form-3-a .box-a .form-area .form-box > div {
+        height: 65px;
+        display: flex;
+        margin: 5px 0;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: column;
+    }
+    #main-container .main-box .form-3-a .box-a .form-area .form-box > input {
+        position: absolute;
+        bottom: -30px;
+    }
+    #main-container .main-box .form-3-a .box-a {
+        position: relative;
+        top: -70px;
+        height: 480px;
+    }
+    #main-container .main-box .form-3-a .box-a .form-area .form-box > div:nth-child(1) {
+        margin-top: 60px;
+    }
+    #main-container .main-box .form-3-b .box-a .form-area .form-box > input {
+        position: absolute;
+        bottom: -25px;
+    }
+    #main-container .main-box .form-3-b .box-a .form-area .form-box > div:nth-child(1) {
+        margin-top: -20px;
+    }
+    #main-container .main-box .form-3-b .box-a .form-area .form-box > div span {
+        font-weight: bold;
+        font-size: 16px;
+        align-self: flex-start;
+    }
+    #main-container .main-box .form-3-b .box-a .form-area .form-box > div {
+        position: relative;
+        height: 65px;
+        display: flex;
+        margin: 5px 0;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: column;
+    }
+    #main-container .main-box .form-3-a .box-a .form-area .form-box > div input, textarea, select {
+        height: 35px;
+        width: 100%;
+    }
+    #main-container .main-box .form-3-a .box-a .form-area .form-box > div span {
+        align-self: flex-start;
+    }
+    #main-container .main-box .form-3-b .box-a .form-area .form-box > div:nth-child(4) {
+        position: relative;
+        align-items: flex-start;
+    }
+    #main-container .main-box .form-3-b .box-a .form-area .form-box > div:nth-child(4) label {
+        position: absolute;
+        top: 30px;
+    }
+    #main-container .main-box .form-3-b .box-a {
+        position: relative;
+        top: -30px;
+        height: 480px;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:first-child li:nth-child(1) span:nth-child(1):after, #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:first-child li:nth-child(2) span:nth-child(1):after, #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:first-child li:nth-child(3) span:nth-child(1):after, #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:first-child li:nth-child(4) span:nth-child(1):after, #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:first-child li:nth-child(5) span:nth-child(1):after, #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:first-child li:nth-child(6) span:nth-child(1):after, #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:first-child li:nth-child(7) span:nth-child(1):after {
+        content: '';
+        position: absolute;
+        top: 137%;
+        left: 50%;
+        transform: translate(-50%,-50%) rotateZ(90deg);
+        height: 20px;
+        width: 20px;
+    }
+}
+
+
+@media (max-width:512px){
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:first-child li {
+        text-align: center;
+        display: flex;
+    }
+    .select2-container {
+        width: 100% !important;
+    }
+    #main-container .main-box .support-section .box-a .form-area .form-box .inp_fld_1 {
+        width: 100%;
+    }
+    #main-container .main-box .support-section .box-a .form-area .form-box .inp_fld_1 input {
+        width: 100%;
+        background-color: #FFDBDB;
+    }
+    #main-container .main-box .support-section .box-a .form-area .form-box .inp_fld_1 {
+        position: absolute;
+        top: 70px;
+        display: unset;
+    }
+    #main-container .main-box .support-section .box-a .form-area .form-box .inp_fld_1 h3 {
+        margin-right: unset;
+        margin-bottom: 5px;
+        text-align: center;
+    }
+    #main-container .main-box .support-section .box-a .form-area .form-box .inp_fld_2 {
+        position: absolute;
+        top: 135px;
+        display: unset;
+    }
+    #main-container .main-box .support-section .box-a {
+        top: 10px;
+        width: 100%;
+        height: 510px;
+    }
+    #main-container .main-box .support-section .box-a .form-area .form-box .inp_fld_2 label {
+        position: absolute;
+        right: unset;
+        left: 10px;
+    }
+    #main-container .main-box .support-section .box-a .form-area {
+        position: relative;
+        height: 100%;
+    }
+    #main-container .main-box .support-section .box-a .form-area .form-box .inp_fld_2 textarea {
+        background-color: #FFDBDB;
+        width: 100%;
+        height: 130px;
+    }
+    #main-container .main-box .support-section .box-a .form-area .form-box .inp_fld_2 h3 {
+        margin-right: unset;
+        margin-bottom: 5px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 494px){
+    #main-container .main-box .top-section .searchbox .path-menu li:not(.li-last) {
+        margin-right: 20px;
+    }
+    #main-container .main-box .top-section .searchbox .path-menu li:not(.li-last)::before {
+        top: 5px;
+        right: -16px;
+        height: 10px;
+        width: 10px;
+    }
+    #main-container .main-box .orderTimeLine .parentBox .main-oline li {
+        position: relative;
+        width: 100%;
+    }
+    #main-container .main-box .main-subbox-1 .order-now {
+        font-size: 25px;
+        width: 95%;
+    }
+    #main-container .main-box .top-section .searchbox .path-menu li:not(.li-last) {
+        font-size: 2.8vw;
+        margin-right: 20px;
+    }
+    #main-container .main-box .top-section .searchbox .path-menu {
+        top: 60px;
+        left: 13px;
+        width: 100%;
+    }
+    #main-container .main-box .main-subbox-2 .order-now {
+        font-size: 25px;
+        width: 95%;
+    }
+    #main-container .main-box .main-subbox-2 .more-info-box_2 {
+        background-color: #fff;
+    }
+    #main-container .main-box .main-subbox-2 .more-info-box_2 .sub-info-box-2 .sub-slider-box-2 > div {
+        height: 100%;
+        width: 100%;
+        padding: 0px 5px;
+    }
+    #main-container .main-box .main-subbox-2 .more-info-box_2 {
+        position: absolute;
+        top: 490px;
+    }
+    #main-container .main-box .main-subbox-2 .more-info-box_2 .top-opt-2 {
+        position: relative;
+        height: 50px;
+        width: 100%;
+    }
+    #main-container .main-box .main-subbox-2 .box-b {
+        top: 470px;
+    }
+    #main-container .main-box .main-subbox-2 .order-now {
+        top: 1300px;
+    }
+    #main-container .main-box .main-subbox-2 {
+        display: block;
+        height: 2075px;
+    }
+    #main-container .main-box .main-subbox-2 .more-info-box_2 .sub-info-box-2 .sub-slider-box-2 .part-a > div {
+        height: 45%;
+        width: 100%;
+        margin-top: 5px;
+    }
+    #main-container .main-box .main-subbox-2 .more-info-box_2 .sub-info-box-2 .sub-slider-box-2 .part-b .matr-4 div li {
+        height: 40px;
+        min-width: 180px;
+        max-width: unset;
+        flex-grow: 1;
+        margin: 5px 10px;
+        text-align: center;
+        line-height: 40px;
+        box-shadow: 0px 2px 6px #ddd;
+    }
+    #main-container .main-box .main-subbox-2 .box-a-2 h2 {
+        font-weight: bold;
+        font-size: 4.7vw;
+    }
+    #main-container .main-box .payment-section .box-a-2 .info-box .pay-info-box:nth-child(2) div:nth-child(1), #main-container .main-box .payment-section .box-a-2 .info-box .pay-info-box:nth-child(4) div:nth-child(1), #main-container .main-box .payment-section .box-a-2 .info-box .pay-info-box:nth-child(5) div:nth-child(1) {
+        font-weight: bold;
+        font-size: 14px;
+        text-align: center;
+    }
+}
+
+@media (max-width:464px){
+    #media-dashbord{
+        z-index: 3;
+        height: 57%;
+        width: 100%;
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        padding-top: 17px;
+        padding-left: 35px;
+        padding-right: 35px;
+    }
+    #media-dashbord .main-sub-box > div a{
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+    }
+    #media-dashbord .main-sub-box > div a img{
+        height: 95px;
+    }
+    #media-dashbord .main-sub-box > div {
+        text-align: center;
+        width: 50%;
+        padding: 10px;
+    }
+    #media-dashbord .opt-div-1 {
+        float: left;
+    }
+    #media-dashbord .opt-div-1 > a span{
+        float: left;
+        padding-left: 18px;
+    }
+    #media-dashbord .opt-div-2 {
+        float: right;
+    }
+    #media-dashbord .opt-div-3 {
+        float: left;
+    }
+    #media-dashbord .opt-div-3 > a span{
+        float: left;
+        padding-left: 22px;
+    }
+    #media-dashbord .opt-div-4 {
+        float: right;
+    }  
+    #media-dashbord .opt-div-4 > a span{
+        float: left;
+        padding-left: 30px;
+        padding-top: 12px;
+    }
+
+    #main-container .main-box .main-subbox-1 {
+        height: 1900px;
+        display: block;
+    }
+
+    #main-container .main-box .payment-section .box-a-2 .info-area > p {
+        border-bottom: none;
+    }
+    #main-container .main-box .payment-section .box-a-2 .info-box .pay-info-box:nth-child(3) div:nth-child(1) span {
+        margin: 0px 5px;
+        font-size: 13px;
+    }
+    #main-container .main-box .payment-section .box-a-2 .info-box {
+        position: relative;
+        top: 14px;
+    }
+    #main-container .main-box .payment-section .box-a-2 .info-box .pay-info-box:nth-child(2) div:nth-child(1), #main-container .main-box .payment-section .box-a-2 .info-box .pay-info-box:nth-child(4) div:nth-child(1), #main-container .main-box .payment-section .box-a-2 .info-box .pay-info-box:nth-child(5) div:nth-child(1) {
+        font-weight: bold;
+    }
+    #main-container .main-box .payment-section .box-a-2 .info-box .pay-info-box:nth-child(2) div:nth-child(3) div h3 {
+        font-size: 15px;
+        text-align: center;
+    }
+    #main-container .main-box .payment-section .box-a-2 .info-box .pay-info-box:nth-child(2) div:nth-child(3) div a {
+        font-size: 12px;
+    }
+    #main-container .main-box .main-subbox-1 .box-a .form-area .btn-box div img {
+        height: 15px;
+        width: 15px;
+    }
+    #main-container .main-box .payment-section .box-a-2 .info-area > p {
+        color: #5F5F5F;
+        font-size: 15px;
+        margin-top: -5px;
+    }
+    #main-container .main-box .payment-section .box-a-2 .info-box .pay-info-box:nth-child(3) div:nth-child(1) {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+    }
+    #main-container .main-box .uploadDocs form > div .file-boxs label {
+        font-size: 14px;
+    }
+    #main-container .main-box .main-subbox-1 .box-a .form-area .form-area-box div:last-child h3 {
+        font-size: 22px;
+    }
+    #main-container .main-box .order-status > h2 {
+        font-size: 25px;
+        margin-bottom: 5px;
+    }
+    #main-container .main-box .order-status .slide-box div:nth-child(1) h2 {
+        position: absolute;
+        top: 10px;
+        font-size: 22px;
+    }
+    #main-container .main-box .order-status .slide-box div:nth-child(1) .head-1-1 {
+        position: absolute;
+        top: 70px;
+    }
+    #main-container .main-box .order-status .slide-box div:nth-child(1) .para-1-1 {
+        position: absolute;
+        top: 105px;
+    }
+    #main-container .main-box .main-subbox-1 .box-a .form-area .btn-box div img {
+        position: absolute;
+        right: 15px;
+    }
+    #main-container .main-box .payment-section {
+        height: 1900px;
+    }
+    #main-container .main-box .support-section {
+        height: 1900px;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div:first-child li {
+        text-align: center;
+        font-size: 14px;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .top-opt {
+        position: relative;
+        height: 50px;
+        width: 100%;
+    }
+    #main-container .main-box .support-section .box-a .form-area h2 {
+        margin-bottom: 2px;
+    }
+    #main-container .main-box .main-subbox-2 .box-a-2 .table-box {
+        height: 90%;
+        width: 100%;
+        padding: 10px;
+        margin-left: -5px;
+    }
+    #main-container .main-box .main-subbox-2 .box-a-2 .table-box table tr .row-1 {
+        font-size: 14px;
+    }
+    #main-container .main-box .main-subbox-2 .box-a-2 .table-box table tr td:not(.row-1) {
+        font-size: 14px;
+    }
+    #main-container .main-box .main-subbox-2 .box-a-2 .table-box table thead th {
+        font-size: 14px;
+    }
+    #main-container .main-box .orderTimeLine .parentBox .main-oline li:first-child h3 {
+        position: absolute;
+        color: red;
+    }
+    #main-container .main-box .orderTimeLine .parentBox .main-oline li:not(li:first-child) h3 {
+        position: absolute;
+        color: red;
+    }
+    #main-container .main-box .orderTimeLine .parentBox .main-oline li:first-child p {
+        color: red;
+    }
+    #main-container .main-box .orderTimeLine .parentBox .main-oline li p {
+        color: red;
+    }
+    #main-container .main-box .payment-section .box-a-2 .info-box {
+        position: relative;
+        top: 14px;
+        height: 230px;
+    }
+    #main-container .main-box .payment-section .box-a-2 .info-area {
+        height: 350px;
+    }
+    #main-container .main-box .document-collection .main-doc-div > div {
+        position: relative;
+        left: -1.5%;
+    }
+}
+
+@media (max-width:426px){
+    #media-dashbord{
+        z-index: 3;
+        height: 57%;
+        width: 100%;
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        padding-top: 17px;
+        padding-left: 6px;
+        padding-right: 0px;
+    }
+
+    #main-container .main-box .middle-section .matter h1 {
+        font-size: 5.8vw;
+        margin-bottom: 20px;
+    }
+    #main-container .main-box .document-collection .main-doc-div > div {
+        position: relative;
+        left: -1.8%;
+    }
+    #main-container .main-box .middle-section .matter p {
+        font-size: 3.4vw;
+    } 
+    #main-container .main-box .grid-order-option .main-sub-box > div img {
+        height: 30px;
+        width: 30px;
+    }
+    #main-container .main-box .grid-order-option .main-sub-box .opt-div-5 img {
+        height: 17px;
+        width: 17px;
+        margin-left: unset;
+        margin-top: 6px;
+    }
+    #main-container .main-box .payment-section .box-a-2 .info-box .pay-info-box:nth-child(1) div:nth-child(2) {
+        font-weight: bold;
+        font-size: 14px;
+    }
+    #main-container .main-box .payment-section .box-a-2 .info-box .pay-info-box:nth-child(1) div:nth-child(3) {
+        font-weight: bold;
+        font-size: 14px;
+    }
+    #main-container .main-box .payment-section .box-a-2 .info-box .pay-info-box:nth-child(2) div:nth-child(3) div{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+    #main-container .main-box .orderTimeLine .parentBox .main-oline li:first-child h3 {
+        position: absolute;
+        font-size: 17px;
+    }
+    #main-container .main-box .orderTimeLine .parentBox .main-oline li:not(li:first-child) h3 {
+        position: absolute;
+        font-size: 17px;
+    }
+    #main-container .main-box .form-3-b .box-a .form-area .form-box p {
+        color: #5F5F5F;
+        margin: 10px 0;
+        font-size: 14px;
+    }
+    #main-container .main-box .main-subbox-1 .box-a .form-area .btn-box div button {
+        text-align: start;
+        padding-left: 15px;
+    }
+    #main-container .main-box .middle-section .img-box {
+        position: relative;
+        right: 0;
+    }
+    #main-container .main-box .form-1 .box-a .form-area .form-box > input {
+        position: absolute;
+        bottom: 25px;
+    }
+    #main-container .main-box .middle-first-section .slide-box .main-slide-box div {
+        height: 100%;
+        width: 290px;
+    }
+    #main-container .main-box .form-3-a .box-a .form-area h2 {
+        font-weight: bold;
+        font-size: 20px;
+    }
+    #main-container .main-box .form-3-b .box-a .form-area h2 {
+        font-weight: bold;
+        font-size: 20px;
+    }
+    #main-container .main-box .middle-first-section {
+        position: absolute;
+        left: unset;
+        height: 250px;
+        width: 90%;
+    }
+    #main-container .main-box .support-section .box-a {
+        top: 10px;
+        width: 100%;
+        height: 520px;
+    }
+    #main-container .main-box .form-1 .box-a .form-area h2 {
+        font-weight: bold;
+        font-size: 20px;
+    }
+    #main-container .main-box .form-1 .box-a .form-area > p {
+        font-size: 14px;
+    }
+    #main-container .main-box .form-1 .box-a .form-area .form-box > h3 {
+        position: absolute;
+        top: 20px;
+        font-size: 17px;
+    }
+    #main-container .main-box .middle-first-section > h2 {
+        font-size: 5.6vw;
+    }
+    #main-container .main-box .main-subbox-1 .box-a .form-area h2 {
+        font-weight: bold;
+        font-size: 20px;
+    }
+    #main-container .main-box .main-subbox-1 .box-a .form-area .update p {
+        color: #5F5F5F;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+    #main-container .main-box .main-subbox-1 .box-a .form-area .update > div:nth-child(2) h4 {
+        color: red;
+        font-size: 14px;
+    }
+    #main-container .main-box .main-subbox-1 .box-a .form-area .form-area-box .area-box > div {
+        border-top: none;
+        font-size: 14px;
+    }
+    #main-container .main-box .main-subbox-1 .box-a .form-area .update > div {
+        padding: 5px 5px;
+    }
+    #main-container .main-box .main-subbox-2 .box-a .form-area h2 {
+        font-weight: bold;
+        font-size: 20px;
+    }
+    #main-container .main-box .main-subbox-2 .box-a .form-area .form-box {
+        font-size: 15px;
+    }
+    #main-container .main-box .main-subbox-2 .box-b h2 {
+        font-weight: bold;
+        font-size: 20px;
+        color: #000;
+    }
+    #main-container .main-box .main-subbox-2 .box-b > p {
+        color: #5F5F5F;
+        font-size: 14px;
+    }
+    #main-container .main-box .main-subbox-2 .box-b .sub-part li {
+        padding-left: 2px;
+    }
+    #main-container .main-box .main-subbox-2 .box-a-2 h2 {
+        font-weight: bold;
+    }
+    #main-container .main-box .support-section .box-a .form-area > p {
+        color: #5F5F5F;
+        font-size: 14px;
+    }
+    #main-container .main-box .support-section .box-b h2 {
+        font-weight: bold;
+        font-size: 23px;
+    }
+    #main-container .main-box .support-section .box-b > p {
+        color: #5F5F5F;
+        font-size: 14px;
+    }
+    #main-container .main-box .support-section .box-b .sub-part li {
+        font-size: 15px;
+    }
+    #main-container .main-box .support-section .box-a .form-area h2 {
+        margin-bottom: 5px;
+    }
+    #main-container .main-box .payment-section .box-a-2 .info-area h2 {
+        font-weight: bold;
+        font-size: 20px;
+    }
+    #main-container .main-box .payment-section .box-a-2 .info-area > p {
+        color: #5F5F5F;
+        font-size: 14px;
+        border: none;
+    }
+    #main-container .main-box .payment-section .box-a-2 .info-box .pay-info-box div {
+        height: 100%;
+        width: 50%;
+        display: flex;
+        align-items: center;
+        font-size: 15px;
+        color: #5F5F5F;
+    }
+    #main-container .main-box .payment-section .box-b h2 {
+        font-weight: bold;
+        font-size: 20px;
+        color: #000;
+    }
+    #main-container .main-box .payment-section .box-b > p {
+        color: #5F5F5F;
+        font-size: 14px;
+    }
+    #main-container .main-box .payment-section .box-b .sub-part li {
+        padding-left: 2px;
+    }
+    #main-container .main-box .top-section .searchbox .path-menu {
+        top: 60px;
+        left: 13px;
+        width: 100%;
+    }
+    #main-container .main-box .top-section .searchbox .path-menu li {
+        font-size: 2.6vw;
+    }
+    #main-container .main-box .top-section .searchbox .path-menu {
+        top: 60px;
+        left: 13px;
+        width: 100%;
+        flex-wrap: wrap;
+        height: 40px;
+    }
+    #main-container .main-box .top-section .searchbox .path-menu li {
+        margin-right: 20px;
+        font-size: 15px;
+    }
+    #main-container .main-box .top-section .searchbox .path-menu li:not(.li-last) {
+        font-size: 15px;
+        margin-right: 20px;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .top-opt li:not(.active-bar) {
+        list-style: none;
+        height: 100%;
+        flex-grow: 1;
+        line-height: 50px;
+        font-size: 15px;
+    }
+    #main-container .main-box .main-subbox-1 .more-info-box .sub-info-box .sub-slider-box div {
+        height: 100%;
+        width: 100%;
+        padding: 0 5px;
+    }
+    #main-container .main-box .main-subbox-2 .more-info-box_2 .sub-info-box-2 .sub-slider-box-2 .part-c button {
+        height: 35px;
+        bottom: 5px;
+        line-height: 35px;
+    }
+    #main-container .main-box .main-subbox-2 .more-info-box_2 .sub-info-box-2 .sub-slider-box-2 .part-b button {
+        height: 35px;
+        line-height: 35px;
+    }
+    #main-container .main-box .payment-section .box-a-2 .info-box .pay-info-box:nth-child(2) div:nth-child(1), #main-container .main-box .payment-section .box-a-2 .info-box .pay-info-box:nth-child(4) div:nth-child(1), #main-container .main-box .payment-section .box-a-2 .info-box .pay-info-box:nth-child(5) div:nth-child(1) {
+        font-weight: bold;
+        font-size: 13px;
+    }
+    #main-container .main-box .payment-section .box-a-2 .info-box .pay-info-box:nth-child(1) div:nth-child(2) {
+        font-weight: bold;
+        font-size: 14px;
+    }
+    #main-container .main-box .payment-section .box-a-2 .info-box .pay-info-box:nth-child(1) div:nth-child(3) {
+        font-weight: bold;
+        font-size: 14px;
+    }
+}
+
+
+@media (max-width: 375px){
+    #main-container .main-box .middle-first-section .slide-box .main-slide-box div {
+        height: 100%;
+        width: 325px;
+        margin-right: 15px;
+    }
+    #main-container .main-box .middle-first-section .slide-box .main-slide-box div {
+        width: 90vw;
+    }
+    #main-container .main-box .main-subbox-1 .box-a .form-area .btn-box div button {
+        text-align: start;
+        padding-left: 10px;
+    }
+    #main-container .main-box .main-subbox-1 .box-a .form-area .btn-box div button {
+        font-size: 15px;
+    }
+    #main-container .main-box .imgBoox > img {
+        height: 500px;
+        width: 600px;
+        transform: translate(-50%,-50%) scale(0.5);
+    }
+}
+
+@media (max-width: 450){
+    #media-dashbord{
+        z-index: 3;
+    }
+}
