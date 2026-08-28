@@ -1399,6 +1399,7 @@ h4.questionText {
     display: flex;
     flex-wrap: wrap;
   padding: 0 10%;
+  justify-content: center;
   }
 
   .search_boxxs {
