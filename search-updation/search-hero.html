@@ -243,222 +243,424 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
   }]
 }
 </script>
-<style>
-  
 
+
+<!-- write a new css for navbar not conflict -->
+
+
+<style>
+  :root{
+    --izm-red:#ee1c25;
+    --izm-red-dark:#c8151d;
+    --izm-text:#0d0d0d;
+    --izm-border:#eeeeee;
+  }
+ 
+  *{box-sizing:border-box;}
+ 
+  body{
+    margin:0;
+    font-family:'Segoe UI', Arial, Helvetica, sans-serif;
+    background:#fafafa;
+  }
+ 
+  /* ===== Shell ===== */
+  .izm-navbar{
+    width:100%;
+    background:#ffffff;
+    border-bottom:1px solid var(--izm-border);
+    position:relative;
+    z-index:1000;
+  }
+ 
+  .izm-navbar__inner{
+    max-width:1320px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:12px 24px;
+    gap:20px;
+  }
+ 
+  /* ===== Logo ===== */
+  .izm-navbar__brand{
+    display:flex;
+    align-items:center;
+    flex-shrink:0;
+  }
+ 
+  .izm-navbar__logo-img{
+    height:44px;
+    width:auto;
+    object-fit:contain;
+    display:block;
+  }
+ 
+  /* ===== Toggle ===== */
+  .izm-navbar__toggle{
+    display:none;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:5px;
+    width:38px;
+    height:38px;
+    background:none;
+    border:1px solid #ddd;
+    border-radius:6px;
+    cursor:pointer;
+    flex-shrink:0;
+    order:3;
+  }
+ 
+  .izm-navbar__toggle-bar{
+    width:20px;
+    height:2px;
+    background:var(--izm-text);
+    border-radius:2px;
+    transition:transform .25s ease, opacity .25s ease;
+  }
+ 
+  .izm-navbar__toggle.is-active .izm-navbar__toggle-bar:nth-child(1){
+    transform:translateY(7px) rotate(45deg);
+  }
+  .izm-navbar__toggle.is-active .izm-navbar__toggle-bar:nth-child(2){
+    opacity:0;
+  }
+  .izm-navbar__toggle.is-active .izm-navbar__toggle-bar:nth-child(3){
+    transform:translateY(-7px) rotate(-45deg);
+  }
+ 
+  /* ===== Menu ===== */
+  .izm-navbar__menu{
+    display:flex;
+    align-items:center;
+    gap:26px;
+    list-style:none;
+    margin:0;
+    padding:0;
+    flex-wrap:wrap;
+    flex:1;
+    justify-content:center;
+  }
+ 
+  .izm-navbar__item{
+    position:relative;
+  }
+ 
+  .izm-navbar__link{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    text-decoration:none;
+    color:var(--izm-text);
+    font-size:15px;
+    font-weight:500;
+    padding:10px 2px;
+    white-space:nowrap;
+  }
+ 
+  .izm-navbar__link:hover{
+    color:var(--izm-red);
+  }
+ 
+  .izm-navbar__caret{
+    width:9px;
+    height:7px;
+    transition:transform .2s ease;
+  }
+ 
+  .izm-navbar__item--dropdown:hover .izm-navbar__caret,
+  .izm-navbar__item--dropdown.is-open .izm-navbar__caret{
+    transform:rotate(180deg);
+  }
+ 
+  .izm-navbar__dropdown{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    background:#fff;
+    border:1px solid #eee;
+    box-shadow:0 10px 24px rgba(0,0,0,.12);
+    border-radius:8px;
+    min-width:230px;
+    padding:8px 0;
+    list-style:none;
+    margin:6px 0 0;
+    z-index:1100;
+  }
+ 
+  .izm-navbar__item--dropdown:hover .izm-navbar__dropdown,
+  .izm-navbar__item--dropdown.is-open .izm-navbar__dropdown{
+    display:block;
+  }
+ 
+  .izm-navbar__dropdown-link{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:10px 18px;
+    color:var(--izm-text);
+    text-decoration:none;
+    font-size:14.5px;
+    white-space:nowrap;
+  }
+ 
+  .izm-navbar__dropdown-link:hover{
+    background:#fdf1f1;
+    color:var(--izm-red);
+  }
+ 
+  /* ===== Actions ===== */
+  .izm-navbar__actions{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    flex-shrink:0;
+  }
+ 
+  .izm-navbar__btn{
+    text-decoration:none;
+    font-size:15px;
+    font-weight:600;
+    white-space:nowrap;
+  }
+ 
+  .izm-navbar__btn--login{
+    color:var(--izm-text);
+  }
+  .izm-navbar__btn--login:hover{
+    color:var(--izm-red);
+  }
+ 
+  .izm-navbar__btn--signup{
+    color:#fff;
+    background:var(--izm-red);
+    padding:9px 22px;
+    border-radius:24px;
+  }
+  .izm-navbar__btn--signup:hover{
+    background:var(--izm-red-dark);
+  }
+ 
+  /* ===== Overlay ===== */
+  .izm-navbar__overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.35);
+    z-index:900;
+  }
+  .izm-navbar__overlay.is-active{
+    display:block;
+  }
+ 
+  /* ===================================================
+     RESPONSIVE
+     =================================================== */
+  @media (max-width:1100px){
+    .izm-navbar__menu{
+      gap:16px;
+    }
+    .izm-navbar__link{
+      font-size:14px;
+    }
+  }
+ 
+  @media (max-width:900px){
+    .izm-navbar__toggle{
+      display:flex;
+    }
+ 
+    .izm-navbar__inner{
+      flex-wrap:wrap;
+    }
+ 
+    .izm-navbar__menu{
+      display:none;
+      flex-direction:column;
+      align-items:flex-start;
+      width:100%;
+      position:absolute;
+      top:100%;
+      left:0;
+      background:#fff;
+      border-top:1px solid #eee;
+      box-shadow:0 12px 20px rgba(0,0,0,.08);
+      padding:6px 24px 14px;
+      gap:0;
+    }
+ 
+    .izm-navbar__menu.is-open{
+      display:flex;
+    }
+ 
+    .izm-navbar__item{
+      width:100%;
+      border-bottom:1px solid #f5f5f5;
+    }
+ 
+    .izm-navbar__link{
+      width:100%;
+      justify-content:space-between;
+      padding:14px 2px;
+    }
+ 
+    .izm-navbar__dropdown{
+      position:static;
+      box-shadow:none;
+      border:none;
+      border-radius:0;
+      display:none;
+      padding:0 0 8px 12px;
+      margin:0;
+      width:100%;
+    }
+ 
+    .izm-navbar__item--dropdown.is-open .izm-navbar__dropdown{
+      display:block;
+    }
+ 
+    .izm-navbar__dropdown-link{
+      padding:10px 0;
+      font-size:14px;
+    }
+ 
+    .izm-navbar__actions{
+      display:none;
+      width:100%;
+      flex-direction:column;
+      align-items:stretch;
+      gap:12px;
+      padding:16px 24px 20px;
+      order:4;
+    }
+ 
+    .izm-navbar__actions.is-open{
+      display:flex;
+    }
+ 
+    .izm-navbar__btn{
+      width:100%;
+      text-align:center;
+      padding:12px 0;
+    }
+ 
+    .izm-navbar__btn--login{
+      border:1px solid #eee;
+      border-radius:24px;
+      order:1;
+    }
+    .izm-navbar__btn--signup{
+      order:2;
+    }
+  }
+ 
+  @media (max-width:420px){
+    .izm-navbar__inner{
+      padding:8px 14px;
+    }
+    .izm-navbar__logo-img{
+      height:34px;
+    }
+    .izm-navbar__menu, .izm-navbar__actions{
+      padding-left:14px;
+      padding-right:14px;
+    }
+  }
 </style>
 </head>
   <body>
     <section id="menubar">
-      <div class="container">
-        <div class="row totalnav">
-          <a href="https://itzeazy.in/">
-            <div class="col-md-2">
-              <div class="logo">
-                <img src="https://itzeazy.in/assets/img/itz-logosmall.jpg" alt="Itzeazy logo" />
-              </div>
-            </div>
-          </a>
-          <div class="col-md-8 mobile_right allLinkNav">
-            <nav class="navbar navbar-expand-lg navbar-light cus_menu">
-              <button class="navbar-toggler" type="button" data-toggle="modal" data-target="#exampleModal" >
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="modal fade right" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content w-80">
-                    <div class="mt-2">
-                      <button type="button" class="close pt-5" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" class="closebtn">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body cuss_svgs">
-                      <div class="">
-                        <div class="col-md-2 mobile_menu">
-                          <div class="link_btn mt-3">
-                            <ul class="list-unstyled">
-                                                            <li>
-                                <a href="https://itzeazy.in/sign-in" class="login_btn">Login</a>
-                              </li>
-                              <li>
-                                <a href="https://itzeazy.in/sign-in" class="btn-linkk">Sign Up</a>
-                              </li>
-                                                          </ul>
-                            <hr class="hrr" />
-                          </div>
-                        </div>
-                      <ul class="navbar-nav mr-auto med-des-m0">
-                        <li class="nav-item active">
-                          <a class="nav-link" href="https://itzeazy.in/">Home <span class="sr-only">(current)</span>
-                            <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M6.81283 5L1.81283 10L0.916992 9.10417L5.04199 5L0.937825 0.895834L1.83366 -4.00688e-08L6.81283 5Z" fill="black" />
-                            </svg>
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="https://itzeazy.in/about-us">About us <span class="sr-only">(current)</span>
-                            <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M6.81283 5L1.81283 10L0.916992 9.10417L5.04199 5L0.937825 0.895834L1.83366 -4.00688e-08L6.81283 5Z" fill="black" />
-                            </svg>
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="https://itzeazy.in/blog">Blog <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M6.81283 5L1.81283 10L0.916992 9.10417L5.04199 5L0.937825 0.895834L1.83366 -4.00688e-08L6.81283 5Z" fill="black" />
-                            </svg>
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="https://itzeazy.in/pricing">Pricing <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M6.81283 5L1.81283 10L0.916992 9.10417L5.04199 5L0.937825 0.895834L1.83366 -4.00688e-08L6.81283 5Z" fill="black" />
-                            </svg>
-                          </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                          <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> How to <svg width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M5 6.81252L0 1.81252L0.895833 0.916687L5 5.04169L9.10417 0.93752L10 1.83335L5 6.81252Z" fill="#0D0D0D" />
-                            </svg>
-                          </a>
-                          <div class="dropdown-content" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item dropdown-item1" href="https://itzeazy.in/articles/marriage-certificate-online">Marriage Registration <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
-                              </svg>
-                            </a>
-                            <a class="dropdown-item dropdown-item1" href="https://itzeazy.in/articles/passport-online-application">Passport <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
-                              </svg>
-                            </a>
-                            <a class="dropdown-item dropdown-item1" href="https://itzeazy.in/articles/aadhar-card">Aadhar Card <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
-                              </svg>
-                            </a>
-                            <a class="dropdown-item dropdown-item1" href="https://itzeazy.in/articles/pan-card-online">Pan Card <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
-                              </svg>
-                            </a>
-                          </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                          <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Tool <svg width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M5 6.81252L0 1.81252L0.895833 0.916687L5 5.04169L9.10417 0.93752L10 1.83335L5 6.81252Z" fill="#0D0D0D" />
-                            </svg>
-                          </a>
-                          <div class="dropdown-content" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item dropdown-item1" href="https://itzeazy.in/road-tax/">Road Tax Calculator <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
-                              </svg>
-                            </a>
-                            <a class="dropdown-item dropdown-item1" href="https://itzeazy.in/vehicle-search/">Vehicle Search <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
-                              </svg>
-                            </a>
-                            <a class="dropdown-item dropdown-item1" href="https://itzeazy.in/forms/">Forms <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
-                              </svg>
-                            </a>
-                          </div>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="https://itzeazy.in/contact-us">Contact <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M6.81283 5L1.81283 10L0.916992 9.10417L5.04199 5L0.937825 0.895834L1.83366 -4.00688e-08L6.81283 5Z" fill="black" />
-                            </svg>
-                          </a>
-                        </li>
-                      </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="collapse navbar-collapse">
-                <div class="col-md-2 mobile_menu">
-                  <div class="link_btn mt-3">
-                    <ul class="list-unstyled">
-                                            <li>
-                        <a href="https://itzeazy.in/sign-in" class="login_btn">Login</a>
-                      </li>
-                      <li>
-                        <a href="https://itzeazy.in/sign-in" class="btn-linkk">Sign Up</a>
-                      </li>
-                                          </ul>
-                    <hr class="hr" />
-                  </div>
-                </div>
-                <ul class="navbar-nav mr-auto med-des-m0">
-                  <li class="nav-item active" >
-                    <a class="nav-link" href="https://itzeazy.in/">Home <span class="sr-only">(current)</span>
-                    </a>
-                  </li>
-                  <li class="nav-item active">
-                    <a class="nav-link" href="https://itzeazy.in/about-us">About us <span class="sr-only">(current)</span>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="https://itzeazy.in/blog">Blog</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="https://itzeazy.in/pricing">Pricing</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> How to <svg width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5 6.81252L0 1.81252L0.895833 0.916687L5 5.04169L9.10417 0.93752L10 1.83335L5 6.81252Z" fill="#0D0D0D" />
-                      </svg>
-                    </a>
-                    <div class="dropdown-content" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item dropdown-item1" href="https://itzeazy.in/articles/marriage-certificate-online">Marriage Registration <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
-                        </svg>
-                      </a>
-                      <a class="dropdown-item dropdown-item1" href="https://itzeazy.in/articles/passport-online-application">Passport <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
-                        </svg>
-                      </a>
-                      <a class="dropdown-item dropdown-item1" href="https://itzeazy.in/articles/aadhar-card">Aadhar Card <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
-                        </svg>
-                      </a>
-                      <a class="dropdown-item dropdown-item1" href="https://itzeazy.in/articles/pan-card-online">Pan Card <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
-                        </svg>
-                      </a>
-                    </div>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Tools <svg width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5 6.81252L0 1.81252L0.895833 0.916687L5 5.04169L9.10417 0.93752L10 1.83335L5 6.81252Z" fill="#0D0D0D" />
-                      </svg>
-                    </a>
-                    <div class="dropdown-content" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item dropdown-item1" href="https://itzeazy.in/road-tax/">Road Tax Calculator <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
-                        </svg>
-                      </a>
-                      <a class="dropdown-item dropdown-item1" href="https://itzeazy.in/vehicle-search/">Vehicle Search <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
-                        </svg>
-                      </a>
-                      <a class="dropdown-item dropdown-item1" href="https://itzeazy.in/forms/">Forms <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M6.81234 5L1.81234 10L0.916504 9.10417L5.0415 5L0.937337 0.895834L1.83317 -4.00688e-08L6.81234 5Z" fill="#0D0D0D" />
-                        </svg>
-                      </a>
-                    </div>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="https://itzeazy.in/contact-us">Contact </a>
-                  </li>
-                </ul>
-              </div>
-            </nav>
-          </div>
 
-                    <div class="col-md-2 desktop loginSigninNav">
-            <div class="link_btn mt-3">
-              <a href="https://itzeazy.in/sign-in" class="login_btn">Login</a>
-              <a href="https://itzeazy.in/sign-in" class="btn-linkk">Sign Up</a>
-            </div>
-          </div>
-                  </div>
-      </div>
+
+      <!-- replace container with i added new nav -->
+
+
+      <nav class="izm-navbar" id="izmNavbar">
+  <div class="izm-navbar__inner">
+ 
+    <!-- Brand -->
+    <a href="https://itzeazy.in/" class="izm-navbar__brand" id="izmBrand">
+      <img
+        src="https://itzeazy.in/assets/img/itz-logosmall.jpg"
+        alt="ItzEazy logo"
+        class="izm-navbar__logo-img">
+    </a>
+ 
+    <!-- Toggle -->
+    <button class="izm-navbar__toggle" id="izmToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span class="izm-navbar__toggle-bar"></span>
+      <span class="izm-navbar__toggle-bar"></span>
+      <span class="izm-navbar__toggle-bar"></span>
+    </button>
+ 
+    <!-- Menu -->
+    <ul class="izm-navbar__menu" id="izmMenu">
+      <li class="izm-navbar__item">
+        <a href="https://itzeazy.in/" class="izm-navbar__link">Home</a>
+      </li>
+      <li class="izm-navbar__item">
+        <a href="https://itzeazy.in/about-us" class="izm-navbar__link">About us</a>
+      </li>
+      <li class="izm-navbar__item">
+        <a href="https://itzeazy.in/blog" class="izm-navbar__link">Blog</a>
+      </li>
+      <li class="izm-navbar__item">
+        <a href="https://itzeazy.in/pricing" class="izm-navbar__link">Pricing</a>
+      </li>
+ 
+      <li class="izm-navbar__item izm-navbar__item--dropdown izm-dd" data-dd="howto">
+        <a href="#" class="izm-navbar__link izm-dd-toggle">
+          How to
+          <svg class="izm-navbar__caret" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M5 6.81252L0 1.81252L0.895833 0.916687L5 5.04169L9.10417 0.93752L10 1.83335L5 6.81252Z" fill="currentColor"/>
+          </svg>
+        </a>
+        <ul class="izm-navbar__dropdown">
+          <li><a href="https://itzeazy.in/articles/marriage-certificate-online" class="izm-navbar__dropdown-link">Marriage Registration</a></li>
+          <li><a href="https://itzeazy.in/articles/passport-online-application" class="izm-navbar__dropdown-link">Passport</a></li>
+          <li><a href="https://itzeazy.in/articles/aadhar-card" class="izm-navbar__dropdown-link">Aadhar Card</a></li>
+          <li><a href="https://itzeazy.in/articles/pan-card-online" class="izm-navbar__dropdown-link">Pan Card</a></li>
+        </ul>
+      </li>
+ 
+      <li class="izm-navbar__item izm-navbar__item--dropdown izm-dd" data-dd="tools">
+        <a href="#" class="izm-navbar__link izm-dd-toggle">
+          Tools
+          <svg class="izm-navbar__caret" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M5 6.81252L0 1.81252L0.895833 0.916687L5 5.04169L9.10417 0.93752L10 1.83335L5 6.81252Z" fill="currentColor"/>
+          </svg>
+        </a>
+        <ul class="izm-navbar__dropdown">
+          <li><a href="https://itzeazy.in/road-tax/" class="izm-navbar__dropdown-link">Road Tax Calculator</a></li>
+          <li><a href="https://itzeazy.in/vehicle-search/" class="izm-navbar__dropdown-link">Vehicle Search</a></li>
+          <li><a href="https://itzeazy.in/forms/" class="izm-navbar__dropdown-link">Forms</a></li>
+        </ul>
+      </li>
+ 
+      <li class="izm-navbar__item">
+        <a href="https://itzeazy.in/contact-us" class="izm-navbar__link">Contact</a>
+      </li>
+    </ul>
+ 
+    <!-- Actions -->
+    <div class="izm-navbar__actions" id="izmActions">
+      <a href="https://itzeazy.in/sign-in" class="izm-navbar__btn izm-navbar__btn--login">Login</a>
+      <a href="https://itzeazy.in/sign-in" class="izm-navbar__btn izm-navbar__btn--signup">Sign Up</a>
+    </div>
+ 
+  </div>
+</nav>
+
+
+
+
+
+     
       <!-- desktop other services -->
       <div class="bg-dark desktop" >
         <div class="container">
@@ -483,6 +685,13 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
      </div> 
     </section>  
    
+
+
+
+<!-- replace this section service_two -->
+
+
+
 <section id="service_two" class="py-5">
   <div class="container-sr">
     <div class="rows">
@@ -1163,5 +1372,73 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
   
     
  <script src="https://itzeazy.in//assets/js/orderService.js"></script>
+
+
+
+
+
+
+
+
+
+<!-- added this script for new nav bar -->
+
+
+
+ <script>
+  (function(){
+    var toggle  = document.getElementById('izmToggle');
+    var menu    = document.getElementById('izmMenu');
+    var actions = document.getElementById('izmActions');
+    var overlay = document.getElementById('izmOverlay');
+    var dds     = document.querySelectorAll('.izm-dd');
+ 
+    function closeAllDropdowns(){
+      dds.forEach(function(dd){ dd.classList.remove('is-open'); });
+    }
+ 
+    function closeMenu(){
+      toggle.classList.remove('is-active');
+      toggle.setAttribute('aria-expanded','false');
+      menu.classList.remove('is-open');
+      actions.classList.remove('is-open');
+      overlay.classList.remove('is-active');
+      closeAllDropdowns();
+    }
+ 
+    function openMenu(){
+      toggle.classList.add('is-active');
+      toggle.setAttribute('aria-expanded','true');
+      menu.classList.add('is-open');
+      actions.classList.add('is-open');
+      overlay.classList.add('is-active');
+    }
+ 
+    toggle.addEventListener('click', function(){
+      menu.classList.contains('is-open') ? closeMenu() : openMenu();
+    });
+ 
+    overlay.addEventListener('click', closeMenu);
+ 
+    dds.forEach(function(dd){
+      var link = dd.querySelector('.izm-dd-toggle');
+      link.addEventListener('click', function(e){
+        if (window.innerWidth <= 900){
+          e.preventDefault();
+          var wasOpen = dd.classList.contains('is-open');
+          closeAllDropdowns();
+          if (!wasOpen){ dd.classList.add('is-open'); }
+        }
+      });
+    });
+ 
+    window.addEventListener('resize', function(){
+      if (window.innerWidth > 900){
+        closeMenu();
+      }
+    });
+  })();
+</script>
+ 
 </body>
 </html>
