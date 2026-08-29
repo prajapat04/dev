@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="bootstrap.min.css" /> 
   <link rel="stylesheet" href="orderService.css" />
    <link rel="stylesheet" href="/rto-services.css" />
+   <link rel="stylesheet" href="style.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" async></script>
   <script src="https://itzeazy.in/assets/sweet-alert/dist/sweetalert.min.js" defer></script>
   <!-- <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;400;500;700;800&family=Open+Sans:wght@500;800&display=swap" rel="stylesheet" /> -->
@@ -245,7 +246,7 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
 </script>
 
 
-<!-- write a new css for navbar not conflict -->
+<!-- write a new css for navbar not conflict  start here -->
 
 
 <style>
@@ -254,14 +255,6 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
     --izm-red-dark:#c8151d;
     --izm-text:#0d0d0d;
     --izm-border:#eeeeee;
-  }
- 
-  *{box-sizing:border-box;}
- 
-  body{
-    margin:0;
-    font-family:'Segoe UI', Arial, Helvetica, sans-serif;
-    background:#fafafa;
   }
  
   /* ===== Shell ===== */
@@ -572,12 +565,14 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
     }
   }
 </style>
+
+<!-- write a new css for navbar not conflict  end here -->
 </head>
   <body>
     <section id="menubar">
 
 
-      <!-- replace container with i added new nav -->
+      <!-- replace container with i added new nav start here-->
 
 
       <nav class="izm-navbar" id="izmNavbar">
@@ -657,6 +652,8 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
 </nav>
 
 
+  <!-- replace container with i added new nav ended here -->
+
 
 
 
@@ -688,373 +685,198 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
 
 
 
-<!-- replace this section service_two -->
+<!-- replace this section service_two  start here-->
 
 
 
-<section id="service_two" class="py-5">
-  <div class="container-sr">
-    <div class="rows">
-      <div class="col-md-12">
-        <div class="sevice_head_two">
-          <center>Fastest & Easiest way to get Citizen Services</center>
-        </div>
+<section id="serviceHero" class="class_hero_section">
+  <div class="class_hero_container">
+    <div class="class_hero_rows">
+
+      <div class="class_hero_heading_col">
+        <h1 class="class_hero_title">Fastest &amp; Easiest way to get Citizen Services</h1>
       </div>
 
+      <div class="class_hero_divider"></div>
 
-      <div class="divider"></div>
-      <div class="row search_boxxs" id="searcbox">
-        <div id="sestate" name="state" class="col-md-3 ">
-          <nav class="navbar navbar-expand-lg navbar-light mt-2 cus_bx_one medDesSerchBox1">
-            <!-- Container wrapper -->
-            <div class="container-fluid">
-              <!-- Toggle button -->
-              <!-- Collapsible wrapper -->
-              <div class="" id="navbarExampleOnHover">
-                <!-- Left links -->
-                <ul class="navbar-nav me-auto ps-lg-0" style="padding-left: 0.15rem">
-                  <!-- Navbar dropdown -->
-                  <li class="nav-item dropdown dropdown-hover position-staticc first_chld">
-                    <div class="differ">
-                    <div class="a_left">
-                      <a class="nav-link" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                        <span id="sspan" class="sspan" name="">Search Location</span>
+      <div class="class_search_boxxs" id="searcbox">
+
+        <!-- LOCATION FIELD -->
+        <div id="sestate" class="class_location_column">
+          <nav class="class_cus_bx_one" id="locationNavbar">
+            <div class="class_location_navbar_body">
+              <ul class="class_location_nav_list">
+                <li class="class_first_chld_location" id="locationField">
+                  <div class="class_differ_location">
+                    <div class="class_a_left_location">
+                      <a class="class_location_trigger_link" href="#" id="navbarDropdown" role="button" aria-expanded="false">
+                        <span id="sspan" class="class_sspan_location">Search Location</span>
                       </a>
                     </div>
-                    <div class="p_rght">
+                    <div class="class_p_rght_location">
                       <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6 7.375L0 1.375L1.075 0.300003L6 5.25L10.925 0.325003L12 1.4L6 7.375Z" fill="#0D0D0D" />
                       </svg>
                     </div>
                   </div>
-                    <!-- Dropdown menu -->
-                    <div class="dropdown-menu mt-3 ovr-flow bss" aria-labelledby="navbarDropdown" style="border-top-left-radius: 0; border-top-right-radius: 0;" id="state">
-                      <div>
-                        <div class="container">
-                          <div class="row my-4">
-                            <div class="col-md-12 col-lg-12 mb-3 mb-lg-0">
-                              <div class="list-group list-group-flush cus_locat">
-                                <span>Popular Cities</span>
-                                <ul class="list-unstyled">
-                                  <li class="active state" name="Bangalore">Bangalore</li>
-                                  <li class="state" name="Chennai">Chennai</li>
-                                  <li class="state" name="delhi">Delhi</li>
-                                  <li class="state" name="Faridabad">Faridabad</li>
-                                  <li class="state" name="Ghaziabad">Ghaziabad</li>
-                                  <li class="state" name="Gurgaon">Gurgaon</li>
-                                  <li class="state" name="Hyderabad">Hyderabad</li>
-                                  <li class="state" name="Jamshedpur">Jamshedpur</li>
-                                  <li class="state" name="Mumbai">Mumbai</li>
-                                  <li class="state" name="Noida">Noida</li>
-                                  <li class="state" name="Pune">Pune</li>
-                                  <li class="state" name="Ranchi">Ranchi</li>
-                                </ul>
-                              </div>
-                            </div>
+
+                  <div class="class_dropdown_panel_location class_scrollarea_location" aria-labelledby="navbarDropdown" id="state">
+                    <div class="class_location_panel_container">
+                      <div class="class_location_panel_row">
+                        <div class="class_location_panel_col">
+                          <div class="class_location_list_group">
+                            <span class="class_locationlist_heading">Popular Cities</span>
+                            <ul id="locationListItems">
+                              <li class="class_locationlist_item class_is_active" data-city="Bangalore">Bangalore</li>
+                              <li class="class_locationlist_item" data-city="Chennai">Chennai</li>
+                              <li class="class_locationlist_item" data-city="Delhi">Delhi</li>
+                              <li class="class_locationlist_item" data-city="Faridabad">Faridabad</li>
+                              <li class="class_locationlist_item" data-city="Ghaziabad">Ghaziabad</li>
+                              <li class="class_locationlist_item" data-city="Gurgaon">Gurgaon</li>
+                              <li class="class_locationlist_item" data-city="Hyderabad">Hyderabad</li>
+                              <li class="class_locationlist_item" data-city="Jamshedpur">Jamshedpur</li>
+                              <li class="class_locationlist_item" data-city="Mumbai">Mumbai</li>
+                              <li class="class_locationlist_item" data-city="Noida">Noida</li>
+                              <li class="class_locationlist_item" data-city="Pune">Pune</li>
+                              <li class="class_locationlist_item" data-city="Ranchi">Ranchi</li>
+                            </ul>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </li>
-                </ul>
-                <!-- Left links -->
-              </div>
-              <!-- Collapsible wrapper -->
+                  </div>
+                </li>
+              </ul>
             </div>
-            <!-- Container wrapper -->
           </nav>
         </div>
-        <div class="col-md-3 searchone" name="ser" id="seserv">
-          <nav class="navbar navbar-expand-lg navbar-light two_disab mt-2 cus_bx_two medDesSerchBox2">
-            <!-- Container wrapper -->
-            <div class="container-fluid">
-              <!-- Toggle button -->
-              <!-- Collapsible wrapper -->
-              <div class="" id="navbarExampleOnHover">
-                <!-- Left links -->
-                <ul class="navbar-nav me-auto ps-lg-0" style="padding-left: 0.15rem">
-                  <!-- Navbar dropdown -->
-                  <li class="nav-item dropdown dropdown-hover position-staticc first_chld">
-                    <div class="a_left">
-                      <a class="nav-link" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                        <span id="sp" class="sspan">Choose Service</span>
-                      </a>
-                    </div>
-                    <div class="p_rght">
-                      <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 7.375L0 1.375L1.075 0.300003L6 5.25L10.925 0.325003L12 1.4L6 7.375Z" fill="#0D0D0D" />
-                      </svg>
-                    </div>
-                    <!-- Dropdown menu -->
-                    <div id="ser" class="ovr-flow dropdown-menu mt-3 bss" aria-labelledby="navbarDropdown" style=" border-top-left-radius: 0; border-top-right-radius: 0; ">
-                      <div class="container">
-                        <div class="row my-4">
-                          <div class="col-md-12 col-lg-12 mb-3 mb-lg-0">
-                            <div class="service_listts">
-                              <span>Services</span>
-                              <div>
-                                <ul class="list-unstyled">
-                                  <span class="servic notvisa" name="bc">
-                                    <li>Birth Certificate</li>
-                                  </span>
-                                  <span class="servic notvisa" name="marr">
-                                    <li>Marriage Registration</li>
-                                  </span>
-                                  <span class="servic notvisa" name="pan">
-                                    <li>PAN Card</li>
-                                  </span>
-                                  <span class="servic notvisa" name="pass">
-                                    <li>Passport</li>
-                                  </span>
-                                  <span class="servic notvisa" name="rto">
-                                    <li>RTO</li>
-                                  </span>
-                                  <span class="servic visatab" name="vi">
-                                    <li>Visa</li>
-                                  </span>
-                                </ul>
-                              </div>
-                            </div>
+
+        <!-- SERVICE FIELD -->
+        <div id="seserv" class="class_service_column">
+          <nav class="class_cus_bx_two" id="serviceNavbar">
+            <div class="class_service_navbar_body">
+              <ul class="class_service_nav_list">
+                <li class="class_first_chld_service" id="serviceField">
+                  <div class="class_a_left_service">
+                    <a class="class_service_trigger_link" href="#" id="navbarDropdown2" role="button" aria-expanded="false">
+                      <span id="sp" class="class_sspan_service">Choose Service</span>
+                    </a>
+                  </div>
+                  <div class="class_p_rght_service">
+                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6 7.375L0 1.375L1.075 0.300003L6 5.25L10.925 0.325003L12 1.4L6 7.375Z" fill="#0D0D0D" />
+                    </svg>
+                  </div>
+
+                  <div id="ser" class="class_dropdown_panel_service class_scrollarea_service" aria-labelledby="navbarDropdown2">
+                    <div class="class_service_panel_container">
+                      <div class="class_service_panel_row">
+                        <div class="class_service_panel_col">
+                          <div class="class_service_panel_body">
+                            <span class="class_servicelist_heading">Services</span>
+                            <ul id="serviceListItems">
+                              <span class="class_servicelist_item" data-service="bc" data-mode="standard"><li>Birth Certificate</li></span>
+                              <span class="class_servicelist_item" data-service="marr" data-mode="standard"><li>Marriage Registration</li></span>
+                              <span class="class_servicelist_item" data-service="pan" data-mode="standard"><li>PAN Card</li></span>
+                              <span class="class_servicelist_item" data-service="pass" data-mode="standard"><li>Passport</li></span>
+                              <span class="class_servicelist_item" data-service="rto" data-mode="standard"><li>RTO</li></span>
+                              <span class="class_servicelist_item" data-service="vi" data-mode="country"><li>Visa</li></span>
+                            </ul>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </li>
-                </ul>
-                <!-- Left links -->
-              </div>
-              <!-- Collapsible wrapper -->
+                  </div>
+                </li>
+              </ul>
             </div>
-            <!-- Container wrapper -->
           </nav>
         </div>
-        <div class="col-md-3 searchone">
-          <nav class="navbar navbar-expand-lg navbar-light two_disab mt-2 cus_bx_three medDesSerchBox3">
-            <div class="searchone" name="subser" id="sesubser">
-              <!-- Container wrapper -->
-              <div class="container-fluid">
-                <!-- Toggle button -->
-                <!-- Collapsible wrapper -->
-                <div class="" id="navbarExampleOnHover">
-                  <!-- Left links -->
-                  <ul class="navbar-nav me-auto ps-lg-0" style="padding-left: 0.15rem">
-                    <!-- Navbar dropdown -->
-                    <li class="nav-item dropdown dropdown-hover position-staticc first_chld">
-                      <div class="a_l_left">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                          <span id="css" class="sspan choosesbubservice" name=""> Choose Subservice</span>
-                        </a>
-                      </div>
-                      <div class="p_rght">
-                        <svg width="12" class="svg1" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 7.375L0 1.375L1.075 0.300003L6 5.25L10.925 0.325003L12 1.4L6 7.375Z" fill="#0D0D0D" />
-                        </svg>
-                      </div>
-                      <!-- Dropdown menu -->
-                      <div id="subser" class="dropdown-menu ovr-floww mt-3 bss" aria-labelledby="navbarDropdown" style="border-top-left-radius: 0; border-top-right-radius: 0;">
-                        <div class="container">
-                          <div class="row my-4">
-                            <div class="col-md-12 col-lg-12 mb-3 mb-lg-0">
-                              <div class="service_listts">
-                                <span>Services Type</span>
-                                 <input type="text" placeholder="Search Country" id="searchCountry" >
-                                <ul class="list-unstyled">
-                                  <li class="subser rto" name="rto/driving-license-agents-consultants"> New Driving Licence </li>
-                                  <li class="subser rto" name="rto/driving-license-renewal"> Driving Licence Renewal </li>
-                                  <li class="subser rto" name="rto/noc-for-car-bike"> NOC </li>
-                                  <li class="subser rto" name="rto/duplicate-rc-of-vehicle-car-bike"> Duplicate RC </li>
-                                  <li class="subser rto" name="rto/duplicate-driving-license"> Duplicate Driving Licence </li>
-                                  <li class="subser rto" name="rto/hypothecation-deletion-termination-removal-hpt-of-vehicle-car-bike"> HP Deletion </li>
-                                  <li class="subser rto" name="rto/ownership-transfer-change-of-vehicle-car-bike"> Ownership Transfer </li>
-                                  <li class="subser rto" name="rto/international-driving-license"> International driving licence </li>
-                                  <li class="subser rto" name="rto/re-registration-of-vehicle-car-bike"> Re Registration </li>
-                                  <li class="subser marr" name="marriage-registration/marriage-certificate"> Marriage Registration </li>
-                                  <li class="subser marr" name="marriage-registration/court-marriage"> Court Marriage </li>
-                                  <li class="subser pass" name="passport/passport-application-online"> New Passport </li>
-                                  <li class="subser pass" name="passport/passport-renewal-online"> Passport Renewal </li>
-                                  <li class="subser pan" name="pan-card/pan-card-agent-consultant"> New PAN Card </li>
-                                  <li class="subser bc" name="birth-certificate/birth-certificate-agents-consultants"> New Birth Certificate </li>
-                           <!--   <li class="subser vi" name="visa/usa-visa"> USA </li>
-                                  <li class="subser vi" name="visa/finland-visa"> Finland </li>
-                                  <li class="subser vi" name="visa/austria-visa"> Austria </li>
-                                  <li class="subser vi" name="visa/georgia-visa"> Georgia </li>
-                                  <li class="subser vi" name="visa/kuwait-visa"> Kuwait </li>
-                                  <li class="subser vi" name="visa/usa-visa"> USA </li>
-                                  <li class="subser vi" name="visa/iceland-visa"> Iceland </li>
-                                  <li class="subser vi" name="visa/belgium-visa"> Belgium </li>
-                                  <li class="subser vi" name="visa/tajikistan-visa"> Tajikistan </li>
-                                  <li class="subser vi" name="visa/denmark-visa"> Denmark </li>
-                                  <li class="subser vi" name="visa/uk-visa"> UK </li>
-                                  <li class="subser vi" name="visa/czech-republic-visa"> Czech Republic </li>
-                                  <li class="subser vi" name="visa/croatia-visa"> Croatia </li>
-                                  <li class="subser vi" name="visa/israel-visa"> Israel </li>
-                                  <li class="subser vi" name="visa/german-visa"> German </li> -->
-                                  <div id="countryNames">
-                                                                             <li class="subser vi" name="visa/algeria-visa-for-indians" data-keywords="Algeria "> Algeria </li>
-                                                                             <li class="subser vi" name="visa/australia-visa-for-indians" data-keywords="Australia "> Australia </li>
-                                                                             <li class="subser vi" name="visa/austria-visa-for-indians" data-keywords="Austria Vienna"> Austria </li>
-                                                                             <li class="subser vi" name="visa/belgium-visa-from-india" data-keywords="Belgium "> Belgium </li>
-                                                                             <li class="subser vi" name="visa/chile-visa-for-indians" data-keywords="Chile "> Chile </li>
-                                                                             <li class="subser vi" name="visa/china-visa-for-indians" data-keywords="China "> China </li>
-                                                                             <li class="subser vi" name="visa/croatia-visa-for-indians" data-keywords="Croatia "> Croatia </li>
-                                                                             <li class="subser vi" name="visa/czech-republic-visa-for-indian" data-keywords="Czech Republic "> Czech Republic </li>
-                                                                             <li class="subser vi" name="visa/denmark-visa-for-indian" data-keywords="Denmark "> Denmark </li>
-                                                                             <li class="subser vi" name="visa/egypt-visa-for-indian" data-keywords="Egypt "> Egypt </li>
-                                                                             <li class="subser vi" name="visa/estonia-visa-for-indian" data-keywords="Estonia "> Estonia </li>
-                                                                             <li class="subser vi" name="visa/finland-visa-for-indians" data-keywords="Finland "> Finland </li>
-                                                                             <li class="subser vi" name="visa/france-visa-for-indians" data-keywords="France "> France </li>
-                                                                             <li class="subser vi" name="visa/georgia-visa-for-indians" data-keywords="Georgia Tbilisi"> Georgia </li>
-                                                                             <li class="subser vi" name="visa/germany-visa-for-indians" data-keywords="Germany "> Germany </li>
-                                                                             <li class="subser vi" name="visa/greece-visa-for-indians" data-keywords="Greece "> Greece </li>
-                                                                             <li class="subser vi" name="visa/hong-kong-visa-for-indians" data-keywords="Hong Kong "> Hong Kong </li>
-                                                                             <li class="subser vi" name="visa/iceland-visa-for-indians" data-keywords="Iceland "> Iceland </li>
-                                                                             <li class="subser vi" name="visa/indonesia-visa-for-indians" data-keywords="Indonesia Bali"> Indonesia </li>
-                                                                             <li class="subser vi" name="visa/ireland-visa-for-indians" data-keywords="Ireland "> Ireland </li>
-                                                                             <li class="subser vi" name="visa/israel-visa-for-indians" data-keywords="Israel "> Israel </li>
-                                                                             <li class="subser vi" name="visa/italy-visa-for-indians" data-keywords="Italy "> Italy </li>
-                                                                             <li class="subser vi" name="visa/kazakhstan-visa" data-keywords="Kazakhstan "> Kazakhstan </li>
-                                                                             <li class="subser vi" name="visa/kuwait-visa-for-indians" data-keywords="Kuwait "> Kuwait </li>
-                                                                             <li class="subser vi" name="visa/lithuania-visa-for-indian" data-keywords="Lithuania "> Lithuania </li>
-                                                                             <li class="subser vi" name="visa/malaysia-visa-for-indians" data-keywords="Malaysia "> Malaysia </li>
-                                                                             <li class="subser vi" name="visa/malta-visa-for-indians" data-keywords="Malta "> Malta </li>
-                                                                             <li class="subser vi" name="visa/mongolia-visa-for-indians" data-keywords="Mongolia "> Mongolia </li>
-                                                                             <li class="subser vi" name="visa/netherlands-visa-for-indians" data-keywords="Netherlands Holland Dutch Amsterdam"> Netherlands </li>
-                                                                             <li class="subser vi" name="visa/nigeria-visa-for-indian" data-keywords="Nigeria "> Nigeria </li>
-                                                                             <li class="subser vi" name="visa/norway-visa-for-indians" data-keywords="Norway "> Norway </li>
-                                                                             <li class="subser vi" name="visa/oman-visa-for-indians" data-keywords="Oman "> Oman </li>
-                                                                             <li class="subser vi" name="visa/poland-visa-for-indians" data-keywords="Poland "> Poland </li>
-                                                                             <li class="subser vi" name="visa/portugal-visa-for-indians" data-keywords="Portugal "> Portugal </li>
-                                                                             <li class="subser vi" name="visa/singapore-visa-from-india" data-keywords="Singapore "> Singapore </li>
-                                                                             <li class="subser vi" name="visa/south-africa--visa-for-indians" data-keywords="South Africa "> South Africa </li>
-                                                                             <li class="subser vi" name="visa/spain-visa-for-indians" data-keywords="Spain "> Spain </li>
-                                                                             <li class="subser vi" name="visa/sri-lanka-visa-on-arrival-for-indian" data-keywords="Sri Lanka "> Sri Lanka </li>
-                                                                             <li class="subser vi" name="visa/sweden-visa-for-indian" data-keywords="Sweden "> Sweden </li>
-                                                                             <li class="subser vi" name="visa/switzerland-visa-for-indians" data-keywords="Switzerland "> Switzerland </li>
-                                                                             <li class="subser vi" name="visa/taiwan-visa-for-indian" data-keywords="Taiwan "> Taiwan </li>
-                                                                             <li class="subser vi" name="visa/tajikistan-visa-for-indian" data-keywords="Tajikistan "> Tajikistan </li>
-                                                                             <li class="subser vi" name="visa/thailand-visa-for-indians" data-keywords="Thailand "> Thailand </li>
-                                                                             <li class="subser vi" name="visa/turkey-visa-from-india" data-keywords="Turkey Istanbul"> Turkey </li>
-                                                                             <li class="subser vi" name="visa/uae-visa-for-indians" data-keywords="UAE Dubai Abu Dhabi Ajman"> UAE </li>
-                                                                             <li class="subser vi" name="visa/uk-visa-from-india" data-keywords="UK London"> UK </li>
-                                                                             <li class="subser vi" name="visa/us-visa-for-indians" data-keywords="USA "> USA </li>
-                                                                             <li class="subser vi" name="visa/vietnam-e-visa-for-indian" data-keywords="Vietnam "> Vietnam </li>
-                                      				                                        <li class="subser vi" name="/blog/2025/05/06/argentina-visa-for-indians/" data-keywords="Argentina Argentina">
-                                          Argentina                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/03/06/azerbaijan-visa-requirements-for-indian-citizens/" data-keywords="Azerbaijan ">
-                                          Azerbaijan                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/03/22/armenia-visa-requirements-for-indian-citizens/" data-keywords="Armenia ">
-                                          Armenia                                      </li>
-                                                                        <li class="subser vi" name="/blog/2024/09/27/bahrain-visa-for-indians/" data-keywords="Bahrain ">
-                                          Bahrain                                      </li>
-                                                                        <li class="subser vi" name="/blog/2024/08/24/bangladesh-visa-for-indian-citizens/" data-keywords="Bangladesh ">
-                                          Bangladesh                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/05/07/belarus-visa-for-indians/" data-keywords="Belarus ">
-                                          Belarus                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/05/07/brazil-visa-for-indians/" data-keywords="Brazil ">
-                                          Brazil                                      </li>
-                                                                        <li class="subser vi" name="/blog/2024/07/09/how-to-apply-for-cambodia-visa-for-indians/" data-keywords="Cambodia ">
-                                          Cambodia                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/04/09/canada-visa-for-indians/" data-keywords="Canada ">
-                                          Canada                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/01/16/cuba-visa-for-indian/" data-keywords="Cuba ">
-                                          Cuba                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/05/08/cyprus-visa-for-indians/" data-keywords="Cyprus ">
-                                          Cyprus                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/04/22/documents-required-for-czech-republic-visa-from-india/" data-keywords="Czech Republic ">
-                                          Czech Republic                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/03/27/egypt-e-visa-for-indian/" data-keywords="Egypt ">
-                                          Egypt                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/05/09/ethiopia-visa-for-indians/" data-keywords="Ethiopia ">
-                                          Ethiopia                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/05/09/ghana-visa-for-indian/" data-keywords="Ghana ">
-                                          Ghana                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/05/06/hungary-visa-for-indians/" data-keywords="Hungary ">
-                                          Hungary                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/03/15/japan-visa-requirements-for-indian/" data-keywords="Japan ">
-                                          Japan                                      </li>
-                                                                        <li class="subser vi" name="/blog/2024/07/11/kenya-visa-for-indians/" data-keywords="Kenya ">
-                                          Kenya                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/05/09/kyrgyzstan-visa-for-indians/" data-keywords="Kyrgyzstan ">
-                                          Kyrgyzstan                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/05/05/latvia-visa-from-india/" data-keywords="Latvia ">
-                                          Latvia                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/05/06/liechtenstein-visa-for-indian/" data-keywords="Liechtenstein ">
-                                          Liechtenstein                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/05/06/luxembourg-visa-for-indian/" data-keywords="Luxembourg ">
-                                          Luxembourg                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/05/08/madagascar-visa-for-indian/" data-keywords="Madagaskar ">
-                                          Madagaskar                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/05/07/moldova-visa-for-indian/" data-keywords="Maldova ">
-                                          Maldova                                      </li>
-                                                                        <li class="subser vi" name="/blog/2024/08/29/mauritius-visa-for-indians/" data-keywords="Mauritius ">
-                                          Mauritius                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/05/08/myanmar-visa-for-indians/" data-keywords="Myanmar ">
-                                          Myanmar                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/04/10/new-zealand-tourist-visa-for-indians/" data-keywords="New Zealand ">
-                                          New Zealand                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/01/20/peru-visa-from-india/" data-keywords="Peru ">
-                                          Peru                                      </li>
-                                                                        <li class="subser vi" name="/blog/2024/07/22/philippines-visa-for-indians/" data-keywords="Philippines ">
-                                          Philippines                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/03/29/qatar-visa-for-indians/" data-keywords="Qatar ">
-                                          Qatar                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/05/09/russian-visa-for-indian-citizens/" data-keywords="Russia ">
-                                          Russia                                      </li>
-                                                                        <li class="subser vi" name="/blog/2024/04/01/rwanda-visa-for-indian/" data-keywords="Rwanda ">
-                                          Rwanda                                      </li>
-                                                                        <li class="subser vi" name="/blog/2024/08/23/saudi-arabia-visa-for-indians/" data-keywords="Saudi Arab ">
-                                          Saudi Arab                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/05/09/serbian-visa-for-indians/" data-keywords="Serbia ">
-                                          Serbia                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/05/05/slovakia-visa-for-indians/" data-keywords="Slovakia ">
-                                          Slovakia                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/05/05/slovenia-visa-for-indians/" data-keywords="Slovenia ">
-                                          Slovenia                                      </li>
-                                                                        <li class="subser vi" name="/blog/2024/08/21/how-to-apply-for-south-korea-visa-for-indians/" data-keywords="South Korea ">
-                                          South Korea                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/05/07/uganda-visa-for-indians/" data-keywords="Uganda ">
-                                          Uganda                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/05/06/uzbekistan-visa-for-indians/" data-keywords="Uzbekistan ">
-                                          Uzbekistan                                      </li>
-                                                                        <li class="subser vi" name="/blog/2025/05/07/zambia-visa-for-indian/" data-keywords="Zambia ">
-                                          Zambia                                      </li>
-                                                                    </div>
-                                </ul>
-                              </div>
-                            </div>
+
+        <!-- SUBSERVICE FIELD -->
+        <div id="sesubser" class="class_subservice_column">
+          <nav class="class_cus_bx_three" id="subserviceNavbar">
+            <div class="class_subservice_navbar_body">
+              <ul class="class_subservice_nav_list">
+                <li class="class_first_chld_subservice" id="subserviceField">
+                  <div class="class_a_left_subservice">
+                    <a class="class_subservice_trigger_link" href="#" id="navbarDropdown3" role="button" aria-expanded="false">
+                      <span id="css" class="class_sspan_subservice">Choose Subservice</span>
+                    </a>
+                  </div>
+                  <div class="class_p_rght_subservice">
+                    <svg width="12" class="class_chevron_subservice" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6 7.375L0 1.375L1.075 0.300003L6 5.25L10.925 0.325003L12 1.4L6 7.375Z" fill="#0D0D0D" />
+                    </svg>
+                  </div>
+
+                  <div id="subser" class="class_dropdown_panel_subservice class_scrollarea_subservice" aria-labelledby="navbarDropdown3">
+                    <div class="class_subservice_panel_container">
+                      <div class="class_subservice_panel_row">
+                        <div class="class_subservice_panel_col">
+                          <div class="class_subservice_panel_body">
+                            <span class="class_subservicelist_heading">Services Type</span>
+                            <input type="text" placeholder="Search Country" id="searchCountry" class="class_subservice_search_input">
+                            <ul id="subserviceListItems">
+                              <li class="class_subservicelist_item" data-category="rto" data-target="rto/driving-license-agents-consultants">New Driving Licence</li>
+                              <li class="class_subservicelist_item" data-category="rto" data-target="rto/driving-license-renewal">Driving Licence Renewal</li>
+                              <li class="class_subservicelist_item" data-category="rto" data-target="rto/noc-for-car-bike">NOC</li>
+                              <li class="class_subservicelist_item" data-category="rto" data-target="rto/duplicate-rc-of-vehicle-car-bike">Duplicate RC</li>
+                              <li class="class_subservicelist_item" data-category="rto" data-target="rto/duplicate-driving-license">Duplicate Driving Licence</li>
+                              <li class="class_subservicelist_item" data-category="rto" data-target="rto/hypothecation-deletion-termination-removal-hpt-of-vehicle-car-bike">HP Deletion</li>
+                              <li class="class_subservicelist_item" data-category="rto" data-target="rto/ownership-transfer-change-of-vehicle-car-bike">Ownership Transfer</li>
+                              <li class="class_subservicelist_item" data-category="rto" data-target="rto/international-driving-license">International driving licence</li>
+                              <li class="class_subservicelist_item" data-category="rto" data-target="rto/re-registration-of-vehicle-car-bike">Re Registration</li>
+                              <li class="class_subservicelist_item" data-category="marr" data-target="marriage-registration/marriage-certificate">Marriage Registration</li>
+                              <li class="class_subservicelist_item" data-category="marr" data-target="marriage-registration/court-marriage">Court Marriage</li>
+                              <li class="class_subservicelist_item" data-category="pass" data-target="passport/passport-application-online">New Passport</li>
+                              <li class="class_subservicelist_item" data-category="pass" data-target="passport/passport-renewal-online">Passport Renewal</li>
+                              <li class="class_subservicelist_item" data-category="pan" data-target="pan-card/pan-card-agent-consultant">New PAN Card</li>
+                              <li class="class_subservicelist_item" data-category="bc" data-target="birth-certificate/birth-certificate-agents-consultants">New Birth Certificate</li>
+                              <li class="class_subservicelist_item" data-category="vi" data-target="visa/algeria-visa-for-indians" data-keywords="Algeria">Algeria</li>
+                              <li class="class_subservicelist_item" data-category="vi" data-target="visa/australia-visa-for-indians" data-keywords="Australia">Australia</li>
+                              <li class="class_subservicelist_item" data-category="vi" data-target="visa/austria-visa-for-indians" data-keywords="Austria Vienna">Austria</li>
+                              <li class="class_subservicelist_item" data-category="vi" data-target="visa/belgium-visa-from-india" data-keywords="Belgium">Belgium</li>
+                              <li class="class_subservicelist_item" data-category="vi" data-target="visa/chile-visa-for-indians" data-keywords="Chile">Chile</li>
+                              <li class="class_subservicelist_item" data-category="vi" data-target="visa/china-visa-for-indians" data-keywords="China">China</li>
+                              <li class="class_subservicelist_item" data-category="vi" data-target="visa/croatia-visa-for-indians" data-keywords="Croatia">Croatia</li>
+                              <li class="class_subservicelist_item" data-category="vi" data-target="visa/czech-republic-visa-for-indian" data-keywords="Czech Republic">Czech Republic</li>
+                              <li class="class_subservicelist_item" data-category="vi" data-target="visa/denmark-visa-for-indian" data-keywords="Denmark">Denmark</li>
+                              <li class="class_subservicelist_item" data-category="vi" data-target="visa/uk-visa-from-india" data-keywords="UK London">UK</li>
+                              <li class="class_subservicelist_item" data-category="vi" data-target="visa/us-visa-for-indians" data-keywords="USA">USA</li>
+                            </ul>
                           </div>
                         </div>
                       </div>
-                    </li>
-                  </ul>
-                  <!-- Left links -->
-                </div>
-                <!-- Collapsible wrapper -->
-              </div>
-              <!-- Container wrapper -->
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </div>
           </nav>
         </div>
-        <div class="col-md-2 ml-auto mobile_btn" id="search">
-          <a href="#" class="get_start">
-            <div class="svg">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <rect width="24" height="24" fill="url(#pattern0)" />
-                <defs>
-                  <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
-                    <use xlink:href="#image0_1916_1639" transform="scale(0.0104167)" />
-                  </pattern>
-                  <image id="image0_1916_1639" width="96" height="96" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAABmJLR0QA/wD/AP+gvaeTAAAFuElEQVR4nO2cyY9VRRyFT8kgJmjARObgFAV2CgEXwgIhgUR0a4zGNA7RPRJXILqCDRGjWwLGBUT/AReEhSYEEjtRF9LSQhuUbkyAZjDSgcfnol4rdtpbVe8OVfdZ37bucKrOrbo1/UrKZDKZTCaTyWQy/zdM0y8EZkhaI2m9pFWSVkhaJmmepLmSkPSHpCuSfpU0JOm0pK8lDRpjOk1rbj3ALOBF4AtgnN65AhwFXgBmxc5X8gAPAnuA30sU+n9xEdgNzI+dz+QA7gM+BK7VUPBTuQq8D8yJne8kAJ4HzjZQ8FMZBrbGzn80sO38XuBOhMKf5A5wAJgduzwaBVgEnIpY8FM5ASyIXS4+lO6GAo9K+krSE+XlVMo5SVuMMWdiCymilAHA47L988WBt3YknZR0XNKgbD9/VNKNbvrc7jNXSlotaaOkZyTNCHzPBUkbjDFnA+9LH2yzMxzYNJwDdgChhglYDLwLjAS+80xbmiNvgHsJa/NHge1UMHjC/uzfAMYC3n+CfvoxAx8HZP4gMK8GDfOAQwE69letIQrYfr5PV/Mm8FoDegaACQ89d2j7OAE7wvUZZF0HNjWoa3P3nS6GafOIGTu94OJmk4V/l7ZN+NWE3U1rqwTsxJrP3E7tzU6BxgEPfePU8E+qHeyspouDCej0+THviq0zCGzXzzWlPJrClwXMx05VFzEGzIyt1RvsYoqL7bF1TgK86aF3W2yd3mBXsoo4R0IrVNga6xoxH4mt0wtgBu5lxB2xdU4FO21RxGXs+nTaAOscGblND3M7dQMs6WorYk1snfd4XLPekX7SGDNahZgqMcZckHTKcdmGJrQU4WPAKkf68SqE1IRLmytvteNjwEpH+rdVCKmJQUf6ikZUFOBjwDJH+lAVQmrCpW15IyoK8DHgAUf6WBVCasKl7f5GVBTgY8BcR/oNR3pMrjvSW2FAP9P43tip+Bjg+sJdNSQmri/cVUNqx8eAa4705AZhd7HIke7KW+34GHDekf5kFUJqwtXNHGlERQE+Bpx2pEcfzhfg0vZzIyoK8DHgR0f6xiqE1IRL2w+NqCgDsNYxodUBlsbWORXPybinY+v0qQGDksYdz3i5GjmV8oqKtzKOS/q+IS3lwIYFFTFCegsyvzg0H46tU/IfiH3uSH9YUrTdENMwIPc8z5dNCKmE7hfls9CdyqK8awPB+VRqrFcNMMbckvSp47KFkj4qrag8ByQ95Ljmk26e2kP3y7rq+LIABiJqfN1D36UUampPYKMRXUwAmyNo24zf1sTkNhB4A8zBLyjjepMm4L85d4g2b86VJGALftvTJ2igOcI2Oz5ffgdwbTBoB8B+jwxPcogaotmx/6TPAnTsq1pDNIDZ2LAfXy5itwtWFaL0FmHHHxyjTXtBfQAWYAPgQhjB7lhb0sP7lgI7cY9wp+PtOsqgCsqGqT4mG6YaWqAd2U1Tk2GqP0n6Tf8OU10qu9awWtJzktYqPEx1ktuSXjXGHO3x/nQBHsH2LtrK3thlWBpgIWH/hLo5BrwD3PK8fk/sMiwN9se8n7iHdXSAfXR/uMBLAfe23wRJArYSHkFfBUPAs9PoCaFvTJiDPc3KZ+6oLJewxx9MO8Lt4Xn9YYL0dzT7LsKOFfDlPPAejom1Hp/dPyZIEjAT2AYcwUam9MoV4DABh/aVeFcjJsQ6tvIp2eCIVbJ9/eX659hKIzseuCy7J2lYdvfCN5K+Cz22EqCE3A+MMf1VG5oG20yVof3jhNhkExIgm5AA2YQEyCYkQDYhAbIJCZBNSIBsQgJkExIgm5AA2YQEyCYkQDYhAfA7JbKInbHz0HpKmtAB1sbOQ+spaUI7DgZMnRImJHeUW2vp0YQ/Y+vuK3owwXXMQyaUQBP6JyYhJTxNGANc0ZqZXsHGKnQKCn9dbI19D/YgkyPYk+NvYven7stffiaTyWQymUwmkyniL5FwtCzdvDJkAAAAAElFTkSuQmCC" />
-                </defs>
-              </svg>Get Started
-            </div>
+
+        <!-- CTA BUTTON -->
+        <div id="searchTrigger" class="class_cta_column">
+          <a href="#" class="class_get_start" id="getStartedBtn">
+            <span class="class_get_start_label">
+              <svg class="class_get_start_icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="11" cy="11" r="7" stroke="#ffffff" stroke-width="2.5"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"></line>
+              </svg>
+              Get Started
+            </span>
           </a>
         </div>
+
       </div>
     </div>
   </div>
 </section>
  
+
+
+<!-- replace this section service_two  end here-->
   
     <!-- ORDER SERVICE pan-card-agent-consultant -->     
 <section class="informationContainer">  
@@ -1381,7 +1203,7 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
 
 
 
-<!-- added this script for new nav bar -->
+<!-- added this script for new nav bar start here -->
 
 
 
@@ -1439,6 +1261,106 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
     });
   })();
 </script>
+
+
+<!-- added this script for new nav bar end here -->
  
+
+<!-- script added for search dropdown start here -->
+ 
+
+<script>
+(function(){
+  var fields = [
+    { trigger: '#navbarDropdown',  panel: '#state',  chld: '#locationField'   },
+    { trigger: '#navbarDropdown2', panel: '#ser',    chld: '#serviceField'    },
+    { trigger: '#navbarDropdown3', panel: '#subser', chld: '#subserviceField' }
+  ];
+
+  function closeAll(exceptChld){
+    fields.forEach(function(f){
+      var chldEl = document.querySelector(f.chld);
+      var panelEl = document.querySelector(f.panel);
+      if(chldEl !== exceptChld){
+        if(chldEl) chldEl.classList.remove('class_is_open');
+        if(panelEl) panelEl.classList.remove('class_is_visible');
+      }
+    });
+  }
+
+  fields.forEach(function(f){
+    var trigger = document.querySelector(f.trigger);
+    var panel = document.querySelector(f.panel);
+    var chldEl = document.querySelector(f.chld);
+    if(!trigger || !panel || !chldEl) return;
+
+    trigger.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var isOpen = panel.classList.contains('class_is_visible');
+      closeAll(chldEl);
+      panel.classList.toggle('class_is_visible', !isOpen);
+      chldEl.classList.toggle('class_is_open', !isOpen);
+    });
+
+    panel.addEventListener('click', function(e){ e.stopPropagation(); });
+  });
+
+  document.addEventListener('click', function(){ closeAll(null); });
+
+  // Location selection
+  document.querySelectorAll('.class_locationlist_item').forEach(function(li){
+    li.addEventListener('click', function(){
+      document.getElementById('sspan').textContent = li.getAttribute('data-city');
+      document.querySelectorAll('.class_locationlist_item').forEach(function(s){ s.classList.remove('class_is_active'); });
+      li.classList.add('class_is_active');
+      closeAll(null);
+    });
+  });
+
+  // Service selection -> filter subservices by data-category, toggle country search box
+  document.querySelectorAll('.class_servicelist_item').forEach(function(span){
+    span.addEventListener('click', function(){
+      var key = span.getAttribute('data-service');
+      var mode = span.getAttribute('data-mode');
+      var label = span.querySelector('li').textContent;
+      document.getElementById('sp').textContent = label;
+
+      document.querySelectorAll('.class_subservicelist_item').forEach(function(sub){
+        sub.style.display = sub.getAttribute('data-category') === key ? 'block' : 'none';
+      });
+
+      var searchBox = document.getElementById('searchCountry');
+      if(searchBox) searchBox.style.display = (mode === 'country') ? 'block' : 'none';
+
+      closeAll(null);
+    });
+  });
+
+  // Subservice selection
+  document.querySelectorAll('.class_subservicelist_item').forEach(function(li){
+    li.addEventListener('click', function(){
+      document.getElementById('css').textContent = li.textContent.trim();
+      closeAll(null);
+    });
+  });
+
+  // Country search filter
+  var searchInput = document.getElementById('searchCountry');
+  if(searchInput){
+    searchInput.addEventListener('input', function(){
+      var q = searchInput.value.trim().toLowerCase();
+      document.querySelectorAll('.class_subservicelist_item[data-category="vi"]').forEach(function(li){
+        var text = (li.getAttribute('data-keywords') || li.textContent).toLowerCase();
+        li.style.display = text.indexOf(q) !== -1 ? 'block' : 'none';
+      });
+    });
+    searchInput.addEventListener('click', function(e){ e.stopPropagation(); });
+  }
+})();
+</script>
+
+
+<!-- script added for search dropdown end here -->
 </body>
 </html>
