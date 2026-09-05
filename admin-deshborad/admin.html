@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel</title>
+  <style>
+    :root {
+      --sidebar-w: 220px;
+      --dark: #1c1c1c;
+      --dark-2: #232323;
+      --red: #e02020;
+      --border: #d9d9d9;
+      --text-muted: #9a9a9a;
+      --label: #4a4a4a;
+      --bg: #f2f2f2;
+      --blue-bg: #dbeafe;
+      --blue-text: #2563eb;
+      --green-bg: #d3f5df;
+      --green-text: #1a9e52;
+      --orange: #f5a623;
+      --purple: #8b5cf6;
+      --skyblue: #3b9ee6;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: #222;
+      font-size: 14px;
+    }
+
+    .app {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ---------- SIDEBAR ---------- */
+    .sidebar {
+      width: var(--sidebar-w);
+      background: var(--dark);
+      color: #eee;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 100;
+      transition: transform .25s ease;
+    }
+
+    .admin-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 14px;
+      border-bottom: 1px solid #303030;
+    }
+
+    .admin-avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .admin-name {
+      font-size: 13.5px;
+      font-weight: 600;
+      flex: 1;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #3ecf5e;
+      flex-shrink: 0;
+    }
+
+    .search-box {
+      padding: 12px 14px;
+      border-bottom: 1px solid #303030;
+    }
+
+    .search-box input {
+      width: 100%;
+      background: #2c2c2c;
+      border: 1px solid #3a3a3a;
+      border-radius: 4px;
+      padding: 8px 10px;
+      color: #eee;
+      font-size: 13px;
+    }
+
+    .search-box input::placeholder {
+      color: #8a8a8a;
+    }
+
+    .nav {
+      list-style: none;
+      padding: 6px 0;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .nav li {
+      border-bottom: 1px dashed #333;
+    }
+
+    .nav li:last-child {
+      border-bottom: none;
+    }
+
+    .nav li a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 16px;
+      color: #c9c9c9;
+      text-decoration: none;
+      font-size: 13.5px;
+      cursor: pointer;
+      border-left: 3px solid transparent;
+    }
+
+    .nav li a .ic {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      opacity: .85;
+    }
+
+    .nav li a .label {
+      flex: 1;
+    }
+
+    .nav li a .chevron {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      opacity: .5;
+      transition: opacity .15s, transform .15s;
+    }
+
+    .nav li a .chevron svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .nav li a:hover {
+      background: #262626;
+      color: #fff;
+    }
+
+    .nav li a:hover .chevron {
+      opacity: .9;
+      transform: translateX(2px);
+    }
+
+    .nav li.active a {
+      background: var(--red);
+      color: #fff;
+      border-left-color: #fff;
+      font-weight: 600;
+    }
+
+    .nav li.active a .chevron {
+      opacity: 1;
+    }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .5);
+      z-index: 99;
+    }
+
+    /* ---------- MAIN ---------- */
+    .main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      background: var(--dark);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px;
+    }
+
+    .back-arrow {
+      font-size: 16px;
+      color: #ddd;
+      cursor: pointer;
+    }
+
+    .topbar h1 {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .view {
+      display: none;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    /* ---------- PLACEHOLDER VIEW ---------- */
+    .placeholder-card {
+      background: #fff;
+      border-radius: 6px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, .06);
+      padding: 60px 24px;
+      text-align: center;
+      color: #777;
+    }
+
+    .placeholder-card .ph-icon {
+      font-size: 40px;
+      margin-bottom: 14px;
+    }
+
+    .placeholder-card h2 {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .placeholder-card p {
+      font-size: 13.5px;
+    }
+
+    /* ================= CREATE ORDER VIEW ================= */
+    .create-order-inner {
+      max-width: 1100px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 2px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, .06);
+      overflow: hidden;
+    }
+
+    .card-header {
+      background: var(--dark);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 16px;
+      font-size: 13.5px;
+      font-weight: 600;
+    }
+
+    .card-header .badge {
+      width: 22px;
+      height: 22px;
+      background: var(--red);
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+
+    .card-body {
+      padding: 18px 20px 22px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px 20px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field label {
+      font-size: 12.5px;
+      color: var(--label);
+      font-weight: 600;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 9px 10px;
+      font-size: 13px;
+      color: #333;
+      width: 100%;
+      background: #fff;
+      appearance: none;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: #b5b5b5;
+    }
+
+    .field select {
+      color: #b5b5b5;
+    }
+
+    .field.has-value select {
+      color: #333;
+    }
+
+    .date-field,
+    .select-field {
+      position: relative;
+    }
+
+    .date-field {
+      cursor: pointer;
+    }
+
+    .date-field input {
+      padding-right: 34px;
+      cursor: pointer;
+    }
+
+    .select-field select {
+      padding-right: 30px;
+      cursor: pointer;
+    }
+
+    .select-field .ic {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      width: 10px;
+      height: 10px;
+    }
+
+    .select-field .ic svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .select-field .ic path {
+      stroke: var(--red);
+    }
+
+    .date-field .ic {
+      position: absolute;
+      right: 9px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 17px;
+      height: 17px;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .date-field .ic svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .date-field .ic rect,
+    .date-field .ic line {
+      stroke: var(--red);
+    }
+
+    .date-field .ic:hover {
+      opacity: .75;
+    }
+
+    .date-field .native-date {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      border: none;
+      padding: 0;
+      margin: 0;
+      cursor: pointer;
+      z-index: 1;
+    }
+
+    .date-field .native-date::-webkit-calendar-picker-indicator {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      cursor: pointer;
+      opacity: 0;
+    }
+
+    .description-card .card-body {
+      grid-template-columns: 1fr;
+      padding: 18px 20px;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+      font-family: inherit;
+    }
+
+    .submit-row {
+      padding-bottom: 10px;
+    }
+
+    .btn-submit {
+      background: var(--red);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 11px 26px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-submit:hover {
+      background: #c81c1c;
+    }
+
+    /* ================= SALES PROCESS VIEW ================= */
+    .sp-filter-bar {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr) auto;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .sp-select-field {
+      position: relative;
+    }
+
+    .sp-select-field select {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 10px 30px 10px 12px;
+      font-size: 13px;
+      color: #555;
+      background: #fff;
+      appearance: none;
+      cursor: pointer;
+    }
+
+    .sp-select-field .ic {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      width: 10px;
+      height: 10px;
+    }
+
+    .sp-select-field .ic svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .sp-select-field .ic path {
+      stroke: var(--red);
+    }
+
+    .sp-btn-search {
+      background: var(--red);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 26px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .sp-btn-search:hover {
+      background: #c81c1c;
+    }
+
+    .sp-table-card {
+      background: #fff;
+      border-radius: 4px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, .06);
+      overflow: hidden;
+    }
+
+    .sp-table-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px 6px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .sp-show-entries {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #444;
+    }
+
+    .sp-show-entries select {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 5px 24px 5px 8px;
+      font-size: 13px;
+      background: #fff;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23e02020' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      cursor: pointer;
+    }
+
+    .sp-export-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #2f8f4e;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .sp-export-btn svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .sp-search-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 16px 12px;
+      justify-content: flex-end;
+      font-size: 13px;
+      color: #444;
+    }
+
+    .sp-search-row input {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 6px 10px;
+      font-size: 13px;
+      width: 200px;
+    }
+
+    .sp-table-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-top: 1px solid #eee;
+    }
+
+    #view-sales-process table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 2100px;
+    }
+
+    #view-sales-process thead th {
+      background: var(--dark);
+      color: #fff;
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .02em;
+      padding: 12px 10px;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    #view-sales-process tbody td {
+      padding: 12px 10px;
+      font-size: 12.5px;
+      color: #333;
+      border-bottom: 1px solid #eee;
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+
+    #view-sales-process tbody tr:hover {
+      background: #fafafa;
+    }
+
+    .sp-link {
+      color: #2255cc;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .sp-italic-link {
+      font-style: italic;
+      text-decoration: underline;
+      color: #333;
+    }
+
+    .sp-dash {
+      color: #bbb;
+    }
+
+    .sp-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11.5px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .sp-badge.advance {
+      background: var(--blue-bg);
+      color: var(--blue-text);
+    }
+
+    .sp-badge.full {
+      background: var(--green-bg);
+      color: var(--green-text);
+    }
+
+    .sp-view-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #fff;
+      color: var(--red);
+      border: 1px solid var(--red);
+      border-radius: 4px;
+      padding: 5px 12px;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .sp-view-btn svg {
+      width: 11px;
+      height: 11px;
+    }
+
+    .sp-view-btn:hover {
+      background: var(--red);
+      color: #fff;
+    }
+
+    .sp-sticky-col {
+      position: sticky;
+      background: #fff;
+      z-index: 2;
+    }
+
+    .sp-sticky-1 {
+      left: 0;
+      min-width: 60px;
+    }
+
+    .sp-sticky-2 {
+      left: 60px;
+      min-width: 130px;
+      box-shadow: 2px 0 4px rgba(0, 0, 0, .06);
+    }
+
+    #view-sales-process thead .sp-sticky-col {
+      background: var(--dark);
+      z-index: 3;
+    }
+
+    .sp-action-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+      min-width: 200px;
+    }
+
+    .sp-act-btn {
+      border: none;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 6px 6px;
+      cursor: pointer;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .sp-act-orange {
+      background: var(--orange);
+    }
+
+    .sp-act-blue {
+      background: var(--skyblue);
+    }
+
+    .sp-act-purple {
+      background: var(--purple);
+    }
+
+    .sp-act-orange:hover {
+      background: #e0951a;
+    }
+
+    .sp-act-blue:hover {
+      background: #2f8ed4;
+    }
+
+    .sp-act-purple:hover {
+      background: #7a4ce0;
+    }
+
+    .sp-pagination-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 13px;
+      color: #555;
+    }
+
+    .sp-page-btns {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sp-page-btns button {
+      border: 1px solid var(--border);
+      background: #fff;
+      color: #444;
+      border-radius: 4px;
+      padding: 6px 12px;
+      font-size: 12.5px;
+      cursor: pointer;
+    }
+
+    .sp-page-btns button.active {
+      background: var(--red);
+      color: #fff;
+      border-color: var(--red);
+    }
+
+    .sp-page-btns button:hover:not(.active) {
+      background: #f5f5f5;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 1024px) {
+      .card-body {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .sp-filter-bar {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .sp-filter-bar .sp-btn-search {
+        grid-column: span 3;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+        width: 250px;
+        box-shadow: 2px 0 12px rgba(0, 0, 0, .3);
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .sidebar-overlay.show {
+        display: block;
+      }
+
+      .main {
+        margin-left: 0;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .content {
+        padding: 14px;
+      }
+
+      .card-body {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding: 16px;
+      }
+
+      .topbar {
+        padding: 14px 16px;
+      }
+
+      .topbar h1 {
+        font-size: 15px;
+      }
+
+      .sp-filter-bar {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .sp-filter-bar .sp-btn-search {
+        grid-column: span 2;
+      }
+
+      .sp-table-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .sp-search-row {
+        justify-content: flex-start;
+        padding: 0 16px 12px;
+      }
+
+      .sp-search-row input {
+        flex: 1;
+      }
+
+      .sp-pagination-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        font-size: 13px;
+      }
+
+      .btn-submit {
+        width: 100%;
+      }
+
+      .sp-filter-bar {
+        grid-template-columns: 1fr;
+      }
+
+      .sp-filter-bar .sp-btn-search {
+        grid-column: span 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+
+    <div class="sidebar-overlay" id="overlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+      <div class="admin-bar">
+        <div class="admin-avatar">A</div>
+        <div class="admin-name">Admin: Himanshu</div>
+        <div class="status-dot"></div>
+      </div>
+      <div class="search-box">
+        <input type="text" placeholder="Search">
+      </div>
+      <ul class="nav" id="navList">
+        <li data-view="dashboard"><a><span class="ic"></span><span class="label">Dashboard</span><span
+              class="chevron"><svg viewBox="0 0 8 12" fill="none">
+                <path d="M1.5 1L6 6L1.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span></a></li>
+        <li data-view="main-search"><a><span class="ic"></span><span class="label">Main Search</span><span
+              class="chevron"><svg viewBox="0 0 8 12" fill="none">
+                <path d="M1.5 1L6 6L1.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span></a></li>
+        <li data-view="my-leads"><a><span class="ic"></span><span class="label">My Leads</span><span
+              class="chevron"><svg viewBox="0 0 8 12" fill="none">
+                <path d="M1.5 1L6 6L1.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span></a></li>
+        <li data-view="contact-us"><a><span class="ic"></span><span class="label">Contact Us</span><span
+              class="chevron"><svg viewBox="0 0 8 12" fill="none">
+                <path d="M1.5 1L6 6L1.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span></a></li>
+        <li data-view="create-order" class="active"><a><span class="ic"></span><span class="label">Create
+              Order</span><span class="chevron"><svg viewBox="0 0 8 12" fill="none">
+                <path d="M1.5 1L6 6L1.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span></a></li>
+        <li data-view="sales-process"><a><span class="ic"></span><span class="label">Sales Process</span><span
+              class="chevron"><svg viewBox="0 0 8 12" fill="none">
+                <path d="M1.5 1L6 6L1.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span></a></li>
+        <li data-view="allot-orders"><a><span class="ic"></span><span class="label">Allot Orders</span><span
+              class="chevron"><svg viewBox="0 0 8 12" fill="none">
+                <path d="M1.5 1L6 6L1.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span></a></li>
+        <li data-view="unalloted-orders"><a><span class="ic"></span><span class="label">UnAlloted Orders</span><span
+              class="chevron"><svg viewBox="0 0 8 12" fill="none">
+                <path d="M1.5 1L6 6L1.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span></a></li>
+        <li data-view="manage-tickets"><a><span class="ic"></span><span class="label">Manage Tickets</span><span
+              class="chevron"><svg viewBox="0 0 8 12" fill="none">
+                <path d="M1.5 1L6 6L1.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span></a></li>
+        <li data-view="order-processing"><a><span class="ic"></span><span class="label">Order Processing</span><span
+              class="chevron"><svg viewBox="0 0 8 12" fill="none">
+                <path d="M1.5 1L6 6L1.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span></a></li>
+        <li data-view="vendor-payment"><a><span class="ic"></span><span class="label">Vendor Payment</span><span
+              class="chevron"><svg viewBox="0 0 8 12" fill="none">
+                <path d="M1.5 1L6 6L1.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span></a></li>
+        <li data-view="change-order-status"><a><span class="ic"></span><span class="label">Change Order
+              Status</span><span class="chevron"><svg viewBox="0 0 8 12" fill="none">
+                <path d="M1.5 1L6 6L1.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span></a></li>
+        <li data-view="approvals"><a><span class="ic"></span><span class="label">Approvals</span><span
+              class="chevron"><svg viewBox="0 0 8 12" fill="none">
+                <path d="M1.5 1L6 6L1.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span></a></li>
+        <li data-view="accounts"><a><span class="ic"></span><span class="label">Accounts</span><span
+              class="chevron"><svg viewBox="0 0 8 12" fill="none">
+                <path d="M1.5 1L6 6L1.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span></a></li>
+        <li data-view="admin-operations"><a><span class="ic"></span><span class="label">Admin Operations</span><span
+              class="chevron"><svg viewBox="0 0 8 12" fill="none">
+                <path d="M1.5 1L6 6L1.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span></a></li>
+        <li data-view="sign-out"><a><span class="ic"></span><span class="label">Sign Out</span><span
+              class="chevron"><svg viewBox="0 0 8 12" fill="none">
+                <path d="M1.5 1L6 6L1.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span></a></li>
+      </ul>
+    </aside>
+
+    <div class="main">
+      <div class="topbar">
+        <button class="hamburger" id="hamburger">☰</button>
+        <span class="back-arrow" id="backArrow">←</span>
+        <h1 id="pageTitle">Create New Order</h1>
+      </div>
+
+      <div class="content" id="contentArea">
+
+        <!-- ===== DASHBOARD (placeholder) ===== -->
+        <section class="view" id="view-dashboard" data-title="Dashboard">
+          <div class="placeholder-card">
+            <div class="ph-icon">📊</div>
+            <h2>Dashboard</h2>
+            <p>This section is coming soon.</p>
+          </div>
+        </section>
+
+        <!-- ===== MAIN SEARCH (placeholder) ===== -->
+        <section class="view" id="view-main-search" data-title="Main Search">
+          <div class="placeholder-card">
+            <div class="ph-icon">🔍</div>
+            <h2>Main Search</h2>
+            <p>This section is coming soon.</p>
+          </div>
+        </section>
+
+        <!-- ===== MY LEADS (placeholder) ===== -->
+        <section class="view" id="view-my-leads" data-title="My Leads">
+          <div class="placeholder-card">
+            <div class="ph-icon">📋</div>
+            <h2>My Leads</h2>
+            <p>This section is coming soon.</p>
+          </div>
+        </section>
+
+        <!-- ===== CONTACT US (placeholder) ===== -->
+        <section class="view" id="view-contact-us" data-title="Contact Us">
+          <div class="placeholder-card">
+            <div class="ph-icon">☎️</div>
+            <h2>Contact Us</h2>
+            <p>This section is coming soon.</p>
+          </div>
+        </section>
+
+        <!-- ===== CREATE ORDER (built) ===== -->
+        <section class="view active" id="view-create-order" data-title="Create New Order">
+          <div class="create-order-inner">
+            <!-- Client Details -->
+            <div class="card">
+              <div class="card-header">
+                <span>Client Details</span>
+                <div class="badge">👤</div>
+              </div>
+              <div class="card-body">
+                <div class="field">
+                  <label>Name</label>
+                  <input type="text" placeholder="Enter Name">
+                </div>
+                <div class="field">
+                  <label>Email</label>
+                  <input type="email" placeholder="Enter Email">
+                </div>
+                <div class="field">
+                  <label>Contact Number</label>
+                  <input type="text" placeholder="Enter Mobile Number">
+                </div>
+              </div>
+            </div>
+
+            <!-- Lead Details -->
+            <div class="card">
+              <div class="card-header">
+                <span>Lead Details</span>
+                <div class="badge">👤</div>
+              </div>
+              <div class="card-body">
+                <div class="field has-value">
+                  <label>Source of lead</label>
+                  <div class="select-field">
+                    <select>
+                      <option>IVRS</option>
+                    </select>
+                    <span class="ic"><svg viewBox="0 0 10 6" fill="none">
+                        <path d="M1 1L5 5L9 1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg></span>
+                  </div>
+                </div>
+                <div class="field has-value">
+                  <label>Sales stage</label>
+                  <div class="select-field">
+                    <select>
+                      <option>Inquiry</option>
+                    </select>
+                    <span class="ic"><svg viewBox="0 0 10 6" fill="none">
+                        <path d="M1 1L5 5L9 1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg></span>
+                  </div>
+                </div>
+                <div class="field">
+                  <label>Service request</label>
+                  <input type="text" placeholder="Service request">
+                </div>
+                <div class="field">
+                  <label>Next followup date</label>
+                  <div class="date-field">
+                    <input type="text" class="display-date" placeholder="dd-mm-yyyy" readonly>
+                    <input type="date" class="native-date">
+                    <span class="ic"><svg viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="5" width="18" height="16" rx="2" stroke-width="1.6" />
+                        <line x1="3" y1="10" x2="21" y2="10" stroke-width="1.6" />
+                        <line x1="8" y1="2.5" x2="8" y2="6.5" stroke-width="1.6" stroke-linecap="round" />
+                        <line x1="16" y1="2.5" x2="16" y2="6.5" stroke-width="1.6" stroke-linecap="round" />
+                      </svg></span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label>First followup date</label>
+                  <div class="date-field">
+                    <input type="text" class="display-date" placeholder="dd-mm-yyyy" readonly>
+                    <input type="date" class="native-date">
+                    <span class="ic"><svg viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="5" width="18" height="16" rx="2" stroke-width="1.6" />
+                        <line x1="3" y1="10" x2="21" y2="10" stroke-width="1.6" />
+                        <line x1="8" y1="2.5" x2="8" y2="6.5" stroke-width="1.6" stroke-linecap="round" />
+                        <line x1="16" y1="2.5" x2="16" y2="6.5" stroke-width="1.6" stroke-linecap="round" />
+                      </svg></span>
+                  </div>
+                </div>
+                <div class="field">
+                  <label>First followup remarks</label>
+                  <input type="text" placeholder="Next followup remarks">
+                </div>
+
+                <div class="field">
+                  <label>Second followup date</label>
+                  <div class="date-field">
+                    <input type="text" class="display-date" placeholder="dd-mm-yyyy" readonly>
+                    <input type="date" class="native-date">
+                    <span class="ic"><svg viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="5" width="18" height="16" rx="2" stroke-width="1.6" />
+                        <line x1="3" y1="10" x2="21" y2="10" stroke-width="1.6" />
+                        <line x1="8" y1="2.5" x2="8" y2="6.5" stroke-width="1.6" stroke-linecap="round" />
+                        <line x1="16" y1="2.5" x2="16" y2="6.5" stroke-width="1.6" stroke-linecap="round" />
+                      </svg></span>
+                  </div>
+                </div>
+                <div class="field">
+                  <label>Second followup remarks</label>
+                  <input type="text" placeholder="Second followup remarks">
+                </div>
+
+                <div class="field">
+                  <label>Third followup date</label>
+                  <div class="date-field">
+                    <input type="text" class="display-date" placeholder="dd-mm-yyyy" readonly>
+                    <input type="date" class="native-date">
+                    <span class="ic"><svg viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="5" width="18" height="16" rx="2" stroke-width="1.6" />
+                        <line x1="3" y1="10" x2="21" y2="10" stroke-width="1.6" />
+                        <line x1="8" y1="2.5" x2="8" y2="6.5" stroke-width="1.6" stroke-linecap="round" />
+                        <line x1="16" y1="2.5" x2="16" y2="6.5" stroke-width="1.6" stroke-linecap="round" />
+                      </svg></span>
+                  </div>
+                </div>
+                <div class="field">
+                  <label>Third followup remarks</label>
+                  <input type="text" placeholder="Third followup remarks">
+                </div>
+              </div>
+            </div>
+
+            <!-- Service Requested -->
+            <div class="card">
+              <div class="card-header">
+                <span>Service Requested</span>
+                <div class="badge">⚙️</div>
+              </div>
+              <div class="card-body">
+                <div class="field">
+                  <label>Current City</label>
+                  <input type="text" placeholder="Current City">
+                </div>
+                <div class="field">
+                  <label>Work City</label>
+                  <div class="select-field">
+                    <select>
+                      <option selected disabled>Choose City</option>
+                    </select>
+                    <span class="ic"><svg viewBox="0 0 10 6" fill="none">
+                        <path d="M1 1L5 5L9 1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg></span>
+                  </div>
+                </div>
+                <div class="field">
+                  <label>Service</label>
+                  <div class="select-field">
+                    <select>
+                      <option selected disabled>Choose Service</option>
+                    </select>
+                    <span class="ic"><svg viewBox="0 0 10 6" fill="none">
+                        <path d="M1 1L5 5L9 1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg></span>
+                  </div>
+                </div>
+                <div class="field">
+                  <label>Sub Service</label>
+                  <div class="select-field">
+                    <select>
+                      <option selected disabled>Choose Sub Service</option>
+                    </select>
+                    <span class="ic"><svg viewBox="0 0 10 6" fill="none">
+                        <path d="M1 1L5 5L9 1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Payment History -->
+            <div class="card">
+              <div class="card-header">
+                <span>Payment History</span>
+                <div class="badge">💳</div>
+              </div>
+              <div class="card-body">
+                <div class="field">
+                  <label>Price quoted</label>
+                  <input type="text" placeholder="Price quoted">
+                </div>
+                <div class="field">
+                  <label>Advance Payment</label>
+                  <input type="text" placeholder="Advance Payment">
+                </div>
+                <div class="field has-value">
+                  <label>Mode of Advance Payment</label>
+                  <div class="select-field">
+                    <select>
+                      <option>Online</option>
+                    </select>
+                    <span class="ic"><svg viewBox="0 0 10 6" fill="none">
+                        <path d="M1 1L5 5L9 1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg></span>
+                  </div>
+                </div>
+                <div class="field">
+                  <label>Advance Payment Date</label>
+                  <div class="date-field">
+                    <input type="text" class="display-date" placeholder="dd-mm-yyyy" readonly>
+                    <input type="date" class="native-date">
+                    <span class="ic"><svg viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="5" width="18" height="16" rx="2" stroke-width="1.6" />
+                        <line x1="3" y1="10" x2="21" y2="10" stroke-width="1.6" />
+                        <line x1="8" y1="2.5" x2="8" y2="6.5" stroke-width="1.6" stroke-linecap="round" />
+                        <line x1="16" y1="2.5" x2="16" y2="6.5" stroke-width="1.6" stroke-linecap="round" />
+                      </svg></span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label>Balance Payment</label>
+                  <input type="text" placeholder="Balance Payment">
+                </div>
+                <div class="field has-value">
+                  <label>Mode of Balance Payment</label>
+                  <div class="select-field">
+                    <select>
+                      <option>Online</option>
+                    </select>
+                    <span class="ic"><svg viewBox="0 0 10 6" fill="none">
+                        <path d="M1 1L5 5L9 1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg></span>
+                  </div>
+                </div>
+                <div class="field">
+                  <label>Balance Payment Date</label>
+                  <div class="date-field">
+                    <input type="text" class="display-date" placeholder="dd-mm-yyyy" readonly>
+                    <input type="date" class="native-date">
+                    <span class="ic"><svg viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="5" width="18" height="16" rx="2" stroke-width="1.6" />
+                        <line x1="3" y1="10" x2="21" y2="10" stroke-width="1.6" />
+                        <line x1="8" y1="2.5" x2="8" y2="6.5" stroke-width="1.6" stroke-linecap="round" />
+                        <line x1="16" y1="2.5" x2="16" y2="6.5" stroke-width="1.6" stroke-linecap="round" />
+                      </svg></span>
+                  </div>
+                </div>
+                <div class="field has-value">
+                  <label>Payment Verified</label>
+                  <div class="select-field">
+                    <select>
+                      <option>No</option>
+                    </select>
+                    <span class="ic"><svg viewBox="0 0 10 6" fill="none">
+                        <path d="M1 1L5 5L9 1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Order Description -->
+            <div class="card description-card">
+              <div class="card-header">
+                <span>Order Description</span>
+                <div class="badge">📄</div>
+              </div>
+              <div class="card-body">
+                <div class="field">
+                  <label>Description</label>
+                  <textarea placeholder="Order Description"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="submit-row">
+              <button class="btn-submit">Submit Order</button>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ===== SALES PROCESS (built) ===== -->
+        <section class="view" id="view-sales-process" data-title="Booked Orders">
+          <!-- Filter Bar -->
+          <div class="sp-filter-bar">
+            <div class="sp-select-field">
+              <select>
+                <option>Month</option>
+              </select>
+              <span class="ic"><svg viewBox="0 0 10 6" fill="none">
+                  <path d="M1 1L5 5L9 1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg></span>
+            </div>
+            <div class="sp-select-field">
+              <select>
+                <option>Status</option>
+              </select>
+              <span class="ic"><svg viewBox="0 0 10 6" fill="none">
+                  <path d="M1 1L5 5L9 1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg></span>
+            </div>
+            <div class="sp-select-field">
+              <select>
+                <option>City</option>
+              </select>
+              <span class="ic"><svg viewBox="0 0 10 6" fill="none">
+                  <path d="M1 1L5 5L9 1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg></span>
+            </div>
+            <div class="sp-select-field">
+              <select>
+                <option>Service</option>
+              </select>
+              <span class="ic"><svg viewBox="0 0 10 6" fill="none">
+                  <path d="M1 1L5 5L9 1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg></span>
+            </div>
+            <div class="sp-select-field">
+              <select>
+                <option>Payment Status</option>
+              </select>
+              <span class="ic"><svg viewBox="0 0 10 6" fill="none">
+                  <path d="M1 1L5 5L9 1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg></span>
+            </div>
+            <button class="sp-btn-search">Search</button>
+          </div>
+
+          <!-- Table Card -->
+          <div class="sp-table-card">
+            <div class="sp-table-toolbar">
+              <div class="sp-show-entries">
+                Show
+                <select>
+                  <option>10</option>
+                  <option>25</option>
+                  <option>50</option>
+                  <option>100</option>
+                </select>
+                entries
+              </div>
+              <a class="sp-export-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#2f8f4e" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M12 3v12" />
+                  <path d="M7 10l5 5 5-5" />
+                  <path d="M4 21h16" />
+                </svg>
+                Export to Excel
+              </a>
+            </div>
+            <div class="sp-search-row">
+              Search :
+              <input type="text">
+            </div>
+
+            <div class="sp-table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th class="sp-sticky-col sp-sticky-1">S.NO</th>
+                    <th class="sp-sticky-col sp-sticky-2">CUSTOMER NAME</th>
+                    <th>TRACK ID</th>
+                    <th>SERVICE</th>
+                    <th>STATUS</th>
+                    <th>PAYMENT STATUS</th>
+                    <th>MONTH</th>
+                    <th>DATE</th>
+                    <th>TOTAL PAYMENT</th>
+                    <th>ADVANCE</th>
+                    <th>BALANCE</th>
+                    <th>SALES MANAGER</th>
+                    <th>CITY</th>
+                    <th>VEHICLE NO.</th>
+                    <th>BUYER NAME</th>
+                    <th>NOC PLACE</th>
+                    <th>PURPOSE</th>
+                    <th>REMARKS</th>
+                    <th>FEE</th>
+                    <th>PROCESS</th>
+                    <th>COMPLETION</th>
+                    <th>APPO. DATE</th>
+                    <th>ACTION</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody"></tbody>
+              </table>
+            </div>
+
+            <div class="sp-pagination-row">
+              <div>Showing 1-10 of 500 records</div>
+              <div class="sp-page-btns">
+                <button id="prevBtn">Previous</button>
+                <button class="active">1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>4</button>
+                <button id="nextBtn">Next</button>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ===== ALLOT ORDERS (placeholder) ===== -->
+        <section class="view" id="view-allot-orders" data-title="Allot Orders">
+          <div class="placeholder-card">
+            <div class="ph-icon">📦</div>
+            <h2>Allot Orders</h2>
+            <p>This section is coming soon.</p>
+          </div>
+        </section>
+
+        <!-- ===== UNALLOTED ORDERS (placeholder) ===== -->
+        <section class="view" id="view-unalloted-orders" data-title="UnAlloted Orders">
+          <div class="placeholder-card">
+            <div class="ph-icon">📥</div>
+            <h2>UnAlloted Orders</h2>
+            <p>This section is coming soon.</p>
+          </div>
+        </section>
+
+        <!-- ===== MANAGE TICKETS (placeholder) ===== -->
+        <section class="view" id="view-manage-tickets" data-title="Manage Tickets">
+          <div class="placeholder-card">
+            <div class="ph-icon">🎫</div>
+            <h2>Manage Tickets</h2>
+            <p>This section is coming soon.</p>
+          </div>
+        </section>
+
+        <!-- ===== ORDER PROCESSING (placeholder) ===== -->
+        <section class="view" id="view-order-processing" data-title="Order Processing">
+          <div class="placeholder-card">
+            <div class="ph-icon">🔧</div>
+            <h2>Order Processing</h2>
+            <p>This section is coming soon.</p>
+          </div>
+        </section>
+
+        <!-- ===== VENDOR PAYMENT (placeholder) ===== -->
+        <section class="view" id="view-vendor-payment" data-title="Vendor Payment">
+          <div class="placeholder-card">
+            <div class="ph-icon">💳</div>
+            <h2>Vendor Payment</h2>
+            <p>This section is coming soon.</p>
+          </div>
+        </section>
+
+        <!-- ===== CHANGE ORDER STATUS (placeholder) ===== -->
+        <section class="view" id="view-change-order-status" data-title="Change Order Status">
+          <div class="placeholder-card">
+            <div class="ph-icon">🔄</div>
+            <h2>Change Order Status</h2>
+            <p>This section is coming soon.</p>
+          </div>
+        </section>
+
+        <!-- ===== APPROVALS (placeholder) ===== -->
+        <section class="view" id="view-approvals" data-title="Approvals">
+          <div class="placeholder-card">
+            <div class="ph-icon">✅</div>
+            <h2>Approvals</h2>
+            <p>This section is coming soon.</p>
+          </div>
+        </section>
+
+        <!-- ===== ACCOUNTS (placeholder) ===== -->
+        <section class="view" id="view-accounts" data-title="Accounts">
+          <div class="placeholder-card">
+            <div class="ph-icon">👥</div>
+            <h2>Accounts</h2>
+            <p>This section is coming soon.</p>
+          </div>
+        </section>
+
+        <!-- ===== ADMIN OPERATIONS (placeholder) ===== -->
+        <section class="view" id="view-admin-operations" data-title="Admin Operations">
+          <div class="placeholder-card">
+            <div class="ph-icon">🛠️</div>
+            <h2>Admin Operations</h2>
+            <p>This section is coming soon.</p>
+          </div>
+        </section>
+
+        <!-- ===== SIGN OUT (placeholder) ===== -->
+        <section class="view" id="view-sign-out" data-title="Sign Out">
+          <div class="placeholder-card">
+            <div class="ph-icon">🚪</div>
+            <h2>Signed Out</h2>
+            <p>Click any menu item to continue.</p>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const pageTitle = document.getElementById('pageTitle');
+    const backArrow = document.getElementById('backArrow');
+
+    function toggleSidebar() {
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('show');
+    }
+    hamburger.addEventListener('click', toggleSidebar);
+    overlay.addEventListener('click', toggleSidebar);
+
+    // ---- View switching ----
+    function showView(viewKey) {
+      document.querySelectorAll('.view').forEach(function (v) { v.classList.remove('active'); });
+      const target = document.getElementById('view-' + viewKey);
+      if (target) {
+        target.classList.add('active');
+        pageTitle.textContent = target.dataset.title || '';
+      }
+      document.querySelectorAll('#navList li').forEach(function (x) { x.classList.remove('active'); });
+      const navItem = document.querySelector('#navList li[data-view="' + viewKey + '"]');
+      if (navItem) navItem.classList.add('active');
+      document.getElementById('contentArea').scrollTop = 0;
+      window.scrollTo(0, 0);
+    }
+
+    document.querySelectorAll('#navList li').forEach(function (li) {
+      li.querySelector('a').addEventListener('click', function () {
+        showView(li.dataset.view);
+        if (sidebar.classList.contains('open')) toggleSidebar();
+      });
+    });
+
+    backArrow.addEventListener('click', function () {
+      showView('dashboard');
+    });
+
+    // ---- Date pickers (Create Order view) ----
+    function openPicker(nativeInput) {
+      if (typeof nativeInput.showPicker === 'function') {
+        try { nativeInput.showPicker(); return; } catch (e) { }
+      }
+      nativeInput.focus();
+      nativeInput.click();
+    }
+
+    document.querySelectorAll('.date-field').forEach(function (wrap) {
+      const displayInput = wrap.querySelector('.display-date');
+      const nativeInput = wrap.querySelector('.native-date');
+      const icon = wrap.querySelector('.ic');
+
+      icon.addEventListener('click', function (e) {
+        e.stopPropagation();
+        openPicker(nativeInput);
+      });
+
+      nativeInput.addEventListener('change', function () {
+        if (!nativeInput.value) { displayInput.value = ''; return; }
+        const [y, m, d] = nativeInput.value.split('-');
+        displayInput.value = d + '-' + m + '-' + y;
+      });
+    });
+
+    // ---- Sales Process table data ----
+    const viewIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>';
+
+    const rows = [
+      { sno: 149731, name: "ALOK AGARWAL", track: "BLRRTS87035", service: "DL DRIVING LICENSE RENEW", status: "To Be Processed", pay: "advance", month: "JUL", date: "07-JUL-2026", total: 1250, advance: 1250, balance: 0, mgr: "ANISHA KUMAR", city: "BANGALORE", vehicle: "-", buyer: "-", noc: "-", purpose: "-", remarks: "-", appo: "N/A" },
+      { sno: 149717, name: "ABHISHEK KUMAR", track: "BLRBRIVO10955", service: "BIRTH CERTIFICATE", status: "Documents Precheck", pay: "full", month: "JUL", date: "07-JUL-2026", total: 2500, advance: 0, balance: 0, mgr: "ANISHA KUMAR", city: "BANGALORE", vehicle: "-", buyer: "-", noc: "-", purpose: "-", remarks: "-", appo: "N/A" },
+      { sno: 149005, name: "SEEMA MALIK", track: "PUNMARE6807", service: "MARRIAGE REGISTRATION", status: "Documents Submitted", pay: "advance", month: "JUL", date: "07-JUL-2026", total: 2750, advance: 2750, balance: 0, mgr: "PALLAVI", city: "PUNE", vehicle: "-", buyer: "-", noc: "-", purpose: "-", remarks: "-", appo: "N/A" },
+      { sno: 149083, name: "AMIT", track: "GGNRTS87072", service: "DL DRIVING LICENSE RENEW", status: "To Be Processed", pay: "full", month: "JUL", date: "07-JUL-2026", total: 4500, advance: 0, balance: 0, mgr: "TAMANNA", city: "GURGAON", vehicle: "-", buyer: "-", noc: "-", purpose: "-", remarks: "-", appo: "N/A" },
+      { sno: 149003, name: "VIVRAM TANTRY", track: "HYDORTS89760", service: "rr", status: "Documents Precheck", pay: "advance", month: "JUL", date: "07-JUL-2026", total: 4750, advance: 0, balance: 0, mgr: "DISHA", city: "HYDERABAD", vehicle: "-", buyer: "-", noc: "-", purpose: "-", remarks: "-", appo: "N/A", noView: true },
+      { sno: 149065, name: "MARTIN", track: "BLRRPP65668", service: "PASSPORT", status: "Appointment Scheduled", pay: "full", month: "JUL", date: "06-JUL-2026", total: 3400, advance: 0, balance: 0, mgr: "ANISHA KUMAR", city: "BANGALORE", vehicle: "-", buyer: "-", noc: "-", purpose: "-", remarks: "-", appo: "20-JUN-2025" },
+      { sno: 149052, name: "SHAIVIL TANDON", track: "DELVISA575", service: "VISA", status: "Documents Submitted", pay: "full", month: "JUL", date: "07-JUL-2026", total: 6000, advance: 0, balance: 0, mgr: "ANISHA KUMAR", city: "DELHI", vehicle: "-", buyer: "-", noc: "-", purpose: "-", remarks: "-", appo: "N/A" },
+      { sno: 149045, name: "MANISH", track: "GZNRIGT12476", service: "OWNERSHIP TRANSFER", status: "Documents Precheck", pay: "advance", month: "JUL", date: "06-JUL-2026", total: 1250, advance: 1250, balance: 0, mgr: "ANAM", city: "GHAZIABAD", vehicle: "UP14ES7468", buyer: "-", noc: "-", purpose: "-", remarks: "-", appo: "N/A" }
+    ];
+
+    const tbody = document.getElementById('tbody');
+
+    if (tbody) {
+      rows.forEach(function (r) {
+        const badge = r.pay === 'advance'
+          ? '<span class="sp-badge advance">Advance Payment Received</span>'
+          : '<span class="sp-badge full">Full Payment Paid</span>';
+
+        const viewCell = r.noView
+          ? '<span class="sp-dash">-</span>'
+          : '<button class="sp-view-btn">' + viewIcon + ' View</button>';
+
+        tbody.innerHTML += `
+        <tr>
+          <td class="sp-sticky-col sp-sticky-1">${r.sno}</td>
+          <td class="sp-sticky-col sp-sticky-2"><span class="sp-link">${r.name}</span></td>
+          <td><span class="sp-link">${r.track}</span></td>
+          <td>${r.service}</td>
+          <td><span class="sp-italic-link">${r.status}</span></td>
+          <td>${badge}</td>
+          <td>${r.month}</td>
+          <td>${r.date}</td>
+          <td>${r.total}</td>
+          <td>${r.advance}</td>
+          <td>${r.balance}</td>
+          <td><span class="sp-link">${r.mgr}</span></td>
+          <td>${r.city}</td>
+          <td>${r.vehicle}</td>
+          <td>${r.buyer}</td>
+          <td>${r.noc}</td>
+          <td>${r.purpose}</td>
+          <td>${r.remarks}</td>
+          <td>${viewCell}</td>
+          <td>${viewCell}</td>
+          <td>${viewCell}</td>
+          <td>${r.appo}</td>
+          <td>
+            <div class="sp-action-grid">
+              <button class="sp-act-btn sp-act-orange">Update Order</button>
+              <button class="sp-act-btn sp-act-orange">Reassign</button>
+              <button class="sp-act-btn sp-act-blue">Operational Update</button>
+              <button class="sp-act-btn sp-act-blue">Skype</button>
+              <button class="sp-act-btn sp-act-purple">Generate Contract</button>
+              <button class="sp-act-btn sp-act-purple">Add Remark</button>
+            </div>
+          </td>
+        </tr>
+      `;
+      });
+    }
+  </script>
+</body>
+
+</html>
