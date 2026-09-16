@@ -84,6 +84,88 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
 
   <link rel="stylesheet" href="hero-style.css" />
 
+
+  <style>
+    /* ================================
+   VISA DROPDOWN SEARCH
+================================ */
+
+#subser {
+    max-height: 320px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Search box sticky at top */
+.visa-search-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+
+    background: #fff;
+    padding: 10px;
+
+    border-bottom: 1px solid #eee;
+}
+
+/* Search icon */
+.visa-search-wrap i {
+    position: absolute;
+    left: 33px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    color: #777;
+    font-size: 14px;
+}
+
+/* Input */
+#visaServiceSearch {
+    width: 100%;
+    height: 42px;
+
+    padding: 0 12px 0 38px;
+
+    border: 1px solid #ddd;
+    border-radius: 7px;
+
+    outline: none;
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+
+    background: #f8f8f8;
+}
+
+#visaServiceSearch:focus {
+    border-color: #222;
+    background: #fff;
+}
+
+/* Country item */
+#subser .subser {
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+#subser .subser:hover {
+    background: #f5f5f5;
+}
+
+/* No result */
+.visa-no-result {
+    display: none;
+
+    padding: 20px 10px;
+
+    text-align: center;
+
+    color: #777;
+
+    font-size: 13px;
+}
+  </style>
+
    <!--add css end here--> 
 
 
@@ -375,6 +457,86 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
 
         <div class="dropdown-list bss" id="subser">
 
+<!-- new code added replce with old country start here -->
+
+
+
+    <!-- Search Bar -->
+    <div class="visa-search-wrap">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input
+            type="text"
+            id="visaServiceSearch"
+            placeholder="Search country or city..."
+            autocomplete="off"
+        />
+    </div>
+
+    <div class="subser marr"
+         name="visa/uk-visa-from-india"
+         data-search="UK United Kingdom England Britain British Great Britain London">
+        UK
+    </div>
+
+    <div class="subser marr"
+         name="visa/uae-visa-for-indians"
+         data-search="Dubai UAE United Arab Emirates">
+        UAE
+    </div>
+
+    <div class="subser marr"
+         name="visa/indonesia-visa-for-indians"
+         data-search="Bali Indonesia">
+        Indonesia
+    </div>
+
+    <div class="subser marr"
+         name="visa/azerbaijan-visa-for-indians"
+         data-search="Baku Azerbaijan">
+        Azerbaijan
+    </div>
+
+    <div class="subser marr"
+         name="visa/netherlands-visa-for-indians"
+         data-search="Holland Dutch Amsterdam Netherlands Netherland">
+        Netherlands
+    </div>
+
+    <div class="subser marr"
+         name="visa/turkey-visa-from-india"
+         data-search="Istanbul Turkey Türkiye">
+        Turkey
+    </div>
+
+    <div class="subser marr"
+         name="visa/georgia-visa-for-indians"
+         data-search="Tbilisi Georgia">
+        Georgia
+    </div>
+
+    <div class="subser marr"
+         name="visa/austria-visa-for-indians"
+         data-search="Vienna Austria">
+        Austria
+    </div>
+
+<!-- new code added replce with old country end here -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <div class="subser marr"
                  name="visa/algeria-visa-for-indians">
                  Algeria
@@ -385,10 +547,7 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
                  Australia
             </div>
 
-            <div class="subser marr"
-                 name="visa/austria-visa-for-indians">
-                 Austria
-            </div>
+       
 
             <div class="subser marr"
                  name="visa/belgium-visa-from-india">
@@ -440,11 +599,7 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
                  France
             </div>
 
-            <div class="subser marr"
-                 name="visa/georgia-visa-for-indians">
-                 Georgia
-            </div>
-
+  
             <div class="subser marr"
                  name="visa/greece-visa-for-indians">
                  Greece
@@ -460,10 +615,6 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
                  Iceland
             </div>
 
-            <div class="subser marr"
-                 name="visa/indonesia-visa-for-indians">
-                 Indonesia
-            </div>
 
             <div class="subser marr"
                  name="visa/ireland-visa-for-indians">
@@ -510,11 +661,7 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
                  Mongolia
             </div>
 
-            <div class="subser marr"
-                 name="visa/netherlands-visa-for-indians">
-                 Netherlands
-            </div>
-
+  
             <div class="subser marr"
                  name="visa/nigeria-visa-for-indian">
                  Nigeria
@@ -585,20 +732,11 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
                  Thailand
             </div>
 
-             <div class="subser marr"
-                 name="visa/turkey-visa-from-india">
-                 Turkey
-            </div>
+          
 
-             <div class="subser marr"
-                 name="visa/uae-visa-for-indians">
-                 UAE
-            </div>
+       
 
-             <div class="subser marr"
-                 name="visa/uk-visa-from-india">
-                 UK
-            </div>
+          
 
              <div class="subser marr"
                  name="visa/us-visa-for-indians">
@@ -634,17 +772,108 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
 
         <!--replace script start here-->
 
-        <script>
-          $(document).ready(function () {
+<script>
+$(document).ready(function () {
 
-    // Service Dropdown Toggle
+    /* ================================
+       SERVICE DROPDOWN TOGGLE
+    ================================= */
+
     $("#sesubser").click(function (e) {
         e.stopPropagation();
+
         $("#subser").slideToggle(200);
+
+        // Focus search box when dropdown opens
+        setTimeout(function () {
+            $("#visaServiceSearch").focus();
+        }, 250);
     });
 
-    // Select Service
-    $(".subser").click(function () {
+
+    /* ================================
+       SEARCH COUNTRY / CITY / SYNONYMS
+    ================================= */
+
+    $("#visaServiceSearch").on("input", function () {
+
+        let searchValue = $(this).val()
+            .toLowerCase()
+            .trim();
+
+        let visibleCount = 0;
+
+        $(".subser").each(function () {
+
+            let countryName = $(this)
+                .text()
+                .toLowerCase()
+                .trim();
+
+            let synonyms = $(this)
+                .attr("data-search") || "";
+
+            synonyms = synonyms.toLowerCase();
+
+            /*
+             * Search in:
+             * 1. Country name
+             * 2. data-search synonyms
+             */
+
+            let searchableText =
+                countryName + " " + synonyms;
+
+            if (
+                searchValue === "" ||
+                searchableText.includes(searchValue)
+            ) {
+
+                $(this).show();
+                visibleCount++;
+
+            } else {
+
+                $(this).hide();
+
+            }
+
+        });
+
+
+        /* No result message */
+
+        if (visibleCount === 0) {
+
+            if ($("#visaNoResult").length === 0) {
+
+                $("#subser").append(`
+                    <div id="visaNoResult"
+                         class="visa-no-result">
+                        No country found
+                    </div>
+                `);
+
+            }
+
+            $("#visaNoResult").show();
+
+        } else {
+
+            $("#visaNoResult").hide();
+
+        }
+
+    });
+
+
+    /* ================================
+       SELECT SERVICE
+    ================================= */
+
+    $(".subser").click(function (e) {
+
+        e.stopPropagation();
 
         let serviceName = $(this).text().trim();
         let serviceUrl = $(this).attr("name");
@@ -652,15 +881,40 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
         $("#css").text(serviceName);
         $("#css").attr("data-value", serviceUrl);
 
+        $("#visaServiceSearch").val("");
+
+        $(".subser").show();
+
         $("#subser").slideUp(200);
+
     });
 
-    // Close dropdown when clicked outside
+
+    /* ================================
+       CLOSE DROPDOWN OUTSIDE
+    ================================= */
+
     $(document).click(function () {
+
         $("#subser").slideUp(200);
+
     });
 
-    // Search Button
+
+    /* Prevent dropdown closing while
+       clicking inside search/list */
+
+    $("#subser").click(function (e) {
+
+        e.stopPropagation();
+
+    });
+
+
+    /* ================================
+       SEARCH / GET STARTED
+    ================================= */
+
     $("#search").click(function () {
 
         let service = $("#css").attr("data-value");
@@ -678,11 +932,13 @@ src="https://www.facebook.com/tr?id=2893438740888213&ev=PageView&noscript=1"
             return false;
         }
 
-        window.location.href = "https://itzeazy.in/" + service;
+        window.location.href =
+            "https://itzeazy.in/" + service;
+
     });
 
 });
-        </script>
+</script>
 
   <!--replace script end here-->
     
