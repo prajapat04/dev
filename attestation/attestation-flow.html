@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get your documents attested with ease</title>
+
+  <style>
+    :root {
+      --red: #E5342B;
+      --red-dark: #C92A22;
+      --ink: #1A1A1A;
+      --ink-soft: #4A4A4A;
+      --label: #8A8A8A;
+      --border: #E6E6E6;
+      --card-bg: #FFFFFF;
+      --page-bg: #0E0D0C;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--page-bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 64px 20px 40px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(10, 10, 10, .72) 0%, rgba(10, 10, 10, .55) 35%, rgba(10, 10, 10, .82) 100%),
+        radial-gradient(circle at 82% 30%, rgba(80, 60, 30, .35), transparent 45%),
+        #14110E;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, .02) 0 1px, transparent 1px 90px),
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, .02) 0 1px, transparent 1px 90px);
+      opacity: .5;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 560px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero h1 {
+      color: #fff;
+      text-align: center;
+      font-size: clamp(26px, 5vw, 38px);
+      line-height: 1.18;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin: 0 0 12px;
+      max-width: 480px;
+    }
+
+    .hero p {
+      color: rgba(255, 255, 255, .72);
+      text-align: center;
+      font-size: 15px;
+      line-height: 1.5;
+      margin: 0 0 32px;
+      max-width: 420px;
+    }
+
+    /* CARD */
+    .card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 28px;
+      width: 100%;
+      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, .55), 0 0 0 1px rgba(0, 0, 0, .03);
+    }
+
+    .field {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .field:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--label);
+      margin-bottom: 8px;
+    }
+
+    /* Country search input */
+    .search-input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0 14px;
+      height: 48px;
+      cursor: pointer;
+      transition: border-color .15s ease;
+    }
+
+    .search-input-wrap.open {
+      border-color: var(--ink);
+    }
+
+    .search-input-wrap svg.icon-search {
+      flex: 0 0 auto;
+      margin-right: 10px;
+      color: #B7B7B7;
+    }
+
+    .search-input-wrap input {
+      border: none;
+      outline: none;
+      font-size: 15px;
+      width: 100%;
+      color: var(--ink);
+      background: transparent;
+      font-family: inherit;
+    }
+
+    .search-input-wrap input::placeholder {
+      color: #B7B7B7;
+    }
+
+    .selected-country {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+    }
+
+    .selected-country .flag {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    /* Country popup */
+    .country-popup {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      right: 0;
+      background: #111;
+      border-radius: 18px;
+      padding: 16px;
+      z-index: 50;
+      display: none;
+      box-shadow: 0 20px 50px -10px rgba(0, 0, 0, .6);
+    }
+
+    .country-popup.show {
+      display: block;
+    }
+
+    .country-popup .search-input-wrap {
+      background: #1B1B1B;
+      border: 1px solid #2A2A2A;
+    }
+
+    .country-popup .search-input-wrap input {
+      color: #fff;
+    }
+
+    .country-popup .search-input-wrap input::placeholder {
+      color: #6E6E6E;
+    }
+
+    .country-popup .field-label {
+      color: #8F8F8F;
+    }
+
+    .country-list-box {
+      margin-top: 14px;
+      background: #fff;
+      border-radius: 14px;
+      padding: 6px 0;
+      max-height: 280px;
+      overflow-y: auto;
+    }
+
+    .country-list-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .country-list-grid.single-col {
+      grid-template-columns: 1fr;
+    }
+
+    .country-col {
+      padding: 2px 0;
+    }
+
+    .country-col+.country-col {
+      border-left: 1px solid #EFEFEF;
+    }
+
+    .country-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      font-size: 14.5px;
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .country-item:hover {
+      background: #F6F6F6;
+    }
+
+    .country-item .flag {
+      font-size: 16px;
+    }
+
+    .country-empty {
+      padding: 20px;
+      text-align: center;
+      color: #999;
+      font-size: 14px;
+      grid-column: 1/-1;
+    }
+
+    /* Popular destinations */
+    .popular-label {
+      font-size: 12px;
+      color: var(--label);
+      margin: 14px 0 10px;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      font-size: 13.5px;
+      color: var(--ink-soft);
+      cursor: pointer;
+      background: #fff;
+      transition: border-color .15s ease, color .15s ease;
+      user-select: none;
+    }
+
+    .chip .flag {
+      font-size: 14px;
+    }
+
+    .chip:hover {
+      border-color: #CFCFCF;
+    }
+
+    .chip.active {
+      border-color: var(--red);
+      color: var(--red);
+      font-weight: 600;
+    }
+
+    /* two-column selects */
+    .row-2 {
+      display: flex;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .row-2 .field {
+      flex: 1;
+      margin-bottom: 0;
+    }
+
+    .select-box {
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      cursor: pointer;
+      font-size: 15px;
+      color: var(--ink);
+      transition: border-color .15s ease;
+    }
+
+    .select-box.open {
+      border-color: var(--ink);
+    }
+
+    .select-box .chev {
+      transition: transform .15s ease;
+      color: #9A9A9A;
+      flex: 0 0 auto;
+    }
+
+    .select-box.open .chev {
+      transform: rotate(180deg);
+    }
+
+    .select-box .val {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .option-panel {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 20px 45px -10px rgba(0, 0, 0, .28), 0 0 0 1px rgba(0, 0, 0, .04);
+      padding: 6px 0;
+      z-index: 40;
+      display: none;
+      max-height: 280px;
+      overflow-y: auto;
+    }
+
+    .option-panel.show {
+      display: block;
+    }
+
+    .option-item {
+      padding: 13px 18px;
+      font-size: 15px;
+      color: var(--ink-soft);
+      cursor: pointer;
+      border-bottom: 1px solid #F1F1F1;
+    }
+
+    .option-item:last-child {
+      border-bottom: none;
+    }
+
+    .option-item:hover {
+      background: #FAFAFA;
+      color: var(--ink);
+    }
+
+    .option-item.selected {
+      color: var(--ink);
+      font-weight: 600;
+      background: #FAFAFA;
+    }
+
+    /* Button */
+    .cta {
+      margin-top: 24px;
+      width: 100%;
+      height: 52px;
+      border: none;
+      border-radius: 12px;
+      background: var(--red);
+      color: #fff;
+      font-size: 15.5px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: background .15s ease, transform .1s ease;
+    }
+
+    .cta:hover {
+      background: var(--red-dark);
+    }
+
+    .cta:active {
+      transform: scale(.99);
+    }
+
+    .helper {
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--label);
+      margin-top: 14px;
+    }
+
+    /* Footer trust row */
+    .trust-row {
+      margin-top: 36px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 28px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255, 255, 255, .65);
+      font-size: 13px;
+    }
+
+    .trust-item svg {
+      flex: 0 0 auto;
+      opacity: .8;
+    }
+
+    @media (max-width:480px) {
+      .hero {
+        padding: 40px 14px 32px;
+      }
+
+      .card {
+        padding: 20px;
+        border-radius: 18px;
+      }
+
+      .row-2 {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .trust-row {
+        gap: 16px 20px;
+      }
+
+      .country-list-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .country-col+.country-col {
+        border-left: none;
+        border-top: 1px solid #EFEFEF;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="hero">
+    <div class="hero-inner">
+      <h1>Get your documents attested with ease</h1>
+      <p>Tell us where you need to use your document, and we'll guide you through the process.</p>
+
+      <div class="card">
+
+        <!-- Country field -->
+        <div class="field" id="countryField">
+          <span class="field-label">Where will you use your document?</span>
+          <div class="search-input-wrap" id="countryTrigger">
+            <svg class="icon-search" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round">
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <div id="countryDisplay" style="width:100%;">
+              <span style="color:#B7B7B7;">Search and select country</span>
+            </div>
+          </div>
+
+          <!-- Popup -->
+          <div class="country-popup" id="countryPopup">
+            <span class="field-label">Where will you use your document?</span>
+            <div class="search-input-wrap">
+              <svg class="icon-search" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round">
+                <circle cx="11" cy="11" r="7" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+              <input type="text" id="countrySearch" placeholder="Search and select country" autocomplete="off">
+            </div>
+            <div class="country-list-box">
+              <div class="country-list-grid" id="countryGrid"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Popular destinations -->
+        <div class="popular-label">Popular destinations</div>
+        <div class="chip-row" id="chipRow"></div>
+
+        <!-- Two selects -->
+        <div class="row-2">
+          <div class="field">
+            <span class="field-label">What do you need?</span>
+            <div class="select-box" id="needBox">
+              <span class="val" id="needVal">Educational Certificate</span>
+              <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </div>
+            <div class="option-panel" id="needPanel"></div>
+          </div>
+
+          <div class="field">
+            <span class="field-label">Select document</span>
+            <div class="select-box" id="docBox">
+              <span class="val" id="docVal">Degree Certificate</span>
+              <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </div>
+            <div class="option-panel" id="docPanel"></div>
+          </div>
+        </div>
+
+        <button class="cta" id="ctaBtn">
+          Continue
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+        </button>
+        <div class="helper">Not sure what type of attestation you need? We'll help you figure it out.</div>
+      </div>
+    </div>
+
+    <div class="trust-row">
+      <div class="trust-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg>
+        Trusted by 1000+ customers
+      </div>
+      <div class="trust-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11z" />
+        </svg>
+        End-to-end processing
+      </div>
+      <div class="trust-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="12" cy="12" r="10" />
+          <polyline points="12 6 12 12 16 14" />
+        </svg>
+        Track in real-time
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ---- Data ----
+    const countries = [
+      ["Afghanistan", "🇦🇫"], ["Albania", "🇦🇱"], ["Algeria", "🇩🇿"], ["Andorra", "🇦🇩"], ["Angola", "🇦🇴"],
+      ["Argentina", "🇦🇷"], ["Armenia", "🇦🇲"], ["Australia", "🇦🇺"], ["Austria", "🇦🇹"], ["Azerbaijan", "🇦🇿"],
+      ["Bahrain", "🇧🇭"], ["Bangladesh", "🇧🇩"], ["Belgium", "🇧🇪"], ["Bhutan", "🇧🇹"], ["Brazil", "🇧🇷"],
+      ["Bulgaria", "🇧🇬"], ["Cambodia", "🇰🇭"], ["Canada", "🇨🇦"], ["Chile", "🇨🇱"], ["China", "🇨🇳"],
+      ["Colombia", "🇨🇴"], ["Croatia", "🇭🇷"], ["Cyprus", "🇨🇾"], ["Czech Republic", "🇨🇿"], ["Denmark", "🇩🇰"],
+      ["Egypt", "🇪🇬"], ["Estonia", "🇪🇪"], ["Ethiopia", "🇪🇹"], ["Finland", "🇫🇮"], ["France", "🇫🇷"],
+      ["Germany", "🇩🇪"], ["Ghana", "🇬🇭"], ["Greece", "🇬🇷"], ["Hong Kong", "🇭🇰"], ["Hungary", "🇭🇺"],
+      ["Iceland", "🇮🇸"], ["India", "🇮🇳"], ["Indonesia", "🇮🇩"], ["Iran", "🇮🇷"], ["Iraq", "🇮🇶"],
+      ["Ireland", "🇮🇪"], ["Israel", "🇮🇱"], ["Italy", "🇮🇹"], ["Japan", "🇯🇵"], ["Jordan", "🇯🇴"],
+      ["Kazakhstan", "🇰🇿"], ["Kenya", "🇰🇪"], ["Kuwait", "🇰🇼"], ["Latvia", "🇱🇻"], ["Lebanon", "🇱🇧"],
+      ["Libya", "🇱🇾"], ["Lithuania", "🇱🇹"], ["Malaysia", "🇲🇾"], ["Maldives", "🇲🇻"], ["Malta", "🇲🇹"],
+      ["Mexico", "🇲🇽"], ["Morocco", "🇲🇦"], ["Nepal", "🇳🇵"], ["Netherlands", "🇳🇱"], ["New Zealand", "🇳🇿"],
+      ["Nigeria", "🇳🇬"], ["Norway", "🇳🇴"], ["Oman", "🇴🇲"], ["Pakistan", "🇵🇰"], ["Philippines", "🇵🇭"],
+      ["Poland", "🇵🇱"], ["Portugal", "🇵🇹"], ["Qatar", "🇶🇦"], ["Romania", "🇷🇴"], ["Russia", "🇷🇺"],
+      ["Saudi Arabia", "🇸🇦"], ["Singapore", "🇸🇬"], ["South Africa", "🇿🇦"], ["South Korea", "🇰🇷"], ["Spain", "🇪🇸"],
+      ["Sri Lanka", "🇱🇰"], ["Sweden", "🇸🇪"], ["Switzerland", "🇨🇭"], ["Thailand", "🇹🇭"], ["Turkey", "🇹🇷"],
+      ["UAE", "🇦🇪"], ["Uganda", "🇺🇬"], ["Ukraine", "🇺🇦"], ["United Kingdom", "🇬🇧"], ["USA", "🇺🇸"],
+      ["Vietnam", "🇻🇳"], ["Yemen", "🇾🇪"], ["Zambia", "🇿🇲"], ["Zimbabwe", "🇿🇼"]
+    ];
+
+    const popular = [
+      ["UAE", "🇦🇪"], ["Saudi Arabia", "🇸🇦"], ["Qatar", "🇶🇦"], ["USA", "🇺🇸"], ["Germany", "🇩🇪"], ["Australia", "🇦🇺"]
+    ];
+
+    const needOptions = ["Educational Certificate", "Personal Certificate", "Commercial Document", "Legal Document"];
+
+    const docOptionsMap = {
+      "Educational Certificate": ["Degree Certificate", "Diploma Certificate", "10th Certificate", "12th Certificate", "Marksheet/Transcript", "Bonafide Certificate", "Migration Certificate"],
+      "Personal Certificate": ["Birth Certificate", "Marriage Certificate", "Death Certificate", "Divorce Certificate", "Police Clearance Certificate"],
+      "Commercial Document": ["Certificate of Incorporation", "Power of Attorney", "Invoice", "Certificate of Origin", "Free Sale Certificate"],
+      "Legal Document": ["Affidavit", "Court Order", "Agreement", "Will", "Property Document"]
+    };
+
+    let selectedNeed = "Educational Certificate";
+    let selectedDoc = "Degree Certificate";
+    let selectedCountry = null;
+
+    // ---- Popular chips ----
+    const chipRow = document.getElementById('chipRow');
+    popular.forEach(([name, flag]) => {
+      const chip = document.createElement('div');
+      chip.className = 'chip';
+      chip.innerHTML = `<span class="flag">${flag}</span><span>${name}</span>`;
+      chip.addEventListener('click', () => selectCountry(name, flag, chip));
+      chipRow.appendChild(chip);
+    });
+    // Default active chip = UAE
+    chipRow.children[0].classList.add('active');
+    selectedCountry = "UAE";
+
+    function selectCountry(name, flag, chipEl) {
+      selectedCountry = name;
+      document.getElementById('countryDisplay').innerHTML =
+        `<div class="selected-country"><span class="flag">${flag}</span><span>${name}</span></div>`;
+      [...chipRow.children].forEach(c => c.classList.remove('active'));
+      if (chipEl) chipEl.classList.add('active');
+      closeCountryPopup();
+    }
+
+    // ---- Country popup ----
+    const countryTrigger = document.getElementById('countryTrigger');
+    const countryPopup = document.getElementById('countryPopup');
+    const countrySearch = document.getElementById('countrySearch');
+    const countryGrid = document.getElementById('countryGrid');
+
+    function renderCountryList(filter = '') {
+      const f = filter.trim().toLowerCase();
+      const filtered = countries.filter(([name]) => name.toLowerCase().includes(f));
+      countryGrid.innerHTML = '';
+      if (filtered.length === 0) {
+        countryGrid.innerHTML = '<div class="country-empty">No countries found</div>';
+        return;
+      }
+      const mid = Math.ceil(filtered.length / 2);
+      const colA = filtered.slice(0, mid);
+      const colB = filtered.slice(mid);
+
+      const buildCol = (arr) => {
+        const col = document.createElement('div');
+        col.className = 'country-col';
+        arr.forEach(([name, flag]) => {
+          const item = document.createElement('div');
+          item.className = 'country-item';
+          item.innerHTML = `<span class="flag">${flag}</span><span>${name}</span>`;
+          item.addEventListener('click', () => {
+            selectedCountry = name;
+            document.getElementById('countryDisplay').innerHTML =
+              `<div class="selected-country"><span class="flag">${flag}</span><span>${name}</span></div>`;
+            const matchChip = [...chipRow.children].find(c => c.textContent.trim() === name);
+            [...chipRow.children].forEach(c => c.classList.remove('active'));
+            if (matchChip) matchChip.classList.add('active');
+            closeCountryPopup();
+          });
+          col.appendChild(item);
+        });
+        return col;
+      };
+
+      countryGrid.appendChild(buildCol(colA));
+      if (window.innerWidth > 480 && colB.length) {
+        countryGrid.classList.remove('single-col');
+        countryGrid.appendChild(buildCol(colB));
+      } else {
+        countryGrid.classList.add('single-col');
+      }
+    }
+
+    function openCountryPopup() {
+      countryPopup.classList.add('show');
+      countryTrigger.classList.add('open');
+      renderCountryList(countrySearch.value);
+      setTimeout(() => countrySearch.focus(), 50);
+    }
+    function closeCountryPopup() {
+      countryPopup.classList.remove('show');
+      countryTrigger.classList.remove('open');
+      countrySearch.value = '';
+    }
+
+    countryTrigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (countryPopup.classList.contains('show')) closeCountryPopup();
+      else openCountryPopup();
+    });
+    countrySearch.addEventListener('input', () => renderCountryList(countrySearch.value));
+    countryPopup.addEventListener('click', (e) => e.stopPropagation());
+
+    // ---- Generic select (need / doc) ----
+    function buildSelect(boxId, panelId, valId, options, currentVal, onSelect) {
+      const box = document.getElementById(boxId);
+      const panel = document.getElementById(panelId);
+      const valEl = document.getElementById(valId);
+
+      function render() {
+        panel.innerHTML = '';
+        options.forEach(opt => {
+          const item = document.createElement('div');
+          item.className = 'option-item' + (opt === currentVal ? ' selected' : '');
+          item.textContent = opt;
+          item.addEventListener('click', () => {
+            onSelect(opt);
+          });
+          panel.appendChild(item);
+        });
+      }
+      render();
+
+      box.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeAllPanels(panel);
+        panel.classList.toggle('show');
+        box.classList.toggle('open');
+      });
+
+      panel.addEventListener('click', e => e.stopPropagation());
+
+      return { render, box, panel, valEl };
+    }
+
+    function closeAllPanels(except) {
+      document.querySelectorAll('.option-panel').forEach(p => {
+        if (p !== except) { p.classList.remove('show'); }
+      });
+      document.querySelectorAll('.select-box').forEach(b => {
+        if (b.id !== (except && except.id.replace('Panel', 'Box'))) b.classList.remove('open');
+      });
+    }
+
+    let docSelectRefs;
+
+    const needSelectRefs = buildSelect('needBox', 'needPanel', 'needVal', needOptions, selectedNeed, (opt) => {
+      selectedNeed = opt;
+      document.getElementById('needVal').textContent = opt;
+      needSelectRefs.panel.classList.remove('show');
+      needSelectRefs.box.classList.remove('open');
+
+      // update doc options
+      const newDocs = docOptionsMap[opt];
+      selectedDoc = newDocs[0];
+      document.getElementById('docVal').textContent = selectedDoc;
+      docSelectRefs.options = newDocs;
+      rebuildDocPanel();
+    });
+
+    function rebuildDocPanel() {
+      const panel = document.getElementById('docPanel');
+      panel.innerHTML = '';
+      docOptionsMap[selectedNeed].forEach(opt => {
+        const item = document.createElement('div');
+        item.className = 'option-item' + (opt === selectedDoc ? ' selected' : '');
+        item.textContent = opt;
+        item.addEventListener('click', () => {
+          selectedDoc = opt;
+          document.getElementById('docVal').textContent = opt;
+          panel.classList.remove('show');
+          document.getElementById('docBox').classList.remove('open');
+          rebuildDocPanel();
+        });
+        panel.appendChild(item);
+      });
+    }
+
+    docSelectRefs = buildSelect('docBox', 'docPanel', 'docVal', docOptionsMap[selectedNeed], selectedDoc, (opt) => {
+      selectedDoc = opt;
+      document.getElementById('docVal').textContent = opt;
+      document.getElementById('docPanel').classList.remove('show');
+      document.getElementById('docBox').classList.remove('open');
+      rebuildDocPanel();
+    });
+
+    // ---- Close on outside click ----
+    document.addEventListener('click', () => {
+      closeCountryPopup();
+      closeAllPanels(null);
+    });
+
+    // ---- CTA ----
+    document.getElementById('ctaBtn').addEventListener('click', () => {
+      alert(`Country: ${selectedCountry}\nNeed: ${selectedNeed}\nDocument: ${selectedDoc}`);
+    });
+
+    window.addEventListener('resize', () => renderCountryList(countrySearch.value));
+  </script>
+
+  <script>
+    // ---- Data ----
+    const countries = [
+      ["Afghanistan", "🇦🇫"], ["Albania", "🇦🇱"], ["Algeria", "🇩🇿"], ["Andorra", "🇦🇩"], ["Angola", "🇦🇴"],
+      ["Argentina", "🇦🇷"], ["Armenia", "🇦🇲"], ["Australia", "🇦🇺"], ["Austria", "🇦🇹"], ["Azerbaijan", "🇦🇿"],
+      ["Bahrain", "🇧🇭"], ["Bangladesh", "🇧🇩"], ["Belgium", "🇧🇪"], ["Bhutan", "🇧🇹"], ["Brazil", "🇧🇷"],
+      ["Bulgaria", "🇧🇬"], ["Cambodia", "🇰🇭"], ["Canada", "🇨🇦"], ["Chile", "🇨🇱"], ["China", "🇨🇳"],
+      ["Colombia", "🇨🇴"], ["Croatia", "🇭🇷"], ["Cyprus", "🇨🇾"], ["Czech Republic", "🇨🇿"], ["Denmark", "🇩🇰"],
+      ["Egypt", "🇪🇬"], ["Estonia", "🇪🇪"], ["Ethiopia", "🇪🇹"], ["Finland", "🇫🇮"], ["France", "🇫🇷"],
+      ["Germany", "🇩🇪"], ["Ghana", "🇬🇭"], ["Greece", "🇬🇷"], ["Hong Kong", "🇭🇰"], ["Hungary", "🇭🇺"],
+      ["Iceland", "🇮🇸"], ["India", "🇮🇳"], ["Indonesia", "🇮🇩"], ["Iran", "🇮🇷"], ["Iraq", "🇮🇶"],
+      ["Ireland", "🇮🇪"], ["Israel", "🇮🇱"], ["Italy", "🇮🇹"], ["Japan", "🇯🇵"], ["Jordan", "🇯🇴"],
+      ["Kazakhstan", "🇰🇿"], ["Kenya", "🇰🇪"], ["Kuwait", "🇰🇼"], ["Latvia", "🇱🇻"], ["Lebanon", "🇱🇧"],
+      ["Libya", "🇱🇾"], ["Lithuania", "🇱🇹"], ["Malaysia", "🇲🇾"], ["Maldives", "🇲🇻"], ["Malta", "🇲🇹"],
+      ["Mexico", "🇲🇽"], ["Morocco", "🇲🇦"], ["Nepal", "🇳🇵"], ["Netherlands", "🇳🇱"], ["New Zealand", "🇳🇿"],
+      ["Nigeria", "🇳🇬"], ["Norway", "🇳🇴"], ["Oman", "🇴🇲"], ["Pakistan", "🇵🇰"], ["Philippines", "🇵🇭"],
+      ["Poland", "🇵🇱"], ["Portugal", "🇵🇹"], ["Qatar", "🇶🇦"], ["Romania", "🇷🇴"], ["Russia", "🇷🇺"],
+      ["Saudi Arabia", "🇸🇦"], ["Singapore", "🇸🇬"], ["South Africa", "🇿🇦"], ["South Korea", "🇰🇷"], ["Spain", "🇪🇸"],
+      ["Sri Lanka", "🇱🇰"], ["Sweden", "🇸🇪"], ["Switzerland", "🇨🇭"], ["Thailand", "🇹🇭"], ["Turkey", "🇹🇷"],
+      ["UAE", "🇦🇪"], ["Uganda", "🇺🇬"], ["Ukraine", "🇺🇦"], ["United Kingdom", "🇬🇧"], ["USA", "🇺🇸"],
+      ["Vietnam", "🇻🇳"], ["Yemen", "🇾🇪"], ["Zambia", "🇿🇲"], ["Zimbabwe", "🇿🇼"]
+    ];
+
+    const popular = [
+      ["UAE", "🇦🇪"], ["Saudi Arabia", "🇸🇦"], ["Qatar", "🇶🇦"], ["USA", "🇺🇸"], ["Germany", "🇩🇪"], ["Australia", "🇦🇺"]
+    ];
+
+    const needOptions = ["Educational Certificate", "Personal Certificate", "Commercial Document", "Legal Document"];
+
+    const docOptionsMap = {
+      "Educational Certificate": ["Degree Certificate", "Diploma Certificate", "10th Certificate", "12th Certificate", "Marksheet/Transcript", "Bonafide Certificate", "Migration Certificate"],
+      "Personal Certificate": ["Birth Certificate", "Marriage Certificate", "Death Certificate", "Divorce Certificate", "Police Clearance Certificate"],
+      "Commercial Document": ["Certificate of Incorporation", "Power of Attorney", "Invoice", "Certificate of Origin", "Free Sale Certificate"],
+      "Legal Document": ["Affidavit", "Court Order", "Agreement", "Will", "Property Document"]
+    };
+
+    let selectedNeed = "Educational Certificate";
+    let selectedDoc = "Degree Certificate";
+    let selectedCountry = null;
+
+    // ---- Popular chips ----
+    const chipRow = document.getElementById('chipRow');
+    popular.forEach(([name, flag]) => {
+      const chip = document.createElement('div');
+      chip.className = 'chip';
+      chip.innerHTML = `<span class="flag">${flag}</span><span>${name}</span>`;
+      chip.addEventListener('click', () => selectCountry(name, flag, chip));
+      chipRow.appendChild(chip);
+    });
+    // Default active chip = UAE
+    chipRow.children[0].classList.add('active');
+    selectedCountry = "UAE";
+
+    function selectCountry(name, flag, chipEl) {
+      selectedCountry = name;
+      document.getElementById('countryDisplay').innerHTML =
+        `<div class="selected-country"><span class="flag">${flag}</span><span>${name}</span></div>`;
+      [...chipRow.children].forEach(c => c.classList.remove('active'));
+      if (chipEl) chipEl.classList.add('active');
+      closeCountryPopup();
+    }
+
+    // ---- Country popup ----
+    const countryTrigger = document.getElementById('countryTrigger');
+    const countryPopup = document.getElementById('countryPopup');
+    const countrySearch = document.getElementById('countrySearch');
+    const countryGrid = document.getElementById('countryGrid');
+
+    function renderCountryList(filter = '') {
+      const f = filter.trim().toLowerCase();
+      const filtered = countries.filter(([name]) => name.toLowerCase().includes(f));
+      countryGrid.innerHTML = '';
+      if (filtered.length === 0) {
+        countryGrid.innerHTML = '<div class="country-empty">No countries found</div>';
+        return;
+      }
+      const mid = Math.ceil(filtered.length / 2);
+      const colA = filtered.slice(0, mid);
+      const colB = filtered.slice(mid);
+
+      const buildCol = (arr) => {
+        const col = document.createElement('div');
+        col.className = 'country-col';
+        arr.forEach(([name, flag]) => {
+          const item = document.createElement('div');
+          item.className = 'country-item';
+          item.innerHTML = `<span class="flag">${flag}</span><span>${name}</span>`;
+          item.addEventListener('click', () => {
+            selectedCountry = name;
+            document.getElementById('countryDisplay').innerHTML =
+              `<div class="selected-country"><span class="flag">${flag}</span><span>${name}</span></div>`;
+            const matchChip = [...chipRow.children].find(c => c.textContent.trim() === name);
+            [...chipRow.children].forEach(c => c.classList.remove('active'));
+            if (matchChip) matchChip.classList.add('active');
+            closeCountryPopup();
+          });
+          col.appendChild(item);
+        });
+        return col;
+      };
+
+      countryGrid.appendChild(buildCol(colA));
+      if (window.innerWidth > 480 && colB.length) {
+        countryGrid.classList.remove('single-col');
+        countryGrid.appendChild(buildCol(colB));
+      } else {
+        countryGrid.classList.add('single-col');
+      }
+    }
+
+    function openCountryPopup() {
+      countryPopup.classList.add('show');
+      countryTrigger.classList.add('open');
+      renderCountryList(countrySearch.value);
+      setTimeout(() => countrySearch.focus(), 50);
+    }
+    function closeCountryPopup() {
+      countryPopup.classList.remove('show');
+      countryTrigger.classList.remove('open');
+      countrySearch.value = '';
+    }
+
+    countryTrigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (countryPopup.classList.contains('show')) closeCountryPopup();
+      else openCountryPopup();
+    });
+    countrySearch.addEventListener('input', () => renderCountryList(countrySearch.value));
+    countryPopup.addEventListener('click', (e) => e.stopPropagation());
+
+    // ---- Generic select (need / doc) ----
+    function buildSelect(boxId, panelId, valId, options, currentVal, onSelect) {
+      const box = document.getElementById(boxId);
+      const panel = document.getElementById(panelId);
+      const valEl = document.getElementById(valId);
+
+      function render() {
+        panel.innerHTML = '';
+        options.forEach(opt => {
+          const item = document.createElement('div');
+          item.className = 'option-item' + (opt === currentVal ? ' selected' : '');
+          item.textContent = opt;
+          item.addEventListener('click', () => {
+            onSelect(opt);
+          });
+          panel.appendChild(item);
+        });
+      }
+      render();
+
+      box.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeAllPanels(panel);
+        panel.classList.toggle('show');
+        box.classList.toggle('open');
+      });
+
+      panel.addEventListener('click', e => e.stopPropagation());
+
+      return { render, box, panel, valEl };
+    }
+
+    function closeAllPanels(except) {
+      document.querySelectorAll('.option-panel').forEach(p => {
+        if (p !== except) { p.classList.remove('show'); }
+      });
+      document.querySelectorAll('.select-box').forEach(b => {
+        if (b.id !== (except && except.id.replace('Panel', 'Box'))) b.classList.remove('open');
+      });
+    }
+
+    let docSelectRefs;
+
+    const needSelectRefs = buildSelect('needBox', 'needPanel', 'needVal', needOptions, selectedNeed, (opt) => {
+      selectedNeed = opt;
+      document.getElementById('needVal').textContent = opt;
+      needSelectRefs.panel.classList.remove('show');
+      needSelectRefs.box.classList.remove('open');
+
+      // update doc options
+      const newDocs = docOptionsMap[opt];
+      selectedDoc = newDocs[0];
+      document.getElementById('docVal').textContent = selectedDoc;
+      docSelectRefs.options = newDocs;
+      rebuildDocPanel();
+    });
+
+    function rebuildDocPanel() {
+      const panel = document.getElementById('docPanel');
+      panel.innerHTML = '';
+      docOptionsMap[selectedNeed].forEach(opt => {
+        const item = document.createElement('div');
+        item.className = 'option-item' + (opt === selectedDoc ? ' selected' : '');
+        item.textContent = opt;
+        item.addEventListener('click', () => {
+          selectedDoc = opt;
+          document.getElementById('docVal').textContent = opt;
+          panel.classList.remove('show');
+          document.getElementById('docBox').classList.remove('open');
+          rebuildDocPanel();
+        });
+        panel.appendChild(item);
+      });
+    }
+
+    docSelectRefs = buildSelect('docBox', 'docPanel', 'docVal', docOptionsMap[selectedNeed], selectedDoc, (opt) => {
+      selectedDoc = opt;
+      document.getElementById('docVal').textContent = opt;
+      document.getElementById('docPanel').classList.remove('show');
+      document.getElementById('docBox').classList.remove('open');
+      rebuildDocPanel();
+    });
+
+    // ---- Close on outside click ----
+    document.addEventListener('click', () => {
+      closeCountryPopup();
+      closeAllPanels(null);
+    });
+
+    // ---- CTA ----
+    document.getElementById('ctaBtn').addEventListener('click', () => {
+      alert(`Country: ${selectedCountry}\nNeed: ${selectedNeed}\nDocument: ${selectedDoc}`);
+    });
+
+    window.addEventListener('resize', () => renderCountryList(countrySearch.value));
+  </script>
+
+</body>
+
+</html>
