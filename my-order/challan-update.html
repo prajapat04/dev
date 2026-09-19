@@ -60,6 +60,319 @@
         });
       });
     </script>
+
+
+<!-- new css for dropdown start here -->
+
+<style>
+
+
+
+ .odc-card {
+    --odc-ink: #1a1a1a;
+    --odc-muted: #5b6577;
+    --odc-soft: #6b6b6b;
+    --odc-surface: #dedede;
+    --odc-surface-alt: #e6e6e6;
+    --odc-line: #ffffff;
+    --odc-border: #1f1f1f;
+    --odc-accent: #ff1a00;
+    --odc-accent-hover: #d91500;
+    --odc-radius: 12px;
+    --odc-pad-x: 11px;
+ 
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    background: #fff;
+    color: var(--odc-ink);
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: left;
+  }
+  .odc-card *,
+  .odc-card *::before,
+  .odc-card *::after {
+    box-sizing: border-box;
+  }
+ 
+  /* ---------- Header (collapse toggle) ---------- */
+  .odc-card .odc-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0;
+    padding: 16px 22px;
+    background: #fff;
+    border: 0;
+    border-radius: 0;
+    color: var(--odc-ink);
+    font: inherit;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+  }
+  .odc-card .odc-head:focus-visible {
+    outline: 2px solid var(--odc-accent);
+    outline-offset: -2px;
+  }
+  .odc-card .odc-head__chevron {
+    flex: none;
+    width: 14px;
+    height: 14px;
+    color: #8a8a8a;
+    transition: transform 0.25s ease;
+  }
+  .odc-card .odc-head[aria-expanded="false"] .odc-head__chevron {
+    transform: rotate(180deg);
+  }
+ 
+  /* ---------- Collapse animation ---------- */
+  .odc-card .odc-collapse {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.3s ease;
+  }
+  .odc-card .odc-collapse.odc-is-closed {
+    grid-template-rows: 0fr;
+  }
+  .odc-card .odc-collapse__inner {
+    min-height: 0;
+    overflow: hidden;
+  }
+ 
+  /* ---------- Table ---------- */
+  .odc-card .odc-table {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    table-layout: fixed;
+    background: transparent;
+  }
+  .odc-card .odc-table th,
+  .odc-card .odc-table td {
+    padding: 12px var(--odc-pad-x);
+    background: var(--odc-surface);
+    border: 0;
+    border-bottom: 2px solid var(--odc-line);
+    border-right: 2px solid var(--odc-line);
+    text-align: left;
+    vertical-align: middle;
+    overflow-wrap: anywhere;
+  }
+  .odc-card .odc-table th:last-child,
+  .odc-card .odc-table td:last-child {
+    border-right: 0;
+  }
+  .odc-card .odc-table th {
+    color: var(--odc-ink);
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .odc-card .odc-table td {
+    color: var(--odc-muted);
+    font-size: 13px;
+    font-weight: 400;
+  }
+  .odc-card .odc-table td.odc-td--strong {
+    color: var(--odc-ink);
+  }
+ 
+  /* ---------- Total row ---------- */
+  .odc-card .odc-total {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    align-items: center;
+    margin: 10px 0 0;
+    padding: 14px 0;
+    background: var(--odc-surface-alt);
+    border-radius: var(--odc-radius);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--odc-ink);
+  }
+  .odc-card .odc-total__label {
+    padding: 0 var(--odc-pad-x);
+  }
+  .odc-card .odc-total__value {
+    padding: 0 var(--odc-pad-x);
+    font-weight: 600;
+  }
+ 
+  /* ---------- Pay row ---------- */
+  .odc-card .odc-pay {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    align-items: center;
+    margin: 10px 0 0;
+    padding: 14px 0;
+    background: var(--odc-surface);
+    font-size: 13px;
+  }
+  .odc-card .odc-pay__label {
+    padding: 0 22px;
+    color: var(--odc-soft);
+  }
+  .odc-card .odc-pay__action {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 0 var(--odc-pad-x);
+  }
+  .odc-card .odc-pay__amount {
+    color: var(--odc-ink);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .odc-card .odc-pay__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 34px;
+    margin: 0;
+    padding: 8px 18px;
+    background: var(--odc-accent);
+    border: 0;
+    border-radius: 8px;
+    color: #fff;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+  .odc-card .odc-pay__btn:hover {
+    background: var(--odc-accent-hover);
+  }
+  .odc-card .odc-pay__btn:focus-visible {
+    outline: 2px solid var(--odc-ink);
+    outline-offset: 2px;
+  }
+  .odc-card .odc-pay__btn svg {
+    width: 12px;
+    height: 12px;
+    flex: none;
+  }
+ 
+  /* ---------- Mobile: table -> stacked cards ---------- */
+  @media (max-width: 640px) {
+    .odc-card .odc-head {
+      padding: 14px 16px;
+      font-size: 16px;
+    }
+ 
+    .odc-card .odc-table,
+    .odc-card .odc-table tbody,
+    .odc-card .odc-table tr,
+    .odc-card .odc-table td {
+      display: block;
+      width: 100%;
+    }
+    /* header row screen par hide, screen reader ke liye rehta hai */
+    .odc-card .odc-table thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      border: 0;
+    }
+    .odc-card .odc-table tr {
+      margin: 0 0 2px;
+      background: var(--odc-surface);
+      border-bottom: 6px solid #fff;
+    }
+    .odc-card .odc-table td {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 10px 16px;
+      border-right: 0;
+      border-bottom: 1px solid var(--odc-line);
+      text-align: right;
+    }
+    .odc-card .odc-table td:last-child {
+      border-bottom: 0;
+    }
+    .odc-card .odc-table td::before {
+      content: attr(data-label);
+      flex: none;
+      color: var(--odc-ink);
+      font-weight: 600;
+      text-align: left;
+    }
+ 
+    .odc-card .odc-total {
+      grid-template-columns: 1fr auto;
+      margin: 4px 12px 0;
+      padding: 12px 0;
+    }
+    .odc-card .odc-total__label,
+    .odc-card .odc-total__value {
+      padding: 0 14px;
+    }
+ 
+    .odc-card .odc-pay {
+      grid-template-columns: 1fr;
+      gap: 10px;
+      padding: 14px 16px;
+    }
+    .odc-card .odc-pay__label {
+      padding: 0;
+    }
+    .odc-card .odc-pay__action {
+      justify-content: space-between;
+      gap: 12px;
+      padding: 0;
+    }
+    .odc-card .odc-pay__btn {
+      flex: 1 1 auto;
+      max-width: 180px;
+      min-height: 40px;
+    }
+  }
+ 
+  @media (max-width: 380px) {
+    .odc-card .odc-pay__action {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .odc-card .odc-pay__amount {
+      text-align: center;
+    }
+    .odc-card .odc-pay__btn {
+      max-width: none;
+    }
+  }
+ 
+  @media (prefers-reduced-motion: reduce) {
+    .odc-card .odc-collapse,
+    .odc-card .odc-head__chevron,
+    .odc-card .odc-pay__btn {
+      transition: none;
+    }
+  }
+</style>
+
+
+
+<!-- new css for dropdown end here -->
+
+
+
+
+
   </head>
   <body>
     <div id="main-container">
@@ -402,45 +715,88 @@
             </a>      
          </div>
     </div>
-        <div class="myorderpaymentDetails active">
-        <div class="detailsoforder">
-            <div class="second thicker"><p>Challan No</p></div>
-            <div class="second thicker"><p>City</p></div>
-            <div class="second thicker"><p>Fine Amount</p></div>
-        </div>
-         <div class="detailsoforder">
-            <div class="first lighter"><p>CH-20260824-001</p></div>
-            <div class="first lighter"><p>Bangalore</p></div>
-            <div class="first lighter"><p>₹ 2,500</p></div>
-        </div>
-         <div class="detailsoforder">
-            <div class="first lighter"><p>CH-20260824-001</p></div>
-            <div class="first lighter"><p>Chennai</p></div>
-            <div class="first lighter"><p>₹ 2,500</p></div>
-        </div>
-                <div class="dividerbar"></div>
-  
-                <div class="pricetotal">Total: ₹ 5,000</div>
-              
-        <div class="detailsoforder">
-            <div class="first thicker"><p>Total price</p></div>
-            <div class="second thicker"> 
-              <p> 
-              5000              </p>            
-            </div>
-        </div> 
-         <div class="dividerbar"></div>
-        <button class="pricingbuybutton buyplanat active " fdprocessedid="5c7ll6">Buy Plan</button>
-        <div class="dividerbar"></div>
-      <!-- OUR Plans part start -->
 
-  
 
-  
-        <div class="dividerbar"></div> 
 
-  
+
+
+
+      <div class="myorderpaymentDetails active">
+
+ 
+  <!-- ===== NEW: Order Details (Challan) UI - purane City / Price Breakup / Total price wale block ki jagah ===== -->
+  <section class="odc-card" data-odc-root>
+
+    <div class="odc-collapse" id="odc-panel-1" data-odc-panel>
+      <div class="odc-collapse__inner">
+
+        <table class="odc-table">
+          <thead>
+            <tr>
+              <th scope="col">Challan No</th>
+              <th scope="col">City</th>
+              <th scope="col">Fine Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Dynamic data ke liye is <tr> ko loop me repeat karo -->
+            <tr>
+              <td class="odc-td--strong" data-label="Challan No">CH-20260824-001</td>
+              <td data-label="City">Bangalore</td>
+              <td data-label="Fine Amount">₹ 2,500</td>
+            </tr>
+            <tr>
+              <td class="odc-td--strong" data-label="Challan No">CH-20260824-001</td>
+              <td data-label="City">Chennai</td>
+              <td data-label="Fine Amount">₹ 2,500</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="odc-total">
+          <span class="odc-total__label">Total Challan Amount</span>
+          <span class="odc-total__value">₹2500</span>
+        </div>
+
+        <div class="odc-pay">
+          <span class="odc-pay__label">Price to pay including challan</span>
+          <div class="odc-pay__action">
+            <span class="odc-pay__amount">(₹ 2,500)</span>
+            <button type="button" class="odc-pay__btn">
+              Pay now
+              <svg viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M1.5 6h9M7 2.5 10.5 6 7 9.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
           </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- ===== END NEW ===== -->
+
+
+  <!-- OUR Plans part start -->
+
+  <!-- Pricing Plans -->
+  <!-- Basic -->
+
+  <div class="dividerbar"></div>
+  <!-- Premium Plans part end-->
+
+  <!-----Pricing Starts fr hr-------->
+
+</div>
+
+
+
+
+
+
+
+
+
     <a href="help-n-support.php?id=DELRTCH113">
       <div class="myordersDetailBox">
           <p>Raise Ticket</p>
@@ -1430,6 +1786,9 @@ dropdownbox.addEventListener("click",()=>{
   myorderpaymentDetails.classList.toggle("active")
   svgrotate.classList.toggle("active")
 })
+
+
+
 </script>
 </body>
 </php>
