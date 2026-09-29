@@ -1,1041 +1,842 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Get your documents attested with ease</title>
-
-  <style>
-    :root {
-      --red: #E5342B;
-      --red-dark: #C92A22;
-      --ink: #1A1A1A;
-      --ink-soft: #4A4A4A;
-      --label: #8A8A8A;
-      --border: #E6E6E6;
-      --card-bg: #FFFFFF;
-      --page-bg: #0E0D0C;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: var(--page-bg);
-      color: var(--ink);
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 64px 20px 40px;
-      overflow: hidden;
-      background:
-        linear-gradient(180deg, rgba(10, 10, 10, .72) 0%, rgba(10, 10, 10, .55) 35%, rgba(10, 10, 10, .82) 100%),
-        radial-gradient(circle at 82% 30%, rgba(80, 60, 30, .35), transparent 45%),
-        #14110E;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image:
-        repeating-linear-gradient(90deg, rgba(255, 255, 255, .02) 0 1px, transparent 1px 90px),
-        repeating-linear-gradient(0deg, rgba(255, 255, 255, .02) 0 1px, transparent 1px 90px);
-      opacity: .5;
-      pointer-events: none;
-    }
-
-    .hero-inner {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      max-width: 560px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .hero h1 {
-      color: #fff;
-      text-align: center;
-      font-size: clamp(26px, 5vw, 38px);
-      line-height: 1.18;
-      font-weight: 800;
-      letter-spacing: -0.01em;
-      margin: 0 0 12px;
-      max-width: 480px;
-    }
-
-    .hero p {
-      color: rgba(255, 255, 255, .72);
-      text-align: center;
-      font-size: 15px;
-      line-height: 1.5;
-      margin: 0 0 32px;
-      max-width: 420px;
-    }
-
-    /* CARD */
-    .card {
-      background: var(--card-bg);
-      border-radius: 20px;
-      padding: 28px;
-      width: 100%;
-      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, .55), 0 0 0 1px rgba(0, 0, 0, .03);
-    }
-
-    .field {
-      margin-bottom: 20px;
-      position: relative;
-    }
-
-    .field:last-of-type {
-      margin-bottom: 0;
-    }
-
-    .field-label {
-      display: block;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: var(--label);
-      margin-bottom: 8px;
-    }
-
-    /* Country search input */
-    .search-input-wrap {
-      position: relative;
-      display: flex;
-      align-items: center;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 0 14px;
-      height: 48px;
-      cursor: pointer;
-      transition: border-color .15s ease;
-    }
-
-    .search-input-wrap.open {
-      border-color: var(--ink);
-    }
-
-    .search-input-wrap svg.icon-search {
-      flex: 0 0 auto;
-      margin-right: 10px;
-      color: #B7B7B7;
-    }
-
-    .search-input-wrap input {
-      border: none;
-      outline: none;
-      font-size: 15px;
-      width: 100%;
-      color: var(--ink);
-      background: transparent;
-      font-family: inherit;
-    }
-
-    .search-input-wrap input::placeholder {
-      color: #B7B7B7;
-    }
-
-    .selected-country {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 15px;
-    }
-
-    .selected-country .flag {
-      font-size: 18px;
-      line-height: 1;
-    }
-
-    /* Country popup */
-    .country-popup {
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 0;
-      right: 0;
-      background: #111;
-      border-radius: 18px;
-      padding: 16px;
-      z-index: 50;
-      display: none;
-      box-shadow: 0 20px 50px -10px rgba(0, 0, 0, .6);
-    }
-
-    .country-popup.show {
-      display: block;
-    }
-
-    .country-popup .search-input-wrap {
-      background: #1B1B1B;
-      border: 1px solid #2A2A2A;
-    }
-
-    .country-popup .search-input-wrap input {
-      color: #fff;
-    }
-
-    .country-popup .search-input-wrap input::placeholder {
-      color: #6E6E6E;
-    }
-
-    .country-popup .field-label {
-      color: #8F8F8F;
-    }
-
-    .country-list-box {
-      margin-top: 14px;
-      background: #fff;
-      border-radius: 14px;
-      padding: 6px 0;
-      max-height: 280px;
-      overflow-y: auto;
-    }
-
-    .country-list-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .country-list-grid.single-col {
-      grid-template-columns: 1fr;
-    }
-
-    .country-col {
-      padding: 2px 0;
-    }
-
-    .country-col+.country-col {
-      border-left: 1px solid #EFEFEF;
-    }
-
-    .country-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 16px;
-      font-size: 14.5px;
-      color: var(--ink);
-      cursor: pointer;
-    }
-
-    .country-item:hover {
-      background: #F6F6F6;
-    }
-
-    .country-item .flag {
-      font-size: 16px;
-    }
-
-    .country-empty {
-      padding: 20px;
-      text-align: center;
-      color: #999;
-      font-size: 14px;
-      grid-column: 1/-1;
-    }
-
-    /* Popular destinations */
-    .popular-label {
-      font-size: 12px;
-      color: var(--label);
-      margin: 14px 0 10px;
-    }
-
-    .chip-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .chip {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 14px;
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      font-size: 13.5px;
-      color: var(--ink-soft);
-      cursor: pointer;
-      background: #fff;
-      transition: border-color .15s ease, color .15s ease;
-      user-select: none;
-    }
-
-    .chip .flag {
-      font-size: 14px;
-    }
-
-    .chip:hover {
-      border-color: #CFCFCF;
-    }
-
-    .chip.active {
-      border-color: var(--red);
-      color: var(--red);
-      font-weight: 600;
-    }
-
-    /* two-column selects */
-    .row-2 {
-      display: flex;
-      gap: 14px;
-      margin-top: 24px;
-    }
-
-    .row-2 .field {
-      flex: 1;
-      margin-bottom: 0;
-    }
-
-    .select-box {
-      position: relative;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      height: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 14px;
-      cursor: pointer;
-      font-size: 15px;
-      color: var(--ink);
-      transition: border-color .15s ease;
-    }
-
-    .select-box.open {
-      border-color: var(--ink);
-    }
-
-    .select-box .chev {
-      transition: transform .15s ease;
-      color: #9A9A9A;
-      flex: 0 0 auto;
-    }
-
-    .select-box.open .chev {
-      transform: rotate(180deg);
-    }
-
-    .select-box .val {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .option-panel {
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 0;
-      right: 0;
-      background: #fff;
-      border-radius: 14px;
-      box-shadow: 0 20px 45px -10px rgba(0, 0, 0, .28), 0 0 0 1px rgba(0, 0, 0, .04);
-      padding: 6px 0;
-      z-index: 40;
-      display: none;
-      max-height: 280px;
-      overflow-y: auto;
-    }
-
-    .option-panel.show {
-      display: block;
-    }
-
-    .option-item {
-      padding: 13px 18px;
-      font-size: 15px;
-      color: var(--ink-soft);
-      cursor: pointer;
-      border-bottom: 1px solid #F1F1F1;
-    }
-
-    .option-item:last-child {
-      border-bottom: none;
-    }
-
-    .option-item:hover {
-      background: #FAFAFA;
-      color: var(--ink);
-    }
-
-    .option-item.selected {
-      color: var(--ink);
-      font-weight: 600;
-      background: #FAFAFA;
-    }
-
-    /* Button */
-    .cta {
-      margin-top: 24px;
-      width: 100%;
-      height: 52px;
-      border: none;
-      border-radius: 12px;
-      background: var(--red);
-      color: #fff;
-      font-size: 15.5px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      cursor: pointer;
-      transition: background .15s ease, transform .1s ease;
-    }
-
-    .cta:hover {
-      background: var(--red-dark);
-    }
-
-    .cta:active {
-      transform: scale(.99);
-    }
-
-    .helper {
-      text-align: center;
-      font-size: 12.5px;
-      color: var(--label);
-      margin-top: 14px;
-    }
-
-    /* Footer trust row */
-    .trust-row {
-      margin-top: 36px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 28px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .trust-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: rgba(255, 255, 255, .65);
-      font-size: 13px;
-    }
-
-    .trust-item svg {
-      flex: 0 0 auto;
-      opacity: .8;
-    }
-
-    @media (max-width:480px) {
-      .hero {
-        padding: 40px 14px 32px;
-      }
-
-      .card {
-        padding: 20px;
-        border-radius: 18px;
-      }
-
-      .row-2 {
-        flex-direction: column;
-        gap: 16px;
-      }
-
-      .trust-row {
-        gap: 16px 20px;
-      }
-
-      .country-list-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .country-col+.country-col {
-        border-left: none;
-        border-top: 1px solid #EFEFEF;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get your documents attested with ease</title>
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <div class="hero">
-    <div class="hero-inner">
-      <h1>Get your documents attested with ease</h1>
-      <p>Tell us where you need to use your document, and we'll guide you through the process.</p>
 
-      <div class="card">
+<!-- ================= SCREEN 1 ================= -->
+<div class="hero" id="screen1">
+  <div class="hero-inner">
+    <h1>Get your documents attested with ease</h1>
+    <p>Tell us where you need to use your document, and we'll guide you through the process.</p>
 
-        <!-- Country field -->
-        <div class="field" id="countryField">
+    <div class="card">
+
+      <!-- Country field -->
+      <div class="field" id="countryField">
+        <span class="field-label">Where will you use your document?</span>
+        <div class="search-input-wrap" id="countryTrigger">
+          <svg class="icon-search" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <div id="countryDisplay" style="width:100%;">
+            <span style="color:#B7B7B7;">Search and select country</span>
+          </div>
+        </div>
+
+        <!-- Popup -->
+        <div class="country-popup" id="countryPopup">
           <span class="field-label">Where will you use your document?</span>
-          <div class="search-input-wrap" id="countryTrigger">
-            <svg class="icon-search" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="2" stroke-linecap="round">
-              <circle cx="11" cy="11" r="7" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-            <div id="countryDisplay" style="width:100%;">
-              <span style="color:#B7B7B7;">Search and select country</span>
-            </div>
+          <div class="search-input-wrap">
+            <svg class="icon-search" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="countrySearch" placeholder="Search and select country" autocomplete="off">
           </div>
-
-          <!-- Popup -->
-          <div class="country-popup" id="countryPopup">
-            <span class="field-label">Where will you use your document?</span>
-            <div class="search-input-wrap">
-              <svg class="icon-search" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="2" stroke-linecap="round">
-                <circle cx="11" cy="11" r="7" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-              </svg>
-              <input type="text" id="countrySearch" placeholder="Search and select country" autocomplete="off">
-            </div>
-            <div class="country-list-box">
-              <div class="country-list-grid" id="countryGrid"></div>
-            </div>
+          <div class="country-list-box">
+            <div class="country-list-grid" id="countryGrid"></div>
           </div>
         </div>
+      </div>
 
-        <!-- Popular destinations -->
-        <div class="popular-label">Popular destinations</div>
-        <div class="chip-row" id="chipRow"></div>
+      <!-- Popular destinations -->
+      <div class="popular-label">Popular destinations</div>
+      <div class="chip-row" id="chipRow"></div>
 
-        <!-- Two selects -->
-        <div class="row-2">
-          <div class="field">
-            <span class="field-label">What do you need?</span>
-            <div class="select-box" id="needBox">
-              <span class="val" id="needVal">Educational Certificate</span>
-              <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
-            </div>
-            <div class="option-panel" id="needPanel"></div>
+      <!-- Two selects -->
+      <div class="row-2">
+        <div class="field">
+          <span class="field-label">What do you need?</span>
+          <div class="select-box" id="needBox">
+            <span class="val" id="needVal">Educational Certificate</span>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
-
-          <div class="field">
-            <span class="field-label">Select document</span>
-            <div class="select-box" id="docBox">
-              <span class="val" id="docVal">Degree Certificate</span>
-              <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
-            </div>
-            <div class="option-panel" id="docPanel"></div>
-          </div>
+          <div class="option-panel" id="needPanel"></div>
         </div>
 
-        <button class="cta" id="ctaBtn">
-          Continue
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-            stroke-linecap="round" stroke-linejoin="round">
-            <line x1="5" y1="12" x2="19" y2="12" />
-            <polyline points="12 5 19 12 12 19" />
-          </svg>
-        </button>
-        <div class="helper">Not sure what type of attestation you need? We'll help you figure it out.</div>
+        <div class="field">
+          <span class="field-label">Select document</span>
+          <div class="select-box" id="docBox">
+            <span class="val" id="docVal">Degree Certificate</span>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="option-panel" id="docPanel"></div>
+        </div>
       </div>
-    </div>
 
-    <div class="trust-row">
-      <div class="trust-item">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-          <circle cx="9" cy="7" r="4" />
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-        </svg>
-        Trusted by 1000+ customers
-      </div>
-      <div class="trust-item">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11z" />
-        </svg>
-        End-to-end processing
-      </div>
-      <div class="trust-item">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <circle cx="12" cy="12" r="10" />
-          <polyline points="12 6 12 12 16 14" />
-        </svg>
-        Track in real-time
-      </div>
+      <button class="cta" id="ctaBtn">
+        Continue
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+      <div class="helper">Not sure what type of attestation you need? We'll help you figure it out.</div>
     </div>
   </div>
 
-  <script>
-    // ---- Data ----
-    const countries = [
-      ["Afghanistan", "🇦🇫"], ["Albania", "🇦🇱"], ["Algeria", "🇩🇿"], ["Andorra", "🇦🇩"], ["Angola", "🇦🇴"],
-      ["Argentina", "🇦🇷"], ["Armenia", "🇦🇲"], ["Australia", "🇦🇺"], ["Austria", "🇦🇹"], ["Azerbaijan", "🇦🇿"],
-      ["Bahrain", "🇧🇭"], ["Bangladesh", "🇧🇩"], ["Belgium", "🇧🇪"], ["Bhutan", "🇧🇹"], ["Brazil", "🇧🇷"],
-      ["Bulgaria", "🇧🇬"], ["Cambodia", "🇰🇭"], ["Canada", "🇨🇦"], ["Chile", "🇨🇱"], ["China", "🇨🇳"],
-      ["Colombia", "🇨🇴"], ["Croatia", "🇭🇷"], ["Cyprus", "🇨🇾"], ["Czech Republic", "🇨🇿"], ["Denmark", "🇩🇰"],
-      ["Egypt", "🇪🇬"], ["Estonia", "🇪🇪"], ["Ethiopia", "🇪🇹"], ["Finland", "🇫🇮"], ["France", "🇫🇷"],
-      ["Germany", "🇩🇪"], ["Ghana", "🇬🇭"], ["Greece", "🇬🇷"], ["Hong Kong", "🇭🇰"], ["Hungary", "🇭🇺"],
-      ["Iceland", "🇮🇸"], ["India", "🇮🇳"], ["Indonesia", "🇮🇩"], ["Iran", "🇮🇷"], ["Iraq", "🇮🇶"],
-      ["Ireland", "🇮🇪"], ["Israel", "🇮🇱"], ["Italy", "🇮🇹"], ["Japan", "🇯🇵"], ["Jordan", "🇯🇴"],
-      ["Kazakhstan", "🇰🇿"], ["Kenya", "🇰🇪"], ["Kuwait", "🇰🇼"], ["Latvia", "🇱🇻"], ["Lebanon", "🇱🇧"],
-      ["Libya", "🇱🇾"], ["Lithuania", "🇱🇹"], ["Malaysia", "🇲🇾"], ["Maldives", "🇲🇻"], ["Malta", "🇲🇹"],
-      ["Mexico", "🇲🇽"], ["Morocco", "🇲🇦"], ["Nepal", "🇳🇵"], ["Netherlands", "🇳🇱"], ["New Zealand", "🇳🇿"],
-      ["Nigeria", "🇳🇬"], ["Norway", "🇳🇴"], ["Oman", "🇴🇲"], ["Pakistan", "🇵🇰"], ["Philippines", "🇵🇭"],
-      ["Poland", "🇵🇱"], ["Portugal", "🇵🇹"], ["Qatar", "🇶🇦"], ["Romania", "🇷🇴"], ["Russia", "🇷🇺"],
-      ["Saudi Arabia", "🇸🇦"], ["Singapore", "🇸🇬"], ["South Africa", "🇿🇦"], ["South Korea", "🇰🇷"], ["Spain", "🇪🇸"],
-      ["Sri Lanka", "🇱🇰"], ["Sweden", "🇸🇪"], ["Switzerland", "🇨🇭"], ["Thailand", "🇹🇭"], ["Turkey", "🇹🇷"],
-      ["UAE", "🇦🇪"], ["Uganda", "🇺🇬"], ["Ukraine", "🇺🇦"], ["United Kingdom", "🇬🇧"], ["USA", "🇺🇸"],
-      ["Vietnam", "🇻🇳"], ["Yemen", "🇾🇪"], ["Zambia", "🇿🇲"], ["Zimbabwe", "🇿🇼"]
-    ];
+  <div class="trust-row">
+    <div class="trust-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Trusted by 1000+ customers
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11z"/></svg>
+      End-to-end processing
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Track in real-time
+    </div>
+  </div>
+</div>
 
-    const popular = [
-      ["UAE", "🇦🇪"], ["Saudi Arabia", "🇸🇦"], ["Qatar", "🇶🇦"], ["USA", "🇺🇸"], ["Germany", "🇩🇪"], ["Australia", "🇦🇺"]
-    ];
+<!-- ================= SCREEN 2 ================= -->
+<div class="page2" id="screen2" style="display:none;">
 
-    const needOptions = ["Educational Certificate", "Personal Certificate", "Commercial Document", "Legal Document"];
+  <div class="mini-hero">
+    <h1 id="s2Title">Tell us about your certificate</h1>
+    <p id="s2Sub">These details help us process your certificate attestation.</p>
+  </div>
 
-    const docOptionsMap = {
-      "Educational Certificate": ["Degree Certificate", "Diploma Certificate", "10th Certificate", "12th Certificate", "Marksheet/Transcript", "Bonafide Certificate", "Migration Certificate"],
-      "Personal Certificate": ["Birth Certificate", "Marriage Certificate", "Death Certificate", "Divorce Certificate", "Police Clearance Certificate"],
-      "Commercial Document": ["Certificate of Incorporation", "Power of Attorney", "Invoice", "Certificate of Origin", "Free Sale Certificate"],
-      "Legal Document": ["Affidavit", "Court Order", "Agreement", "Will", "Property Document"]
+  <div class="page-body">
+    <div class="card">
+      <div class="breadcrumb" id="breadcrumb">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E5342B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 4 2 10l10 6 10-6z"/><path d="M6 12v5c0 1 3 3 6 3s6-2 6-3v-5"/></svg>
+        <span id="breadcrumbText">Degree Certificate · Educational Certificate · UAE</span>
+      </div>
+
+      <div id="dynamicFields"></div>
+    </div>
+
+    <div class="nav-row">
+      <button class="back-btn" id="backBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Back
+      </button>
+      <button class="cta cta-small" id="continue2Btn">
+        Continue
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ---- Data ----
+  // [Country name, ISO 3166-1 alpha-2 code] — code maps to flag-icons class "fi-xx"
+  const countries = [
+    ["Afghanistan","af"],["Albania","al"],["Algeria","dz"],["Andorra","ad"],["Angola","ao"],
+    ["Argentina","ar"],["Armenia","am"],["Australia","au"],["Austria","at"],["Azerbaijan","az"],
+    ["Bahrain","bh"],["Bangladesh","bd"],["Belgium","be"],["Bhutan","bt"],["Brazil","br"],
+    ["Bulgaria","bg"],["Cambodia","kh"],["Canada","ca"],["Chile","cl"],["China","cn"],
+    ["Colombia","co"],["Croatia","hr"],["Cyprus","cy"],["Czech Republic","cz"],["Denmark","dk"],
+    ["Egypt","eg"],["Estonia","ee"],["Ethiopia","et"],["Finland","fi"],["France","fr"],
+    ["Germany","de"],["Ghana","gh"],["Greece","gr"],["Hong Kong","hk"],["Hungary","hu"],
+    ["Iceland","is"],["India","in"],["Indonesia","id"],["Iran","ir"],["Iraq","iq"],
+    ["Ireland","ie"],["Israel","il"],["Italy","it"],["Japan","jp"],["Jordan","jo"],
+    ["Kazakhstan","kz"],["Kenya","ke"],["Kuwait","kw"],["Latvia","lv"],["Lebanon","lb"],
+    ["Libya","ly"],["Lithuania","lt"],["Malaysia","my"],["Maldives","mv"],["Malta","mt"],
+    ["Mexico","mx"],["Morocco","ma"],["Nepal","np"],["Netherlands","nl"],["New Zealand","nz"],
+    ["Nigeria","ng"],["Norway","no"],["Oman","om"],["Pakistan","pk"],["Philippines","ph"],
+    ["Poland","pl"],["Portugal","pt"],["Qatar","qa"],["Romania","ro"],["Russia","ru"],
+    ["Saudi Arabia","sa"],["Singapore","sg"],["South Africa","za"],["South Korea","kr"],["Spain","es"],
+    ["Sri Lanka","lk"],["Sweden","se"],["Switzerland","ch"],["Thailand","th"],["Turkey","tr"],
+    ["UAE","ae"],["Uganda","ug"],["Ukraine","ua"],["United Kingdom","gb"],["USA","us"],
+    ["Vietnam","vn"],["Yemen","ye"],["Zambia","zm"],["Zimbabwe","zw"]
+  ];
+
+  const popular = [
+    ["UAE","ae"],["Saudi Arabia","sa"],["Qatar","qa"],["USA","us"],["Germany","de"],["Australia","au"]
+  ];
+
+  // Builds a flag <img> for a given ISO code, using flagcdn.com (reliable, no library needed)
+  function flagIcon(code){
+    return `<img class="fi" src="https://flagcdn.com/w40/${code}.png" srcset="https://flagcdn.com/w80/${code}.png 2x" alt="${code}" loading="lazy">`;
+  }
+
+  const needOptions = ["Educational Certificate","Personal Certificate","Commercial Document","Legal Document"];
+
+  const docOptionsMap = {
+    "Educational Certificate": ["Degree Certificate","10th Certificate","12th Certificate","Marksheet/Transcript","Bonafide Certificate","Migration Certificate"],
+    "Personal Certificate": ["Birth Certificate","Marriage Certificate","Death Certificate","Medical Certificate","Police Clearance Certificate","Migration Certificate"],
+    "Commercial Document": ["Certificate of Origin","Company Document","Power of Attorney","Authorised Letter"],
+    "Legal Document": ["Affidavit","Power of Attorney","Agreement","Court / Legal Document"]
+  };
+
+  let selectedNeed = "Educational Certificate";
+  let selectedDoc = "Degree Certificate";
+  let selectedCountry = null;
+
+  // ---- Popular chips ----
+  const chipRow = document.getElementById('chipRow');
+  popular.forEach(([name, code]) => {
+    const chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.innerHTML = `${flagIcon(code)}<span>${name}</span>`;
+    chip.addEventListener('click', () => selectCountry(name, code, chip));
+    chipRow.appendChild(chip);
+  });
+  // Default active chip = UAE
+  chipRow.children[0].classList.add('active');
+  selectedCountry = "UAE";
+
+  function selectCountry(name, code, chipEl){
+    selectedCountry = name;
+    document.getElementById('countryDisplay').innerHTML =
+      `<div class="selected-country">${flagIcon(code)}<span>${name}</span></div>`;
+    [...chipRow.children].forEach(c => c.classList.remove('active'));
+    if (chipEl) chipEl.classList.add('active');
+    closeCountryPopup();
+  }
+
+  // ---- Country popup ----
+  const countryTrigger = document.getElementById('countryTrigger');
+  const countryPopup = document.getElementById('countryPopup');
+  const countrySearch = document.getElementById('countrySearch');
+  const countryGrid = document.getElementById('countryGrid');
+
+  function renderCountryList(filter=''){
+    const f = filter.trim().toLowerCase();
+    const filtered = countries.filter(([name]) => name.toLowerCase().includes(f));
+    countryGrid.innerHTML = '';
+    if (filtered.length === 0){
+      countryGrid.innerHTML = '<div class="country-empty">No countries found</div>';
+      return;
+    }
+    const mid = Math.ceil(filtered.length / 2);
+    const colA = filtered.slice(0, mid);
+    const colB = filtered.slice(mid);
+
+    const buildCol = (arr) => {
+      const col = document.createElement('div');
+      col.className = 'country-col';
+      arr.forEach(([name, code]) => {
+        const item = document.createElement('div');
+        item.className = 'country-item';
+        item.innerHTML = `${flagIcon(code)}<span>${name}</span>`;
+        item.addEventListener('click', () => {
+          selectedCountry = name;
+          document.getElementById('countryDisplay').innerHTML =
+            `<div class="selected-country">${flagIcon(code)}<span>${name}</span></div>`;
+          const matchChip = [...chipRow.children].find(c => c.textContent.trim() === name);
+          [...chipRow.children].forEach(c => c.classList.remove('active'));
+          if (matchChip) matchChip.classList.add('active');
+          closeCountryPopup();
+        });
+        col.appendChild(item);
+      });
+      return col;
     };
 
-    let selectedNeed = "Educational Certificate";
-    let selectedDoc = "Degree Certificate";
-    let selectedCountry = null;
-
-    // ---- Popular chips ----
-    const chipRow = document.getElementById('chipRow');
-    popular.forEach(([name, flag]) => {
-      const chip = document.createElement('div');
-      chip.className = 'chip';
-      chip.innerHTML = `<span class="flag">${flag}</span><span>${name}</span>`;
-      chip.addEventListener('click', () => selectCountry(name, flag, chip));
-      chipRow.appendChild(chip);
-    });
-    // Default active chip = UAE
-    chipRow.children[0].classList.add('active');
-    selectedCountry = "UAE";
-
-    function selectCountry(name, flag, chipEl) {
-      selectedCountry = name;
-      document.getElementById('countryDisplay').innerHTML =
-        `<div class="selected-country"><span class="flag">${flag}</span><span>${name}</span></div>`;
-      [...chipRow.children].forEach(c => c.classList.remove('active'));
-      if (chipEl) chipEl.classList.add('active');
-      closeCountryPopup();
+    countryGrid.appendChild(buildCol(colA));
+    if (window.innerWidth > 480 && colB.length){
+      countryGrid.classList.remove('single-col');
+      countryGrid.appendChild(buildCol(colB));
+    } else {
+      countryGrid.classList.add('single-col');
     }
+  }
 
-    // ---- Country popup ----
-    const countryTrigger = document.getElementById('countryTrigger');
-    const countryPopup = document.getElementById('countryPopup');
-    const countrySearch = document.getElementById('countrySearch');
-    const countryGrid = document.getElementById('countryGrid');
+  function openCountryPopup(){
+    countryPopup.classList.add('show');
+    countryTrigger.classList.add('open');
+    renderCountryList(countrySearch.value);
+    setTimeout(() => countrySearch.focus(), 50);
+  }
+  function closeCountryPopup(){
+    countryPopup.classList.remove('show');
+    countryTrigger.classList.remove('open');
+    countrySearch.value = '';
+  }
 
-    function renderCountryList(filter = '') {
-      const f = filter.trim().toLowerCase();
-      const filtered = countries.filter(([name]) => name.toLowerCase().includes(f));
-      countryGrid.innerHTML = '';
-      if (filtered.length === 0) {
-        countryGrid.innerHTML = '<div class="country-empty">No countries found</div>';
-        return;
-      }
-      const mid = Math.ceil(filtered.length / 2);
-      const colA = filtered.slice(0, mid);
-      const colB = filtered.slice(mid);
+  countryTrigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (countryPopup.classList.contains('show')) closeCountryPopup();
+    else openCountryPopup();
+  });
+  countrySearch.addEventListener('input', () => renderCountryList(countrySearch.value));
+  countryPopup.addEventListener('click', (e) => e.stopPropagation());
 
-      const buildCol = (arr) => {
-        const col = document.createElement('div');
-        col.className = 'country-col';
-        arr.forEach(([name, flag]) => {
-          const item = document.createElement('div');
-          item.className = 'country-item';
-          item.innerHTML = `<span class="flag">${flag}</span><span>${name}</span>`;
-          item.addEventListener('click', () => {
-            selectedCountry = name;
-            document.getElementById('countryDisplay').innerHTML =
-              `<div class="selected-country"><span class="flag">${flag}</span><span>${name}</span></div>`;
-            const matchChip = [...chipRow.children].find(c => c.textContent.trim() === name);
-            [...chipRow.children].forEach(c => c.classList.remove('active'));
-            if (matchChip) matchChip.classList.add('active');
-            closeCountryPopup();
-          });
-          col.appendChild(item);
-        });
-        return col;
-      };
+  // ---- Generic select (need / doc) ----
+  function buildSelect(boxId, panelId, valId, options, currentVal, onSelect){
+    const box = document.getElementById(boxId);
+    const panel = document.getElementById(panelId);
+    const valEl = document.getElementById(valId);
 
-      countryGrid.appendChild(buildCol(colA));
-      if (window.innerWidth > 480 && colB.length) {
-        countryGrid.classList.remove('single-col');
-        countryGrid.appendChild(buildCol(colB));
-      } else {
-        countryGrid.classList.add('single-col');
-      }
-    }
-
-    function openCountryPopup() {
-      countryPopup.classList.add('show');
-      countryTrigger.classList.add('open');
-      renderCountryList(countrySearch.value);
-      setTimeout(() => countrySearch.focus(), 50);
-    }
-    function closeCountryPopup() {
-      countryPopup.classList.remove('show');
-      countryTrigger.classList.remove('open');
-      countrySearch.value = '';
-    }
-
-    countryTrigger.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (countryPopup.classList.contains('show')) closeCountryPopup();
-      else openCountryPopup();
-    });
-    countrySearch.addEventListener('input', () => renderCountryList(countrySearch.value));
-    countryPopup.addEventListener('click', (e) => e.stopPropagation());
-
-    // ---- Generic select (need / doc) ----
-    function buildSelect(boxId, panelId, valId, options, currentVal, onSelect) {
-      const box = document.getElementById(boxId);
-      const panel = document.getElementById(panelId);
-      const valEl = document.getElementById(valId);
-
-      function render() {
-        panel.innerHTML = '';
-        options.forEach(opt => {
-          const item = document.createElement('div');
-          item.className = 'option-item' + (opt === currentVal ? ' selected' : '');
-          item.textContent = opt;
-          item.addEventListener('click', () => {
-            onSelect(opt);
-          });
-          panel.appendChild(item);
-        });
-      }
-      render();
-
-      box.addEventListener('click', (e) => {
-        e.stopPropagation();
-        closeAllPanels(panel);
-        panel.classList.toggle('show');
-        box.classList.toggle('open');
-      });
-
-      panel.addEventListener('click', e => e.stopPropagation());
-
-      return { render, box, panel, valEl };
-    }
-
-    function closeAllPanels(except) {
-      document.querySelectorAll('.option-panel').forEach(p => {
-        if (p !== except) { p.classList.remove('show'); }
-      });
-      document.querySelectorAll('.select-box').forEach(b => {
-        if (b.id !== (except && except.id.replace('Panel', 'Box'))) b.classList.remove('open');
-      });
-    }
-
-    let docSelectRefs;
-
-    const needSelectRefs = buildSelect('needBox', 'needPanel', 'needVal', needOptions, selectedNeed, (opt) => {
-      selectedNeed = opt;
-      document.getElementById('needVal').textContent = opt;
-      needSelectRefs.panel.classList.remove('show');
-      needSelectRefs.box.classList.remove('open');
-
-      // update doc options
-      const newDocs = docOptionsMap[opt];
-      selectedDoc = newDocs[0];
-      document.getElementById('docVal').textContent = selectedDoc;
-      docSelectRefs.options = newDocs;
-      rebuildDocPanel();
-    });
-
-    function rebuildDocPanel() {
-      const panel = document.getElementById('docPanel');
+    function render(){
       panel.innerHTML = '';
-      docOptionsMap[selectedNeed].forEach(opt => {
+      options.forEach(opt => {
         const item = document.createElement('div');
-        item.className = 'option-item' + (opt === selectedDoc ? ' selected' : '');
+        item.className = 'option-item' + (opt === currentVal ? ' selected' : '');
         item.textContent = opt;
         item.addEventListener('click', () => {
-          selectedDoc = opt;
-          document.getElementById('docVal').textContent = opt;
-          panel.classList.remove('show');
-          document.getElementById('docBox').classList.remove('open');
-          rebuildDocPanel();
+          onSelect(opt);
         });
         panel.appendChild(item);
       });
     }
+    render();
 
-    docSelectRefs = buildSelect('docBox', 'docPanel', 'docVal', docOptionsMap[selectedNeed], selectedDoc, (opt) => {
-      selectedDoc = opt;
-      document.getElementById('docVal').textContent = opt;
-      document.getElementById('docPanel').classList.remove('show');
-      document.getElementById('docBox').classList.remove('open');
-      rebuildDocPanel();
+    box.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeAllPanels(panel);
+      panel.classList.toggle('show');
+      box.classList.toggle('open');
     });
 
-    // ---- Close on outside click ----
-    document.addEventListener('click', () => {
-      closeCountryPopup();
-      closeAllPanels(null);
+    panel.addEventListener('click', e => e.stopPropagation());
+
+    return { render, box, panel, valEl };
+  }
+
+  function closeAllPanels(except){
+    document.querySelectorAll('.option-panel').forEach(p => {
+      if (p !== except){ p.classList.remove('show'); }
     });
-
-    // ---- CTA ----
-    document.getElementById('ctaBtn').addEventListener('click', () => {
-      alert(`Country: ${selectedCountry}\nNeed: ${selectedNeed}\nDocument: ${selectedDoc}`);
+    document.querySelectorAll('.select-box').forEach(b => {
+      if (b.id !== (except && except.id.replace('Panel','Box'))) b.classList.remove('open');
     });
+  }
 
-    window.addEventListener('resize', () => renderCountryList(countrySearch.value));
-  </script>
+  let docSelectRefs;
 
-  <script>
-    // ---- Data ----
-    const countries = [
-      ["Afghanistan", "🇦🇫"], ["Albania", "🇦🇱"], ["Algeria", "🇩🇿"], ["Andorra", "🇦🇩"], ["Angola", "🇦🇴"],
-      ["Argentina", "🇦🇷"], ["Armenia", "🇦🇲"], ["Australia", "🇦🇺"], ["Austria", "🇦🇹"], ["Azerbaijan", "🇦🇿"],
-      ["Bahrain", "🇧🇭"], ["Bangladesh", "🇧🇩"], ["Belgium", "🇧🇪"], ["Bhutan", "🇧🇹"], ["Brazil", "🇧🇷"],
-      ["Bulgaria", "🇧🇬"], ["Cambodia", "🇰🇭"], ["Canada", "🇨🇦"], ["Chile", "🇨🇱"], ["China", "🇨🇳"],
-      ["Colombia", "🇨🇴"], ["Croatia", "🇭🇷"], ["Cyprus", "🇨🇾"], ["Czech Republic", "🇨🇿"], ["Denmark", "🇩🇰"],
-      ["Egypt", "🇪🇬"], ["Estonia", "🇪🇪"], ["Ethiopia", "🇪🇹"], ["Finland", "🇫🇮"], ["France", "🇫🇷"],
-      ["Germany", "🇩🇪"], ["Ghana", "🇬🇭"], ["Greece", "🇬🇷"], ["Hong Kong", "🇭🇰"], ["Hungary", "🇭🇺"],
-      ["Iceland", "🇮🇸"], ["India", "🇮🇳"], ["Indonesia", "🇮🇩"], ["Iran", "🇮🇷"], ["Iraq", "🇮🇶"],
-      ["Ireland", "🇮🇪"], ["Israel", "🇮🇱"], ["Italy", "🇮🇹"], ["Japan", "🇯🇵"], ["Jordan", "🇯🇴"],
-      ["Kazakhstan", "🇰🇿"], ["Kenya", "🇰🇪"], ["Kuwait", "🇰🇼"], ["Latvia", "🇱🇻"], ["Lebanon", "🇱🇧"],
-      ["Libya", "🇱🇾"], ["Lithuania", "🇱🇹"], ["Malaysia", "🇲🇾"], ["Maldives", "🇲🇻"], ["Malta", "🇲🇹"],
-      ["Mexico", "🇲🇽"], ["Morocco", "🇲🇦"], ["Nepal", "🇳🇵"], ["Netherlands", "🇳🇱"], ["New Zealand", "🇳🇿"],
-      ["Nigeria", "🇳🇬"], ["Norway", "🇳🇴"], ["Oman", "🇴🇲"], ["Pakistan", "🇵🇰"], ["Philippines", "🇵🇭"],
-      ["Poland", "🇵🇱"], ["Portugal", "🇵🇹"], ["Qatar", "🇶🇦"], ["Romania", "🇷🇴"], ["Russia", "🇷🇺"],
-      ["Saudi Arabia", "🇸🇦"], ["Singapore", "🇸🇬"], ["South Africa", "🇿🇦"], ["South Korea", "🇰🇷"], ["Spain", "🇪🇸"],
-      ["Sri Lanka", "🇱🇰"], ["Sweden", "🇸🇪"], ["Switzerland", "🇨🇭"], ["Thailand", "🇹🇭"], ["Turkey", "🇹🇷"],
-      ["UAE", "🇦🇪"], ["Uganda", "🇺🇬"], ["Ukraine", "🇺🇦"], ["United Kingdom", "🇬🇧"], ["USA", "🇺🇸"],
-      ["Vietnam", "🇻🇳"], ["Yemen", "🇾🇪"], ["Zambia", "🇿🇲"], ["Zimbabwe", "🇿🇼"]
-    ];
+  const needSelectRefs = buildSelect('needBox','needPanel','needVal', needOptions, selectedNeed, (opt) => {
+    selectedNeed = opt;
+    document.getElementById('needVal').textContent = opt;
+    needSelectRefs.panel.classList.remove('show');
+    needSelectRefs.box.classList.remove('open');
 
-    const popular = [
-      ["UAE", "🇦🇪"], ["Saudi Arabia", "🇸🇦"], ["Qatar", "🇶🇦"], ["USA", "🇺🇸"], ["Germany", "🇩🇪"], ["Australia", "🇦🇺"]
-    ];
+    // update doc options
+    const newDocs = docOptionsMap[opt];
+    selectedDoc = newDocs[0];
+    document.getElementById('docVal').textContent = selectedDoc;
+    docSelectRefs.options = newDocs;
+    rebuildDocPanel();
+  });
 
-    const needOptions = ["Educational Certificate", "Personal Certificate", "Commercial Document", "Legal Document"];
-
-    const docOptionsMap = {
-      "Educational Certificate": ["Degree Certificate", "Diploma Certificate", "10th Certificate", "12th Certificate", "Marksheet/Transcript", "Bonafide Certificate", "Migration Certificate"],
-      "Personal Certificate": ["Birth Certificate", "Marriage Certificate", "Death Certificate", "Divorce Certificate", "Police Clearance Certificate"],
-      "Commercial Document": ["Certificate of Incorporation", "Power of Attorney", "Invoice", "Certificate of Origin", "Free Sale Certificate"],
-      "Legal Document": ["Affidavit", "Court Order", "Agreement", "Will", "Property Document"]
-    };
-
-    let selectedNeed = "Educational Certificate";
-    let selectedDoc = "Degree Certificate";
-    let selectedCountry = null;
-
-    // ---- Popular chips ----
-    const chipRow = document.getElementById('chipRow');
-    popular.forEach(([name, flag]) => {
-      const chip = document.createElement('div');
-      chip.className = 'chip';
-      chip.innerHTML = `<span class="flag">${flag}</span><span>${name}</span>`;
-      chip.addEventListener('click', () => selectCountry(name, flag, chip));
-      chipRow.appendChild(chip);
+  function rebuildDocPanel(){
+    const panel = document.getElementById('docPanel');
+    panel.innerHTML = '';
+    docOptionsMap[selectedNeed].forEach(opt => {
+      const item = document.createElement('div');
+      item.className = 'option-item' + (opt === selectedDoc ? ' selected' : '');
+      item.textContent = opt;
+      item.addEventListener('click', () => {
+        selectedDoc = opt;
+        document.getElementById('docVal').textContent = opt;
+        panel.classList.remove('show');
+        document.getElementById('docBox').classList.remove('open');
+        rebuildDocPanel();
+      });
+      panel.appendChild(item);
     });
-    // Default active chip = UAE
-    chipRow.children[0].classList.add('active');
-    selectedCountry = "UAE";
+  }
 
-    function selectCountry(name, flag, chipEl) {
-      selectedCountry = name;
-      document.getElementById('countryDisplay').innerHTML =
-        `<div class="selected-country"><span class="flag">${flag}</span><span>${name}</span></div>`;
-      [...chipRow.children].forEach(c => c.classList.remove('active'));
-      if (chipEl) chipEl.classList.add('active');
-      closeCountryPopup();
+  docSelectRefs = buildSelect('docBox','docPanel','docVal', docOptionsMap[selectedNeed], selectedDoc, (opt) => {
+    selectedDoc = opt;
+    document.getElementById('docVal').textContent = opt;
+    document.getElementById('docPanel').classList.remove('show');
+    document.getElementById('docBox').classList.remove('open');
+    rebuildDocPanel();
+  });
+
+  // ---- Close on outside click ----
+  document.addEventListener('click', () => {
+    closeCountryPopup();
+    closeAllPanels(null);
+  });
+
+  window.addEventListener('resize', () => renderCountryList(countrySearch.value));
+
+  /* =====================================================================
+     SCREEN 2 — "Tell us about your certificate"
+     Field sets per document type (Educational Certificate category).
+     Other categories fall back to a generic field set.
+  ===================================================================== */
+
+  const states = [
+    "Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Delhi (NCT)","Goa",
+    "Gujarat","Haryana","Himachal Pradesh","Jammu & Kashmir","Jharkhand","Karnataka","Kerala",
+    "Ladakh","Madhya Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha",
+    "Puducherry","Punjab","Rajasthan","Sikkim","Tamil Nadu","Telangana","Tripura","Uttar Pradesh",
+    "Uttarakhand","West Bengal"
+  ];
+
+  const boards = [
+    "Central Board of Secondary Education (CBSE)",
+    "CISCE / ICSE",
+    "Maharashtra State Board",
+    "Karnataka Board",
+    "Gujarat Board",
+    "Tamil Nadu Board",
+    "Kerala Board",
+    "Andhra Pradesh Board",
+    "Telangana Board",
+    "Uttar Pradesh Board",
+    "Other / International Board",
+  ];
+
+  function yearRange(from, to){
+    const arr = [];
+    for (let y = to; y >= from; y--) arr.push(String(y));
+    return arr;
+  }
+  const years = yearRange(1985, 2026);
+
+  // Plain country-name list (no flags) for simple dropdowns like "Country of Origin"
+  const countryNames = countries.map(c => c[0]);
+
+  // Reusable authority option lists
+  const birthAuthorities   = ["Municipal Corporation","Municipal Council / Municipality","Registrar of Births & Deaths","Gram Panchayat","Nagar Panchayat","Registrar of Births & Deaths","Government Hospital", "Cantonment Board","Sub-Divisional / Taluka Office", "District Registrar", "Other"];
+  const marriageAuthorities= ["Marriage Registrar Office","Municipal Corporation","Court Marriage Registrar","Religious / Community Authority","Other"];
+  const deathAuthorities   = ["Municipal Corporation","Registrar of Births & Deaths","Hospital Registration","Panchayat / Village Office","Other"];
+  const pccAuthorities     = ["Regional Passport Office","Regional Passport Office (RPO)","District Police / SP Office", "Commissionerate of Police", "Other"];
+  const notarisingAuthorities = ["Notary Public","Sub-Registrar Office","Court","Other"];
+
+  // Dummy suggestion lists for "search" type fields (typeahead dropdown)
+  const universitySuggestions = [
+    "Visvesvaraya Technological University","University of Delhi","Anna University",
+    "Osmania University","Jawaharlal Nehru University","Panjab University",
+    "University of Mumbai","Savitribai Phule Pune University","Bangalore University",
+    "Andhra University","University of Calcutta","University of Madras"
+  ];
+  const schoolSuggestions = [
+    "Delhi Public School","Kendriya Vidyalaya","St. Xavier's School",
+    "DAV Public School","Ryan International School","Bishop Cotton School",
+    "Don Bosco School","Army Public School","Modern School","La Martiniere School"
+  ];
+  const collegeSuggestions = [
+    "XYZ College of Arts & Science","St. Joseph's College","Loyola College",
+    "Christ University","Fergusson College","Presidency College","Stella Maris College"
+  ];
+  const hospitalSuggestions = [
+    "Apollo Hospitals","Fortis Healthcare","Max Healthcare","AIIMS",
+    "Manipal Hospitals","Narayana Health","Medanta – The Medicity","Columbia Asia Hospital"
+  ];
+  const passportPoliceSuggestions = [
+    "Regional Passport Office, Bengaluru","Regional Passport Office, Delhi",
+    "Regional Passport Office, Mumbai","Commissionerate of Police, Chennai",
+    "Regional Passport Office, Hyderabad","Regional Passport Office, Kolkata"
+  ];
+  const chamberOfCommerceSuggestions = [
+    "Chamber of Commerce, Mumbai","Chamber of Commerce, Delhi",
+    "Federation of Indian Export Organisations (FIEO)","Export Promotion Council",
+    "Chamber of Commerce, Bengaluru","Chamber of Commerce, Chennai"
+  ];
+  const rocSuggestions = [
+    "Registrar of Companies (ROC), Mumbai","Registrar of Companies (ROC), Delhi",
+    "Registrar of Companies (ROC), Bengaluru","Registrar of Companies (ROC), Chennai",
+    "Registrar of Companies (ROC), Hyderabad"
+  ];
+  const notaryOfficeSuggestions = [
+    "Notary Public, Mumbai","Notary Public, Delhi","Notary Public, Bengaluru",
+    "Notary Public, Chennai","Notary Public, Hyderabad","Notary Public, Pune"
+  ];
+
+  // Field configs, nested by category then document — some document names
+  // (e.g. "Migration Certificate", "Power of Attorney") repeat across categories
+  // with different fields, so category is part of the lookup key.
+  const fieldConfigsByCategory = {
+
+    "Educational Certificate": {
+      "Degree Certificate": [
+        { type:'search', label:'University / Institution', id:'university', placeholder:'e.g. Visvesvaraya Technological University', suggestions: universitySuggestions },
+        { type:'select', label:'State where certificate was issued', id:'state', options: states },
+        { type:'select', label:'Year of issue', id:'year', options: years }
+      ],
+      "10th Certificate": [
+        { type:'select', label:'Board / Educational Authority', id:'board', options: boards },
+        { type:'search', label:'School / Institution', id:'school', placeholder:'e.g. Delhi Public School', suggestions: schoolSuggestions },
+        { type:'select', label:'State where certificate was issued', id:'state', options: states },
+        { type:'select', label:'Year of issue', id:'year', options: years }
+      ],
+      "12th Certificate": [
+        { type:'select', label:'Board / Educational Authority', id:'board', options: boards },
+        { type:'search', label:'School / Institution', id:'school', placeholder:'e.g. Delhi Public School', suggestions: schoolSuggestions },
+        { type:'select', label:'State where certificate was issued', id:'state', options: states },
+        { type:'select', label:'Year of issue', id:'year', options: years }
+      ],
+      "Marksheet/Transcript": [
+        { type:'search', label:'University / Institution', id:'university', placeholder:'e.g. Visvesvaraya Technological University', suggestions: universitySuggestions },
+        { type:'select', label:'Document Type', id:'documentType', options: ['Marksheet','Transcript', 'Consolidated Marksheet', 'Statement of Marks', 'Academic Transcript', 'Other'] },
+        { type:'select', label:'State where certificate was issued', id:'state', options: states },
+        { type:'select', label:'Year of issue', id:'year', options: years }
+      ],
+      "Bonafide Certificate": [
+        { type:'search', label:'University / Institution', id:'university', placeholder:'e.g. Visvesvaraya Technological University', suggestions: universitySuggestions },
+        { type:'text', label:'Course / Program', id:'course', placeholder:'e.g. Bachelor of Technology' },
+        { type:'select', label:'State where certificate was issued', id:'state', options: states },
+        { type:'select', label:'Year of issue', id:'year', options: years }
+      ],
+      "Migration Certificate": [
+        { type:'search', label:'University / Board / Institution', id:'university', placeholder:'e.g. Visvesvaraya Technological University', suggestions: universitySuggestions },
+        { type:'select', label:'State where certificate was issued', id:'state', options: states },
+        { type:'select', label:'Year of issue', id:'year', options: years },
+        { type:'text', label:'Certificate / Registration Number', id:'certNumber', placeholder:'e.g. MIG-2024-45821' }
+      ]
+    },
+
+    "Personal Certificate": {
+      "Birth Certificate": [
+        { type:'select', label:'Issuing Authority', id:'issuingAuthority', options: birthAuthorities },
+        { type:'text', label:'Place / City of Birth', id:'placeOfBirth', placeholder:'e.g. Jaipur' },
+        { type:'select', label:'State where certificate was issued', id:'state', options: states },
+        { type:'select', label:'Year of issue', id:'year', options: years }
+      ],
+      "Marriage Certificate": [
+        { type:'select', label:'Issuing Authority', id:'issuingAuthority', options: marriageAuthorities },
+        { type:'text', label:'Place of Marriage', id:'placeOfMarriage', placeholder:'e.g. Jaipur' },
+        { type:'select', label:'State where certificate was issued', id:'state', options: states },
+        { type:'select', label:'Year of issue', id:'year', options: years }
+      ],
+      "Death Certificate": [
+        { type:'select', label:'Issuing Authority', id:'issuingAuthority', options: deathAuthorities },
+        { type:'text', label:'Place of Death', id:'placeOfDeath', placeholder:'e.g. Jaipur' },
+        { type:'select', label:'State where certificate was issued', id:'state', options: states },
+        { type:'select', label:'Year of issue', id:'year', options: years }
+      ],
+      "Medical Certificate": [
+        { type:'search', label:'Hospital / Medical Institution', id:'hospital', placeholder:'e.g. Apollo Hospitals', suggestions: hospitalSuggestions },
+        { type:'text', label:'Doctor / Issuing Authority', id:'doctor', placeholder:'e.g. Dr. Ramesh Kumar' },
+        { type:'select', label:'State where certificate was issued', id:'state', options: states },
+        { type:'select', label:'Year of issue', id:'year', options: years }
+      ],
+      "Police Clearance Certificate": [
+        { type:'select', label:'Issuing Authority', id:'issuingAuthority', options: pccAuthorities },
+        { type:'search', label:'Passport Office / Police Authority', id:'authorityOffice', placeholder:'e.g. Regional Passport Office, Bengaluru', suggestions: passportPoliceSuggestions },
+        { type:'select', label:'State where certificate was issued', id:'state', options: states },
+        { type:'select', label:'Year of issue', id:'year', options: years }
+      ],
+      "Migration Certificate": [
+        { type:'search', label:'University / Educational Board', id:'university', placeholder:'e.g. Visvesvaraya Technological University', suggestions: universitySuggestions },
+        { type:'search', label:'Institution / College', id:'institution', placeholder:'e.g. XYZ College of Arts & Science', suggestions: collegeSuggestions },
+        { type:'select', label:'State where certificate was issued', id:'state', options: states },
+        { type:'select', label:'Year of issue', id:'year', options: years }
+      ]
+    },
+
+    "Commercial Document": {
+      "Certificate of Origin": [
+        { type:'search', label:'Issuing Authority / Organization', id:'issuingAuthority', placeholder:'e.g. Chamber of Commerce', suggestions: chamberOfCommerceSuggestions },
+        { type:'text', label:'Exporter / Company Name', id:'companyName', placeholder:'e.g. Acme Exports Pvt Ltd' },
+        { type:'select', label:'Country of Origin', id:'countryOfOrigin', options: countryNames },
+        { type:'select', label:'Year of issue', id:'year', options: years }
+      ],
+      "Company Document": [
+        { type:'text', label:'Company Name', id:'companyName', placeholder:'e.g. Acme Pvt Ltd' },
+        { type:'select', label:'Document Type', id:'documentType', options: ["Certificate of Incorporation","Memorandum of Association (MOA)","Articles of Association (AOA)","Board Resolution","Trade License","Other"] },
+        { type:'search', label:'Issuing Authority', id:'issuingAuthority', placeholder:'e.g. Registrar of Companies (ROC)', suggestions: rocSuggestions },
+        { type:'select', label:'Year of issue', id:'year', options: years }
+      ],
+      "Power of Attorney": [
+        { type:'text', label:'Principal / Company Name', id:'principalName', placeholder:'e.g. Acme Pvt Ltd' },
+        { type:'text', label:'Authorised Person / Attorney', id:'attorneyName', placeholder:'Full name' },
+        { type:'search', label:'Issuing / Executing Authority', id:'issuingAuthority', placeholder:'e.g. Notary Public, Mumbai', suggestions: notaryOfficeSuggestions },
+        { type:'date', label:'Date of Execution', id:'executionDate' }
+      ],
+      "Authorised Letter": [
+        { type:'text', label:'Company / Organization Name', id:'companyName', placeholder:'e.g. Acme Pvt Ltd' },
+        { type:'text', label:'Authorised Person', id:'authorisedPerson', placeholder:'Full name' },
+        { type:'select', label:'Purpose of Authorisation', id:'purpose', options: ["Document Collection","Legal Representation","Financial Transactions","Business Operations","Other"] },
+        { type:'date', label:'Date of Issue', id:'issueDate' }
+      ]
+    },
+
+    "Legal Document": {
+      "Affidavit": [
+        { type:'select', label:'Affidavit Type', id:'affidavitType', options: ["Name Change Affidavit","Address Proof Affidavit","Identity Affidavit","General Affidavit","Other"] },
+        { type:'text', label:'Affiant / Declarant Name', id:'affiantName', placeholder:'Full name' },
+        { type:'select', label:'Issuing / Notarising Authority', id:'notarisingAuthority', options: notarisingAuthorities },
+        { type:'select', label:'State where document was executed', id:'state', options: states },
+        { type:'date', label:'Date of Execution', id:'executionDate' }
+      ],
+      "Power of Attorney": [
+        { type:'select', label:'Power of Attorney Type', id:'poaType', options: ["General Power of Attorney","Special Power of Attorney","Durable Power of Attorney","Other"] },
+        { type:'text', label:'Principal Name', id:'principalName', placeholder:'Full name' },
+        { type:'text', label:'Attorney / Authorised Person', id:'attorneyName', placeholder:'Full name' },
+        { type:'select', label:'Issuing / Notarising Authority', id:'notarisingAuthority', options: notarisingAuthorities },
+        { type:'date', label:'Date of Execution', id:'executionDate' }
+      ],
+      "Agreement": [
+        { type:'select', label:'Agreement Type', id:'agreementType', options: ["Rental / Lease Agreement","Sale Agreement","Partnership Agreement","Employment Agreement","Loan Agreement","Other"] },
+        { type:'text', label:'Party / Company Name', id:'partyName', placeholder:'First party name' },
+        { type:'text', label:'Second Party Name', id:'secondPartyName', placeholder:'Second party name' },
+        { type:'select', label:'Issuing / Notarising Authority', id:'notarisingAuthority', options: notarisingAuthorities },
+        { type:'date', label:'Date of Agreement', id:'agreementDate' }
+      ],
+      "Court / Legal Document": [
+        { type:'select', label:'Document Type', id:'documentType', options: ["Court Order","Judgment / Decree","Legal Notice","Power of Attorney Revocation","Other"] },
+        { type:'text', label:'Court / Issuing Authority', id:'courtAuthority', placeholder:'e.g. High Court of Karnataka' },
+        { type:'text', label:'Case / Document Number', id:'caseNumber', placeholder:'e.g. WP-2024-1234' },
+        { type:'select', label:'State where document was issued', id:'state', options: states },
+        { type:'date', label:'Date of issue', id:'issueDate' }
+      ]
     }
+  };
 
-    // ---- Country popup ----
-    const countryTrigger = document.getElementById('countryTrigger');
-    const countryPopup = document.getElementById('countryPopup');
-    const countrySearch = document.getElementById('countrySearch');
-    const countryGrid = document.getElementById('countryGrid');
+  // Fallback if a category/document combination has no config defined
+  const genericFields = [
+    { type:'text', label:'Document Holder Name', id:'holderName', placeholder:'Full name as on the document' },
+    { type:'text', label:'Place of Issue', id:'placeOfIssue', placeholder:'City / Authority that issued it' },
+    { type:'select', label:'Year of Issue', id:'year', options: years }
+  ];
 
-    function renderCountryList(filter = '') {
-      const f = filter.trim().toLowerCase();
-      const filtered = countries.filter(([name]) => name.toLowerCase().includes(f));
-      countryGrid.innerHTML = '';
-      if (filtered.length === 0) {
-        countryGrid.innerHTML = '<div class="country-empty">No countries found</div>';
+  const fieldValues = {};
+
+  function searchIconSVG(){
+    return `<svg class="icon-search" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`;
+  }
+  function chevronSVG(){
+    return `<svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`;
+  }
+
+  // Builds a search input that also behaves like a dropdown: shows a
+  // suggestion list (dummy data for now) filtered as the user types, or
+  // the full list on focus. Click a suggestion to fill the field.
+  function buildSearchField(fieldDiv, f){
+    fieldValues[f.id] = '';
+
+    const wrap = document.createElement('div');
+    wrap.className = 'search-input-wrap';
+    wrap.innerHTML = `${searchIconSVG()}<input type="text" placeholder="${f.placeholder || ''}" autocomplete="off">${chevronSVG()}`;
+    const input = wrap.querySelector('input');
+
+    const suggestPanel = document.createElement('div');
+    suggestPanel.className = 'option-panel';
+
+    function renderSuggestions(filterText){
+      const list = (f.suggestions || []).filter(s => s.toLowerCase().includes(filterText.toLowerCase()));
+      suggestPanel.innerHTML = '';
+      if (list.length === 0){
+        suggestPanel.classList.remove('show');
         return;
       }
-      const mid = Math.ceil(filtered.length / 2);
-      const colA = filtered.slice(0, mid);
-      const colB = filtered.slice(mid);
-
-      const buildCol = (arr) => {
-        const col = document.createElement('div');
-        col.className = 'country-col';
-        arr.forEach(([name, flag]) => {
-          const item = document.createElement('div');
-          item.className = 'country-item';
-          item.innerHTML = `<span class="flag">${flag}</span><span>${name}</span>`;
-          item.addEventListener('click', () => {
-            selectedCountry = name;
-            document.getElementById('countryDisplay').innerHTML =
-              `<div class="selected-country"><span class="flag">${flag}</span><span>${name}</span></div>`;
-            const matchChip = [...chipRow.children].find(c => c.textContent.trim() === name);
-            [...chipRow.children].forEach(c => c.classList.remove('active'));
-            if (matchChip) matchChip.classList.add('active');
-            closeCountryPopup();
-          });
-          col.appendChild(item);
+      list.slice(0, 8).forEach(s => {
+        const item = document.createElement('div');
+        item.className = 'option-item' + (s === input.value ? ' selected' : '');
+        item.textContent = s;
+        item.addEventListener('click', (e) => {
+          e.stopPropagation();
+          input.value = s;
+          fieldValues[f.id] = s;
+          suggestPanel.classList.remove('show');
         });
-        return col;
-      };
-
-      countryGrid.appendChild(buildCol(colA));
-      if (window.innerWidth > 480 && colB.length) {
-        countryGrid.classList.remove('single-col');
-        countryGrid.appendChild(buildCol(colB));
-      } else {
-        countryGrid.classList.add('single-col');
-      }
+        suggestPanel.appendChild(item);
+      });
+      suggestPanel.classList.add('show');
     }
 
-    function openCountryPopup() {
-      countryPopup.classList.add('show');
-      countryTrigger.classList.add('open');
-      renderCountryList(countrySearch.value);
-      setTimeout(() => countrySearch.focus(), 50);
-    }
-    function closeCountryPopup() {
-      countryPopup.classList.remove('show');
-      countryTrigger.classList.remove('open');
-      countrySearch.value = '';
-    }
-
-    countryTrigger.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (countryPopup.classList.contains('show')) closeCountryPopup();
-      else openCountryPopup();
+    input.addEventListener('input', (e) => {
+      fieldValues[f.id] = e.target.value;
+      renderSuggestions(e.target.value);
     });
-    countrySearch.addEventListener('input', () => renderCountryList(countrySearch.value));
-    countryPopup.addEventListener('click', (e) => e.stopPropagation());
+    input.addEventListener('focus', () => {
+      closeAllPanels(suggestPanel);
+      renderSuggestions(input.value);
+    });
+    wrap.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeAllPanels(suggestPanel);
+      renderSuggestions(input.value);
+    });
+    suggestPanel.addEventListener('click', e => e.stopPropagation());
 
-    // ---- Generic select (need / doc) ----
-    function buildSelect(boxId, panelId, valId, options, currentVal, onSelect) {
-      const box = document.getElementById(boxId);
-      const panel = document.getElementById(panelId);
-      const valEl = document.getElementById(valId);
+    fieldDiv.appendChild(wrap);
+    fieldDiv.appendChild(suggestPanel);
+  }
 
-      function render() {
-        panel.innerHTML = '';
-        options.forEach(opt => {
+  function renderDynamicFields(category, doc){
+    const config = (fieldConfigsByCategory[category] && fieldConfigsByCategory[category][doc]) || genericFields;
+    const container = document.getElementById('dynamicFields');
+    container.innerHTML = '';
+
+    config.forEach((f) => {
+      const fieldDiv = document.createElement('div');
+      fieldDiv.className = 'field';
+
+      const label = document.createElement('span');
+      label.className = 'field-label';
+      label.textContent = f.label;
+      fieldDiv.appendChild(label);
+
+      if (f.type === 'search'){
+        buildSearchField(fieldDiv, f);
+
+      } else if (f.type === 'text'){
+        fieldValues[f.id] = '';
+        const input = document.createElement('input');
+        input.className = 'text-input';
+        input.type = 'text';
+        input.placeholder = f.placeholder || '';
+        input.addEventListener('input', (e) => { fieldValues[f.id] = e.target.value; });
+        fieldDiv.appendChild(input);
+
+      } else if (f.type === 'date'){
+        fieldValues[f.id] = '';
+        const input = document.createElement('input');
+        input.className = 'text-input';
+        input.type = 'date';
+        input.addEventListener('input', (e) => { fieldValues[f.id] = e.target.value; });
+        fieldDiv.appendChild(input);
+
+      } else if (f.type === 'select'){
+        const defaultVal = f.options[0];
+        fieldValues[f.id] = defaultVal;
+
+        const box = document.createElement('div');
+        box.className = 'select-box';
+        box.innerHTML = `<span class="val">${defaultVal}</span>${chevronSVG()}`;
+
+        const panel = document.createElement('div');
+        panel.className = 'option-panel';
+
+        f.options.forEach(opt => {
           const item = document.createElement('div');
-          item.className = 'option-item' + (opt === currentVal ? ' selected' : '');
+          item.className = 'option-item' + (opt === defaultVal ? ' selected' : '');
           item.textContent = opt;
-          item.addEventListener('click', () => {
-            onSelect(opt);
+          item.addEventListener('click', (e) => {
+            e.stopPropagation();
+            fieldValues[f.id] = opt;
+            box.querySelector('.val').textContent = opt;
+            panel.querySelectorAll('.option-item').forEach(i => i.classList.remove('selected'));
+            item.classList.add('selected');
+            panel.classList.remove('show');
+            box.classList.remove('open');
           });
           panel.appendChild(item);
         });
-      }
-      render();
 
-      box.addEventListener('click', (e) => {
-        e.stopPropagation();
-        closeAllPanels(panel);
-        panel.classList.toggle('show');
-        box.classList.toggle('open');
-      });
-
-      panel.addEventListener('click', e => e.stopPropagation());
-
-      return { render, box, panel, valEl };
-    }
-
-    function closeAllPanels(except) {
-      document.querySelectorAll('.option-panel').forEach(p => {
-        if (p !== except) { p.classList.remove('show'); }
-      });
-      document.querySelectorAll('.select-box').forEach(b => {
-        if (b.id !== (except && except.id.replace('Panel', 'Box'))) b.classList.remove('open');
-      });
-    }
-
-    let docSelectRefs;
-
-    const needSelectRefs = buildSelect('needBox', 'needPanel', 'needVal', needOptions, selectedNeed, (opt) => {
-      selectedNeed = opt;
-      document.getElementById('needVal').textContent = opt;
-      needSelectRefs.panel.classList.remove('show');
-      needSelectRefs.box.classList.remove('open');
-
-      // update doc options
-      const newDocs = docOptionsMap[opt];
-      selectedDoc = newDocs[0];
-      document.getElementById('docVal').textContent = selectedDoc;
-      docSelectRefs.options = newDocs;
-      rebuildDocPanel();
-    });
-
-    function rebuildDocPanel() {
-      const panel = document.getElementById('docPanel');
-      panel.innerHTML = '';
-      docOptionsMap[selectedNeed].forEach(opt => {
-        const item = document.createElement('div');
-        item.className = 'option-item' + (opt === selectedDoc ? ' selected' : '');
-        item.textContent = opt;
-        item.addEventListener('click', () => {
-          selectedDoc = opt;
-          document.getElementById('docVal').textContent = opt;
-          panel.classList.remove('show');
-          document.getElementById('docBox').classList.remove('open');
-          rebuildDocPanel();
+        box.addEventListener('click', (e) => {
+          e.stopPropagation();
+          closeAllPanels(panel);
+          panel.classList.toggle('show');
+          box.classList.toggle('open');
         });
-        panel.appendChild(item);
-      });
+        panel.addEventListener('click', e => e.stopPropagation());
+
+        fieldDiv.appendChild(box);
+        fieldDiv.appendChild(panel);
+      }
+
+      container.appendChild(fieldDiv);
+    });
+  }
+
+  // Optional overrides: heading word + display name (defaults: "certificate" / selectedDoc)
+  const titleWord = {
+    "Marksheet/Transcript": "marksheet"
+  };
+  const displayName = {
+    "Marksheet/Transcript": "Marksheet / Transcript"
+  };
+
+  /* =====================================================================
+     LOGIN CHECK + ORDER CREATION (on Screen 2 "Continue")
+     -----------------------------------------------------------------
+     NOTE: This is a functional MOCK using localStorage as a stand-in
+     for a real session, since this page runs on its own file/domain
+     and cannot read itzeazy.in's actual login cookie/session directly.
+
+     To wire this to the real backend, you need to tell me:
+       1. An API endpoint that returns whether the user is logged in
+          (e.g. GET https://itzeazy.in/api/auth/me) and whether it's
+          reachable cross-origin (CORS) from wherever this page is hosted.
+       2. Whether https://itzeazy.in/sign-in supports a redirect/return
+          URL param (e.g. ?redirect=... ) to bring the user back here
+          after logging in.
+       3. The order-creation endpoint (e.g. POST /api/orders), its
+          required payload shape, and how it authenticates the request
+          (cookie session vs. bearer token).
+     Once I have these, the mock functions below (isLoggedIn, createOrder)
+     can be swapped for real fetch() calls.
+  ===================================================================== */
+
+  const SIGNIN_URL = 'https://itzeazy.in/sign-in';
+
+  function isLoggedIn(){
+    // MOCK: replace with a real session/API check once backend details are known.
+    return !!localStorage.getItem('itzeazy_session');
+  }
+
+  function saveOrderDraft(){
+    const orderPayload = {
+      country: selectedCountry,
+      need: selectedNeed,
+      document: selectedDoc,
+      fields: fieldValues,
+      createdAt: new Date().toISOString()
+    };
+    localStorage.setItem('itzeazy_pending_order', JSON.stringify(orderPayload));
+    return orderPayload;
+  }
+
+  function createOrder(orderPayload){
+    // MOCK: replace with e.g.
+    // fetch('https://itzeazy.in/api/orders', {
+    //   method: 'POST',
+    //   credentials: 'include',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(orderPayload)
+    // }).then(...)
+    console.log('Creating order (mock):', orderPayload);
+    alert(
+      `✅ Order created (mock)\n\n` +
+      `Country: ${orderPayload.country}\nNeed: ${orderPayload.need}\nDocument: ${orderPayload.document}\n\n` +
+      Object.entries(orderPayload.fields).map(([k, v]) => `${k}: ${v}`).join('\n') +
+      `\n\nThis will appear in the itzeazy.in dashboard once the real Orders API is connected.`
+    );
+    localStorage.removeItem('itzeazy_pending_order');
+  }
+
+  function goToStep2(){
+    const docLabel = displayName[selectedDoc] || selectedDoc;
+
+    document.getElementById('s2Title').textContent =
+      `Tell us about your ${titleWord[selectedDoc] || 'certificate'}`;
+    document.getElementById('breadcrumbText').textContent =
+      `${docLabel} · ${selectedNeed} · ${selectedCountry}`;
+    document.getElementById('s2Sub').textContent =
+      `These details help us process your ${docLabel} attestation for ${selectedCountry}.`;
+
+    renderDynamicFields(selectedNeed, selectedDoc);
+
+    document.getElementById('screen1').style.display = 'none';
+    document.getElementById('screen2').style.display = 'flex';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function goToStep1(){
+    document.getElementById('screen2').style.display = 'none';
+    document.getElementById('screen1').style.display = 'flex';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ---- CTA (Screen 1 -> Screen 2) ----
+  document.getElementById('ctaBtn').addEventListener('click', goToStep2);
+
+  // ---- Back (Screen 2 -> Screen 1) ----
+  document.getElementById('backBtn').addEventListener('click', goToStep1);
+
+  // ---- Continue on Screen 2: check login -> sign-in or create order ----
+  document.getElementById('continue2Btn').addEventListener('click', () => {
+    const orderPayload = saveOrderDraft();
+
+    if (!isLoggedIn()){
+      const returnUrl = encodeURIComponent(window.location.href);
+      window.location.href = `${SIGNIN_URL}?redirect=${returnUrl}`;
+      return;
     }
 
-    docSelectRefs = buildSelect('docBox', 'docPanel', 'docVal', docOptionsMap[selectedNeed], selectedDoc, (opt) => {
-      selectedDoc = opt;
-      document.getElementById('docVal').textContent = opt;
-      document.getElementById('docPanel').classList.remove('show');
-      document.getElementById('docBox').classList.remove('open');
-      rebuildDocPanel();
-    });
+    createOrder(orderPayload);
+  });
 
-    // ---- Close on outside click ----
-    document.addEventListener('click', () => {
-      closeCountryPopup();
-      closeAllPanels(null);
-    });
-
-    // ---- CTA ----
-    document.getElementById('ctaBtn').addEventListener('click', () => {
-      alert(`Country: ${selectedCountry}\nNeed: ${selectedNeed}\nDocument: ${selectedDoc}`);
-    });
-
-    window.addEventListener('resize', () => renderCountryList(countrySearch.value));
-  </script>
-
+  // If the user lands back on this page after logging in (redirected from
+  // sign-in) and a draft order is waiting, resume and create it automatically.
+  window.addEventListener('DOMContentLoaded', () => {
+    const draft = localStorage.getItem('itzeazy_pending_order');
+    if (draft && isLoggedIn()){
+      createOrder(JSON.parse(draft));
+    }
+  });
+</script>
 </body>
-
 </html>
